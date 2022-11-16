@@ -1,0 +1,12 @@
+/* FONTS */
+
+
+@font-face {
+  font-family: "eb";
+  src: url("/res/EBGaramond.woff2");
+}
+
+@font-face {
+  font-family: "hwgc";
+  src: url("/res/HWYGOTH-4.woff2");
+}
