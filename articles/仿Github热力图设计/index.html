@@ -14,12 +14,18 @@
 <style>
     @font-face {
         font-family: "twsung";
-        src: url("/articles/仿Github热力图设计/assets/TW-Sung-98_1.woff");
+        src:    url("/articles/仿Github热力图设计/assets/TW-Sung-98_1.woff2")   format('woff2'),
+                url("/articles/仿Github热力图设计/assets/TW-Sung-98_1.woff")    format('woff'),
+                url("/articles/仿Github热力图设计/assets/TW-Sung-98_1.ttf")     format('truetype'),
+                url("/articles/仿Github热力图设计/assets/TW-Sung-98_1.svg")     format('svg');
     }
 
     @font-face {
         font-family: "hwgccn";
-        src: url("/articles/仿Github热力图设计/assets/CJgaodeguomh.woff");
+        src:    url("/articles/仿Github热力图设计/assets/CJgaodeguomh.woff2")   format('woff2'),
+                url("/articles/仿Github热力图设计/assets/CJgaodeguomh.woff")    format('woff'),
+                url("/articles/仿Github热力图设计/assets/CJgaodeguomh.ttf")     format('truetype'),
+                url("/articles/仿Github热力图设计/assets/CJgaodeguomh.svg")     format('svg');
     }
 </style>
 
@@ -84,7 +90,7 @@
     
     <main>
         <h1 id="起因">起因</h1>
-        <p>我希望能够给自己的日记项目升级，参考Github的贡献热力图，构造一个类似的组件。查看了一圈，要么是比较老的库，要么不提供我熟悉的<code>ReactJS+Typescript</code>框架，再 加上我的需求其实很简单，于是决定自己实现一个简单的热力图。</p>
+        <p>我希望能够给自己的日记项目升级一下，参考Github的贡献热力图，构造一个类似的组件。查看了一圈，要么是比较老的库，要么不提供我熟悉的<code>ReactJS+Typescript</code>框架，再 加上我的需求其实很简单，于是决定自己实现一个简单的热力图。</p>
         <h1 id="需求">需求</h1>
         <figure>
         <img src="./assets/target.png" alt="目标" />

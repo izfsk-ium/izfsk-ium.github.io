@@ -14,12 +14,18 @@
 <style>
     @font-face {
         font-family: "twsung";
-        src: url("/articles/HelloWorld/assets/TW-Sung-98_1.woff");
+        src:    url("/articles/HelloWorld/assets/TW-Sung-98_1.woff2")   format('woff2'),
+                url("/articles/HelloWorld/assets/TW-Sung-98_1.woff")    format('woff'),
+                url("/articles/HelloWorld/assets/TW-Sung-98_1.ttf")     format('truetype'),
+                url("/articles/HelloWorld/assets/TW-Sung-98_1.svg")     format('svg');
     }
 
     @font-face {
         font-family: "hwgccn";
-        src: url("/articles/HelloWorld/assets/CJgaodeguomh.woff");
+        src:    url("/articles/HelloWorld/assets/CJgaodeguomh.woff2")   format('woff2'),
+                url("/articles/HelloWorld/assets/CJgaodeguomh.woff")    format('woff'),
+                url("/articles/HelloWorld/assets/CJgaodeguomh.ttf")     format('truetype'),
+                url("/articles/HelloWorld/assets/CJgaodeguomh.svg")     format('svg');
     }
 </style>
 
@@ -33,7 +39,7 @@
             <h1 class="title">Hello World!</h1>
                     </div>
 
-        <div class="metadata">
+        <div class="metadata" id="page_top">
             <br />
 
             <!--AUTHOR-->
@@ -74,6 +80,7 @@
         </ul></li>
         </ul></li>
         </ul>
+        <a href="#page_top"><em>返回顶部</em></a>
     </nav>
     
     <main>
