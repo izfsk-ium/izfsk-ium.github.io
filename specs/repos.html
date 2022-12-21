@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en,zh_CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Izfsk::Repos</title>
+
+    <meta property="og:title" content="Izfsk::Repos" />
+    <meta name="author" content="izfsk" />
+    <meta property="og:locale" content="en_US,zh_CN" />
+    <meta name="description" content="izfsk's blog and cyber space" />
+    <meta property="og:description" content="izfsk's blog and cyber space" />
+    <meta property="og:site_name" content="izfsk's blog" />
+    <link rel="stylesheet" href="/res/fonts.css" />
+    <link rel="stylesheet" href="/res/index.css" />
+    <style>
+        p {
+            font-size: 18px !important;
+        }
+
+        ul {
+            padding-left: 15px;
+        }
+    </style>
+</head>
+
+<body a="auto">
+    <main class="page-content" aria-label="Content">
+        <div>
+            <div><a href="/" style="color: gray;font-style: italic;font-family: 'eb';">Return</a></div>
+            <header>
+                <h1>Projects</h1>
+            </header>
+            <small>各种项目和小程序(包括很早期的黑历史)，非公开的就不提了</small>
+            <br />
+            <ul>
+                <li class="l1">DiaryServer</li>
+                <ul>
+                    <em>Created At 2022-10</em><br />在线日记本。
+                    <details>
+                        <summary>由于找不到能够端到端加密的可信的相关软件，遂决定自己造一个。</summary>
+                        使用React+Redux，后端使用Javalin。加密采用gpg格式，虽然不太方便但可以确保10年后还能打开（如果人类没有灭绝的话）。
+                        不过还是觉得太简陋，现在打算重构了（
+                    </details>
+                </ul>
+                <li class="l1">Dotfiles</li>
+                <ul>
+                    <em>Created At 2021-??</em><br />各种配置文件
+                    <details>
+                        <summary>特别是i3配置文件。</summary>
+                        大概每个i3用户都有自己的一份配置文件。反正当时我折腾了不少时间来适应自己的需要。
+                        <a href="/fs/i3.conf">下载</a>
+                    </details>
+                </ul>
+                <li class="l1">2048</li>
+                <ul>
+                    <em>Created At 2019-??</em><br />2048小游戏。
+                    <details>
+                        <summary>高中时候学C的时候写的命令行小游戏。</summary>
+                        由于只是一个C程序，直接
+                        <a
+                            href="/fs/2048.c">下载</a>就是了。注意在Linux上使用<code>gcc -Wall -O2 2048.c -lncurses -o 2048</code>来编译。需要用到ncurses库。
+                    </details>
+                </ul>
+                <li class="l1">聊天机器人</li>
+                <ul>
+                    <em>Created At 2013-??</em><br />vbs写的聊天机器人
+                    <details>
+                        <summary>反正是小学的时候写的，其实就一大串if...else...的串联。</summary>
+                        可能找得到吧，如果我能找到的话（
+                    </details>
+                </ul>
+            </ul>
+            <hr />
+            <br />
+            <small>Copyright&nbsp;©&nbsp;2022 izfsk</small><br />
+            <small>A site without Javascript.</small><br />
+            <small>This site is licensed under&nbsp;<a href="https://creativecommons.org/licenses/by-nc-sa/2.5/cn/">CC
+                    BY-NC-SA 2.5 CN</a></small>
+        </div>
+    </main>
+</body>
+
+</html>

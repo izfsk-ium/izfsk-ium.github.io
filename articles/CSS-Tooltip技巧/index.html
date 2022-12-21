@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="preload" href="./assets/TW-Sung-98_1.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./assets/CJgaodeguomh.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/res/HWYGOTH-4.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/res/EBGaramond.woff2" as="font" type="font/woff2" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+        <meta name="author" content="izfsk" />
+            <meta name="dcterms.date" content="2022-11-14" />
+                <title>CSS_Tooltip技巧</title>
+        <link rel="stylesheet" href="/res/fonts.css" />
+        <link rel="stylesheet" href="/res/article.css" />
+                
+    
+    <style>
+        @font-face {
+            font-family: "twsung";
+            src:    url("/articles/CSS-Tooltip技巧/assets/TW-Sung-98_1.woff2")   format('woff2'),
+                    url("/articles/CSS-Tooltip技巧/assets/TW-Sung-98_1.woff")    format('woff'),
+                    url("/articles/CSS-Tooltip技巧/assets/TW-Sung-98_1.ttf")     format('truetype'),
+                    url("/articles/CSS-Tooltip技巧/assets/TW-Sung-98_1.svg")     format('svg');
+        }
+
+        @font-face {
+            font-family: "hwgccn";
+            src:    url("/articles/CSS-Tooltip技巧/assets/CJgaodeguomh.woff2")   format('woff2'),
+                    url("/articles/CSS-Tooltip技巧/assets/CJgaodeguomh.woff")    format('woff'),
+                    url("/articles/CSS-Tooltip技巧/assets/CJgaodeguomh.ttf")     format('truetype'),
+                    url("/articles/CSS-Tooltip技巧/assets/CJgaodeguomh.svg")     format('svg');
+        }
+    </style>
+    
+    
+                <style>
+                    #isDraftWarning{
+                        display: none !important;
+                    }
+                </style>
+            
+                <style>
+                    #isOutdatedWarning{
+                        display: none !important;
+                    }
+                </style>
+            
+</head>
+
+<body>
+        <a id="to-top" href="#"></a>
+    <header>
+        <!--TITLE-->
+        <div>
+            <h1 class="title">CSS_Tooltip技巧</h1>
+                    </div>
+
+        <div class="metadata" id="page_top">
+            <br />
+
+            <!--AUTHOR-->
+                        <span class="author">
+                            <span>Author : </span>izfsk
+                                    <br />
+
+            <!--DATE-->
+                        <span class="date before-toc">Created: <time datetime="2022-11-14">2022-11-14</time></span>
+            <span class='date before-toc'>Modified:<time>2022-12-21 21:36</time></span>
+            
+            <!--CATEGORY-->
+                        <p class="category">Category : <code>技术</code></p>
+            
+            <!--TAGS-->
+                        <span>Tags :  <b>CSS,</b> </span>
+            
+        </div>
+        <hr />
+    </header>
+
+        <nav id="TOC" role="doc-toc">
+        <a href="/">← Return</a><br>
+        <strong>目录</strong>
+        <input type="checkbox" id="contents">
+        <ul>
+        <li><a href="#可以使用纯css实现tooltip" id="toc-可以使用纯css实现tooltip">可以使用纯CSS实现Tooltip</a></li>
+        </ul>
+        <a href="#page_top"><em>返回顶部</em></a>
+    </nav>
+    
+    <main>
+        <div class="note yellow" id="isDraftWarning">
+            <table>
+                <colgroup>
+                    <col style="width: 100%">
+                </colgroup>
+                <tbody>
+                    <tr class="odd">
+                        <td> <strong>注意！这篇文章还只是个草稿！</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="note yellow" id="isOutdatedWarning">
+            <table>
+                <colgroup>
+                    <col style="width: 100%">
+                </colgroup>
+                <tbody>
+                    <tr class="odd">
+                        <td><strong>注意！这篇文章已经过期了！</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h1 id="可以使用纯css实现tooltip">可以使用纯CSS实现Tooltip</h1>
+        <p>原理是使用<code>:after</code>,<code>:before</code>伪类和<code>:hover</code>来动态添加内容。Tooltip的内容可以使用<code>content:attr()</code>来获取。</p>
+        <p>具体实现:</p>
+        <div class="sourceCode" id="cb1"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.tooltip</span> {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* 确定Tooltip的位置 */</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">position</span>: <span class="dv">relative</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">.tooltip</span><span class="in">:hover:after</span> {</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* 获取标签的内容 */</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">content</span>: <span class="fu">attr(</span>data-tooltip<span class="fu">)</span><span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">background</span>: <span class="cn">#000</span><span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">color</span>: <span class="cn">#FFF</span><span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">border-radius</span>: <span class="dv">3</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">padding</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span>: <span class="dv">inline-block</span><span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* 保持在目标上方 */</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">position</span>: <span class="dv">absolute</span><span class="op">;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">transform</span>: <span class="fu">translate(</span><span class="dv">-50</span><span class="dt">%</span><span class="op">,</span> <span class="dv">-100</span><span class="dt">%</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* 保持居中 */</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">left</span>: <span class="dv">50</span><span class="dt">%</span><span class="op">;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+        <p>这个Tooltip类可以加载几乎任何html标签上。比如一个普通的文字：</p>
+        <div class="sourceCode" id="cb2"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;small</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;tooltip&quot;</span> <span class="er">data-tooltip</span><span class="ot">=</span><span class="st">&quot;this is sample tooltip&quot;</span> <span class="er">id</span><span class="ot">=</span><span class="st">&quot;quota&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    Last Generate : Wed Nov 30 10:17:19 PM  CST 2022</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/small&gt;</span></span></code></pre></div>
+        <p>结果就会是这样：</p>
+        <figure>
+        <img src="./assets/result.png" alt="result" />
+        <figcaption aria-hidden="true">result</figcaption>
+        </figure>
+        <p><em>参考：MDN上的示例:https://developer.mozilla.org/en-US/docs/Web/CSS/::after</em>(<del>比较难看的Tooltip</del>)</p>
+
+    </main>
+
+    <!--BACK TO INDEX-->
+    <footer>
+        <hr />
+
+        <form id="comment_area">
+
+        </form>
+
+        <p class="signoff">
+
+        </p>
+    </footer>
+
+    <div id="copyright">
+        <small>Copyright&nbsp;©&nbsp;2022 izfsk</small><br />
+
+        <small>Licensed under&nbsp;
+            <a href='https://creativecommons.org/licenses/by-nc-sa/2.5/cn/'>CC BY-NC-SA 2.5 CN</a>
+        </small>
+    </div>
+    
+</body>
+
+</html>

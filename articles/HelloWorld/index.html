@@ -3,36 +3,47 @@
 
 <head>
     <meta charset="utf-8" />
+    <link rel="preload" href="./assets/TW-Sung-98_1.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./assets/CJgaodeguomh.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/res/HWYGOTH-4.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/res/EBGaramond.woff2" as="font" type="font/woff2" crossorigin>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
         <meta name="author" content="izfsk" />
-            <meta name="dcterms.date" content="2022-11-10" />
+            <meta name="dcterms.date" content="1970-11-10" />
                 <title>Hello World!</title>
         <link rel="stylesheet" href="/res/fonts.css" />
         <link rel="stylesheet" href="/res/article.css" />
-            
+                
     
-<style>
-    @font-face {
-        font-family: "twsung";
-        src:    url("/articles/HelloWorld/assets/TW-Sung-98_1.woff2")   format('woff2'),
-                url("/articles/HelloWorld/assets/TW-Sung-98_1.woff")    format('woff'),
-                url("/articles/HelloWorld/assets/TW-Sung-98_1.ttf")     format('truetype'),
-                url("/articles/HelloWorld/assets/TW-Sung-98_1.svg")     format('svg');
-    }
+    <style>
+        @font-face {
+            font-family: "twsung";
+            src:    url("/articles/HelloWorld/assets/TW-Sung-98_1.woff2")   format('woff2'),
+                    url("/articles/HelloWorld/assets/TW-Sung-98_1.woff")    format('woff'),
+                    url("/articles/HelloWorld/assets/TW-Sung-98_1.ttf")     format('truetype'),
+                    url("/articles/HelloWorld/assets/TW-Sung-98_1.svg")     format('svg');
+        }
 
-    @font-face {
-        font-family: "hwgccn";
-        src:    url("/articles/HelloWorld/assets/CJgaodeguomh.woff2")   format('woff2'),
-                url("/articles/HelloWorld/assets/CJgaodeguomh.woff")    format('woff'),
-                url("/articles/HelloWorld/assets/CJgaodeguomh.ttf")     format('truetype'),
-                url("/articles/HelloWorld/assets/CJgaodeguomh.svg")     format('svg');
-    }
-</style>
-
+        @font-face {
+            font-family: "hwgccn";
+            src:    url("/articles/HelloWorld/assets/CJgaodeguomh.woff2")   format('woff2'),
+                    url("/articles/HelloWorld/assets/CJgaodeguomh.woff")    format('woff'),
+                    url("/articles/HelloWorld/assets/CJgaodeguomh.ttf")     format('truetype'),
+                    url("/articles/HelloWorld/assets/CJgaodeguomh.svg")     format('svg');
+        }
+    </style>
+    
+    
+                <style>
+                    #isDraftWarning{
+                        display: none !important;
+                    }
+                </style>
+            
 </head>
 
 <body>
-    
+        <a id="to-top" href="#"></a>
     <header>
         <!--TITLE-->
         <div>
@@ -48,7 +59,8 @@
                                     <br />
 
             <!--DATE-->
-                        <span class="date before-toc">Last modify: <time datetime="2022-11-10">2022-11-10</time></span>
+                        <span class="date ">Created: <time datetime="1970-11-10">1970-11-10</time></span>
+            <!-- LASTMODIFY -->
             
             <!--CATEGORY-->
                         <p class="category">Category : <code>杂项</code></p>
@@ -60,139 +72,56 @@
         <hr />
     </header>
 
-        <nav id="TOC" role="doc-toc">
-        <a href="/">← Return</a><br>
-        <strong>目录</strong>
-        <input type="checkbox" id="contents">
-        <ul>
-        <li><a href="#测试页面" id="toc-测试页面">测试页面</a>
-        <ul>
-        <li><a href="#标题测试1" id="toc-标题测试1">标题测试1</a>
-        <ul>
-        <li><a href="#标题测试2" id="toc-标题测试2">标题测试2</a></li>
-        </ul></li>
-        <li><a href="#以下是pandoc的特殊语法" id="toc-以下是pandoc的特殊语法">以下是pandoc的特殊语法</a>
-        <ul>
-        <li><a href="#脚注" id="toc-脚注">脚注</a></li>
-        <li><a href="#编号代码块" id="toc-编号代码块">编号代码块</a></li>
-        <li><a href="#更窄的代码块" id="toc-更窄的代码块">更窄的代码块</a></li>
-        <li><a href="#警告" id="toc-警告">警告</a></li>
-        </ul></li>
-        </ul></li>
-        </ul>
-        <a href="#page_top"><em>返回顶部</em></a>
-    </nav>
     
     <main>
-        <h1 id="测试页面">测试页面</h1>
-        <p><strong>本页面旨在测试模板和页面生成系统，同时是新博客的第一篇文章</strong></p>
-        <h2 id="标题测试1">标题测试1</h2>
-        <h3 id="标题测试2">标题测试2</h3>
-        <h4 id="标题测试3-with-english-text">标题测试3 (With English Text)</h4>
-        <hr />
-        <blockquote>
-        <p>这是一个区块引用。Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.</p>
-        </blockquote>
-        <p>无序列表</p>
-        <ul>
-        <li>Red</li>
-        <li>Green</li>
-        <li>Blue</li>
-        </ul>
-        <p>有序列表</p>
-        <ol type="1">
-        <li>One</li>
-        <li>Two</li>
-        <li>Three</li>
-        </ol>
-        <p>一段代码</p>
-        <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">/******************************</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * Qt player using libVLC     *</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * By protonux                *</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"> *                            *</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"> * Under WTFPL                *</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"> ******************************/</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;QApplication&gt;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;player.h&quot;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="pp">#ifdef Q_WS_X11</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#include </span><span class="im">&lt;X11/Xlib.h&gt;</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="pp">#ifdef QT_STATIC</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="pp"># include </span><span class="im">&lt;QtPlugin&gt;</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="pp"># ifdef _WIN32</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  Q_IMPORT_PLUGIN<span class="op">(</span>QWindowsIntegrationPlugin<span class="op">)</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="pp"># endif</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span> <span class="op">{</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="pp">#ifdef Q_WS_X11</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    XInitThreads<span class="op">();</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    QApplication app<span class="op">(</span>argc<span class="op">,</span> argv<span class="op">);</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    Mwindow player<span class="op">;</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    player<span class="op">.</span>show<span class="op">();</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> app<span class="op">.</span>exec<span class="op">();</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-        <hr />
-        <h2 id="以下是pandoc的特殊语法">以下是pandoc的特殊语法</h2>
-        <h3 id="脚注">脚注</h3>
-        <p>For example this is a side note<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Side notes are numbered, and the number shows at the anchor point in the body text at all screen widths.</p>
-        <h3 id="编号代码块">编号代码块</h3>
-        <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource numberLines hl-2 hl-3"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>This is the first line.</span>
-<span id="cb2-2"><a href="#cb2-2"></a>This line is highlighted.</span>
-<span id="cb2-3"><a href="#cb2-3"></a>This line is also highlighted.</span>
-<span id="cb2-4"><a href="#cb2-4"></a>This is another line.</span></code></pre></div>
-        <h3 id="更窄的代码块">更窄的代码块</h3>
-        <pre class="tight-code"><code>One line of text
-Another line of text
-┌──┬──┐
-├──┼──┤
-└──┴──┘</code></pre>
-        <h3 id="警告">警告</h3>
-        <div class="note blue">
-        <table>
-        <tbody>
-        <tr class="odd">
-        <td>ℹ️ This is a note.</td>
-        </tr>
-        </tbody>
-        </table>
+        <div class="note yellow" id="isDraftWarning">
+            <table>
+                <colgroup>
+                    <col style="width: 100%">
+                </colgroup>
+                <tbody>
+                    <tr class="odd">
+                        <td> <strong>注意！这篇文章还只是个草稿！</strong></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="note yellow">
-        <table>
-        <tbody>
-        <tr class="odd">
-        <td>☢️ Warning!</td>
-        </tr>
-        </tbody>
-        </table>
+        <div class="note yellow" id="isOutdatedWarning">
+            <table>
+                <colgroup>
+                    <col style="width: 100%">
+                </colgroup>
+                <tbody>
+                    <tr class="odd">
+                        <td><strong>注意！这篇文章已经过期了！</strong></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <p><em>数学公式没有支持XD</em></p>
-        <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-        <hr />
-        <ol>
-        <li id="fn1"><p>This is the text in the side note. It is smaller and only supports inline elements, like <strong>bold</strong> or <a href="#">links</a>, but not lists or code blocks.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-        </ol>
-        </section>
+
+        <p>君问归期未有期 巴山夜雨涨秋池</p>
+
     </main>
 
     <!--BACK TO INDEX-->
     <footer>
+        <hr />
+
+        <form id="comment_area">
+
+        </form>
+
         <p class="signoff">
-            <a href="/">← Return</a>
+
         </p>
     </footer>
 
     <div id="copyright">
         <small>Copyright&nbsp;©&nbsp;2022 izfsk</small><br />
-        <small>Licensed under&nbsp;<a href="https://creativecommons.org/licenses/by-nc-sa/2.5/cn/">CC
-                BY-NC-SA 2.5 CN</a></small>
+
+        <small>Licensed under&nbsp;
+            <a href='https://creativecommons.org/licenses/by-nc-sa/2.5/cn/'>CC BY-NC-SA 2.5 CN</a>
+        </small>
     </div>
     
 </body>

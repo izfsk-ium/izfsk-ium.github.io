@@ -8,6 +8,10 @@
     a {
         color: #649cd4 !important;
     }
+
+    a:hover {
+        color: yellow !important;
+    }
 }
 
 @media (prefers-color-scheme: light) {
@@ -19,10 +23,19 @@
     a {
         color: #007dd1;
     }
+
+    a:hover {
+        color: red !important;
+    }
+
+    section {
+        background-color: white !important;
+    }
 }
 
 a:hover {
-    text-decoration: underline;
+    border: 1px solid gray;
+    border-radius: 5px;
 }
 
 html {
@@ -40,8 +53,9 @@ body {
 }
 
 a {
-    color: #0061a1;
+    color: #00538b;
     text-decoration: none;
+    border: 1px solid transparent;
 }
 
 
@@ -55,11 +69,11 @@ p {
 }
 
 li {
-    margin: 0.4rem 0
+    margin: 0.4rem 0;
 }
 
-*:target {
-    background: yellow
+li:not(.l1){
+    list-style: square;
 }
 
 main>div {
@@ -76,6 +90,10 @@ table, th, td {
     border: thin solid black;
     border-collapse: collapse;
     padding: 0.4rem
+}
+
+p:hover {
+    filter: contrast(500%);
 }
 
 code {
@@ -106,7 +124,6 @@ img {
     margin: 0 auto
 }
 
-
 .l1 {
     font-family: "hwgc", 'Lucida Sans', 'Lucida Sans Regular', sans-serif;
     font-size: 22px;
@@ -118,6 +135,8 @@ h1 {
     font-size: 38px;
     letter-spacing: 0.032em;
     font-weight: 900;
+    transition-delay: 500ms;
+    transition-duration: 1s;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -127,6 +146,7 @@ h1, h2, h3, h4, h5, h6 {
 
 li:not(.l1), p {
     font-family: "eb", "twsung", serif;
+    font-display: swap;
     font-size: 18px;
 }
 
@@ -145,10 +165,11 @@ small, small>a {
     float: right;
 }
 
+a[href], input[type='submit'], input[type='image'], label[for], select, button, .pointer {
+    cursor: pointer;
+}
 
 @media screen and (max-width: 768px) {
-
-    /* for phone */
     ul {
         padding: 0px;
     }

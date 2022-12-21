@@ -3,36 +3,53 @@
 
 <head>
     <meta charset="utf-8" />
+    <link rel="preload" href="./assets/TW-Sung-98_1.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./assets/CJgaodeguomh.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/res/HWYGOTH-4.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/res/EBGaramond.woff2" as="font" type="font/woff2" crossorigin>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
         <meta name="author" content="izfsk" />
             <meta name="dcterms.date" content="2022-11-24" />
                 <title>Kotlin笔记(1)</title>
         <link rel="stylesheet" href="/res/fonts.css" />
         <link rel="stylesheet" href="/res/article.css" />
-            
+                
     
-<style>
-    @font-face {
-        font-family: "twsung";
-        src:    url("/articles/Kotlin笔记(1)/assets/TW-Sung-98_1.woff2")   format('woff2'),
-                url("/articles/Kotlin笔记(1)/assets/TW-Sung-98_1.woff")    format('woff'),
-                url("/articles/Kotlin笔记(1)/assets/TW-Sung-98_1.ttf")     format('truetype'),
-                url("/articles/Kotlin笔记(1)/assets/TW-Sung-98_1.svg")     format('svg');
-    }
+    <style>
+        @font-face {
+            font-family: "twsung";
+            src:    url("/articles/Kotlin笔记(1)/assets/TW-Sung-98_1.woff2")   format('woff2'),
+                    url("/articles/Kotlin笔记(1)/assets/TW-Sung-98_1.woff")    format('woff'),
+                    url("/articles/Kotlin笔记(1)/assets/TW-Sung-98_1.ttf")     format('truetype'),
+                    url("/articles/Kotlin笔记(1)/assets/TW-Sung-98_1.svg")     format('svg');
+        }
 
-    @font-face {
-        font-family: "hwgccn";
-        src:    url("/articles/Kotlin笔记(1)/assets/CJgaodeguomh.woff2")   format('woff2'),
-                url("/articles/Kotlin笔记(1)/assets/CJgaodeguomh.woff")    format('woff'),
-                url("/articles/Kotlin笔记(1)/assets/CJgaodeguomh.ttf")     format('truetype'),
-                url("/articles/Kotlin笔记(1)/assets/CJgaodeguomh.svg")     format('svg');
-    }
-</style>
-
+        @font-face {
+            font-family: "hwgccn";
+            src:    url("/articles/Kotlin笔记(1)/assets/CJgaodeguomh.woff2")   format('woff2'),
+                    url("/articles/Kotlin笔记(1)/assets/CJgaodeguomh.woff")    format('woff'),
+                    url("/articles/Kotlin笔记(1)/assets/CJgaodeguomh.ttf")     format('truetype'),
+                    url("/articles/Kotlin笔记(1)/assets/CJgaodeguomh.svg")     format('svg');
+        }
+    </style>
+    
+    
+                <style>
+                    #isDraftWarning{
+                        display: none !important;
+                    }
+                </style>
+            
+                <style>
+                    #isOutdatedWarning{
+                        display: none !important;
+                    }
+                </style>
+            
 </head>
 
 <body>
-    
+        <a id="to-top" href="#"></a>
     <header>
         <!--TITLE-->
         <div>
@@ -48,10 +65,11 @@
                                     <br />
 
             <!--DATE-->
-                        <span class="date before-toc">Last modify: <time datetime="2022-11-24">2022-11-24</time></span>
+                        <span class="date before-toc">Created: <time datetime="2022-11-24">2022-11-24</time></span>
+            <span class='date before-toc'>Modified:<time>2022-12-21 21:36</time></span>
             
             <!--CATEGORY-->
-                        <p class="category">Category : <code>技术</code></p>
+                        <p class="category">Category : <code>学习</code></p>
             
             <!--TAGS-->
                         <span>Tags :  <b>Kotlin,</b> </span>
@@ -84,7 +102,11 @@
         <li><a href="#map散列表" id="toc-map散列表">Map散列表</a></li>
         </ul></li>
         <li><a href="#控制流" id="toc-控制流">控制流</a></li>
-        <li><a href="#函数" id="toc-函数">函数</a></li>
+        <li><a href="#函数" id="toc-函数">函数</a>
+        <ul>
+        <li><a href="#匿名函数" id="toc-匿名函数">匿名函数</a></li>
+        <li><a href="#扩展函数" id="toc-扩展函数">扩展函数</a></li>
+        </ul></li>
         <li><a href="#null安全" id="toc-null安全">null安全</a></li>
         </ul></li>
         </ul>
@@ -92,6 +114,31 @@
     </nav>
     
     <main>
+        <div class="note yellow" id="isDraftWarning">
+            <table>
+                <colgroup>
+                    <col style="width: 100%">
+                </colgroup>
+                <tbody>
+                    <tr class="odd">
+                        <td> <strong>注意！这篇文章还只是个草稿！</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="note yellow" id="isOutdatedWarning">
+            <table>
+                <colgroup>
+                    <col style="width: 100%">
+                </colgroup>
+                <tbody>
+                    <tr class="odd">
+                        <td><strong>注意！这篇文章已经过期了！</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         <h1 id="开发环境">开发环境</h1>
         <h2 id="ide">IDE</h2>
         <ul>
@@ -187,11 +234,27 @@
         </table>
         <h3 id="字符串">字符串</h3>
         <ol type="1">
-        <li>字符串截取：使用<code>substring</code></li>
-        <li>字符串分割：使用<code>split</code></li>
-        <li>字符串替换字符：使用<code>replace+lambda</code>: <code>Kotlin     fun toDragonSpeak(phrase: String) =         phrase.replace(Regex("[aeiou]")) {             when (it.value) {                 "a" -&gt; "4"                 "e" -&gt; "3"                 "i" -&gt; "1"                 "o" -&gt; "0"                 "u" -&gt; "|_|"                 else -&gt; it.value             }         }</code></li>
-        <li>字符串比较：可以直接使用<code>==</code>(与Java不同)： <code>Kotlin     val phrase = if (name == "Dragon's Breath") {         "Madrigal exclaims ${toDragonSpeak("Ah, delicious $name!")}"     } else {         "Madrigal says: Thanks for the $name."     }</code></li>
-        <li>遍历字符串： 一个字符串就是一个不可变的字符列表，所以能用在list上的都能用在字符串上。</li>
+        <li><p>字符串截取：使用<code>substring</code></p></li>
+        <li><p>字符串分割：使用<code>split</code></p></li>
+        <li><p>字符串替换字符：使用<code>replace+lambda</code>:</p>
+        <div class="sourceCode" id="cb4"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">toDragonSpeak</span><span class="op">(</span><span class="va">phrase</span><span class="op">:</span> <span class="dt">String</span><span class="op">)</span> <span class="op">=</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    phrase<span class="op">.</span>replace<span class="op">(</span>Regex<span class="op">(</span><span class="st">&quot;[aeiou]&quot;</span><span class="op">))</span> <span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> <span class="op">(</span>it<span class="op">.</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;a&quot;</span> <span class="op">-&gt;</span> <span class="st">&quot;4&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;e&quot;</span> <span class="op">-&gt;</span> <span class="st">&quot;3&quot;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;i&quot;</span> <span class="op">-&gt;</span> <span class="st">&quot;1&quot;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;o&quot;</span> <span class="op">-&gt;</span> <span class="st">&quot;0&quot;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;u&quot;</span> <span class="op">-&gt;</span> <span class="st">&quot;|_|&quot;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span> <span class="op">-&gt;</span> it<span class="op">.</span>value</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div></li>
+        <li><p>字符串比较：可以直接使用<code>==</code>(与Java不同)：</p>
+        <div class="sourceCode" id="cb5"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">phrase</span> <span class="op">=</span> <span class="cf">if</span> <span class="op">(</span>name <span class="op">==</span> <span class="st">&quot;Dragon&#39;s Breath&quot;</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Madrigal exclaims </span><span class="ss">${</span>toDragonSpeak<span class="op">(</span><span class="st">&quot;Ah, delicious </span><span class="ss">$name</span><span class="st">!&quot;</span><span class="op">)</span><span class="ss">}</span><span class="st">&quot;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Madrigal says: Thanks for the </span><span class="ss">$name</span><span class="st">.&quot;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+        <li><p>遍历字符串： 一个字符串就是一个不可变的字符列表，所以能用在list上的都能用在字符串上。</p></li>
         </ol>
         <h3 id="数字">数字</h3>
         <h4 id="字符串转数字">字符串转数字</h4>
@@ -217,11 +280,11 @@
         <h3 id="list列表">List列表</h3>
         <p>列表是kotlin的基本类型。分为两种，可变列表<code>mutableList</code>和不可变列表<code>List</code>。</p>
         <h4 id="创建">创建</h4>
-        <div class="sourceCode" id="cb4"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">patronList</span><span class="op">:</span> List<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;</span> <span class="op">=</span> listOf<span class="op">(</span><span class="st">&quot;Eli&quot;</span><span class="op">,</span> <span class="st">&quot;Mordoc&quot;</span><span class="op">,</span> <span class="st">&quot;Sophie&quot;</span><span class="op">)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">patronMutableList</span> <span class="op">=</span> mutableListOf<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;(</span><span class="st">&quot;Eli&quot;</span><span class="op">,</span> <span class="st">&quot;Mordoc&quot;</span><span class="op">,</span> <span class="st">&quot;Sophie&quot;</span><span class="op">)</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">tmp</span><span class="op">=</span> mutableListOf<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;()</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">lines</span><span class="op">:</span> List<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;?</span> <span class="op">=</span> File<span class="op">(</span><span class="st">&quot;file&quot;</span><span class="op">).</span>takeIf <span class="op">{</span> it<span class="op">.</span>canRead<span class="op">()</span> <span class="op">}?.</span>readLines<span class="op">()</span></span></code></pre></div>
+        <div class="sourceCode" id="cb6"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">patronList</span><span class="op">:</span> List<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;</span> <span class="op">=</span> listOf<span class="op">(</span><span class="st">&quot;Eli&quot;</span><span class="op">,</span> <span class="st">&quot;Mordoc&quot;</span><span class="op">,</span> <span class="st">&quot;Sophie&quot;</span><span class="op">)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">patronMutableList</span> <span class="op">=</span> mutableListOf<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;(</span><span class="st">&quot;Eli&quot;</span><span class="op">,</span> <span class="st">&quot;Mordoc&quot;</span><span class="op">,</span> <span class="st">&quot;Sophie&quot;</span><span class="op">)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">tmp</span><span class="op">=</span> mutableListOf<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;()</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">lines</span><span class="op">:</span> List<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;?</span> <span class="op">=</span> File<span class="op">(</span><span class="st">&quot;file&quot;</span><span class="op">).</span>takeIf <span class="op">{</span> it<span class="op">.</span>canRead<span class="op">()</span> <span class="op">}?.</span>readLines<span class="op">()</span></span></code></pre></div>
         <h4 id="获取与遍历">获取与遍历</h4>
         <h5 id="获取">获取</h5>
         <ol type="1">
@@ -241,23 +304,76 @@
         <p>List 集合支持以解构的方式获取其中的元素。 <code>val (type, name, price) = TargetString.split(',')</code></p>
         <p>split 函数返回集合数据后,集合里的前三个元素就分别赋值给了 type、 name 和 price 这 三个字符串变量。通过使用_符号过滤不想要的元素。</p>
         <h3 id="set集合">Set集合</h3>
+        <p>Set是会自动去重的集合类型。和List类似，有可变与不可变两种。Set和List可以互相转换。使用<code>toList</code>和<code>toSet</code>即可。 Set的创建方法如下：</p>
+        <div class="sourceCode" id="cb7"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">planets</span> <span class="op">=</span> setOf<span class="op">(</span><span class="st">&quot;Mercury&quot;</span><span class="op">,</span> <span class="st">&quot;Venus&quot;</span><span class="op">,</span> <span class="st">&quot;Earth&quot;</span><span class="op">)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">uniquePatrons</span> <span class="op">=</span> mutableSetOf<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;()</span></span></code></pre></div>
+        <p>类似的，使用<code>add</code>,<code>addAll</code>,<code>remove</code>,<code>removeAll</code>,<code>clear</code>等函数处理<strong>可变</strong>的Set。</p>
+        <p>对于线性的容器，可以使用<code>uniquePatrons.shuffled().first()</code>这种方法方便快捷的取得随机元素。</p>
         <h3 id="map散列表">Map散列表</h3>
+        <p>Map即类似于python中的dict或C++中的map。现代的常用程式语言没有在语言内置散列表的功能是说不过去的。Kotlin的Map用来存放 一组元素,默认只读。创建方法如下：</p>
+        <div class="sourceCode" id="cb8"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">the_map</span> <span class="op">=</span> mapOf<span class="op">(</span><span class="st">&quot;Eli&quot;</span> to <span class="fl">10.5</span><span class="op">,</span> <span class="st">&quot;Mordoc&quot;</span> to <span class="fl">8.0</span><span class="op">,</span> <span class="st">&quot;Sophie&quot;</span> to <span class="fl">5.5</span><span class="op">)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>the_map <span class="op">+=</span> <span class="st">&quot;Sophie&quot;</span> to <span class="fl">6.0</span></span></code></pre></div>
+        <p>其中<code>to</code>是个省略了点号和参数圆括号的特殊函数，把它两边的元素转换为一个<code>Pair</code>（<code>Pair("Mordoc", 8.00)</code>）。 读取方法是简单的方括号，也可以使用<code>getOrElse()</code>,<code>getOrDefault()</code>来防止null异常。注意<code>getOrElse()</code>使用匿名函数。 一般情况下，需要使用类似这样的代码来检查和添加元素：</p>
+        <div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> x[<span class="st">&#39;nohere&#39;</span>]</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    x[<span class="st">&#39;nohere&#39;</span>] <span class="op">=</span> <span class="st">&#39;default&#39;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="st">&#39;default&#39;</span></span></code></pre></div>
+        <p>但在kotlin中只需要一个<code>getOrPut()</code>函数即可，很方便。</p>
+        <p><strong>其实，有IDEA这样的IDE并不需要记住这些函数的原型，一般只需要猜即可。放入操作大凡是put，取出则大凡是get。</strong></p>
         <h2 id="控制流">控制流</h2>
+        <p>if,else,while,for等等控制流不必多言。</p>
+        <p>导入的话，可以类似python用<code>import XXX as XXX</code>了。</p>
+        <p><code>import com.a.b.c.d as myHappyFunc</code></p>
+        <p>由于Kotlin比较灵活的语法，可以写的更舒服。有一种TMTOWTDI的意思了。</p>
+        <p>(话说回来我觉得Python的不好之处就在于一些全局函数，比如不得不使用<code>map(),str()</code>之类的<strong>函数</strong>，而不是在各种对象上调用<code>xxx.map().str()</code>的方法。 即使对象有内置的<code>__str__()</code>方法，而且Python的lambda比较弱)</p>
         <h2 id="函数">函数</h2>
+        <h3 id="匿名函数">匿名函数</h3>
+        <del>
+        约翰·麦卡锡和阿隆佐·丘奇们的英灵可以告慰啦！现代语言几乎都支持匿名函数和函数式写法，哪怕 大家并不知道啥alpha转换，beta规约（
+        </del>
+        <p>再加上几个标准函数，真的可以做到函数式一把梭。（apply, let, with, run, also, takeIf, takeUnless)</p>
+        <p>稍举一例：</p>
+        <div class="sourceCode" id="cb10"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">fileContents</span> <span class="op">=</span> File<span class="op">(</span><span class="st">&quot;myfile.txt&quot;</span><span class="op">).</span>takeIf <span class="op">{</span> it<span class="op">.</span>canRead<span class="op">()</span> <span class="op">&amp;&amp;</span> it<span class="op">.</span>canWrite<span class="op">()</span> <span class="op">}?.</span>readText<span class="op">()</span></span></code></pre></div>
+        <h3 id="扩展函数">扩展函数</h3>
+        <p>扩展可以在不直接修改类定义的情况下增加类功能。javascript可以使用这样的方法给已有的类添加方法：</p>
+        <div class="sourceCode" id="cb11"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span><span class="op">.</span><span class="at">prototype</span><span class="op">.</span><span class="at">ddd</span> <span class="op">=</span> () <span class="kw">=&gt;</span> { <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Hello!&#39;</span>) }</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;Hello!&quot;</span><span class="op">.</span><span class="fu">ddd</span>()</span></code></pre></div>
+        <div class="sourceCode" id="cb12"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">String</span><span class="op">.</span><span class="fu">myFunc</span><span class="op">(</span><span class="va">amount</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">)</span> <span class="op">=</span> <span class="kw">this</span> <span class="op">+</span> <span class="st">&quot;!&quot;</span><span class="op">.</span>repeat<span class="op">(</span>amount<span class="op">)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(</span><span class="va">args</span><span class="op">:</span> <span class="dt">Array</span>&lt;<span class="va">String</span>&gt;<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Hello!&quot;</span><span class="op">.</span>myFunc<span class="op">())</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">Any</span><span class="op">.</span><span class="fu">easyPrint</span><span class="op">()</span> <span class="op">=</span> println<span class="op">(</span><span class="kw">this</span><span class="op">)</span> <span class="co">// 超类亦可</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(</span><span class="va">args</span><span class="op">:</span> <span class="dt">Array</span>&lt;<span class="va">String</span>&gt;<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="fl">42.</span>easyPrint<span class="op">()</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
         <h2 id="null安全">null安全</h2>
+        <p>在类型后面加个问号表示可空类型。例如<code>String?</code>。</p>
+        <p>使用<code>?.</code>（安全调用运算符）来防止在null上调用函数出现<code>NPE</code>，可以使用<code>!!.</code>来强制调用，跳过检查。 使用<code>?:</code>来实现类似Javascript中<code>undefined || "default"</code>的取值。</p>
+
     </main>
 
     <!--BACK TO INDEX-->
     <footer>
+        <hr />
+
+        <form id="comment_area">
+
+        </form>
+
         <p class="signoff">
-            <a href="/">← Return</a>
+
         </p>
     </footer>
 
     <div id="copyright">
         <small>Copyright&nbsp;©&nbsp;2022 izfsk</small><br />
-        <small>Licensed under&nbsp;<a href="https://creativecommons.org/licenses/by-nc-sa/2.5/cn/">CC
-                BY-NC-SA 2.5 CN</a></small>
+
+        <small>Licensed under&nbsp;
+            <a href='https://creativecommons.org/licenses/by-nc-sa/2.5/cn/'>CC BY-NC-SA 2.5 CN</a>
+        </small>
     </div>
     
 </body>

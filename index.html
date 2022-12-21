@@ -1,6 +1,166 @@
-<!DOCTYPE html><html lang=en,zh_CN> <head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width, initial-scale=1"><title>Izfsk::Blog</title><meta property=og:title content=Izfsk::Blog><meta name=author content=izfsk><meta property=og:locale content=en_US,zh_CN><meta name=description content="izfsk's blog and cyber space"><meta property=og:description content="izfsk's blog and cyber space"><meta property=og:site_name content="izfsk's blog"><link rel=stylesheet href=/res/fonts.css><link rel=stylesheet href=/res/index.css><style>
+<!DOCTYPE html><html lang=en,zh_CN> <head><link rel=preload href=/res/TW-Sung-98_1-index.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/res/EBGaramond.woff2 as=font type=font/woff2 crossorigin><link ref=preload href=/res/HWYGOTH-4.woff2 as=font type=font/woff2 crossorigin><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width, initial-scale=1"><title>Izfsk::Blog</title><meta property=og:title content=Izfsk::Blog><meta name=author content=izfsk><meta property=og:locale content=en_US,zh_CN><meta name=description content="izfsk's blog and cyber space"><meta property=og:description content="izfsk's blog and cyber space"><meta property=og:site_name content="izfsk's blog"><link rel=stylesheet href=/res/index.css><link rel=stylesheet href=/res/fonts.css><style>
         @font-face {
             font-family: "twsung";
             src: url("/res/TW-Sung-98_1-index.woff2");
         }
-    </style></head> <body a=auto> <main class=page-content aria-label=Content> <div> <header> <h1>Izfsk's CyberSpace</h1> </header> <small id=quota>請輕吻我心中的傷痛，伴我走完漫長的路~~~</small> <br> <ul> <ul> <p>你好!</p> <p>这里是一个<a href=/specs/about.html>普通人</a>的小小博客。这里记载着我的生活，我的想法，我的思考以及我的感受。</p> </ul> <li class=l1>Recent posts</li> <ul> <li> <span>2022-11-24</span> <a href=/articles/Kotlin笔记(1)/index.html>Kotlin笔记(1)</a> </li> <li> <span>2022-11-23</span> <a href=/articles/仿Github热力图设计/index.html>仿Github热力图设计</a> </li> <li> <span>2022-11-10</span> <a href=/articles/HelloWorld/index.html>Hello World!</a> </li> <li><a href=/specs/archives.html>See archive...</a></li> </ul> <li class=l1>Special pages</li> <ul> <p> 这个博客拥有简单的标签和分类功能，你可以<a href=/specs/categories.html>按照分类</a>查看，或者<a href=/specs/tags.html>按照标签</a>查看。 </p> <p> 点击<a href=/specs/friends.html>这里</a>查看友情链接。如果你也想交个朋友的话，欢迎找我添加你的链接！ 在<a href=/specs/about.html>这里</a>可以找到我的联系方式。 Friendship is magic! </p> <p> 这个博客还存放了我的<a href=/specs/bookmarks.html>资料夹</a>以及<a href=/specs/tv.html>收藏列表</a>(包括我喜欢的音乐，图书和其他视频内容)。 如果你有兴趣可以看一下。 </p> </ul> <li class=l1>About this blog</li> <ul> <p> 我曾经尝试过jekyll，hugo，heox，也曾经尝试过自己设计主题乃至编写站点制作生成器，最后发现自己迷失在了配置主题，样式和动画之中。 然而，博客真正的目的──产出内容却完全没有做到。 因此，最后我决定不用这些复杂的工具，只是简单的页面就好。 </p> <p> 这个博客使用pandoc结合html模板的方法，外加一系列shell和python脚本构建。只是html页面和简单的css的组合。页面样式参考了jekyll主题<a href=https://github.com/riggraz/no-style-please>no-style-please</a>， 和<a href=https://jez.io/pandoc-markdown-css-theme/ >另外一个</a>主题，做了一些改动。 </p> </ul> </ul> <br> <small>Copyright&nbsp;©&nbsp;2022 izfsk</small><br> <small>No Javascript, no cookie, no localStorage.</small><br> <small>This site is licensed under&nbsp;<a href=https://creativecommons.org/licenses/by-nc-sa/2.5/cn/ >CC BY-NC-SA 2.5 CN</a></small> </div> </main> </body> </html>
+
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip:hover:after {
+            content: attr(data-tooltip);
+            background: #000;
+            color: #FFF;
+            text-align: center;
+            border-radius: 3px;
+            padding: 5px;
+            display: inline-block;
+            position: absolute;
+            transform: translate(-50%, -100%);
+            left: 50%;
+        }
+    </style><style id=animes>
+        @keyframes de_blur {
+            0% {
+                filter: blur(8px);
+            }
+
+            100% {
+                filter: blur(0px);
+            }
+        }
+
+        @keyframes p6 {
+            100% {
+                inset: 0
+            }
+        }
+
+        @keyframes exit {
+            0% {
+                transform: rotateY(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: rotateY(70deg);
+                opacity: 0;
+
+            }
+        }
+
+        @keyframes remove {
+            100% {
+                display: none;
+                z-index: -999;
+            }
+        }
+
+        @keyframes buttomitem {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(1000px);
+            }
+        }
+
+        @keyframes topitem {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-1000px);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            section {
+                background-color: #000;
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+
+            section {
+                background-color: white;
+            }
+        }
+
+        #loading {
+            z-index: 999;
+            position: fixed;
+            background-color: transparent;
+            width: 100vw;
+            height: 100vh;
+            text-align: center;
+            animation-delay: 1.55s !important;
+            animation: remove 0.45s both;
+        }
+
+        #inner {
+            animation-delay: 1.325s !important;
+            animation: exit 0.45s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+        }
+
+        section {
+            width: 100%;
+            height: 50%;
+        }
+
+        #topitem {
+            animation-delay: 1.325s !important;
+            animation: topitem 1s both;
+        }
+
+        #buttomitem {
+            animation-delay: 1.325s !important;
+            animation: buttomitem 1s both;
+        }
+
+        #loadingp {
+            padding: 10px 10px 10px 25px;
+        }
+
+        #loading>div {
+            position: absolute;
+            margin: auto;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            border-radius: 3px;
+        }
+
+        .progress-load {
+            width: 120px;
+            height: 22px;
+            color: #514b82;
+            border: 2px solid;
+            position: absolute;
+            margin: auto;
+            background-color: #ccc;
+            border-radius: 3px;
+        }
+
+        .progress-load::before {
+            content: "";
+            position: absolute;
+            margin: 2px;
+            inset: 0 100% 0 0;
+            border-radius: inherit;
+            background: #514b82;
+            animation: p6 2s infinite;
+        }
+
+        main {
+            filter: blur(25px);
+            animation-delay: 1.325s !important;
+            animation: de_blur 0.75s ease-in both;
+        }
+    </style></head> <body a=auto> <div id=loading> <section id=topitem></section> <section id=buttomitem></section> <div id=inner> <div class=progress-load></div> <p id=loadingp> <em style="font-family: monospace;">OwO</em> </p> </div> </div> <main class=page-content aria-label=Content> <div> <header> <h1>Izfsk's CyberSpace</h1> </header> <small id=quota class=tooltip data-tooltip="Generated at 2022-12-21 21:39:07.">請輕吻我心中的傷痛，伴我走完漫長的路~~~</small> <br> <ul> <ul> <p style="font-size: 20px;">你好。</p> <p>欢迎来到<a href=/specs/about.html>我</a>的博客。你可以<a href=/specs/categories.html>按照分类</a>查看博文，或者<a href=/specs/tags.html>按照标签</a>查看。 </ul> <li class=l1>Recent posts</li> <ul> <li> <span>2022-12-20</span> <a href=/articles/Rclone挂载Office365教育版/index.html>Rclone挂载Office365教育版</a> </li> <li> <span>2022-12-19</span> <a href=/articles/scrcpy+sndcpy+kdeconnect多屏协作/index.html>scrcpy+sndcpy+kdeconnect多屏协作</a> </li> <li> <span>2022-12-13</span> <a href=/articles/LRU-Cache与functools/index.html>LRU-Cache与functools</a> </li> <li> <span>2022-12-08</span> <a href=/articles/Python的more-itertools模块/index.html>Python的more-itertools模块</a> </li> <li> <span>2022-12-04</span> <a href=/articles/React+Redux简单使用/index.html>React+Redux简单使用</a> </li> <li><a href=/specs/archives.html>共十篇，点击查看全部</a></li> </ul> <li class=l1>Miscellaneous</li> <ul> <p> Friendship is magic! <a href=/specs/friends.html>这里</a>是本站的友情链接。如果你也想交个朋友的话，可以 使用<a href=mailto://izfsk@outlook.com>电子邮件</a>来联系我，并请注明来意。 </p> <p> 这个博客还存放了我的<a href=/specs/bookmarks.html>书签</a>和 <a href=/specs/tv.html>收藏</a>，一些<a href=/specs/repos.html>小项目</a>以及<a href=/specs/fs.html>文件资源</a>可供君一览。 </p> </ul> <li class=l1>About this blog</li> <ul> <p> 我曾经使用过 jekyll, hugo, heox, 却发现自己迷失于配置主题样式中，而博客的目的────产出内容却完全没有做到。 因此，我决定不用这些复杂的工具，只使用简单的 HTML + CSS 。 </p> <p> 这个博客主要使用 pandoc, 外加<a href=https://github.com/izfsk-ium/BlogGen> shell 和 python 脚本</a>构建。页面样式修改自一个 <a href=https://github.com/riggraz/no-style-please>jekyll</a> 主题和 <a href=https://jez.io/pandoc-markdown-css-theme/ > Pandoc 模板</a>。如果感兴趣，不妨在<a href=/rss.xml>这里</a>订阅 RSS。 </p> </ul> </ul> <br> <small>Copyright&nbsp;©&nbsp;2022 izfsk</small><br> <small>A site without Javascript and Cookies.</small><br> <small>This site is licensed under&nbsp;<a href=https://creativecommons.org/licenses/by-nc-sa/2.5/cn/ >CC BY-NC-SA 2.5 CN</a></small> </div> </main> </body> </html>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>izfsk的博客</title>
+        <link>https://izfsk-ium.github.io/</link>
+        <description>Recent content on izfsk's blog</description>
+        <generator>bash scripts, python scripts and love</generator>
+        <copyright>Licensed under CC BY-NC-SA 2.5 CN</copyright>
+        <lastBuildDate>2022-12-21 21:39:07.206092</lastBuildDate>
+        <atom:link href="https://izfsk-ium.github.io/rss.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>Kotlin笔记(1)</title>
+    <link>https://izfsk-ium.github.io/articles/Kotlin笔记(1)/index.html</link>
+    <pubDate>2022-08-24 07:32:00+00:00</pubDate>
+    <guid>https://izfsk-ium.github.io/articles/Kotlin笔记(1)/index.html</guid>
+    <description> 开发环境; IDE; REPL; 数据; val; var; const val; 基本数据类型; 字符串; 数字; 字符串转数字; 数字格式化; 位运算; List列表; 创建; 获取与遍历; 获取; 遍历; 修改; 解构; Set集合; Map散列表; 控制流; 函数; 匿名函数; 扩展函数; null安全</description>
+</item><item>
+    <title>仿Github热力图设计</title>
+    <link>https://izfsk-ium.github.io/articles/仿Github热力图设计/index.html</link>
+    <pubDate>2022-11-23 07:32:00+00:00</pubDate>
+    <guid>https://izfsk-ium.github.io/articles/仿Github热力图设计/index.html</guid>
+    <description> 起因; 需求; 思路; 界面构成; 数据格式; 组件; HeatMapElement; HeatMapColum; HeatMap; 其他杂项; CSS;HeatMap {; 实现; TODO</description>
+</item><item>
+    <title>HelloWorld</title>
+    <link>https://izfsk-ium.github.io/articles/HelloWorld/index.html</link>
+    <pubDate>1970-01-01 00:00:00+00:00</pubDate>
+    <guid>https://izfsk-ium.github.io/articles/HelloWorld/index.html</guid>
+    <description>测试页面</description>
+</item><item>
+    <title>CSS-Tooltip技巧</title>
+    <link>https://izfsk-ium.github.io/articles/CSS-Tooltip技巧/index.html</link>
+    <pubDate>2022-11-14 22:42:10+00:00</pubDate>
+    <guid>https://izfsk-ium.github.io/articles/CSS-Tooltip技巧/index.html</guid>
+    <description> 可以使用纯CSS实现Tooltip</description>
+</item><item>
+    <title>React+Redux简单使用</title>
+    <link>https://izfsk-ium.github.io/articles/React+Redux简单使用/index.html</link>
+    <pubDate>2022-12-04 07:32:00+00:00</pubDate>
+    <guid>https://izfsk-ium.github.io/articles/React+Redux简单使用/index.html</guid>
+    <description> 缘起; 场景; 使用; Redux 方面; React方面; “订阅”数据; 组件获取数据; 组件更改数据; 异步操作和在组件外进行dispatch; 初始化时fetch内容; 组件内fetch内容; 参见</description>
+</item><item>
+    <title>LRU-Cache与functools</title>
+    <link>https://izfsk-ium.github.io/articles/LRU-Cache与functools/index.html</link>
+    <pubDate>2022-12-13 09:19:42+00:00</pubDate>
+    <guid>https://izfsk-ium.github.io/articles/LRU-Cache与functools/index.html</guid>
+    <description>Python标准库functool中的LRUCache</description>
+</item><item>
+    <title>我的2022</title>
+    <link>https://izfsk-ium.github.io/articles/我的2022/index.html</link>
+    <pubDate>2022-12-15 21:02:03+00:00</pubDate>
+    <guid>https://izfsk-ium.github.io/articles/我的2022/index.html</guid>
+    <description>..</description>
+</item><item>
+    <title>Python的more-itertools模块</title>
+    <link>https://izfsk-ium.github.io/articles/Python的more-itertools模块/index.html</link>
+    <pubDate>2022-12-08 21:12:00+00:00</pubDate>
+    <guid>https://izfsk-ium.github.io/articles/Python的more-itertools模块/index.html</guid>
+    <description> 前提; 迭代器; itertools; Accumulate : 迭代操作器;[1, 3, 6]; Groupby : 数据分类汇总; Product : 全排列; Pairwise : 成双成对，藕断丝连; more_itertools; 一变多系列; Grouper; [('A', 'B', 'C'), ('D', 'E', 'F'), ('G', 'x', 'x')]; [('A', 'B', 'C'), ('D', 'E', 'F')]; 抛出异常 UnequalIterablesError; a str_iterator at 0x7fd3b529ecb0>; b str_iterator at 0x7fd3b529ecb0>; c str_iterator at 0x7fd3b529ecb0>; [('h', 'e', 'l'), ('l', 'o', '!')]; Partition; Divide;  [['first', 'second', 'third'], ['fourth', 'fifth'], ['sixth', 'seventh']]; Split_XXX 系列; ['hello', '!', 'world']; [[1, 2, 3, 3], [2, 5], [2, 4], [2]]; [[1], [2, 3], [4, 5, 6]]; 多变一系列; Flatten; Collapse; Unzip; 挨个操作系列; Map_except; Map_reduce; 得到 defaultdict(None, {'1': 2, '2': 2, '3': 1}); Numeric_range; 将会得到：; 过滤器系列; Strip 系列; [False, None, 1, 2, None, 3, False]; [False, None, 1, 2, None, 3, False, None]; [None, False, None, 1, 2, None, 3, False]; Filter_except;  [1.5, 6.0, 11.0, 1.23e-07, 25.0]; 参考</description>
+</item><item>
+    <title>scrcpy+sndcpy+kdeconnect多屏协作</title>
+    <link>https://izfsk-ium.github.io/articles/scrcpy+sndcpy+kdeconnect多屏协作/index.html</link>
+    <pubDate>2022-12-19 09:54:09+00:00</pubDate>
+    <guid>https://izfsk-ium.github.io/articles/scrcpy+sndcpy+kdeconnect多屏协作/index.html</guid>
+    <description> 目标; scrcpy; 手机关闭显示; 多个设备连接; 无线调试; 录屏; 多重虚拟屏幕; sndcpy; kdeconnect; 如果你使用 ufw; 如果你使用 firewall-cmd; 如果你非要用 iptables...; 附录：scrcpy 快捷键; 参考</description>
+</item><item>
+    <title>Rclone挂载Office365教育版</title>
+    <link>https://izfsk-ium.github.io/articles/Rclone挂载Office365教育版/index.html</link>
+    <pubDate>2022-12-20 10:17:45+00:00</pubDate>
+    <guid>https://izfsk-ium.github.io/articles/Rclone挂载Office365教育版/index.html</guid>
+    <description> 非教育版帐号; 教育版; 注意事项; sftp公钥登录; 参见：</description>
+</item>
+    </channel>
+</rss>
