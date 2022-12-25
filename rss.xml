@@ -6,7 +6,7 @@
         <description>Recent content on izfsk's blog</description>
         <generator>bash scripts, python scripts and love</generator>
         <copyright>Licensed under CC BY-NC-SA 2.5 CN</copyright>
-        <lastBuildDate>2022-12-23 17:22:58.498495</lastBuildDate>
+        <lastBuildDate>2022-12-25 18:53:21.215466</lastBuildDate>
         <atom:link href="https://izfsk-ium.github.io/rss.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>Kotlin笔记(1)</title>
@@ -68,6 +68,12 @@
     <pubDate>2022-12-20 10:17:45+00:00</pubDate>
     <guid>https://izfsk-ium.github.io/articles/Rclone挂载Office365教育版/index.html</guid>
     <description> 非教育版帐号; 教育版; 注意事项; sftp公钥登录; 参见：</description>
+</item><item>
+    <title>ELF文件结构解析</title>
+    <link>https://izfsk-ium.github.io/articles/ELF文件结构解析/index.html</link>
+    <pubDate>2022-12-25 17:01:17+00:00</pubDate>
+    <guid>https://izfsk-ium.github.io/articles/ELF文件结构解析/index.html</guid>
+    <description> ELF 文件; 读取和解析 ELF 文件; 使用 readelf 工具</description>
 </item>
     </channel>
 </rss>
