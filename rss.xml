@@ -6,7 +6,7 @@
         <description>Recent content on izfsk's blog</description>
         <generator>bash scripts, python scripts and love</generator>
         <copyright>Licensed under CC BY-NC-SA 2.5 CN</copyright>
-        <lastBuildDate>2022-12-25 18:53:21.215466</lastBuildDate>
+        <lastBuildDate>2022-12-26 11:11:56.230459</lastBuildDate>
         <atom:link href="https://izfsk-ium.github.io/rss.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>Kotlin笔记(1)</title>
@@ -74,6 +74,12 @@
     <pubDate>2022-12-25 17:01:17+00:00</pubDate>
     <guid>https://izfsk-ium.github.io/articles/ELF文件结构解析/index.html</guid>
     <description> ELF 文件; 读取和解析 ELF 文件; 使用 readelf 工具</description>
+</item><item>
+    <title>Firefox启动速度缓慢的排查</title>
+    <link>https://izfsk-ium.github.io/articles/Firefox启动速度缓慢的排查/index.html</link>
+    <pubDate>2022-12-26 10:51:29+00:00</pubDate>
+    <guid>https://izfsk-ium.github.io/articles/Firefox启动速度缓慢的排查/index.html</guid>
+    <description></description>
 </item>
     </channel>
 </rss>
