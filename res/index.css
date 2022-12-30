@@ -121,7 +121,7 @@ img {
 }
 
 .l1 {
-    font-family: "hwgc", 'Lucida Sans', 'Lucida Sans Regular', sans-serif;
+    font-family: "eb", 'Lucida Sans', 'Lucida Sans Regular', sans-serif;
     font-size: 22px;
     list-style: none;
     text-decoration: underline;
@@ -136,7 +136,7 @@ h1 {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: "hwgc";
+    font-family: "eb";
     margin-top: 3rem
 }
 
@@ -156,7 +156,7 @@ span {
 }
 
 small, small>a {
-    font-family: "hwgc", serif;
+    font-family: "eb", serif;
     color: gray;
     float: right;
 }

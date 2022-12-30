@@ -66,7 +66,7 @@
 
             <!--DATE-->
                         <span class="date before-toc">Created: <time datetime="2022-12-08">2022-12-08</time></span>
-            <span class='date before-toc'>Modified:<time>2022-12-21 21:36</time></span>
+            <span class='date before-toc'>Modified:<time>2022-12-26 11:37</time></span>
             
             <!--CATEGORY-->
                         <p class="category">Category : <code>学习</code></p>
@@ -196,6 +196,15 @@
         <p>其实也不是那么魔法，最重要的就是这一串：</p>
         <p><code>groupby(data, key=lambda x: x["type"])</code></p>
         <p>同样的，groupby函数接收两个参数，一个是迭代器，一个是函数类型，用来指定分类的key。可以理解成SQL<code>SELECT something FROM table GROUP BY key</code>中的<code>key</code>。返回类型是一个二元元组，(这个key，包含这个类别的元素的迭代器)。接下来就可以使用<code>list()</code>来转换了，这也是<code>[i['data'] for i in list(j)]</code>的作用。</p>
+        <div class="note blue">
+        <table>
+        <tbody>
+        <tr class="odd">
+        <td>ℹ️ groupby 在使用之前<strong>一定</strong>要对数据排序好！</td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
         <p>还是看不懂？那就看这个版本吧：</p>
         <div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> <span class="bu">list</span>()</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>

@@ -28,7 +28,7 @@
     --color-table-heading: #f3f3fb;
 
     --font-family-prose: "eb", "twsung";
-    --font-family-heading: "hwgc", "hwgccn";
+    --font-family-heading: "eb", "hwgccn";
     --font-family-code: monospace;
     --side-note-number-font-family: "eb";
 
@@ -551,7 +551,7 @@ a, a:link, a:visited {
 
 .note>table>tbody>tr {
     border: 1px solid gray;
-    font-family: "hwgc", "hwgccn";
+    font-family: "eb", "hwgccn";
 }
 
 .sourceCode>span>a {
@@ -602,7 +602,7 @@ span.mark.purple, mark.purple {
     margin-bottom: 0;
     font-style: normal;
     font-size: var(--h2-font-size);
-    font-family: "hwgc", "hwgccn";
+    font-family: "eb", "hwgccn";
 }
 
 .author, .date {
@@ -1679,7 +1679,7 @@ main {
     /* --- Text --- */
 
     --font-family-prose: "eb", "twsung";
-    --font-family-heading: "hwgc", "hwgccn";
+    --font-family-heading: "eb", "hwgccn";
     --font-family-code: monospace;
     --side-note-number-font-family: "eb";
 
@@ -2212,7 +2212,7 @@ a, a:link, a:visited {
 
 .note>table>tbody>tr {
     border: 1px solid gray;
-    font-family: "hwgc", "hwgccn";
+    font-family: "eb", "hwgccn";
 }
 
 .sourceCode>span>a {
@@ -2263,7 +2263,7 @@ span.mark.purple, mark.purple {
     margin-bottom: 0;
     font-style: normal;
     font-size: var(--h2-font-size);
-    font-family: "hwgc", "hwgccn";
+    font-family: "eb", "hwgccn";
 }
 
 .author, .date {
@@ -3335,7 +3335,7 @@ main {
     color: #93A1A1;
     font-style: italic;
     font-size: small;
-    font-family: "hwgc", serif;
+    font-family: "eb", serif;
 }
 
 .sourceCode .at {
