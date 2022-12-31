@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="preload" href="./assets/TW-Sung-98_1.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./assets/CJgaodeguomh.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/res/HWYGOTH-4.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/res/EBGaramond.woff2" as="font" type="font/woff2" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+        <meta name="author" content="izfsk" />
+            <meta name="dcterms.date" content="2022-12-31" />
+                <title>Chrome文件伪装摄像头</title>
+        <link rel="stylesheet" href="/res/fonts.css" />
+        <link rel="stylesheet" href="/res/article.css" />
+                
+    
+    <style>
+        @font-face {
+            font-family: "twsung";
+            src:    url("/articles/Chrome文件伪装摄像头/assets/TW-Sung-98_1.woff2")   format('woff2'),
+                    url("/articles/Chrome文件伪装摄像头/assets/TW-Sung-98_1.woff")    format('woff'),
+                    url("/articles/Chrome文件伪装摄像头/assets/TW-Sung-98_1.ttf")     format('truetype'),
+                    url("/articles/Chrome文件伪装摄像头/assets/TW-Sung-98_1.svg")     format('svg');
+        }
+
+        @font-face {
+            font-family: "hwgccn";
+            src:    url("/articles/Chrome文件伪装摄像头/assets/CJgaodeguomh.woff2")   format('woff2'),
+                    url("/articles/Chrome文件伪装摄像头/assets/CJgaodeguomh.woff")    format('woff'),
+                    url("/articles/Chrome文件伪装摄像头/assets/CJgaodeguomh.ttf")     format('truetype'),
+                    url("/articles/Chrome文件伪装摄像头/assets/CJgaodeguomh.svg")     format('svg');
+        }
+    </style>
+    
+    
+                <style>
+                    #isDraftWarning{
+                        display: none !important;
+                    }
+                </style>
+            
+                <style>
+                    #isOutdatedWarning{
+                        display: none !important;
+                    }
+                </style>
+            
+</head>
+
+<body>
+        <a id="to-top" href="#"></a>
+    <header>
+        <!--TITLE-->
+        <div>
+            <h1 class="title">Chrome文件伪装摄像头</h1>
+                    </div>
+
+        <div class="metadata" id="page_top">
+            <br />
+
+            <!--AUTHOR-->
+                        <span class="author">
+                            <span>Author : </span>izfsk
+                                    <br />
+
+            <!--DATE-->
+                        <span class="date before-toc">Created: <time datetime="2022-12-31">2022-12-31</time></span>
+            <span class='date before-toc'>Modified:<time>2022-12-31 20:41</time></span>
+            
+            <!--CATEGORY-->
+                        <p class="category">Category : <code>备忘录</code></p>
+            
+            <!--TAGS-->
+                        <span>Tags :  <b>Chrome,</b> </span>
+            
+        </div>
+        <hr />
+    </header>
+
+        <nav id="TOC" role="doc-toc">
+        <a href="/">← Return</a><br>
+        <strong>目录</strong>
+        <input type="checkbox" id="contents">
+        <ul>
+        <li><a href="#文件准备" id="toc-文件准备">文件准备</a></li>
+        <li><a href="#开启选项" id="toc-开启选项">开启选项</a></li>
+        <li><a href="#检测和注意事项" id="toc-检测和注意事项">检测和注意事项</a></li>
+        <li><a href="#参考" id="toc-参考">参考</a></li>
+        </ul>
+        <a href="#page_top"><em>返回顶部</em></a>
+    </nav>
+    
+    <main>
+        <div class="note yellow" id="isDraftWarning">
+            <table>
+                <colgroup>
+                    <col style="width: 100%">
+                </colgroup>
+                <tbody>
+                    <tr class="odd">
+                        <td> <strong>注意！这篇文章还只是个草稿！</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="note yellow" id="isOutdatedWarning">
+            <table>
+                <colgroup>
+                    <col style="width: 100%">
+                </colgroup>
+                <tbody>
+                    <tr class="odd">
+                        <td><strong>注意！这篇文章已经过期了！</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>有时候需要用到伪装摄像头的功能，特别是使用某些网课平台考试的时候，有的建议是使用 OBS Studio 模拟一个摄像头，但是其实 Chrome 浏览器就可以把文件作为摄像头的视频来源采集。</p>
+        <h1 id="文件准备">文件准备</h1>
+        <p>首先你需要有视频或者图片文件，但一般的 mp4, mkv 之类的格式是不行的。关于 Chrome 支持什么格式，手册页里面没有说明，但是源代码里面有：</p>
+        <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// https://chromium.googlesource.com/chromium/src/+/3015459a9bf07f62ab7a8816ff88824568d87c04/media/capture/video/file_video_capture_device.cc</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">// line 286</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>base<span class="op">::</span>EndsWith<span class="op">(</span>file_name<span class="op">,</span> <span class="st">&quot;y4m&quot;</span><span class="op">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                     base<span class="op">::</span>CompareCase<span class="op">::</span>INSENSITIVE_ASCII<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    file_parser<span class="op">.</span>reset<span class="op">(</span><span class="kw">new</span> Y4mFileParser<span class="op">(</span>file_path<span class="op">));</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>base<span class="op">::</span>EndsWith<span class="op">(</span>file_name<span class="op">,</span> <span class="st">&quot;mjpeg&quot;</span><span class="op">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                            base<span class="op">::</span>CompareCase<span class="op">::</span>INSENSITIVE_ASCII<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    file_parser<span class="op">.</span>reset<span class="op">(</span><span class="kw">new</span> MjpegFileParser<span class="op">(</span>file_path<span class="op">));</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    LOG<span class="op">(</span>ERROR<span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="st">&quot;Unsupported file format.&quot;</span><span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> file_parser<span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span></code></pre></div>
+        <p>要作为流的来源你需要 y4m 或者 mjpeg 格式的视频。使用 ffmpeg 可以转换。</p>
+        <pre class="shell"><code>$ ffmpeg -i input.mp4 output.y4m</code></pre>
+        <h1 id="开启选项">开启选项</h1>
+        <p>接下来你需要使用命令行参数启动 Chrome 浏览器，加上你的文件：</p>
+        <pre class="shell"><code>$ google-chrome --use-fake-device-for-media-stream --use-file-for-fake-video-capture=test.y4m </code></pre>
+        <h1 id="检测和注意事项">检测和注意事项</h1>
+        <ul>
+        <li>y4m 格式是很大的，一分钟不到的视频都可能达到 700 MB。</li>
+        <li>可以使用<a href="https://webcamtests.com/">这个网站</a>来测试。</li>
+        <li>网页检测到的「摄像头硬件名称」将会是你的文件名，注意起一个正常的名字。</li>
+        </ul>
+        <h1 id="参考">参考</h1>
+        <ol type="1">
+        <li><a href="https://stackoverflow.com/questions/52095416/how-can-i-correctly-provide-a-mock-webcam-video-to-chrome">How can I correctly provide a mock webcam video to Chrome?</a></li>
+        </ol>
+
+    </main>
+
+    <!--BACK TO INDEX-->
+    <footer>
+        <hr />
+
+        <form id="comment_area">
+
+        </form>
+
+        <p class="signoff">
+
+        </p>
+    </footer>
+
+    <div id="copyright">
+        <small>Copyright&nbsp;©&nbsp;2022 izfsk</small><br />
+
+        <small>Licensed under&nbsp;
+            <a href='https://creativecommons.org/licenses/by-nc-sa/2.5/cn/'>CC BY-NC-SA 2.5 CN</a>
+        </small>
+    </div>
+    
+</body>
+
+</html>
