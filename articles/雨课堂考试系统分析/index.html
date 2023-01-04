@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="preload" href="./assets/TW-Sung-98_1.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./assets/CJgaodeguomh.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/res/HWYGOTH-4.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/res/EBGaramond.woff2" as="font" type="font/woff2" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+        <meta name="author" content="izfsk" />
+            <meta name="dcterms.date" content="2023-01-04" />
+                <title>雨课堂考试系统分析</title>
+        <link rel="stylesheet" href="/res/fonts.css" />
+        <link rel="stylesheet" href="/res/article.css" />
+                
+    
+    <style>
+        @font-face {
+            font-family: "twsung";
+            src:    url("/articles/雨课堂考试系统分析/assets/TW-Sung-98_1.woff2")   format('woff2'),
+                    url("/articles/雨课堂考试系统分析/assets/TW-Sung-98_1.woff")    format('woff'),
+                    url("/articles/雨课堂考试系统分析/assets/TW-Sung-98_1.ttf")     format('truetype'),
+                    url("/articles/雨课堂考试系统分析/assets/TW-Sung-98_1.svg")     format('svg');
+        }
+
+        @font-face {
+            font-family: "hwgccn";
+            src:    url("/articles/雨课堂考试系统分析/assets/CJgaodeguomh.woff2")   format('woff2'),
+                    url("/articles/雨课堂考试系统分析/assets/CJgaodeguomh.woff")    format('woff'),
+                    url("/articles/雨课堂考试系统分析/assets/CJgaodeguomh.ttf")     format('truetype'),
+                    url("/articles/雨课堂考试系统分析/assets/CJgaodeguomh.svg")     format('svg');
+        }
+    </style>
+    
+    
+                <style>
+                    #isDraftWarning{
+                        display: none !important;
+                    }
+                </style>
+            
+                <style>
+                    #isOutdatedWarning{
+                        display: none !important;
+                    }
+                </style>
+            
+</head>
+
+<body>
+        <a id="to-top" href="#"></a>
+    <header>
+        <!--TITLE-->
+        <div>
+            <h1 class="title">雨课堂考试系统分析</h1>
+                    </div>
+
+        <div class="metadata" id="page_top">
+            <br />
+
+            <!--AUTHOR-->
+                        <span class="author">
+                            <span>Author : </span>izfsk
+                                    <br />
+
+            <!--DATE-->
+                        <span class="date before-toc">Created: <time datetime="2023-01-04">2023-01-04</time></span>
+            <span class='date before-toc'>Modified:<time>2023-01-04 21:34</time></span>
+            
+            <!--CATEGORY-->
+                        <p class="category">Category : <code>技术</code></p>
+            
+            <!--TAGS-->
+                        <span>Tags :  <b>FrontEnd,</b>  <b>Chrome,</b> </span>
+            
+        </div>
+        <hr />
+    </header>
+
+        <nav id="TOC" role="doc-toc">
+        <a href="/">← Return</a><br>
+        <strong>目录</strong>
+        <input type="checkbox" id="contents">
+        <ul>
+        <li><a href="#简介" id="toc-简介">简介</a></li>
+        <li><a href="#各个功能分析" id="toc-各个功能分析">各个功能分析</a>
+        <ul>
+        <li><a href="#获取试卷内容" id="toc-获取试卷内容">获取试卷内容</a></li>
+        <li><a href="#时间同步" id="toc-时间同步">时间同步</a></li>
+        <li><a href="#反调试" id="toc-反调试">反调试</a></li>
+        <li><a href="#检测打开调试工具" id="toc-检测打开调试工具">检测打开调试工具</a></li>
+        <li><a href="#切屏检测" id="toc-切屏检测">切屏检测</a></li>
+        <li><a href="#自动截屏" id="toc-自动截屏">自动截屏</a></li>
+        <li><a href="#数据上报" id="toc-数据上报">数据上报</a></li>
+        <li><a href="#水印" id="toc-水印">水印</a></li>
+        </ul></li>
+        <li><a href="#绕过思路" id="toc-绕过思路">绕过思路</a></li>
+        <li><a href="#参考" id="toc-参考">参考</a></li>
+        </ul>
+        <a href="#page_top"><em>返回顶部</em></a>
+    </nav>
+    
+    <main>
+        <div class="note yellow" id="isDraftWarning">
+            <table>
+                <colgroup>
+                    <col style="width: 100%">
+                </colgroup>
+                <tbody>
+                    <tr class="odd">
+                        <td> <strong>注意！这篇文章还只是个草稿！</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="note yellow" id="isOutdatedWarning">
+            <table>
+                <colgroup>
+                    <col style="width: 100%">
+                </colgroup>
+                <tbody>
+                    <tr class="odd">
+                        <td><strong>注意！这篇文章已经过期了！</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>最近需要用到雨课堂来在线考试，向来讨厌这种考试方式，又听说它有截屏，切屏上报等等功能，正好有认识的老师愿意把他的帐号借给我，就简单分析了一下。</p>
+        <h1 id="简介">简介</h1>
+        <p>雨课堂的网页端考试系统用的是 Vue 框架 + Vuex ，存储采用自己 cdn + 阿里云 + 七牛云的混合存储，前端文件用 Webpack 打包，所有接口 API 地址都暴露在全局空间 <code>window.API</code> 中。判断浏览器环境采用 UA 字符串匹配，可以用虚假 UA 绕过，但会导致出现问题。每隔 3 分钟自动截取屏幕和摄像头上传。</p>
+        <h1 id="各个功能分析">各个功能分析</h1>
+        <h2 id="获取试卷内容">获取试卷内容</h2>
+        <p>没有花里胡哨的加密，很朴实的获得试卷内容，并逐个放到 vuex store 里面，接着渲染。接口明确给出的，就是 <code>/exam_room/show_paper?exam_id=</code> ，你甚至可以重放 xhr (</p>
+        <h2 id="时间同步">时间同步</h2>
+        <p>每隔一段事件会和服务器同步数据，使用 setintervel + xhr 方式，防止通过修改本地事件作弊。</p>
+        <h2 id="反调试">反调试</h2>
+        <p>在整个 HTML 文档的开头，有检测是否有禁用切屏的代码，被 eval 混淆了。</p>
+        <figure>
+        <img src="./assets/eval.png" alt="混淆的代码" />
+        <figcaption aria-hidden="true">混淆的代码</figcaption>
+        </figure>
+        <p><strong>搞笑的是，雨课堂的前端似乎真的只是在网上<a href="https://www.sojson.com/js.html">随便找了一个</a>「在线混淆工具」就拿来用了</strong>，解密之：</p>
+        <div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getEventListeners</span>() {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">var</span> e <span class="op">=</span> sessionStorage<span class="op">.</span><span class="at">setItem</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        sessionStorage<span class="op">.</span><span class="at">setItem</span> <span class="op">=</span> <span class="kw">function</span>(t<span class="op">,</span> s) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            <span class="kw">var</span> n <span class="op">=</span> <span class="kw">new</span> <span class="bu">Event</span>(<span class="st">&quot;setItemEvent&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            n<span class="op">.</span><span class="at">newValue</span> <span class="op">=</span> s<span class="op">,</span> <span class="bu">window</span><span class="op">.</span><span class="fu">dispatchEvent</span>(n)<span class="op">,</span> e<span class="op">.</span><span class="fu">apply</span>(<span class="kw">this</span><span class="op">,</span> <span class="kw">arguments</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span> sessionStorage<span class="op">.</span><span class="fu">setItem</span>(<span class="st">&quot;hasBlocked&quot;</span><span class="op">,</span> <span class="dv">1</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">catch</span> (e) {</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&quot;检测到切屏被屏蔽&quot;</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+        <p>可以看到这个函数的作用是把「sessionStorage.setItem」包装了一层，添加了一个新的「setItemEvent」事件。用来检查和反馈「检测到你已禁用切屏监测功能，该行为已记录并上报老师，请立即停止异常行为！」了。虽然十分的奇怪（</p>
+        <h2 id="检测打开调试工具">检测打开调试工具</h2>
+        <p>如果学生打开控制台，会提示「检测到你已禁用切屏监测功能，该行为已记录并上报老师，请立即停止异常行为！」，这个提示只在 <code>getExamData</code> 的时候显示一次，之后不再重复显示。</p>
+        <p>检测的方法没有仔细探究，但注意到它覆盖了原来的 console.log 方法并包装了一层，以前看到过类似的检测思路，但似乎并不是<a href="https://juejin.cn/post/6844903857227726856">这样</a>的方法。</p>
+        <p><img src="./assets/consol.png" /></p>
+        <h2 id="切屏检测">切屏检测</h2>
+        <p>使用的是非常常见的方法，即 <code>window.addEventListener("visibilitychange", callback)</code> 的方法。直接搜索就可以找到源码位置，打断点，看 call stack 保存一份引用，就能把 callback 去掉了。直接 <code>window.removeEventListener("visibilitychange", callback, !0)</code>。</p>
+        <figure>
+        <img src="./assets/addcb.png" alt="绑定事件处理" />
+        <figcaption aria-hidden="true">绑定事件处理</figcaption>
+        </figure>
+        <figure>
+        <img src="./assets/OnChange%E5%9B%9E%E8%B0%83.png" alt="回调函数位置" />
+        <figcaption aria-hidden="true">回调函数位置</figcaption>
+        </figure>
+        <h2 id="自动截屏">自动截屏</h2>
+        <p>雨课堂考试的监考，并不是实时传输屏幕的数据，而是每隔一段时间（一般是 3 分钟）截取一张样本上传，同时设置 sessionStorage 的 <code>captureTime</code> 项目保存时间戳。上传的目标服务器是根据地区选择的，都是七牛云的服务器。</p>
+        <div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>e<span class="op">.</span><span class="at">regionUphostMap</span> <span class="op">=</span> {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>            <span class="dt">z0</span><span class="op">:</span> {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                <span class="dt">srcUphost</span><span class="op">:</span> <span class="st">&quot;up.qiniup.com&quot;</span><span class="op">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                <span class="dt">cdnUphost</span><span class="op">:</span> <span class="st">&quot;upload.qiniup.com&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>            }<span class="op">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            <span class="dt">z1</span><span class="op">:</span> {</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                <span class="dt">srcUphost</span><span class="op">:</span> <span class="st">&quot;up-z1.qiniup.com&quot;</span><span class="op">,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                <span class="dt">cdnUphost</span><span class="op">:</span> <span class="st">&quot;upload-z1.qiniup.com&quot;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            }<span class="op">,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>            <span class="dt">z2</span><span class="op">:</span> {</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>            <span class="dt">srcUphost</span><span class="op">:</span> <span class="st">&quot;up-z2.qiniup.com&quot;</span><span class="op">,</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                <span class="dt">cdnUphost</span><span class="op">:</span> <span class="st">&quot;upload-z2.qiniup.com&quot;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            }<span class="op">,</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            <span class="dt">na0</span><span class="op">:</span> {</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                <span class="dt">srcUphost</span><span class="op">:</span> <span class="st">&quot;up-na0.qiniup.com&quot;</span><span class="op">,</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                <span class="dt">cdnUphost</span><span class="op">:</span> <span class="st">&quot;upload-na0.qiniup.com&quot;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>            }<span class="op">,</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>            <span class="dt">as0</span><span class="op">:</span> {</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                <span class="dt">srcUphost</span><span class="op">:</span> <span class="st">&quot;up-as0.qiniup.com&quot;</span><span class="op">,</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                <span class="dt">cdnUphost</span><span class="op">:</span> <span class="st">&quot;upload-as0.qiniup.com&quot;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>               }</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        }</span></code></pre></div>
+        <h2 id="数据上报">数据上报</h2>
+        <p>数据上报分两种，一种是常规数据的上报，也就是本地事件同步和间隔截屏的数据。第二种是检测到切屏，打开调试工具后的事件上报，通常还会顺便提交截屏作为「证据」。</p>
+        <p>第一种上报，就是 setintervel，使用了<a href="https://github.com/qiniu/js-sdk#usage">七牛的官方 SDK</a>，retryCount 设置是 3 ，也就是最多尝试上传 3 次。整个流程先在雨课堂的 API 获取 token，再上传。</p>
+        <p><img src="./assets/cap.png" /></p>
+        <p>第二种是对于考试事件的检测和上报，和以前的版本不同，现在雨课堂不再使用单独的 API 地址来上报，而是使用和提交答案一样的 API，上报的内容依旧是 json 文本，格式如下：</p>
+        <div class="sourceCode" id="cb3"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    action<span class="op">:</span> <span class="dt">number</span><span class="op">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    exam_id<span class="op">:</span> <span class="dt">string</span><span class="op">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    t<span class="op">:</span> <span class="st">&quot;t&quot;</span> <span class="op">|</span> <span class="st">&quot;f&quot;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+        <p>其中 <code>action</code> 即为事件的编号。切出当前页面是 12，切回则是 16。更新答案选择（即自动保存答案）使用同一个 API，但数据格式不同。</p>
+        <p>令人啧啧称奇的是，这个汇报情况的 API 没有速率限制，你可以用一个简单的脚本把自己的切屏次数刷到很离谱的数量。</p>
+        <h2 id="水印">水印</h2>
+        <p>水印通过 CSS 背景图片实现，选择器为 <code>.el-color-predefine__color-selector.is-alpha</code>，base64 编码 png 格式。</p>
+        <h1 id="绕过思路">绕过思路</h1>
+        <p>如果你想硬核绕过，不是很难</p>
+        <ul>
+        <li>对于切屏检测，直接把监听器移除。</li>
+        <li>对于文件上传，老方法，屏蔽七牛云的服务器即可。<strong>但是这样一来，一开始上传证件照会失效</strong>。</li>
+        <li>对于事件上传，大条的方法是用 uBlock 之类的工具屏蔽特定 xhr 请求，但是会影响自动答案保存。</li>
+        <li>如果你想要硬核的，proxy 劫持整个 XHR 对象原型，但是注意雨课堂已经用 <code>Sentry</code> 包装了一层。</li>
+        <li>对于水印，CSS 覆盖就完事了。</li>
+        <li>摄像头，可以使用 Chrome 的虚拟摄像头功能。</li>
+        </ul>
+        <p>但是，如果你真的要和它对着干，不建议和它在同一个层次作战。更加稳妥的方法是使用虚拟机。</p>
+        <h1 id="参考">参考</h1>
+        <ul>
+        <li><a href="/articles/Chrome文件伪装摄像头/index.html">文件伪装摄像头</a></li>
+        <li><a href="https://github.com/qiniu/js-sdk#usage">七牛 SDK</a></li>
+        <li><a href="https://github.com/ltgcgo/minuette">一个调试工具</a></li>
+        </ul>
+
+    </main>
+
+    <!--BACK TO INDEX-->
+    <footer>
+        <hr />
+
+        <form id="comment_area">
+
+        </form>
+
+        <p class="signoff">
+
+        </p>
+    </footer>
+
+    <div id="copyright">
+        <small>Copyright&nbsp;©&nbsp;2022 izfsk</small><br />
+
+        <small>Licensed under&nbsp;
+            <a href='https://creativecommons.org/licenses/by-nc-sa/2.5/cn/'>CC BY-NC-SA 2.5 CN</a>
+        </small>
+    </div>
+    
+</body>
+
+</html>
