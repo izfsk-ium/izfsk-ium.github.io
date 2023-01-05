@@ -6,7 +6,7 @@
         <description>Recent content on izfsk's blog</description>
         <generator>bash scripts, python scripts and love</generator>
         <copyright>Licensed under CC BY-NC-SA 2.5 CN</copyright>
-        <lastBuildDate>2023-01-05 11:25:16.363601</lastBuildDate>
+        <lastBuildDate>2023-01-05 21:56:34.853244</lastBuildDate>
         <atom:link href="https://izfsk-ium.github.io/rss.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>Kotlin笔记(1)</title>
@@ -92,6 +92,12 @@
     <pubDate>2023-01-04 19:54:28+00:00</pubDate>
     <guid>https://izfsk-ium.github.io/articles/雨课堂考试系统分析/index.html</guid>
     <description> 简介; 各个功能分析; 获取试卷内容; 时间同步; 反调试; 检测打开调试工具; 切屏检测; 自动截屏; 数据上报; 水印; 绕过思路; 参考</description>
+</item><item>
+    <title>经典数据结构・单向链表</title>
+    <link>https://izfsk-ium.github.io/articles/经典数据结构・单向链表/index.html</link>
+    <pubDate>2021-07-11 21:41:17+00:00</pubDate>
+    <guid>https://izfsk-ium.github.io/articles/经典数据结构・单向链表/index.html</guid>
+    <description> 定义;ifndef _LINKED_LIST_H;define _LINKED_LIST_H;include assert.h>;include inttypes.h>;include stdio.h>;include stdlib.h>;define element_type int64_t;endif; 实现; 检测链表是否为空; 检验是否是最后一个元素; 寻找元素; 删除元素; 插入元素; 清空链表; 创建链表头; 测试例;include "linked_list.h"</description>
 </item>
     </channel>
 </rss>

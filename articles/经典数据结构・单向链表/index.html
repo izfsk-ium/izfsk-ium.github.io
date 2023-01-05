@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="preload" href="./assets/TW-Sung-98_1.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./assets/CJgaodeguomh.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/res/HWYGOTH-4.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/res/EBGaramond.woff2" as="font" type="font/woff2" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+        <meta name="author" content="izfsk" />
+            <meta name="dcterms.date" content="2021-07-11" />
+                <title>经典数据结构・单向链表</title>
+        <link rel="stylesheet" href="/res/fonts.css" />
+        <link rel="stylesheet" href="/res/article.css" />
+                
+    
+    <style>
+        @font-face {
+            font-family: "twsung";
+            src:    url("/articles/经典数据结构・单向链表/assets/TW-Sung-98_1.woff2")   format('woff2'),
+                    url("/articles/经典数据结构・单向链表/assets/TW-Sung-98_1.woff")    format('woff'),
+                    url("/articles/经典数据结构・单向链表/assets/TW-Sung-98_1.ttf")     format('truetype'),
+                    url("/articles/经典数据结构・单向链表/assets/TW-Sung-98_1.svg")     format('svg');
+        }
+
+        @font-face {
+            font-family: "hwgccn";
+            src:    url("/articles/经典数据结构・单向链表/assets/CJgaodeguomh.woff2")   format('woff2'),
+                    url("/articles/经典数据结构・单向链表/assets/CJgaodeguomh.woff")    format('woff'),
+                    url("/articles/经典数据结构・单向链表/assets/CJgaodeguomh.ttf")     format('truetype'),
+                    url("/articles/经典数据结构・单向链表/assets/CJgaodeguomh.svg")     format('svg');
+        }
+    </style>
+    
+    
+                <style>
+                    #isDraftWarning{
+                        display: none !important;
+                    }
+                </style>
+            
+                <style>
+                    #isOutdatedWarning{
+                        display: none !important;
+                    }
+                </style>
+            
+</head>
+
+<body>
+        <a id="to-top" href="#"></a>
+    <header>
+        <!--TITLE-->
+        <div>
+            <h1 class="title">经典数据结构・单向链表</h1>
+                    </div>
+
+        <div class="metadata" id="page_top">
+            <br />
+
+            <!--AUTHOR-->
+                        <span class="author">
+                            <span>Author : </span>izfsk
+                                    <br />
+
+            <!--DATE-->
+                        <span class="date before-toc">Created: <time datetime="2021-07-11">2021-07-11</time></span>
+            <!-- LASTMODIFY -->
+            
+            <!--CATEGORY-->
+                        <p class="category">Category : <code>学习</code></p>
+            
+            <!--TAGS-->
+                        <span>Tags :  <b>Algorithm,</b> </span>
+            
+        </div>
+        <hr />
+    </header>
+
+        <nav id="TOC" role="doc-toc">
+        <a href="/">← Return</a><br>
+        <strong>目录</strong>
+        <input type="checkbox" id="contents">
+        <ul>
+        <li><a href="#定义" id="toc-定义">定义</a></li>
+        <li><a href="#实现" id="toc-实现">实现</a>
+        <ul>
+        <li><a href="#检测链表是否为空" id="toc-检测链表是否为空">检测链表是否为空</a></li>
+        <li><a href="#检验是否是最后一个元素" id="toc-检验是否是最后一个元素">检验是否是最后一个元素</a></li>
+        <li><a href="#寻找元素" id="toc-寻找元素">寻找元素</a></li>
+        <li><a href="#删除元素" id="toc-删除元素">删除元素</a></li>
+        <li><a href="#插入元素" id="toc-插入元素">插入元素</a></li>
+        <li><a href="#清空链表" id="toc-清空链表">清空链表</a></li>
+        <li><a href="#创建链表头" id="toc-创建链表头">创建链表头</a></li>
+        </ul></li>
+        <li><a href="#测试例" id="toc-测试例">测试例</a></li>
+        </ul>
+        <a href="#page_top"><em>返回顶部</em></a>
+    </nav>
+    
+    <main>
+        <div class="note yellow" id="isDraftWarning">
+            <table>
+                <colgroup>
+                    <col style="width: 100%">
+                </colgroup>
+                <tbody>
+                    <tr class="odd">
+                        <td> <strong>注意！这篇文章还只是个草稿！</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="note yellow" id="isOutdatedWarning">
+            <table>
+                <colgroup>
+                    <col style="width: 100%">
+                </colgroup>
+                <tbody>
+                    <tr class="odd">
+                        <td><strong>注意！这篇文章已经过期了！</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h1 id="定义">定义</h1>
+        <p>In order to avoid the linear cost of insertion and deletion, we need to ensure that the list is not stored contiguously.</p>
+        <p>The linked list consists of a series of structures, each of them contains the element and a pointer to a structure containing its successor.</p>
+        <p>头文件：</p>
+        <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#ifndef _LINKED_LIST_H</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define _LINKED_LIST_H</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;assert.h&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;inttypes.h&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="pp">#define element_type int64_t</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> node<span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> node <span class="op">*</span>list<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> node <span class="op">*</span>position<span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> node <span class="op">{</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  element_type element<span class="op">;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">struct</span> node <span class="op">*</span>next<span class="op">;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> node<span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> is_empty<span class="op">(</span>list<span class="op">);</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> is_last<span class="op">(</span>position<span class="op">,</span> list<span class="op">);</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>position find_element<span class="op">(</span>element_type<span class="op">,</span> list<span class="op">);</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> delete_element<span class="op">(</span>element_type<span class="op">,</span> list<span class="op">);</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>position insert_element<span class="op">(</span>element_type<span class="op">,</span> position<span class="op">);</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="dt">size_t</span> delete_list<span class="op">(</span>list<span class="op">);</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>list init_list<span class="op">(</span>element_type<span class="op">);</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span></code></pre></div>
+        <h1 id="实现">实现</h1>
+        <h2 id="检测链表是否为空">检测链表是否为空</h2>
+        <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* return 1 if list l is empty */</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> is_empty<span class="op">(</span>list l<span class="op">)</span> <span class="op">{</span> <span class="cf">return</span> l<span class="op">-&gt;</span>next <span class="op">==</span> NULL<span class="op">;</span> <span class="op">}</span></span></code></pre></div>
+        <h2 id="检验是否是最后一个元素">检验是否是最后一个元素</h2>
+        <div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* return 1 if position p is the last element in list */</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> is_last<span class="op">(</span>position p<span class="op">,</span> list l<span class="op">)</span> <span class="op">{</span> <span class="cf">return</span> p<span class="op">-&gt;</span>next <span class="op">==</span> NULL<span class="op">;</span> <span class="op">}</span></span></code></pre></div>
+        <h2 id="寻找元素">寻找元素</h2>
+        <p>寻找第一个匹配元素的位置，返回 <code>NULL</code> 如果没有找到。</p>
+        <div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>position find_element<span class="op">(</span>element_type element<span class="op">,</span> list l<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  position p <span class="op">=</span> l<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(</span>p <span class="op">!=</span> NULL <span class="op">&amp;&amp;</span> p<span class="op">-&gt;</span>element <span class="op">!=</span> element<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> p<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> p<span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+        <h2 id="删除元素">删除元素</h2>
+        <p>删除第一个匹配的元素，需要首先寻找到这个元素的前一个元素。</p>
+        <div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> delete_element<span class="op">(</span>element_type element<span class="op">,</span> list l<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  position p <span class="op">=</span> l<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(</span>p<span class="op">-&gt;</span>next <span class="op">!=</span> NULL <span class="op">&amp;&amp;</span> p<span class="op">-&gt;</span>next<span class="op">-&gt;</span>element <span class="op">!=</span> element<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> p<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(!</span>is_last<span class="op">(</span>p<span class="op">,</span> l<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    position tmp <span class="op">=</span> p<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    p<span class="op">-&gt;</span>next <span class="op">=</span> tmp<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    free<span class="op">(</span>tmp<span class="op">);</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+        <h2 id="插入元素">插入元素</h2>
+        <p>在指定的位置插入元素</p>
+        <div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>position insert_element<span class="op">(</span>element_type element<span class="op">,</span> position p<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  position tmp <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> node<span class="op">));</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  assert<span class="op">(</span>tmp <span class="op">!=</span> NULL<span class="op">);</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  tmp<span class="op">-&gt;</span>next <span class="op">=</span> p<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  tmp<span class="op">-&gt;</span>element <span class="op">=</span> element<span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  p<span class="op">-&gt;</span>next <span class="op">=</span> tmp<span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> tmp<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+        <h2 id="清空链表">清空链表</h2>
+        <div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">size_t</span> delete_list<span class="op">(</span>list l<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">size_t</span> total <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  position p<span class="op">,</span> tmp<span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  p <span class="op">=</span> l<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  l<span class="op">-&gt;</span>next <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(</span>p <span class="op">!=</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    tmp <span class="op">=</span> p<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    free<span class="op">(</span>p<span class="op">);</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> tmp<span class="op">;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    total<span class="op">++;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> total<span class="op">;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+        <h2 id="创建链表头">创建链表头</h2>
+        <div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>list init_list<span class="op">(</span>element_type element<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  position cell <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> node<span class="op">));</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  assert<span class="op">(</span>cell <span class="op">!=</span> NULL<span class="op">);</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  cell<span class="op">-&gt;</span>next <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  cell<span class="op">-&gt;</span>element <span class="op">=</span> element<span class="op">;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> cell<span class="op">;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+        <h1 id="测试例">测试例</h1>
+        <p>编译命令：<code>clang -Og linked_list.c test.c</code></p>
+        <div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;linked_list.h&quot;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> use_list<span class="op">(</span>list l<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">size_t</span> count <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(</span>l<span class="op">-&gt;</span>next <span class="op">!=</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    l <span class="op">=</span> l<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    count<span class="op">++;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  find_element<span class="op">(</span><span class="dv">114514</span><span class="op">,</span> l<span class="op">);</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  list numbers <span class="op">=</span> init_list<span class="op">(</span><span class="dv">1024</span><span class="op">);</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  position pos <span class="op">=</span> numbers<span class="op">;</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">51200000</span><span class="op">;</span> i<span class="op">++)</span> </span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    pos <span class="op">=</span> insert_element<span class="op">(</span>i <span class="op">*</span> <span class="dv">10</span><span class="op">,</span> pos<span class="op">);</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  use_list<span class="op">(</span>numbers<span class="op">);</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  delete_list<span class="op">(</span>numbers<span class="op">);</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+        <p><a href="./assets/linked_list.tar.gz">下载源码</a></p>
+
+    </main>
+
+    <!--BACK TO INDEX-->
+    <footer>
+        <hr />
+
+        <form id="comment_area">
+
+        </form>
+
+        <p class="signoff">
+
+        </p>
+    </footer>
+
+    <div id="copyright">
+        <small>Copyright&nbsp;©&nbsp;2022 izfsk</small><br />
+
+        <small>Licensed under&nbsp;
+            <a href='https://creativecommons.org/licenses/by-nc-sa/2.5/cn/'>CC BY-NC-SA 2.5 CN</a>
+        </small>
+    </div>
+    
+</body>
+
+</html>

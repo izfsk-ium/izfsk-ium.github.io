@@ -66,7 +66,7 @@
 
             <!--DATE-->
                         <span class="date before-toc">Created: <time datetime="2023-01-04">2023-01-04</time></span>
-            <span class='date before-toc'>Modified:<time>2023-01-05 11:25</time></span>
+            <span class='date before-toc'>Modified:<time>2023-01-05 14:16</time></span>
             
             <!--CATEGORY-->
                         <p class="category">Category : <code>技术</code></p>
@@ -129,7 +129,7 @@
 
         <p>最近需要用到雨课堂来在线考试，向来讨厌这种考试方式，又听说它有截屏，切屏上报等等功能，正好有认识的老师愿意把他的帐号借给我，就简单分析了一下。</p>
         <h1 id="简介">简介</h1>
-        <p>雨课堂的网页端考试系统用的是 Vue 框架 + Vuex ，存储采用自己 cdn + 阿里云 + 七牛云的混合存储，前端文件用 Webpack 打包，所有接口 API 地址都暴露在全局空间 <code>window.API</code> 中。判断浏览器环境采用 UA 字符串匹配，可以用虚假 UA 绕过，但会导致出现问题。每隔 3 分钟自动截取屏幕和摄像头上传。</p>
+        <p>雨课堂的网页端考试系统用的是 Vue 用到的框架/库有 Element UI, Sentry, MathJax, core-js, Clipboard.js ，存储采用自己 cdn + 阿里云 + 七牛云的混合存储，前端文件用 Webpack + Babel 打包，所有接口 API 地址都暴露在全局空间 <code>window.API</code> 中。判断浏览器环境采用 UA 字符串匹配，可以用虚假 UA 绕过，但会导致出现问题。每隔 3 分钟自动截取屏幕和摄像头上传。</p>
         <h1 id="各个功能分析">各个功能分析</h1>
         <h2 id="获取试卷内容">获取试卷内容</h2>
         <p>没有花里胡哨的加密，很朴实的获得试卷内容，并逐个放到 vuex store 里面，接着渲染。接口明确给出的，就是 <code>/exam_room/show_paper?exam_id=</code> ，你甚至可以重放 xhr (</p>
