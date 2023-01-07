@@ -66,7 +66,7 @@
 
             <!--DATE-->
                         <span class="date before-toc">Created: <time datetime="2023-01-06">2023-01-06</time></span>
-            <span class='date before-toc'>Modified:<time>2023-01-06 22:03</time></span>
+            <span class='date before-toc'>Modified:<time>2023-01-07 10:16</time></span>
             
             <!--CATEGORY-->
                         <p class="category">Category : <code>备忘录</code></p>
@@ -98,10 +98,15 @@
         </ul></li>
         <li><a href="#slime-相关" id="toc-slime-相关">SLIME 相关</a>
         <ul>
+        <li><a href="#slime-selector" id="toc-slime-selector">slime-selector</a></li>
+        <li><a href="#执行" id="toc-执行">执行</a></li>
+        <li><a href="#编译" id="toc-编译">编译</a></li>
+        <li><a href="#寻找定义" id="toc-寻找定义">寻找定义</a></li>
+        <li><a href="#获取文档" id="toc-获取文档">获取文档</a></li>
         <li><a href="#错误处理" id="toc-错误处理">错误处理</a></li>
         </ul></li>
         </ul></li>
-        <li><a href="#工作流" id="toc-工作流">工作流</a></li>
+        <li><a href="#其他问题" id="toc-其他问题">其他问题</a></li>
         <li><a href="#参见" id="toc-参见">参见</a></li>
         </ul>
         <a href="#page_top"><em>返回顶部</em></a>
@@ -379,11 +384,117 @@
         </table>
         <h2 id="slime-相关">SLIME 相关</h2>
         <p>默认下面的 buff 就是 slime 的 repl，你可以在这里执行 lisp 。<strong>注意，这个 lisp 不是 Emacs 内置的 EmacsLisp，而是 CommonLisp</strong>！</p>
+        <p><strong>repl 中使用 <code>C-&lt;up&gt;</code> <code>C-&lt;down&gt;</code> 来编辑历史命令！</strong></p>
+        <h3 id="slime-selector">slime-selector</h3>
+        <p>这个 slime-selector 可以快捷的在各个不同的 slime buff 之间跳转，相当于是给各个 buff 定义了快捷键。默认情况不绑定，需要手动绑定以下。</p>
+        <p>打开按照目录的 <code>config/user.el</code> 在最后加上按键绑定 <code>(global-set-key "\C-cs" 'slime-selector)</code> 之后重启即可，之后就可以使用 <code>C-c s &lt;按键&gt;</code> 来快捷到达某个 buff。</p>
+        <p>常见的选项：</p>
+        <ul>
+        <li><p>? 查看帮助</p></li>
+        <li><p>r 进入 SLIME 的 repl buff，也就是默认界面下面的 buff</p></li>
+        <li><p>d 最近一次激活的 debugger buff</p></li>
+        <li><p>l 最近一次访问的 lisp-mode 源码 buff.</p></li>
+        <li><p>s <em>slime-scratch</em> buffer，也就是默认界面上面的那个 buff</p></li>
+        </ul>
+        <p>所以，在任何时候想要去 repl 只要 <code>C-c s r</code> 即可。</p>
+        <h3 id="执行">执行</h3>
+        <table>
+        <thead>
+        <tr class="header">
+        <th style="text-align: center;">键位</th>
+        <th style="text-align: center;">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="odd">
+        <td style="text-align: center;"><code>C-x C-e</code></td>
+        <td style="text-align: center;">执行上一个语句</td>
+        </tr>
+        </tbody>
+        </table>
+        <h3 id="编译">编译</h3>
+        <table>
+        <thead>
+        <tr class="header">
+        <th style="text-align: center;">键位</th>
+        <th style="text-align: center;">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="odd">
+        <td style="text-align: center;"><code>C-c C-c</code></td>
+        <td style="text-align: center;">编译函数，被编译的对象会被高亮显示</td>
+        </tr>
+        <tr class="even">
+        <td style="text-align: center;"><code>C-c C-l</code></td>
+        <td style="text-align: center;">加载文件</td>
+        </tr>
+        <tr class="odd">
+        <td style="text-align: center;"><code>C-c C-k</code></td>
+        <td style="text-align: center;">加载并编译文件</td>
+        </tr>
+        </tbody>
+        </table>
+        <h3 id="寻找定义">寻找定义</h3>
+        <table>
+        <thead>
+        <tr class="header">
+        <th style="text-align: center;">键位</th>
+        <th style="text-align: center;">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="odd">
+        <td style="text-align: center;"><code>M-.</code></td>
+        <td style="text-align: center;">跳转到目前光标所在位置的定义</td>
+        </tr>
+        <tr class="even">
+        <td style="text-align: center;"><code>M-,</code></td>
+        <td style="text-align: center;">返回寻找时的位置</td>
+        </tr>
+        <tr class="odd">
+        <td style="text-align: center;"><code>C-x 4 .</code></td>
+        <td style="text-align: center;">打开新的窗口编辑目标定义</td>
+        </tr>
+        </tbody>
+        </table>
+        <h3 id="获取文档">获取文档</h3>
+        <figure>
+        <img src="./assets/help.webp" alt="自动帮助" />
+        <figcaption aria-hidden="true">自动帮助</figcaption>
+        </figure>
+        <table>
+        <thead>
+        <tr class="header">
+        <th style="text-align: center;">键位</th>
+        <th style="text-align: center;">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="odd">
+        <td style="text-align: center;"><code>C-c C-d d</code></td>
+        <td style="text-align: center;">描述光标处的定义</td>
+        </tr>
+        <tr class="even">
+        <td style="text-align: center;"><code>C-c C-d A</code></td>
+        <td style="text-align: center;">slime-apropos</td>
+        </tr>
+        </tbody>
+        </table>
         <h3 id="错误处理">错误处理</h3>
         <p><img src="./assets/slbd.png" /></p>
         <p>有时候你的 Lisp 代码出错了，Slime 会打开一个临时 buff 来处理出错，你可以直接按 <code>q</code> 关闭这个 buff。</p>
-        <h1 id="工作流">工作流</h1>
+        <h1 id="其他问题">其他问题</h1>
+        <p>中文字体似乎很是难看，我尝试了这样配置：</p>
+        <pre class="elisp"><code>(set-fontset-font t &#39;(#x2ff0 . #x9ffc) (font-spec :family &quot;Sarasa Mono Slab SC&quot; :size 18 :weight &#39;bold))</code></pre>
+        <p>但是无效:-(</p>
+        <p><img src="./assets/bad.png" /></p>
         <h1 id="参见">参见</h1>
+        <ul>
+        <li><a href="https://mirrors.sjtug.sjtu.edu.cn/emacs-elpa/nongnu-devel/doc/slime.html">SLIME User Manual, version 2.24</a></li>
+        <li><a href="https://scc.ustc.edu.cn/zlsc/czxt/200910/W020100308601210472906.pdf">Emacs 使用手册</a></li>
+        <li><a href="https://portacle.github.io">Portacle 网站</a></li>
+        </ul>
 
     </main>
 
