@@ -98,7 +98,8 @@ p:hover {
 
 code {
     color: white;
-    background: black
+    background: black;
+    font-family: 'Fira Code', monospace;
 }
 
 div.highlighter-rouge code {
@@ -151,7 +152,7 @@ li:not(.l1), p {
 }
 
 span {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Fira Code', monospace;
     font-size: 16px;
 }
 
