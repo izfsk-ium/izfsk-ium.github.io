@@ -19,6 +19,18 @@
     <link rel="stylesheet" href="/res/index.css" />
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap');
+
+        @font-face {
+            font-family: 'xlwk';
+            src: url("/articles/HelloWorld/assets/CJgaodeguomh.woff2") format('woff2');
+        }
+
+        @font-face {
+            font-family: 'bbsdhan';
+            src: url("/articles/HelloWorld/assets/TW-Sung-98_1.woff2") format('woff2');
+        }
+
         @font-face {
             font-family: 'Noto Serif SC';
             font-style: normal;
@@ -36,6 +48,12 @@
             font-family: 'Noto Serif SC', serif !important;
         }
 
+        h2 {
+            font-family: 'Noto Serif SC', serif !important;
+            font-weight: bolder;
+            margin-top: 1rem !important;
+        }
+
         span {
             color: transparent;
             font-size: 12px;
@@ -45,9 +63,7 @@
             color: black;
         }
     </style>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap');
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
 </head>
 
 <body a="auto">
@@ -63,11 +79,9 @@
                     <p>
                         你好。我是izfsk。
                     </p>
+                    <h2>关于我</h2>
                     <p>
-                        我的常用名字有 izfsk, 沙丁鱼骑士。
-                    </p>
-                    <p>
-                        <b>学历：</b>本科在读，汉语言文学专业<br />
+                        <b>学历：</b>二流院校本科在读，汉语言文学专业<br />
                     </p>
                     <p>
                         <b>编程语言(按照熟练度)：</b>Python，Javascript & Typescript，Java，C，C++<br />
@@ -84,27 +98,37 @@
                     </p>
                     <p>联系方式：</p>
                     <li><b>Github：</b><a hre='https://github.com/izfsk-ium' target="_blank">izfsk-ium</a></li>
-                    <li><b>E-Mail：</b><a href='mailto:izfsk@outlook.com'>izfsk@outlook.com</a></li>
+                    <li><b>E-Mail：</b><a href='mailto:izfsk@outlook.com'>izfsk@outlook.com</a>，<a
+                            href="/gpg.asc">GPG</a></li>
                 </ul>
                 <hr />
                 <ul>
-                    <p>关于博客：</p>
+                    <h2>关于博客：</h2>
                     <p>
                         <b>技术架构：</b>Pandoc + <a href='https://github.com/riggraz/no-style-please'
                             target="_blank">魔改主题</a> + <a href='https://jez.io/pandoc-markdown-css-theme/'
                             target="_blank">HTML 模板</a> +
                         Github Pages，Shell + Python 脚本驱动，纯 CSS 和 HTML，无 Javascript，所以也没有评论系统。<br />
-                        <b>字体：</b>Noto Serif SC，FiraCode，BabelStone Han，EB Garamond，LXGW WenKai Screen，中文字体使用 font-spider 动态生成<br />
+                        <b>字体：</b>
+                        <a href='https://github.com/googlefonts/noto-cjk' target="_blank">Noto Serif SC</a>，
+                        <a href='https://github.com/tonsky/FiraCode' style="font-family: 'Fira Code';">FiraCode</a>，
+                        <a href='https://www.babelstone.co.uk/Fonts/Han.html' target="_blank"
+                            style="font-family: 'bbsdhan';">巴贝斯通汉</a>，
+                        <a href='https://github.com/georgd/EB-Garamond' target="_blank"
+                            style="font-family: 'eb';">EB-Garamond</a>，
+                        <a href='https://github.com/lxgw/LxgwWenKai-Screen/releases' target="_blank"
+                            style="font-family: 'xlwk';">霞鹜文楷屏幕阅读版</a>
+                        ，中文字体使用 font-spider 动态生成<br />
                         <b>光标：</b>Breeze Cursors<br />
                         <b>背景图片：</b><a href="https://bgjar.com" target="_blank">bgjar</a>
                     </p>
                     <p>
-                        若无特殊注明，所有内容以 署名-非商业性使用-相同方式共享 2.5 中国大陆 发布。
+                        若无特殊注明，所有内容以署名-非商业性使用-相同方式共享 2.5 协议发布。
                     </p>
                 </ul>
                 <hr />
                 <ul>
-                    <p style="font-style: italic;">
+                    <p style="font-style: italic;font-size: 16px;">
                         这是一个简洁的版本，如果你愿意看包括个人经历等的更复杂的版本，可以看<a href='/specs/about.html'>这个</a>。
                     </p>
                 </ul>
