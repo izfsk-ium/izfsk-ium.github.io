@@ -66,7 +66,7 @@
 
             <!--DATE-->
                         <span class="date before-toc">Created: <time datetime="2023-01-06">2023-01-06</time></span>
-            <span class='date before-toc'>Modified:<time>2023-01-07 10:16</time></span>
+            <span class='date before-toc'>Modified:<time>2023-01-09 11:08</time></span>
             
             <!--CATEGORY-->
                         <p class="category">Category : <code>备忘录</code></p>
@@ -263,12 +263,12 @@
         <li><p>对于删除掉的保存在剪贴环中的内容，使用 <code>C-y</code> 取得。</p></li>
         <li><p>使用以下操作进行任意选区的复制粘贴：</p>
         <ol type="1">
-        <li><code>C-Shift-2</code> 进入 <code>Mark</code> 模式；</li>
-        <li>移动光标选取需要的内容；</li>
-        <li><code>M-w</code> 复制到剪贴环；</li>
-        <li><code>C-y</code> 粘贴。</li>
-        </ol>
+        <li><p><code>C-Shift-2</code> 进入 <code>Mark</code> 模式；</p></li>
+        <li><p>移动光标选取需要的内容；</p></li>
+        <li><p><code>M-w</code> 复制到剪贴环；</p></li>
+        <li><p><code>C-y</code> 粘贴。</p>
         <p>也可以直接使用鼠标选取区域。</p></li>
+        </ol></li>
         </ul>
         <h3 id="在-buff-之间切换">在 buff 之间切换</h3>
         <p>可以把 buff 理解成是标签页，一个 Emacs 可以打开很多 buff，你需要在不同的 buff 之间辗转挪移。</p>
@@ -486,7 +486,8 @@
         <p>有时候你的 Lisp 代码出错了，Slime 会打开一个临时 buff 来处理出错，你可以直接按 <code>q</code> 关闭这个 buff。</p>
         <h1 id="其他问题">其他问题</h1>
         <p>中文字体似乎很是难看，我尝试了这样配置：</p>
-        <pre class="elisp"><code>(set-fontset-font t &#39;(#x2ff0 . #x9ffc) (font-spec :family &quot;Sarasa Mono Slab SC&quot; :size 18 :weight &#39;bold))</code></pre>
+        <pre class="elisp"><code>(set-fontset-font t &#39;(#x2ff0 . #x9ffc) 
+    (font-spec :family &quot;Sarasa Mono Slab SC&quot; :size 18 :weight &#39;bold))</code></pre>
         <p>但是无效:-(</p>
         <p><img src="./assets/bad.png" /></p>
         <h1 id="参见">参见</h1>

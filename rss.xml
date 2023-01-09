@@ -6,7 +6,7 @@
         <description>Recent content on izfsk's blog</description>
         <generator>bash scripts, python scripts and love</generator>
         <copyright>Licensed under CC BY-NC-SA 2.5 CN</copyright>
-        <lastBuildDate>2023-01-07 16:45:34.005588</lastBuildDate>
+        <lastBuildDate>2023-01-09 14:42:06.016683</lastBuildDate>
         <atom:link href="https://izfsk-ium.github.io/rss.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>Kotlin笔记(1)</title>
@@ -104,6 +104,12 @@
     <pubDate>2023-01-06 21:08:30+00:00</pubDate>
     <guid>https://izfsk-ium.github.io/articles/Portacle的使用/index.html</guid>
     <description> 安装配置; 基本操作; Emacs 相关; 光标操作; 撤销重做; 删除; 复制粘贴; 在 buff 之间切换; 文件操作; 搜索和替换; SLIME 相关; slime-selector; 执行; 编译; 寻找定义; 获取文档; 错误处理; 其他问题; 参见</description>
+</item><item>
+    <title>Python协程的使用</title>
+    <link>https://izfsk-ium.github.io/articles/Python协程的使用/index.html</link>
+    <pubDate>2023-01-09 10:55:59+00:00</pubDate>
+    <guid>https://izfsk-ium.github.io/articles/Python协程的使用/index.html</guid>
+    <description> 基本行为; 传出数据; 0，1，2; 接收数据; 只用来控制流程; yield from; 自动初始化; 应用; 分发器</description>
 </item>
     </channel>
 </rss>
