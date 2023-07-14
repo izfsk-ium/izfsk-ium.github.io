@@ -13,13 +13,16 @@
       <link>http://blog.izfsk.top/rss.xml</link>
     </image>
     <language>zh_CN</language>
-    <lastBuildDate>Fri, 14 Jul 2023 04:00:41 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 14 Jul 2023 09:17:45 +0000</lastBuildDate>
     <item>
       <title>模版功能简介</title>
       <link>https://blog.izfsk.top/articles/readme.html</link>
       <description>模版功能简介</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;模版功能简介&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -409,7 +412,7 @@ And so is this:
 &lt;/div&gt;
 &lt;div class="wide full-width left-align-caption"&gt;
 &lt;figure&gt;
-&lt;img alt="Upper Crystal Springs Reservoir, near Belmont, CA" src="https://kric.cc/img/Untitled.png"/&gt;
+&lt;img alt="Upper Crystal Springs Reservoir, near Belmont, CA" src="https://docs.github.com/assets/cb-22366/mw-1440/images/help/discussions/public-repo-settings.webp"/&gt;
 &lt;figcaption aria-hidden="true"&gt;Upper Crystal Springs Reservoir, near Belmont, CA&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;/div&gt;
@@ -571,7 +574,8 @@ And so is this:
 &lt;li&gt;&lt;strong&gt;第二个参考链接&lt;/strong&gt;：&lt;a href="www.example_2.com" target="_blank"&gt;www.example_2.com&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -581,6 +585,34 @@ And so is this:
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">87b181b2-202e-11ee-b1e5-84a93896bec6</guid>
       <pubDate>Tue, 01 Jan 1980 00:00:00 +0800</pubDate>
@@ -591,6 +623,9 @@ And so is this:
       <description>经典数据结构・单向链表</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;经典数据结构・单向链表&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -767,7 +802,8 @@ And so is this:
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -777,6 +813,34 @@ And so is this:
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">5d2a083c-a623-460a-9cfc-77666376e598</guid>
       <pubDate>Sun, 11 Jul 2021 00:00:00 +0800</pubDate>
@@ -787,6 +851,9 @@ And so is this:
       <description>交换类排序</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;交换类排序&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -978,7 +1045,8 @@ And so is this:
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -988,6 +1056,34 @@ And so is this:
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">3fff20fc-0bcc-497f-a3e2-79c5ca797426</guid>
       <pubDate>Wed, 28 Jul 2021 00:00:00 +0800</pubDate>
@@ -998,6 +1094,9 @@ And so is this:
       <description>Lenovo Legion R7000 安装 openSUSE</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;Lenovo Legion R7000 安装 openSUSE&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -1163,7 +1262,8 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -1173,6 +1273,34 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">27229a58-7f89-47b6-b217-54f35d638fb1</guid>
       <pubDate>Wed, 13 Jul 2022 00:00:00 +0800</pubDate>
@@ -1183,6 +1311,9 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
       <description>CSS_Tooltip技巧</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;CSS_Tooltip技巧&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -1264,7 +1395,8 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -1274,6 +1406,34 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">9a1f2f73-527f-40cc-b3ad-3ca0d7380bf9</guid>
       <pubDate>Mon, 14 Nov 2022 00:00:00 +0800</pubDate>
@@ -1284,6 +1444,9 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
       <description>仿Github热力图设计</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;仿Github热力图设计&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -1527,7 +1690,8 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -1537,6 +1701,34 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">7f47edb7-e725-491a-b870-567ba2c80029</guid>
       <pubDate>Wed, 23 Nov 2022 00:00:00 +0800</pubDate>
@@ -1547,6 +1739,9 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
       <description>Kotlin笔记(1)</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;Kotlin笔记(1)&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -1832,7 +2027,8 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -1842,6 +2038,34 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">49154284-8978-4e9b-81d9-e5cfa757dcea</guid>
       <pubDate>Thu, 24 Nov 2022 00:00:00 +0800</pubDate>
@@ -1852,6 +2076,9 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
       <description>React+Redux简单使用</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;React+Redux简单使用&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -2101,7 +2328,8 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -2111,6 +2339,34 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">8535e383-e302-48c1-849a-d0c4447265f4</guid>
       <pubDate>Sun, 04 Dec 2022 00:00:00 +0800</pubDate>
@@ -2121,6 +2377,9 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
       <description>Python的more-itertools模块</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;Python的more-itertools模块&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -2601,7 +2860,8 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -2611,6 +2871,34 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">426704c4-a51f-470c-a9c9-f3e3ecc43bfc</guid>
       <pubDate>Thu, 08 Dec 2022 00:00:00 +0800</pubDate>
@@ -2621,6 +2909,9 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
       <description>LRU-Cache与functools</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;LRU-Cache与functools&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -2927,7 +3218,8 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -2937,6 +3229,34 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">809dd759-e6d9-4bb0-8e9b-31e48c7a9366</guid>
       <pubDate>Tue, 13 Dec 2022 00:00:00 +0800</pubDate>
@@ -2947,6 +3267,9 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
       <description>我的2022</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;我的2022&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -3022,7 +3345,8 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -3032,6 +3356,34 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">0b76294d-1212-48fa-98d0-f7fda869006e</guid>
       <pubDate>Wed, 14 Dec 2022 00:00:00 +0800</pubDate>
@@ -3042,6 +3394,9 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
       <description>scrcpy+sndcpy+kdeconnect多屏协作</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;scrcpy+sndcpy+kdeconnect多屏协作&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -3270,7 +3625,8 @@ sudo iptables -A OUTPUT -o &amp;lt;yourinterface&amp;gt; -p tcp --sport 1714:176
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -3280,6 +3636,34 @@ sudo iptables -A OUTPUT -o &amp;lt;yourinterface&amp;gt; -p tcp --sport 1714:176
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">92a3c86b-baca-4a5d-bf87-e4b091adfd74</guid>
       <pubDate>Mon, 19 Dec 2022 00:00:00 +0800</pubDate>
@@ -3290,6 +3674,9 @@ sudo iptables -A OUTPUT -o &amp;lt;yourinterface&amp;gt; -p tcp --sport 1714:176
       <description>Rclone挂载Office365教育版</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;Rclone挂载Office365教育版&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -3399,7 +3786,8 @@ Options:
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -3409,6 +3797,34 @@ Options:
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">e2e757b5-b9d8-4613-92b4-1bdd12738583</guid>
       <pubDate>Tue, 20 Dec 2022 00:00:00 +0800</pubDate>
@@ -3419,6 +3835,9 @@ Options:
       <description>ELF文件结构解析</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;ELF文件结构解析&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -3531,7 +3950,8 @@ Options:
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -3541,6 +3961,34 @@ Options:
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">5b68c30c-b953-4bee-a7e9-51aa7f2a30e8</guid>
       <pubDate>Sun, 25 Dec 2022 00:00:00 +0800</pubDate>
@@ -3551,6 +3999,9 @@ Options:
       <description>Firefox启动速度缓慢的排查</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;Firefox启动速度缓慢的排查&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -3582,7 +4033,8 @@ Options:
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -3592,6 +4044,34 @@ Options:
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">1e64ae1f-5c22-43eb-a3f1-6a5a0162052b</guid>
       <pubDate>Mon, 26 Dec 2022 00:00:00 +0800</pubDate>
@@ -3602,6 +4082,9 @@ Options:
       <description>Chrome文件伪装摄像头</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;Chrome文件伪装摄像头&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -3682,7 +4165,8 @@ Options:
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -3692,6 +4176,34 @@ Options:
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">6f21a5a7-d7da-48e5-8afc-54d5644d73bf</guid>
       <pubDate>Sat, 31 Dec 2022 00:00:00 +0800</pubDate>
@@ -3702,6 +4214,9 @@ Options:
       <description>雨课堂考试系统分析</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;雨课堂考试系统分析&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -3878,7 +4393,8 @@ Options:
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -3888,6 +4404,34 @@ Options:
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">4ca67c26-00b4-4c79-bbac-65f9a7a434b5</guid>
       <pubDate>Wed, 04 Jan 2023 00:00:00 +0800</pubDate>
@@ -3898,6 +4442,9 @@ Options:
       <description>Portacle的使用</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;Portacle的使用&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -4327,7 +4874,8 @@ Options:
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -4337,6 +4885,34 @@ Options:
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">9886aba7-4b9c-4070-9ce3-1e30734b757b</guid>
       <pubDate>Fri, 06 Jan 2023 00:00:00 +0800</pubDate>
@@ -4347,6 +4923,9 @@ Options:
       <description>Python协程的使用</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;Python协程的使用&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -4591,7 +5170,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -4601,6 +5181,34 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">4798069b-f6d7-48df-ab8c-a64c0da7739d</guid>
       <pubDate>Mon, 09 Jan 2023 00:00:00 +0800</pubDate>
@@ -4611,6 +5219,9 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       <description>CommonLisp基础-基本概念</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;CommonLisp基础-基本概念&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -4904,7 +5515,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -4914,6 +5526,34 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">f7127a84-86a8-41dc-8fdc-893cd1118438</guid>
       <pubDate>Wed, 18 Jan 2023 00:00:00 +0800</pubDate>
@@ -4924,6 +5564,9 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       <description>CommonLisp基础-分支和循环</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;CommonLisp基础-分支和循环&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -5110,7 +5753,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -5120,6 +5764,34 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">41a43b0c-279b-438f-9ee6-dbe98965ce46</guid>
       <pubDate>Thu, 19 Jan 2023 00:00:00 +0800</pubDate>
@@ -5130,6 +5802,9 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       <description>CommonLisp基础-常见操作</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;CommonLisp基础-常见操作&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -5399,7 +6074,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -5409,6 +6085,34 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">704f2611-4448-4f94-a4c1-7b797aad7a43</guid>
       <pubDate>Fri, 20 Jan 2023 00:00:00 +0800</pubDate>
@@ -5419,6 +6123,9 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       <description>旧式书信整理1</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;旧式书信整理1&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -5801,7 +6508,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -5811,6 +6519,34 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">3b4b4117-f9bc-4a49-937b-5fefbfc12f9c</guid>
       <pubDate>Wed, 25 Jan 2023 00:00:00 +0800</pubDate>
@@ -5821,6 +6557,9 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       <description>旧式书信整理2</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;旧式书信整理2&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -5997,7 +6736,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -6007,6 +6747,34 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">ec07d825-9c76-442d-85f5-7deaf5ab889a</guid>
       <pubDate>Sat, 28 Jan 2023 00:00:00 +0800</pubDate>
@@ -6017,6 +6785,9 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       <description>使用 TeXmacs 排版作业</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;使用 TeXmacs 排版作业&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -6162,7 +6933,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -6172,6 +6944,34 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">ac2beaa1-e98c-4108-9d0c-06f035cbaad3</guid>
       <pubDate>Tue, 31 Jan 2023 00:00:00 +0800</pubDate>
@@ -6182,6 +6982,9 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       <description>Svelte 基础速查</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;Svelte 基础速查&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -6546,7 +7349,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -6556,6 +7360,34 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">ad498778-ccfb-4be7-97af-bd60ac5939f9</guid>
       <pubDate>Thu, 02 Feb 2023 00:00:00 +0800</pubDate>
@@ -6566,6 +7398,9 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       <description>CROS，Cookie与hapi</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;CROS，Cookie与hapi&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -6703,7 +7538,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -6713,6 +7549,34 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">86894309-f881-4d14-b82f-6f3e755f2866</guid>
       <pubDate>Tue, 07 Feb 2023 00:00:00 +0800</pubDate>
@@ -6723,6 +7587,9 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       <description>为什么 OpenAI 并不 Open</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;为什么 OpenAI 并不 Open&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -6744,7 +7611,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -6754,6 +7622,34 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">4f81285d-6c9a-46af-a72b-af1bcb736623</guid>
       <pubDate>Mon, 13 Feb 2023 00:00:00 +0800</pubDate>
@@ -6764,6 +7660,9 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       <description>GNU・Parallel使用例</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;GNU・Parallel使用例&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -7044,7 +7943,8 @@ server3.example.com
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -7054,6 +7954,34 @@ server3.example.com
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">23d00329-9a40-41dc-96e4-673f89a6d1b6</guid>
       <pubDate>Sun, 19 Feb 2023 00:00:00 +0800</pubDate>
@@ -7064,6 +7992,9 @@ server3.example.com
       <description>博客迁移从域名到部署</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;博客迁移从域名到部署&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -7151,7 +8082,8 @@ server3.example.com
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -7161,6 +8093,34 @@ server3.example.com
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">3dcffc06-560d-4ab2-9c64-62cf2b24682a</guid>
       <pubDate>Sun, 26 Feb 2023 00:00:00 +0800</pubDate>
@@ -7171,6 +8131,9 @@ server3.example.com
       <description>使用fetch下载时获取进度信息</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;使用fetch下载时获取进度信息&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -7336,7 +8299,8 @@ server3.example.com
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -7346,6 +8310,34 @@ server3.example.com
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">3f650bd0-bdbb-4ac4-a2a6-5c62da3749dd</guid>
       <pubDate>Thu, 02 Mar 2023 00:00:00 +0800</pubDate>
@@ -7356,6 +8348,9 @@ server3.example.com
       <description>编译安装ApacheServer</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;编译安装ApacheServer&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -7467,7 +8462,8 @@ Apache2 ---|
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -7477,6 +8473,34 @@ Apache2 ---|
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">1a6ce92c-d5be-4fdb-a324-fa03d0dd6e93</guid>
       <pubDate>Sat, 04 Mar 2023 00:00:00 +0800</pubDate>
@@ -7487,6 +8511,9 @@ Apache2 ---|
       <description>给Apache2安装ModSecurity</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;给Apache2安装ModSecurity&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -7527,7 +8554,8 @@ modsecurity on&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -7537,6 +8565,34 @@ modsecurity on&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">fa8435d4-54a4-4d3a-bb65-d26f913e009e</guid>
       <pubDate>Fri, 10 Mar 2023 00:00:00 +0800</pubDate>
@@ -7547,6 +8603,9 @@ modsecurity on&lt;/code&gt;&lt;/pre&gt;
       <description>Adalang初探</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;Adalang初探&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -7842,7 +8901,8 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -7852,6 +8912,34 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">8f47beda-8cb7-4835-a463-a60e6ac2dcd5</guid>
       <pubDate>Fri, 24 Mar 2023 00:00:00 +0800</pubDate>
@@ -7862,6 +8950,9 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
       <description>当用户爬行的时候</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;当用户爬行的时候&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -7883,7 +8974,8 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -7893,6 +8985,34 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">dc6740ad-5546-451a-a74a-c3721cdd76ca</guid>
       <pubDate>Thu, 06 Apr 2023 00:00:00 +0800</pubDate>
@@ -7903,6 +9023,9 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
       <description>给Nautilus添加自定义菜单项</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;给Nautilus添加自定义菜单项&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -7975,7 +9098,8 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -7985,6 +9109,34 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">de5bb46d-a069-4de8-b61b-18cfe5e38fc7</guid>
       <pubDate>Thu, 13 Apr 2023 00:00:00 +0800</pubDate>
@@ -7995,6 +9147,9 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
       <description>关于光线追踪,颜色和反射</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;关于光线追踪,颜色和反射&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -8149,7 +9304,8 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -8159,6 +9315,34 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">5ef70152-7905-48bc-b22e-51a82d1956d6</guid>
       <pubDate>Thu, 20 Apr 2023 00:00:00 +0800</pubDate>
@@ -8169,6 +9353,9 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
       <description>刚好够用的线性代数基础</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;刚好够用的线性代数基础&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -8526,7 +9713,8 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -8536,6 +9724,34 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">45479e53-d727-48f5-8946-657556b4110c</guid>
       <pubDate>Fri, 21 Apr 2023 00:00:00 +0800</pubDate>
@@ -8546,6 +9762,9 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
       <description>基础光线追踪</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;基础光线追踪&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -8668,7 +9887,8 @@ For each pixel on the canvas
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -8678,6 +9898,34 @@ For each pixel on the canvas
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">3d0d8a7b-1966-435e-98dd-b4c59ffd581f</guid>
       <pubDate>Tue, 25 Apr 2023 00:00:00 +0800</pubDate>
@@ -8688,6 +9936,9 @@ For each pixel on the canvas
       <description>Getx速查表</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;Getx速查表&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -8971,7 +10222,8 @@ For each pixel on the canvas
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -8981,6 +10233,34 @@ For each pixel on the canvas
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">7f58b9f5-d420-4722-8d41-6191a9453397</guid>
       <pubDate>Thu, 01 Jun 2023 00:00:00 +0800</pubDate>
@@ -8991,6 +10271,9 @@ For each pixel on the canvas
       <description>使用 chntpw 修改 Windows 密码</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;使用 chntpw 修改 Windows 密码&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -9098,7 +10381,8 @@ For each pixel on the canvas
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -9108,6 +10392,34 @@ For each pixel on the canvas
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">17e1a6a4-4eed-4a8e-94ae-5ed078e75530</guid>
       <pubDate>Thu, 22 Jun 2023 00:00:00 +0800</pubDate>
@@ -9118,6 +10430,9 @@ For each pixel on the canvas
       <description>v2ray 结合 cgproxy 全局代理方案</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;v2ray 结合 cgproxy 全局代理方案&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -9335,7 +10650,8 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -9345,6 +10661,34 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">d335a295-647a-4f5e-b15b-140178c18782</guid>
       <pubDate>Sun, 25 Jun 2023 00:00:00 +0800</pubDate>
@@ -9355,6 +10699,9 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
       <description>给 flutter 设置代理</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;给 flutter 设置代理&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -9426,7 +10773,8 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -9436,6 +10784,34 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">79ef49e0-db49-4547-bfbf-78b6a511e91d</guid>
       <pubDate>Wed, 28 Jun 2023 00:00:00 +0800</pubDate>
@@ -9446,6 +10822,9 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
       <description>使用 systemd 进行资源分配</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
 &lt;header&gt;
 &lt;h1 class="title"&gt;使用 systemd 进行资源分配&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
@@ -9711,7 +11090,8 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;!--%%REF%%--&gt;
 &lt;br/&gt;
-&lt;div data-chirpy-comment="true"&gt;&lt;/div&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
 &lt;/main&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
@@ -9721,6 +11101,34 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">03566ccc-fb0d-4ff6-b67f-5e0a53204d4b</guid>
       <pubDate>Sat, 01 Jul 2023 00:00:00 +0800</pubDate>

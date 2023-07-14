@@ -34,7 +34,7 @@
        url('/resources/fonts/subsets/FT87b181b2-202e-11ee-b1e5-84a93896bec6.ttf') format('truetype');
 }
 </style>
-  
+
 
   <script src="/resources/js/article.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
@@ -43,6 +43,9 @@
 
 <body>
   <progress id="content_progress" value="0"></progress>
+  <button id="back-to-top">
+    回页顶
+  </button>
 
   
   <header>
@@ -446,7 +449,7 @@ And so is this:
     </div>
     <div class="wide full-width left-align-caption">
     <figure>
-    <img src="https://kric.cc/img/Untitled.png" alt="Upper Crystal Springs Reservoir, near Belmont, CA" />
+    <img src="https://docs.github.com/assets/cb-22366/mw-1440/images/help/discussions/public-repo-settings.webp" alt="Upper Crystal Springs Reservoir, near Belmont, CA" />
     <figcaption aria-hidden="true">Upper Crystal Springs Reservoir, near Belmont, CA</figcaption>
     </figure>
     </div>
@@ -612,8 +615,12 @@ And so is this:
     
 
 
-    <br/>
-    <div data-chirpy-comment="true"></div>
+    <br />
+    <script src="https://giscus.app/client.js" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw"
+      data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-mapping="title" data-strict="0"
+      data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme"
+      data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async>
+      </script>
   </main>
 
 
@@ -627,6 +634,35 @@ And so is this:
     </p>
   </footer>
 
-  </body>
+  
+  <style>
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  </style>
+  <script>
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset > 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
 
 </html>

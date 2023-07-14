@@ -437,7 +437,7 @@ examples:
 :::
 
 :::{.wide .full-width .left-align-caption}
-![Upper Crystal Springs Reservoir, near Belmont, CA](https://kric.cc/img/Untitled.png)
+![Upper Crystal Springs Reservoir, near Belmont, CA](https://docs.github.com/assets/cb-22366/mw-1440/images/help/discussions/public-repo-settings.webp)
 :::
 
 <figure class="wide extra-wide">

@@ -1,5 +1,5 @@
-@import url("/resources/css/index/dark.css") (prefers-color-scheme: dark);
-@import url("/resources/css/index/light.css") (prefers-color-scheme: light);
+/* always use dark theme */
+@import url("/resources/css/index/dark.css");
 
 /* smartphones, iPhone, portrait 480x320 phones */
 @import url("/resources/css/index/phone.css") only screen and (max-width: 500px);
@@ -23,6 +23,7 @@
 
 /* Common */
 body {
+    background-image: url("/resources/img/bg.webp");
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;

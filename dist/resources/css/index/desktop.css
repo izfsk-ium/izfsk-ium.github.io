@@ -26,15 +26,3 @@ h2:hover {
 #hello {
     font-size: 22px;
 }
-
-@media(prefers-color-scheme: dark) {
-    body {
-        background-image: url("/resources/img/bg.webp");
-    }
-}
-
-@media(prefers-color-scheme: light) {
-    body {
-        background-image: url("/resources/img/bg2.webp");
-    }
-}
