@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2023-01-19" />
+        <title>CommonLisp基础-分支和循环</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT41a43b0c-279b-438f-9ee6-dbe98965ce46.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT41a43b0c-279b-438f-9ee6-dbe98965ce46.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">CommonLisp基础-分支和循环</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#学习">学习</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#分支" id="toc-分支">分支</a>
+    <ul>
+    <li><a href="#if-when-和-cond" id="toc-if-when-和-cond"><code>if</code>, <code>when</code>, 和 <code>cond</code></a></li>
+    <li><a href="#cond" id="toc-cond"><code>cond</code></a></li>
+    </ul></li>
+    <li><a href="#循环" id="toc-循环">循环</a>
+    <ul>
+    <li><a href="#dolist-和-dotimes" id="toc-dolist-和-dotimes"><code>dolist</code> 和 <code>dotimes</code></a></li>
+    <li><a href="#do" id="toc-do"><code>do</code></a></li>
+    <li><a href="#loop" id="toc-loop"><code>loop</code></a></li>
+    </ul></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <h1 id="分支">分支</h1>
+    <h2 id="if-when-和-cond"><code>if</code>, <code>when</code>, 和 <code>cond</code></h2>
+    <p><code>if</code> 的作用和效果和一般常识一致，其形式为 <code>(if condition then-form [else-form])</code>，使用 <code>and</code> <code>not</code> <code>or</code> 组合判断：</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> guess-name </span>(name)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">if</span> (<span class="kw">equalp</span> name <span class="st">&quot;izfsk&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>      (<span class="kw">print</span> <span class="st">&quot;Yes!&quot;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      (<span class="kw">print</span> <span class="st">&quot;No!&quot;</span>)))</span></code></pre></div>
+    <p>但是，<code>if</code> 只能执行一个表达式，所以如果需要组合执行很多任务，需要使用 <code>progn</code> 代码块：</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">if</span> (is-target thing)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">progn</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        (do-something)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        (do-another thing)))</span></code></pre></div>
+    <p>这个逻辑可以使用 <code>when</code> 宏重写：</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">when</span> (is-target thing)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    (do-something)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    (do-another thing))</span></code></pre></div>
+    <p><code>unless</code> 是 <code>when</code> 的反过来版本。两者是建立在 <code>if</code> 上的宏。而 <code>if</code> 是<strong>特殊操作符</strong>。</p>
+    <h2 id="cond"><code>cond</code></h2>
+    <p>类似于 C 中的 <code>switch...case...</code> 但是没有 <code>fallthrouth</code> 也不限制 int 类型：</p>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">cond</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    (test-1 form*)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    (test-N form*))</span></code></pre></div>
+    <h1 id="循环">循环</h1>
+    <p><code>lisp</code> 的循环可以很复杂，所有的循环操作宏都建立在底层的 <code>goto</code> 之上。</p>
+    <h2 id="dolist-和-dotimes"><code>dolist</code> 和 <code>dotimes</code></h2>
+    <ul>
+    <li><p><code>dotimes</code> 类似 <code>for (int i=0;i&lt;100;i++)</code> 这样：</p>
+    <div class="sourceCode" id="cb5"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> multiples-of-3-or-5 </span>()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">let</span> ((all-sum <span class="dv">0</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">dotimes</span> (i <span class="dv">1000</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">if</span> (<span class="kw">or</span> (<span class="op">=</span> (<span class="kw">rem</span> i <span class="dv">3</span>) <span class="dv">0</span>) (<span class="op">=</span> (<span class="kw">rem</span> i <span class="dv">5</span>) <span class="dv">0</span>))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        (<span class="kw">setf</span> all-sum (<span class="op">+</span> all-sum i))))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">print</span> all-sum)))</span></code></pre></div></li>
+    <li><p><code>dolist</code> 则类似 <code>for i in elements:</code> 这样：</p>
+    <div class="sourceCode" id="cb6"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a> (<span class="kw">dolist</span> (x &#39;(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)) (<span class="kw">print</span> x))</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a> <span class="co">; 使用 return 中断：</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a> (<span class="kw">dolist</span> (x &#39;(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)) (<span class="kw">print</span> x) (<span class="kw">if</span> (<span class="kw">evenp</span> x) (<span class="kw">return</span>)))</span></code></pre></div></li>
+    </ul>
+    <h2 id="do"><code>do</code></h2>
+    <p>最基本的迭代操作符是 <code>do</code>，它可以同时迭代多个值，其基本形式如下：</p>
+    <div class="sourceCode" id="cb7"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">do</span> (variable-definition*)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    (end-test-form result-form*)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    statement*)</span></code></pre></div>
+    <p>这个 <code>do</code> 有些晦涩难懂，第一个 <code>variable-defamations</code> 是一个列表，内容是 <code>(variable  initial  update)</code>，<code>initial</code> 与 <code>update</code> 形式是选择性的。若 <code>update</code> 形式忽略时，每次迭代时不会更新变量。若 <code>initial</code> 形式也忽略时，变量会使用 <code>nil</code> 来初始化。,例如：</p>
+    <div class="sourceCode" id="cb8"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>( </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    (x <span class="dv">1</span> (<span class="kw">incf</span> x))  <span class="co">; 初始值 1</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    (y <span class="dv">10</span> (<span class="kw">decf</span> y)) <span class="co">; 初始值 10</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    (z <span class="dv">0</span> (<span class="op">*</span> x y))   <span class="co">; 初始值 0</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    (i) <span class="co">; 初始值 nil</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+    <p>这就定义了三个变量。接下来是 <code>end-test-form</code> 中止条件，它也许要被括号括起来，因此，一个类似这样的 c 代码：</p>
+    <div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> func<span class="op">(</span><span class="dt">int</span> target<span class="op">){</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> sum <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i<span class="op">=</span><span class="dv">0</span><span class="op">;</span>i<span class="op">&lt;</span>target<span class="op">;</span>i<span class="op">++){</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        sum <span class="op">+=</span> i<span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> i<span class="op">);</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sum<span class="op">;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <p>可以写成：</p>
+    <div class="sourceCode" id="cb10"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> func </span>(target)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">do</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>   <span class="co">;; variable-definitions</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>   ((i <span class="dv">0</span> (<span class="kw">incf</span> i))(sum <span class="dv">0</span> (<span class="op">+</span> i sum)))</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>   <span class="co">;; end-test-form and result-form</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>   ((<span class="op">=</span> i target) sum)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>   <span class="co">;; no statements</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>   (<span class="kw">format</span> <span class="kw">t</span> <span class="st">&quot;~d&quot;</span> i)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>   ))</span></code></pre></div>
+    <p>记住 do 需要三个部分即可，<strong>哪怕其中没有需要操作的表达式</strong>：</p>
+    <div class="sourceCode" id="cb11"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a> (<span class="kw">do</span> () ((<span class="op">=</span> (<span class="kw">random</span> <span class="dv">10</span>) (<span class="kw">random</span> <span class="dv">10</span>))) (<span class="kw">print</span> <span class="st">&quot;&quot;</span>))</span></code></pre></div>
+    <p>简单来一个鸡兔同笼：</p>
+    <div class="sourceCode" id="cb12"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> solve </span>()</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">do</span> ((chicken <span class="dv">1</span> (<span class="kw">incf</span> chicken))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>       (rabbit <span class="dv">34</span> (<span class="kw">decf</span> rabbit)))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>      ((<span class="op">=</span> <span class="dv">94</span> (<span class="op">+</span> (<span class="op">*</span> chicken <span class="dv">2</span>) (<span class="op">*</span> rabbit <span class="dv">4</span>)))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>       (<span class="kw">list</span> :chicken chicken :rabbit rabbit))))</span></code></pre></div>
+    <p>再举一例，计算斐波纳契数列：</p>
+    <div class="sourceCode" id="cb13"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> fib </span>(stop)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">do</span> ((n <span class="dv">0</span> (<span class="op">+</span> <span class="dv">1</span> n))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>       (cur <span class="dv">0</span> next)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>       (next <span class="dv">1</span> (<span class="op">+</span> cur next)))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>      ((<span class="op">=</span> stop n) cur)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">print</span> cur)))</span></code></pre></div>
+    <h2 id="loop"><code>loop</code></h2>
+    <p>很少有人能够真的搞懂 <code>loop</code> 的全部，这玩意是属于「高阶魔法」，比如， <code>loop</code> 可以写成这样的形式：</p>
+    <div class="sourceCode" id="cb14"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a> (<span class="kw">loop</span> for i from <span class="dv">1</span> to <span class="dv">10</span> collecting i)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a> (<span class="kw">loop</span> for x across <span class="st">&quot;the quick brown fox jumps over the lazy dog&quot;</span> counting (<span class="kw">find</span> x <span class="st">&quot;aeiou&quot;</span>))</span></code></pre></div>
+    <p><code>loop</code> 提供了诸如「<code>across</code>、 <code>and</code> 、 <code>below</code> 、 <code>collecting</code> 、 <code>counting</code> 、 <code>finally</code> 、 <code>for</code> 、 <code>from</code> 、 <code>summing</code> 、 <code>then</code>」这样的关键字，实际上是一个专门用来写循环迭代的新的语言。</p>
+    <blockquote>
+    <p>如果你是曾经计划某天要理解 loop 怎么工作的许多 Lisp 程序员之一，有一些好消息与坏消息。好消息是你并不孤单：几乎没有人理解它。坏消息是你永远不会理解它，因为 ANSI 标准实际上并没有给出它行为的正式规范。</p>
+    </blockquote>
+    <blockquote>
+    <p>这个宏唯一的实际定义是它的实现方式，而唯一可以理解它（如果有人可以理解的话）的方法是通过实例。ANSI 标准讨论 loop 的章节大部分由例子组成<span class="sidenote-wrapper"><label for="sn-0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-0" class="margin-toggle"/><span class="sidenote">这段评价的来源是 《ANSI Common Lisp 中文版》 第十四章：进阶议题<br />
+    <br />
+    </span></span></p>
+    </blockquote>
+    <p>最基础的 <code>loop</code> 句法是 <code>for</code> 句法，示例：</p>
+    <ul>
+    <li><p>遍历一个列表：</p>
+    <p><code>(loop for i in '(1 2 3 4) do (print i))</code></p></li>
+    <li><p>遍历多个范围：</p>
+    <p><code>(loop for i from 1 to 10 for j from 1 to 10 do (print i))</code></p></li>
+    <li><p>控制起始和更新形式：</p>
+    <div class="sourceCode" id="cb15"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">loop</span> for x <span class="op">=</span> <span class="dv">8</span> then (<span class="op">/</span> x <span class="dv">2</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    until (<span class="op">&lt;</span> x <span class="dv">1</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">do</span> (<span class="kw">princ</span> x))</span></code></pre></div></li>
+    <li><p>各种谓词：</p>
+    <div class="sourceCode" id="cb16"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">loop</span> for i from <span class="dv">0</span> downto -10 collect i)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">loop</span> for i from <span class="dv">10</span> to <span class="dv">20</span> collect i)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">loop</span> for i downfrom <span class="dv">20</span> to <span class="dv">10</span> <span class="kw">do</span> (<span class="kw">print</span> i))</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>(<span class="kw">loop</span> for x in &#39;(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  while (<span class="op">&lt;</span> x <span class="dv">4</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  collect x)</span></code></pre></div></li>
+    <li><p>列表的过滤：</p>
+    <div class="sourceCode" id="cb17"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">loop</span> for i in (<span class="kw">list</span> <span class="dv">10</span> <span class="dv">20</span> <span class="dv">30</span> <span class="dv">40</span>) by <span class="op">#&#39;</span>cddr collect i) -&gt; (<span class="dv">10</span> <span class="dv">30</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">loop</span> for x on (<span class="kw">list</span> <span class="dv">10</span> <span class="dv">20</span> <span class="dv">30</span>) collect x) -&gt; ((<span class="dv">10</span> <span class="dv">20</span> <span class="dv">30</span>) (<span class="dv">20</span> <span class="dv">30</span>) (<span class="dv">30</span>))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">loop</span> for x on (<span class="kw">list</span> <span class="dv">10</span> <span class="dv">20</span> <span class="dv">30</span> <span class="dv">40</span>) by <span class="op">#&#39;</span>cddr collect x) -&gt; ((<span class="dv">10</span> <span class="dv">20</span> <span class="dv">30</span> <span class="dv">40</span>) (<span class="dv">30</span> <span class="dv">40</span>))</span></code></pre></div></li>
+    <li><p>解构：</p>
+    <div class="sourceCode" id="cb18"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">loop</span> for (a <span class="kw">nil</span>) in &#39;((<span class="dv">1</span> <span class="dv">2</span>) (<span class="dv">3</span> <span class="dv">4</span>) (<span class="dv">5</span> <span class="dv">6</span>)) collect a) →(<span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">loop</span> for (a b) in &#39;((<span class="dv">1</span> <span class="dv">2</span>) (<span class="dv">3</span> <span class="dv">4</span>) (<span class="dv">5</span> <span class="dv">6</span>)) <span class="kw">do</span> (<span class="kw">format</span> <span class="kw">t</span> <span class="st">&quot;a: ~a; b: ~a~%&quot;</span> a b))</span></code></pre></div></li>
+    <li><p>条件执行：</p>
+    <div class="sourceCode" id="cb19"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">loop</span> for i from <span class="dv">1</span> to <span class="dv">10</span> <span class="kw">do</span> (<span class="kw">when</span> (<span class="kw">evenp</span> i) (<span class="kw">print</span> i)))</span></code></pre></div></li>
+    </ul>
+    <p>学 <code>loop</code> 要多用它（</p>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-01-19">创建日期：2023-01-19</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2023-04-13" />
+        <title>给Nautilus添加自定义菜单项</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FTde5bb46d-a069-4de8-b61b-18cfe5e38fc7.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FTde5bb46d-a069-4de8-b61b-18cfe5e38fc7.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">给Nautilus添加自定义菜单项</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+  
+  <main>
+    <blockquote>
+    <p>“GNOME’s […] excuse for not doing something is not it’s too complicated to do , but it would confuse users . The whole we know best thing is a disease.” — Linus Torvalds</p>
+    </blockquote>
+    <p>首先，我必须要狠狠的吐槽 Nautilus 的设计 —— 事实上是整个 Gnome 的设计哲学，如果这样扭曲的思维也能叫做一种“哲学”的话。默认的Gnome，说得好听叫简洁，说得难听叫简陋，做减法做过头。我知道 Gnome 的设计借鉴和吸收了 MacOS 的简洁，但在实际上，他们似乎搞错了“简洁”和“简陋”的区别。以至于搞出了一个看上去很简洁，但用起来大量缺失基础功能的精品毛坯房。在 Gnome 中，回字不会有四种写法——它干脆不提供这个字。已经是 2023 年了，连 Windows 的资源管理器都添加了“在这里打开终端”的上下文菜单，Nautilus 的菜单项目倒是越来越少了。</p>
+    <p>当然，Nautilus 天才的设计者对极致简洁的不懈追求并没有止步于不添加新的功能，他们也没有忘记砍掉原本好用的老功能。曾经有一个叫做 <code>filemanager/nautilus-actions</code> 的（官方）项目，用户可以给 Nautilus 添加自定义的菜单内容，这样如同火箭科学一样复杂难懂的功能想必是根本不会有人用的，于是它就被砍掉了。</p>
+    <p>幸运的是，<a href="https://github.com/bassmanitram/actions-for-nautilus#configuration-ui">还有一个项目</a>为我这样庸俗的，不懂得面向未来的低端用户弥补了这个缺陷，以下是安装和配置过程：</p>
+    <p>首先，安装对应的依赖，对于 openSUSE, 需要安装的包是：</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> zypper in python310-nautilus python310-gobject procps libprocps8</span></code></pre></div>
+    <p>其他的无关紧要，当然为了能够正确弹窗和访问剪贴板，最好再安装一下 <code>zenity</code> 和 <code>xclip</code>。</p>
+    <p>接下来克隆 repo ： <code>git clone https://github.com/bassmanitram/actions-for-nautilus.git</code>，安装：<code>cd actions-for-nautilus &amp;&amp; make install</code>。然后<strong>注销并重新登陆</strong>。接着在全部应用里面寻找 <code>Actions For Nautilus configuration</code>：</p>
+    <p><img src="./assets/Ha.png" /></p>
+    <p>然后就能够运行了。这是一个网页程序（<code>http://localhost:47599/</code>），将会在浏览器里面打开：</p>
+    <p><img src="./assets/12.png" /></p>
+    <p>编辑基本上是有手就行，但是注意：<strong>在这里编辑并保存以后是有可能无效的</strong>，也就是说根本没有真的保存。如果刷新以后总是显示原始配置，那么恭喜，你不得不和我一样自己编配置文件。配置文件的位置是：<code>~/.local/share/actions-for-nautilus/config.json</code>，内容是 JSON 文件。附上我调试出来的配置一份：</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;actions&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;command&quot;</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Open Terminal...&quot;</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;command_line&quot;</span><span class="fu">:</span> <span class="st">&quot;xfce4-terminal --working-directory=%f&quot;</span><span class="fu">,</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;cwd&quot;</span><span class="fu">:</span> <span class="st">&quot;%f&quot;</span><span class="fu">,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;use_shell&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;filetypes&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;directory&quot;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>            <span class="ot">]</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;menu&quot;</span><span class="fu">,</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Copy details&quot;</span><span class="fu">,</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;actions&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                <span class="fu">{</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;command&quot;</span><span class="fu">,</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Copy name&quot;</span><span class="fu">,</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;command_line&quot;</span><span class="fu">:</span> <span class="st">&quot;echo -n %B | xclip -f -selection primary | xclip -selection clipboard&quot;</span><span class="fu">,</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;use_shell&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                <span class="fu">{</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;command&quot;</span><span class="fu">,</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Copy path&quot;</span><span class="fu">,</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;command_line&quot;</span><span class="fu">:</span> <span class="st">&quot;echo -n %F | xclip -f -selection primary | xclip -selection clipboard&quot;</span><span class="fu">,</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;use_shell&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>                <span class="fu">}</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>            <span class="ot">]</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;debug&quot;</span><span class="fu">:</span> <span class="kw">false</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+    <p>当然保存以后可能还是没有生效，<code>nautilus -q</code> 试试看，再不行就注销重新登陆一下。</p>
+    <p>这一番折腾下来，说句老实话我的耐性基本上被消磨干净了。在其他类似软件里触手可及的功能却要配置老半天，而且说不定就在下次某个版本的“砍功能”环节中失效。</p>
+    <p>我觉得 Gnome 的哲学是这样的：</p>
+    <ul>
+    <li>小而美（小的程序比对的程序更称心如意）</li>
+    <li>简洁干净（达到最 要求就足够了）</li>
+    <li>标准（标准可以有很多个，而且随时能更改）</li>
+    </ul>
+    <p>所以，我的最终决定还是：</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> zypper in dolphin</span></code></pre></div>
+    <p>参考：</p>
+    <ul>
+    <li><a href="https://github.com/bassmanitram/actions-for-nautilus">actions-for-nautilus 的 Github 仓库</a></li>
+    <li><a href="https://gitlab.gnome.org/Archive/nautilus-actions">已经死掉的 nautilus-actions</a></li>
+    <li><a href="https://medium.com/@fulalas/gnome-linux-a-complete-disaster-feb27b13a5c2">Gnome 是一场灾难吗？</a></li>
+    </ul>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-04-13">创建日期：2023-04-13</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

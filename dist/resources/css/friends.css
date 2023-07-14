@@ -1,0 +1,66 @@
+/* @media (prefers-color-scheme: dark) {
+    body {
+        background-image: url("/resources/img/friends-dark.svg") !important;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background-image: url("/resources/img/friends-light.svg") !important;
+    }
+} */
+
+b {
+    font-family: 'CONTENT', sans-serif;
+}
+
+li>a {
+    font-family: 'CODE', 'Courier New', Courier, monospace;
+}
+
+.vis-network {
+    z-index: 999;
+}
+
+ul.friends {
+    counter-reset: index;
+    padding: 0;
+}
+
+ul.friends>li {
+    counter-increment: index;
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    box-sizing: border-box;
+}
+
+ul.friends>li>a {
+    font-family: 'CONTENT', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 22px;
+}
+
+
+ul.friends>li::before {
+    content: counters(index, ".", decimal-leading-zero);
+    font-size: 1.5rem;
+    text-align: right;
+    font-weight: bold;
+    min-width: 50px;
+    padding-right: 12px;
+    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+    align-self: flex-start;
+    background-image: linear-gradient(to bottom, aquamarine, orangered);
+    background-attachment: fixed;
+    font-family: 'SITENAME', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 32px;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+ul.friends>li+ul.friends>li {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}

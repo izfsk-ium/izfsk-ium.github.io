@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2023-01-20" />
+        <title>CommonLisp基础-常见操作</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT704f2611-4448-4f94-a4c1-7b797aad7a43.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT704f2611-4448-4f94-a4c1-7b797aad7a43.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">CommonLisp基础-常见操作</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#学习">学习</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#字符串操作" id="toc-字符串操作">字符串操作</a>
+    <ul>
+    <li><a href="#创建字符串" id="toc-创建字符串">创建字符串</a></li>
+    <li><a href="#字符串切片" id="toc-字符串切片">字符串切片</a></li>
+    <li><a href="#获取单个字符" id="toc-获取单个字符">获取单个字符</a></li>
+    <li><a href="#获取字符的码位" id="toc-获取字符的码位">获取字符的码位</a></li>
+    <li><a href="#更改字符串" id="toc-更改字符串">更改字符串</a>
+    <ul>
+    <li><a href="#移除和替换" id="toc-移除和替换">移除和替换</a></li>
+    <li><a href="#字符串拼接" id="toc-字符串拼接">字符串拼接</a></li>
+    </ul></li>
+    <li><a href="#大小写" id="toc-大小写">大小写</a></li>
+    <li><a href="#去除空格" id="toc-去除空格">去除空格</a></li>
+    <li><a href="#寻找和搜索" id="toc-寻找和搜索">寻找和搜索</a></li>
+    <li><a href="#类型转换" id="toc-类型转换">类型转换</a></li>
+    <li><a href="#字符串切分" id="toc-字符串切分">字符串切分</a></li>
+    </ul></li>
+    <li><a href="#输入输出" id="toc-输入输出">输入输出</a>
+    <ul>
+    <li><a href="#format" id="toc-format"><code>format</code></a></li>
+    </ul></li>
+    <li><a href="#文件" id="toc-文件">文件</a></li>
+    <li><a href="#参考" id="toc-参考">参考</a></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <p>本文记录 CommonLisp 的一些常见操作，记住，<strong><a href="https://quickdocs.org/uiop">UIOP</a> 是你的好朋友</strong>！</p>
+    <h1 id="字符串操作">字符串操作</h1>
+    <p>首先，在 CommonLisp 中，字符串既是 array 也是 sequence。所以，适用于它们的操作也适用于字符串。因此可以使用相应的操作：</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">length</span> <span class="st">&quot;Hello!&quot;</span>) <span class="co">;; 6</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">elt</span> <span class="st">&quot;Hello!&quot;</span> <span class="dv">0</span>) <span class="co">;; #\h</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">remove</span> <span class="ch">#\a</span> <span class="st">&quot;alpha&quot;</span>) <span class="co">;; &quot;lph&quot;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>(<span class="kw">count-if</span> <span class="op">#&#39;</span>digit-char-p <span class="st">&quot;Hello!114514&quot;</span>) <span class="co">;; 6</span></span></code></pre></div>
+    <p>因此，字符串的拼接：</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a> (<span class="kw">concatenate</span> <span class="dt">&#39;string</span> <span class="st">&quot;hello&quot;</span> <span class="st">&quot; &quot;</span> <span class="st">&quot;world&quot;</span>) <span class="co">;; &quot;hello world&quot;</span></span></code></pre></div>
+    <p>其他 String 类型专有的操作：</p>
+    <h2 id="创建字符串">创建字符串</h2>
+    <p>使用双引号创建字符串，除此以外，使用 <code>format nil</code> 返回一个新的字符串，使用 <code>make-string</code> 创建一个给定长度的字符串，如果需要从一个字符串创建字符，使用 <code>coerce</code>，反之使用 <code>string</code>：</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">string</span> <span class="st">&quot;Hello world&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">nil</span> <span class="st">&quot;Hello!&quot;</span>) <span class="co">;; &quot;Hello!&quot;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">coerce</span> <span class="st">&quot;a&quot;</span>) <span class="co">;; #\a</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>(<span class="kw">make-string</span> <span class="dv">3</span> <span class="bu">:initial-element</span> <span class="ch">#\a</span>) <span class="co">;; &quot;aaa&quot; </span></span></code></pre></div>
+    <h2 id="字符串切片">字符串切片</h2>
+    <p>使用 <code>subseq</code> 来获取字符串切片，格式为：<code>(subseq string start end)</code> ：</p>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">subseq</span> <span class="st">&quot;hello!&quot;</span> <span class="dv">2</span> <span class="dv">4</span>) <span class="co">;; &quot;ll&quot;</span></span></code></pre></div>
+    <h2 id="获取单个字符">获取单个字符</h2>
+    <p>除了 <code>elt</code> 以外也可以使用 <code>char</code> ，<code>schar</code>来获取字符串的单个字符，结合 <code>setf</code> 来做到类似 <code>target[0] = 'A'</code> 这样的替换：</p>
+    <div class="sourceCode" id="cb5"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">char</span> <span class="st">&quot;你好&quot;</span> <span class="dv">0</span>) <span class="co">;; #\U4F60</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">setf</span> (<span class="kw">char</span> *some-string* <span class="dv">6</span>) <span class="ch">#\a</span>)</span></code></pre></div>
+    <h2 id="获取字符的码位">获取字符的码位</h2>
+    <p>每一个字符都有一个数字和它对应，具体的数字与实现相关，一般就是 Unicode 。<code>code-char</code> 和 <code>char-code</code> 类似于 Python 中的 <code>chr</code> 和 <code>ord</code> 函数：</p>
+    <div class="sourceCode" id="cb6"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">code-char</span> <span class="dv">124</span>) <span class="co">;; #\|</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">char-code</span> <span class="ch">#\和</span>) <span class="co">;; 21644</span></span></code></pre></div>
+    <h2 id="更改字符串">更改字符串</h2>
+    <h3 id="移除和替换">移除和替换</h3>
+    <p>序列类型的标准操作，可以使用以下操作对字符串进行：</p>
+    <div class="sourceCode" id="cb7"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">remove</span> <span class="ch">#\0</span> <span class="bu">:start</span> <span class="dv">2</span> <span class="st">&quot;0000001&quot;</span>) <span class="co">;; &quot;001&quot;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">substitute</span> <span class="ch">#\a</span> <span class="ch">#\b</span> <span class="st">&quot;aaaabbb&quot;</span>) <span class="co">;; &quot;aaaaaaa&quot;</span></span></code></pre></div>
+    <h3 id="字符串拼接">字符串拼接</h3>
+    <p>使用 <code>concatenate</code> 来拼接字符串，<strong>需要提供结果类型 <code>string</code></strong>：</p>
+    <div class="sourceCode" id="cb8"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">concatenate</span> <span class="dt">&#39;string</span> <span class="st">&quot;hello&quot;</span> <span class="st">&quot;world&quot;</span>) <span class="co">;; &quot;helloworld&quot;</span></span></code></pre></div>
+    <p>如果你有 <code>UIOP</code> ，使用 <code>uiop:strcat</code> 亦可，除此以外，不要忘记 <code>format</code> 可以用来应对复杂的拼接和格式化操作。</p>
+    <h2 id="大小写">大小写</h2>
+    <div class="sourceCode" id="cb9"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">*</span> (<span class="kw">string-upcase</span> <span class="st">&quot;cool&quot;</span>)    <span class="co">;; &quot;COOL&quot;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">*</span> (<span class="kw">string-upcase</span> <span class="st">&quot;Cool&quot;</span>)    <span class="co">;; &quot;COOL&quot;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="op">*</span> (<span class="kw">string-downcase</span> <span class="st">&quot;COOL&quot;</span>)    <span class="co">;; &quot;cool&quot;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="op">*</span> (<span class="kw">string-downcase</span> <span class="st">&quot;Cool&quot;</span>)    <span class="co">;;&quot;cool&quot;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="op">*</span> (<span class="kw">string-capitalize</span> <span class="st">&quot;cool&quot;</span>)    <span class="co">;;&quot;Cool&quot;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="op">*</span> (<span class="kw">string-capitalize</span> <span class="st">&quot;cool example&quot;</span>)    <span class="co">;;&quot;Cool Example&quot;</span></span></code></pre></div>
+    <p>所有这些函数接收 <code>:start</code> 和 <code>:end</code> 参数指示开始和结束的位置。</p>
+    <p><strong>注意</strong>：<code>STRING-UPCASE</code>, <code>STRING-DOWNCASE</code> 和 <code>STRING-CAPITALIZE</code> 不会修改原来的字符串。但是，如果字符串中没有字符需要转换，则结果可能是字符串或其副本，由实现自行决定。</p>
+    <h2 id="去除空格">去除空格</h2>
+    <div class="sourceCode" id="cb10"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">*</span> (<span class="kw">string-trim</span> <span class="st">&quot; &quot;</span> <span class="st">&quot; trim me &quot;</span>)    <span class="co">;; &quot;trim me&quot;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="op">*</span> (<span class="kw">string-trim</span> <span class="st">&quot; et&quot;</span> <span class="st">&quot; trim me &quot;</span>)    <span class="co">;; &quot;rim m&quot;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="op">*</span> (<span class="kw">string-left-trim</span> <span class="st">&quot; et&quot;</span> <span class="st">&quot; trim me &quot;</span>)    <span class="co">;; &quot;rim me &quot;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="op">*</span> (<span class="kw">string-right-trim</span> <span class="st">&quot; et&quot;</span> <span class="st">&quot; trim me &quot;</span>)    <span class="co">;; &quot; trim m&quot;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="op">*</span> (<span class="kw">string-right-trim</span> &#39;(<span class="ch">#\S</span>pace <span class="ch">#\e</span> <span class="ch">#\t</span>) <span class="st">&quot; trim me &quot;</span>)    <span class="co">;; &quot; trim m&quot;</span></span></code></pre></div>
+    <h2 id="寻找和搜索">寻找和搜索</h2>
+    <p>在一个字符串中寻找特定字符和在序列中寻找元素类似。使用 <code>find</code> <code>find-if</code> 和 <code>position</code> 和 <code>position-if</code> 来达到目标，要寻找字符串，使用 <code>search</code>：</p>
+    <div class="sourceCode" id="cb11"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">find</span> <span class="ch">#\e</span> <span class="st">&quot;Hello world!&quot;</span>) <span class="co">;; #\e</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">find-if</span> <span class="op">#&#39;</span>digit-char-p <span class="st">&quot;Hello 1000!&quot;</span>) <span class="co">;; #\1</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">position</span> <span class="ch">#\a</span> <span class="st">&quot;Hello alpha!&quot;</span>) <span class="co">;; 6</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>(<span class="kw">search</span> <span class="st">&quot;we&quot;</span> <span class="st">&quot;If we can&#39;t be free we can at least be cheap&quot;</span>)    <span class="co">;; 3</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>(<span class="kw">search</span> <span class="st">&quot;FREE&quot;</span> <span class="st">&quot;If we can&#39;t be free we can at least be cheap&quot;</span> <span class="bu">:test</span> <span class="op">#&#39;</span>char-equal)    <span class="co">;; 15</span></span></code></pre></div>
+    <h2 id="类型转换">类型转换</h2>
+    <ul>
+    <li><p>string -&gt; integer</p>
+    <p>使用 <code>parse-integer</code> 来转换，使用 <code>junk-allowed</code> 来允许垃圾：</p>
+    <div class="sourceCode" id="cb12"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">parse-integer</span> <span class="st">&quot;100 is very good&quot;</span> <span class="bu">:junk-allowed</span> <span class="kw">t</span>)    <span class="co">;; 100</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">parse-integer</span> (prompt-read <span class="st">&quot;Rating&quot;</span>) <span class="bu">:junk-allowed</span> <span class="kw">t</span>)    <span class="co">;; 获取用户输入，转换数字</span></span></code></pre></div></li>
+    <li><p>string -&gt; float</p>
+    <p>很遗憾，没有内置的方法。外部函数库 <a href="https://github.com/soemraws/parse-float">parse-float</a> 可以做到这一点. 它不使用 <code>read-from-string</code> 所以可以安全使用。</p></li>
+    <li><p>number -&gt; string</p>
+    <p>使用 <code>write-to-string</code> 来转换，当然也可以使用 <code>format</code>：</p>
+    <div class="sourceCode" id="cb13"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">*</span> (<span class="kw">write-to-string</span> <span class="dv">250</span>)    <span class="co">;; &quot;250&quot;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">*</span> (<span class="kw">write-to-string</span> <span class="fl">250.02</span>)    <span class="co">;; &quot;250.02&quot;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="op">*</span> (<span class="kw">write-to-string</span> <span class="dv">250</span> <span class="bu">:base</span> <span class="dv">5</span>)    <span class="co">;;&quot;2000&quot;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="op">*</span> (<span class="kw">write-to-string</span> (<span class="op">/</span> <span class="dv">1</span> <span class="dv">3</span>))    <span class="co">;;&quot;1/3&quot;</span></span></code></pre></div></li>
+    </ul>
+    <h2 id="字符串切分">字符串切分</h2>
+    <p>很遗憾，还是没有，不过 <code>uiop</code> 中提供了解决方案：</p>
+    <div class="sourceCode" id="cb14"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a> (uiop:split-string <span class="st">&quot;hello world&quot;</span> :separator <span class="st">&quot; &quot;</span>) <span class="co">;; (&quot;hello&quot;, &quot;world&quot;)</span></span></code></pre></div>
+    <h1 id="输入输出">输入输出</h1>
+    <p>使用 <code>read-line</code> 来从标准输入读取，使用 <code>write-line</code> 来输出。除此以外，还可以使用 <code>print</code> 来打印，<code>format</code> 来执行复杂的格式化：</p>
+    <table>
+    <thead>
+    <tr class="header">
+    <th>形式</th>
+    <th>描述</th>
+    <th>举例</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>read-line</td>
+    <td>读取一行</td>
+    <td><code>(read-line)</code></td>
+    </tr>
+    <tr class="even">
+    <td>read-char</td>
+    <td>读取一个字符，多余丢弃</td>
+    <td><code>(read-char)</code></td>
+    </tr>
+    <tr class="odd">
+    <td>write-line</td>
+    <td>输出一行，自动换行</td>
+    <td><code>(write-line "Hello!")</code></td>
+    </tr>
+    </tbody>
+    </table>
+    <p>没有标准的 <code>prompt</code> 之类的函数，你可以定义一个：</p>
+    <div class="sourceCode" id="cb15"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> prompt-read </span>(prompt)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">format</span> <span class="va">*query-io*</span> <span class="st">&quot;~a: &quot;</span> prompt)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        (<span class="kw">force-output</span> <span class="va">*query-io*</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        (<span class="kw">read-line</span> <span class="va">*query-io*</span>))</span></code></pre></div>
+    <h2 id="format"><code>format</code></h2>
+    <p>类似于 <code>C</code> 中的 <code>printf</code>，<code>format</code> 是一个强大的格式化工具。它接受两个必要参数：一个用于输出的目的地,另一个含有字面文本和嵌入指令的控制字符串，紧随其后的是一系列格式化参数。第一个输出目的地是 <code>T</code>、<code>NIL</code>、一个流或一个带有填充指针的字符串。如果输出对象是 <code>T</code>，那么就输出到标准输出，也就是 <code>*STANDARD-OUTPUT*</code>，如果是 <code>NIL</code>，直接返回字符串。控制字符串的作用类似于 C 中 <code>printf</code> 格式字符串的作用，本质上是一个用来描述格式的语言。<del>这就导致了很容易写出类似动物反刍噪音一般无法理解的东西</del>。</p>
+    <p>与 C 不同，<strong>所有的格式指令以 <code>~</code> 开头，而不是以 <code>%</code> 开头</strong>，指令不区分大小写。~之后的是单个英文字符的指令，以及一个可能的前缀，这个前缀可以是多个字符，使用逗号分割。</p>
+    <p>常见指令列表：</p>
+    <ul>
+    <li><p><code>~a</code>：消耗一个格式化参数，转换成<del>它认为人类可读</del>的形式。例如：</p>
+    <div class="sourceCode" id="cb16"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">t</span> <span class="st">&quot;~A ~A ~A ~A&quot;</span> &#39;() <span class="dv">100</span> <span class="op">#&#39;</span>oddp <span class="st">&quot;Hello!&quot;</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">;; NIL 100 #&lt;FUNCTION ODDP&gt; Hello!</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">t</span> <span class="st">&quot;~A ~A ~A ~A&quot;</span> <span class="kw">nil</span> (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>) <span class="kw">pi</span> <span class="ch">#\💗</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">;; NIL (1 2 3) 3.141592653589793d0 💗</span></span></code></pre></div></li>
+    <li><p><code>~s</code>：和 <code>~a</code> 效果类似，但将输出生成为可被 <code>READ</code> 读回来的形式：</p>
+    <div class="sourceCode" id="cb17"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">t</span> <span class="st">&quot;~S ~S ~S ~S&quot;</span> <span class="kw">nil</span> <span class="st">&quot;Hello!&quot;</span> <span class="kw">pi</span> <span class="ch">#\💗</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">;; NIL &quot;Hello!&quot; 3.141592653589793d0 #\GROWING_HEART</span></span></code></pre></div></li>
+    <li><p><code>~%</code> 和 <code>~&amp;</code>：产生新行。<code>~%</code> 总是产生一个换行,而 <code>~&amp;</code> 只在当前没有位于一行开始处时才产生换行。可以添加前置参数指定要产生的换行的数量。例如：<code>(format t "~5&amp;")</code> 将会产生 5 个空行。</p></li>
+    <li><p><code>~~</code>：产生波浪线，在之前使用数字控制产生多少个波浪线。</p></li>
+    <li><p><code>~c</code>：字符。</p>
+    <p>打印单个字符，可以使用控制字符来控制特殊字符的展开方式：</p>
+    <ul>
+    <li>直接使用打印字符本身：<code>(format nil "~c" #\SPACE) -&gt; 一个空格</code></li>
+    <li>使用 <code>:</code> 修改符号打印特殊字符的名称：<code>(format nil "~:c" #\SPACE) -&gt; Space</code></li>
+    <li>使用 <code>@</code> 修改符号打印字符的 lisp 表示方式：<code>(format nil "~@c" #\SPACE) -&gt; #\SPACE</code></li>
+    <li><code>:</code> 和 <code>@</code> 可以混合使用，并非所有的 Lisp 都实现了 <code>~C</code> 指令的这个方面。</li>
+    </ul></li>
+    <li><p><code>~d</code>，<code>~x</code>，<code>~o</code> 和 <code>~b</code>：整数输出。</p>
+    <p><code>~d</code>：添加 <code>:</code> 在千位数字之间添加逗号；田间 <code>@</code> 总是显示正负号，第一个前置参数可以指定输出的最小宽度,第二个参数可以指定一个用作占位符的字符，第三个参数是给 <code>:</code> 作为分割符号的符号，第四个参数是 <code>:</code> 分割下每一组数字的数量。举例：</p>
+    <div class="sourceCode" id="cb18"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">nil</span> <span class="st">&quot;~16,&#39;_,&#39;-,2:@d&quot;</span> <span class="dv">114514</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;_______+11-45-14&quot;</span></span></code></pre></div>
+    <p>参数是 <code>16,'_,'-,2:@</code>，四个参数分别是 <code>16</code>，<code>'_</code>，<code>'-</code>，<code>2</code>，以及开关 <code>:</code> 和 <code>@</code>。</p>
+    <p>另外三个 <code>~x</code> <code>~o</code> 和 <code>~b</code> 和 <code>~d</code> 类似，但输出分别是 16 进制，8 进制和 2 进制：</p>
+    <div class="sourceCode" id="cb19"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">nil</span> <span class="st">&quot;~16,&#39;_,&#39;-,2:@b&quot;</span> <span class="dv">114514</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;+1-10-11-11-11-01-01-00-10&quot;</span></span></code></pre></div></li>
+    <li><p><code>~r</code>：更加复杂的整数控制。</p>
+    <p><code>~r</code> 可以输出为 2-36 进制，第一个参数即为输出进制数。其他参数和之前相同，另外，在没有第一个参数时，拼写成英文单词，按照选项的不同，还可以拼写成罗马数字。</p>
+    <div class="sourceCode" id="cb20"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">nil</span> <span class="st">&quot;~36,8,&#39;-:@r&quot;</span> <span class="dv">1000</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;-----+RS&quot;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">nil</span> <span class="st">&quot;~@r&quot;</span> <span class="dv">1514</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;MDXIV&quot;</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">nil</span> <span class="st">&quot;~:@r&quot;</span> <span class="dv">1514</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;MDXIIII&quot;</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">nil</span> <span class="st">&quot;~:r&quot;</span> <span class="dv">1514</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;one thousand five hundred fourteenth&quot;</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">nil</span> <span class="st">&quot;~r&quot;</span> <span class="dv">1145141919810</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;one trillion one hundred forty-five billion one hundred forty-one million nine hundred nineteen thousand eight hundred ten&quot;</span></span></code></pre></div></li>
+    <li><p><code>~f</code> 和 <code>~e</code>：浮点数</p>
+    <p><code>~f</code>：使用计算机科学记数法，十进制输出，第二个参数控制在十进制小数点之后打印的数位个数。<code>@</code> 选项开启正负号。</p>
+    <div class="sourceCode" id="cb21"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">nil</span> <span class="st">&quot;~,5@f&quot;</span> <span class="kw">pi</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;+3.14159&quot;</span></span></code></pre></div>
+    <p><code>~e</code> 和 <code>~f</code> 类似，但是输出数字时总是使用科学计数法。</p></li>
+    </ul>
+    <p>除此以外，还有英语指令，生成带有正确复数化单词的消息。使用 <code>~p</code> 即可，如果对应的参数大于 1 ，输出一个 <code>s</code>，所以，类似这样的 Python 代码：</p>
+    <div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ss">f&quot;Total </span><span class="sc">{</span>number<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span><span class="st">&#39;element&#39;</span> <span class="cf">if</span> number <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">&#39;elements&#39;</span><span class="sc">}</span><span class="ss">&quot;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;Total 45 elements&#39;</span></span></code></pre></div>
+    <p>可以是：</p>
+    <div class="sourceCode" id="cb23"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">nil</span> <span class="st">&quot;Total ~d element~p&quot;</span> <span class="dv">14</span> <span class="dv">14</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;Total 14 elements&quot;</span></span></code></pre></div>
+    <p>可以开启 <code>:</code> 和 <code>@</code>，让它重新处理前一个格式化参数，以及自动添加单词的复数：</p>
+    <div class="sourceCode" id="cb24"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">nil</span> <span class="st">&quot;~r file~:p&quot;</span> <span class="dv">1</span>) → <span class="st">&quot;one file&quot;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">nil</span> <span class="st">&quot;~r famil~:@p&quot;</span> <span class="dv">0</span>) → <span class="st">&quot;zero families&quot;</span></span></code></pre></div>
+    <p>对于大小写，可以使用 <code>~( ~)</code> 处理，它接收 <code>@</code>，<code>:</code> 开关：</p>
+    <div class="sourceCode" id="cb25"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">nil</span> <span class="st">&quot;~(~a~)&quot;</span> <span class="st">&quot;tHe Quick BROWN foX&quot;</span>)   <span class="co">; =&gt; &quot;the quick brown fox&quot;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">nil</span> <span class="st">&quot;~@(~a~)&quot;</span> <span class="st">&quot;tHe Quick BROWN foX&quot;</span>)  <span class="co">; =&gt; &quot;The quick brown fox&quot;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">format</span> <span class="kw">nil</span> <span class="st">&quot;~:(~a~)&quot;</span> <span class="st">&quot;tHe Quick BROWN foX&quot;</span>)  <span class="co">; =&gt; &quot;The Quick Brown Fox&quot;</span></span></code></pre></div>
+    <p>以及更加复杂的条件格式化，迭代格式化和跳跃格式化。还能够生成表格。<del>希望不要用到它们</del></p>
+    <h1 id="文件">文件</h1>
+    <p>和很多其他编程语言一样，CommonLisp 也用「流」来表示输入和输出。而想 <code>format</code> 和 <code>read</code> 这样的函数，其作用对象也是一个流。读取和写入文件，需要几个函数： <code>open</code>，<code>make-pathname</code> 等。</p>
+    <p><code>make-pathname</code> 制造出合法的文件路径名称，它只接收关键词参数，有六个：<code>host</code>、<code>device</code>、<code>directory</code>、<code>name</code>、<code>type</code> 及 <code>version</code>，返回一个路径名称：</p>
+    <div class="sourceCode" id="cb26"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">make-pathname</span> <span class="bu">:directory</span> <span class="st">&quot;/home/izfsk/&quot;</span> <span class="bu">:name</span> <span class="st">&quot;file&quot;</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co">;; #P&quot;//home/izfsk//file&quot;</span></span></code></pre></div>
+    <p>接下来是打开文件，使用 <code>open</code> 函数。这个函数很复杂，它接受一个路径名和大量关键字参数，开启成功时返回指向文件的流。常见的关键词参数有 <code>:direction</code>，决定是写入流还是读取流，选项有 <code>:input</code>，<code>:output</code>，<code>:io</code>，还能够指定文件存在时是否覆盖，使用 <code>:if-exist</code> 参数，使用 <code>:supersede</code> 覆盖。打开以后，你就可以使用 <code>format</code> 等函数写入读取了。在最后要记得使用 <code>close</code> 关闭流。举例：</p>
+    <div class="sourceCode" id="cb27"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">let</span> ((target-file-stream</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>        (<span class="kw">open</span> (<span class="kw">make-pathname</span> <span class="bu">:directory</span> <span class="st">&quot;/home/izfsk&quot;</span> <span class="bu">:name</span> <span class="st">&quot;file&quot;</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>              <span class="bu">:direction</span> <span class="bu">:output</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>              :if-exists <span class="bu">:supersede</span>)))</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">format</span> target-file-stream <span class="st">&quot;Hello!&quot;</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">close</span> target-file-stream))</span></code></pre></div>
+    <p>就像 Python 有上下文管理器，使得你可以写出 <code>with open(file) as fp</code> 一样， CommonLisp 也有一个宏帮助你管理流，使用 <code>with-open-file</code> 可以管理，用它重写上面的例子：</p>
+    <div class="sourceCode" id="cb28"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">with-open-file</span> (target-file <span class="st">&quot;/home/izfsk/file&quot;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                             <span class="bu">:direction</span> <span class="bu">:output</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>                             :if-exists <span class="bu">:supersede</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                             :if-does-not-exist <span class="bu">:create</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">format</span> target-file <span class="st">&quot;Hello!&quot;</span>))</span></code></pre></div>
+    <p>读取示例：</p>
+    <div class="sourceCode" id="cb29"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">let</span> ((in (<span class="kw">open</span> <span class="st">&quot;/some/file/name.txt&quot;</span>)))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">format</span> <span class="kw">t</span> <span class="st">&quot;~a~%&quot;</span> (<span class="kw">read-line</span> in))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">close</span> in))</span></code></pre></div>
+    <h1 id="参考">参考</h1>
+    <ul>
+    <li><a href="https://www.alexeyshmalko.com/20210927132804/">Common Lisp: Format</a></li>
+    <li><a href="https://gigamonkeys.com/book/files-and-file-io.html">Practical Common Lisp – 14. Files and File I/O</a></li>
+    <li><a href="https://lispcookbook.github.io/cl-cookbook/files.html#writing-content-to-a-file">The Common Lisp Cookbook – Files and Directories</a></li>
+    </ul>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-01-20">创建日期：2023-01-20</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

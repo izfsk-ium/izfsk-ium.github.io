@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#4285f4">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="gray">
+
+    <!-- SEO tags -->
+    <meta property=og:title content="白漠流霜">
+    <meta name=author content=izfsk>
+    <meta property=og:locale content=en_US,zh_CN>
+    <meta name=description content="izfsk's blog and cyber space">
+    <meta property=og:description content="izfsk's blog and cyber space">
+    <meta property=og:site_name content="白漠流霜">
+
+    <!-- For Apple devices -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="gray">
+    <meta name="apple-mobile-web-app-title" content="白漠流霜">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/resources/css/normalize.css">
+    <link rel="stylesheet" href=/resources/css/prebuilt-fonts.css>
+    <link rel="stylesheet" href=/resources/css/index/index.css>
+    <link rel="stylesheet" href="/resources/css/friends.css">
+
+    <!-- Start -->
+    <title>Izfsk::Friends</title>
+    <link rel="icon" type="image/png" href="/favicon.ico">
+    <script src="/resources/js/fonts.js"></script>
+    <script src="/resources/js/graph.js"></script>
+    <script src="https://visjs.github.io/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+
+<body>
+    <main>
+        <header>
+            <a href="/">
+                <img id="back" src="/resources/img/back.svg" alt="⬅️">
+            </a>
+            <h1 style="font-family: 'SITENAME';">友站</h1>
+        </header>
+
+        <div id="content">
+            <section>
+                <p>
+                    Friendship is magic!&nbsp;来交个朋友吧！<br />
+                </p>
+                <p id="howto">
+                    你可以通过<a href="mailto:me@izfsk.top">给我发送邮件</a>来添加友链，记得告诉我你的站点的名字和 favicon 哦。
+                </p>
+            </section>
+
+            <section>
+                <h2>Friends</h2>
+                <p>以下是目前本站的友链，按照添加时间排序：</p>
+
+                <ul class="friends">
+                    <li>
+                        <a href="https://cornradio.github.io">kasusa的技术博客</a>
+                    </li>
+                    <li>
+                        <a href="https://ble-m.ltgc.cc/">La Bibliothèque de Lumière</a>
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Graph</h2>
+                <p>
+                    我一直有这个想法，把自己的友链，友链的友链以此类推，做成一个图，这里是初步的尝试。<br />
+                    当然事实证明工作量巨大。(无法交互请使用 Firefox，Chrome 好像有点问题)
+                </p>
+                <div id="mynetwork"
+                    style="z-index: 999;border: 1px solid grey;height: 325px;backdrop-filter: blur(25px);"></div>
+                <script type="text/javascript">
+                    function draw() {
+                        // create a network
+                        return new vis.Network(document.getElementById("mynetwork"), {
+                            nodes: [...new Map(nodes.map(node => [node.id, node])).values()],
+                            edges,
+                        }, {
+                            nodes: {
+                                shape: "dot",
+                                size: 32,
+                            },
+                            physics: {
+                                forceAtlas2Based: {
+                                    gravitationalConstant: -35,
+                                    centralGravity: 0.0035,
+                                    springLength: 200,
+                                    springConstant: 0.18,
+                                },
+                                maxVelocity: 146,
+                                solver: "forceAtlas2Based",
+                                timestep: 0.35,
+                                stabilization: { iterations: 100 },
+                            },
+                        });
+                    }
+                    draw();
+                </script>
+            </section>
+        </div>
+
+        <footer>
+            <section id="lastBuild">
+                <h6>Last Build: <code>2023-07-09</code></h6>
+            </section>
+
+            <section>
+                <h6>Copyright&nbsp;©&nbsp;<code>2022-2023 </code>izfsk</h6>
+            </section>
+        </footer>
+    </main>
+</body>
+
+
+</html>

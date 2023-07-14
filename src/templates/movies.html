@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name=theme-color media="(prefers-color-scheme: light)" content=#4285f4>
+    <meta name=theme-color media="(prefers-color-scheme: dark)" content=gray>
+
+    <!-- SEO tags -->
+    <meta property=og:title content=白漠流霜>
+    <meta name=author content=izfsk>
+    <meta property=og:locale content=en_US,zh_CN>
+    <meta name=description content="izfsk's blog and cyber space">
+    <meta property=og:description content="izfsk's blog and cyber space">
+    <meta property=og:site_name content=白漠流霜>
+
+    <!-- For Apple devices -->
+    <meta name=apple-mobile-web-app-capable content=yes>
+    <meta name=apple-mobile-web-app-status-bar-style content=gray>
+    <meta name=apple-mobile-web-app-title content=白漠流霜>
+
+    <!-- Styles -->
+    <link rel=stylesheet href=/resources/css/normalize.css>
+    <link rel=stylesheet href=/resources/css/prebuilt-fonts.css>
+    <link rel=stylesheet href=/resources/css/index/index.css>
+    <link rel=stylesheet href=/resources/css/movies.css>
+
+    <!-- Start -->
+    <title>Movies</title>
+    <link rel=icon type=image/png href=/favicon.ico>
+</head>
+
+<body>
+    <main>
+        <header>
+            <a href="/">
+                <img id="back" src="/resources/img/back.svg" alt="⬅️">
+            </a>
+            <h1 style="font-family: 'CONTENT';">影视剧</h1>
+        </header>
+        <div id=content>
+            <section>
+                <p> 一些正在看的/还没看完/已经看完的影视剧。 </p>
+            </section>
+
+            <section id=main>
+                <h2>Now Watching</h2>
+                <div class=wrapper>
+                    <!--%%NOWWATCHING%%-->
+                </div>
+            </section>
+
+            <section id=main>
+                <h2>Finished</h2>
+                <div class=wrapper>
+                    <!--%%FINISHED%%-->
+                </div>
+            </section>
+        </div>
+        <footer>
+            <section id=lastBuild>
+                <h6>Last Build: <code><!--%%LASTBUILT%%--></code></h6>
+            </section>
+            <section>
+                <h6>Copyright&nbsp;©&nbsp;<code>2022-2023 </code>izfsk</h6>
+            </section>
+        </footer>
+    </main>
+</body>
+
+</html>

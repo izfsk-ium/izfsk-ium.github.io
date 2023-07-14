@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2023-06-22" />
+        <title>使用 chntpw 修改 Windows 密码</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT17e1a6a4-4eed-4a8e-94ae-5ed078e75530.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT17e1a6a4-4eed-4a8e-94ae-5ed078e75530.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">使用 chntpw 修改 Windows 密码</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#备忘录">备忘录</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#准备" id="toc-准备">准备</a></li>
+    <li><a href="#进入系统" id="toc-进入系统">进入系统</a></li>
+    <li><a href="#挂载硬盘" id="toc-挂载硬盘">挂载硬盘</a></li>
+    <li><a href="#找到并更改-sam-文件" id="toc-找到并更改-sam-文件">找到并更改 SAM 文件</a></li>
+    <li><a href="#建议和提示" id="toc-建议和提示">建议和提示</a></li>
+    <li><a href="#参考" id="toc-参考">参考</a></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <p>对于上了密码的 Windows 系统，虽然没办法直接登录，但只要没有全盘加密，并且 BIOS 没有上锁，就可以通过引导其他系统来清除密码。</p>
+    <h2 id="准备">准备</h2>
+    <p><code>chntpw</code> 这个工具大多数常规 Linux 发行版并不会在 Live 系统里面预置。据说 Kail 的 Live CD 里面有自带这个工具，但我从来没用过 Kail。我选择的是专门用来进行系统维护的 <code>SystemRescueCd</code>。可以在<a href="https://www.system-rescue.org/Download/">这里</a>下载其 iso 文件。刻录完成后即可使用。</p>
+    <p>实际测试表明，<code>chntpw</code> 可以更改 Windows 10 家庭普通版的密码。</p>
+    <h2 id="进入系统">进入系统</h2>
+    <p>首先需要进 BIOS 修改启动顺序，顺便把安全启动关掉。然后进入系统：</p>
+    <figure>
+    <img src="./assets/1.png" alt="成功进入系统" />
+    <figcaption aria-hidden="true">成功进入系统</figcaption>
+    </figure>
+    <h2 id="挂载硬盘">挂载硬盘</h2>
+    <p>需要找到的是装有 Windows 根目录(?)的那个硬盘分区，一般的电脑就是最大的那一个。当然，实在拿不准的话就把几个硬盘都挂载上再说。</p>
+    <figure>
+    <img src="./assets/2.png" alt="正常情况" />
+    <figcaption aria-hidden="true">正常情况</figcaption>
+    </figure>
+    <p>对于 Windows 7 和 Windows 8.1，大多数情况下就直接挂载成功了，最多自动做一个 fixing 也就继续挂载。但是对于 Windows 10 和 Windows 11，默认情况下系统会保留休眠文件（hiberfile.sys）以供下次快速启动。当然，可以在 Windows 里面用 powercfg 关掉，但咱们这么搞不就是因为不知道密码么（</p>
+    <p>解决方案，使用 <code>ntfs-3g</code> 移除休眠文件即可，但首先需要把自动只读挂载的分区 umount 掉。</p>
+    <p>接下来：</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ntfs-3g</span> <span class="at">-o</span> remove_hiberfile /dev/sdXN /path/to/mount</span></code></pre></div>
+    <p>确保是读写挂载：</p>
+    <figure>
+    <img src="./assets/3.webp" alt="rw挂载" />
+    <figcaption aria-hidden="true">rw挂载</figcaption>
+    </figure>
+    <h2 id="找到并更改-sam-文件">找到并更改 SAM 文件</h2>
+    <p>Windows 的用户数据库位于 <code>c/Windows/System32/config</code>:</p>
+    <figure>
+    <img src="./assets/4.png" alt="SAM文件" />
+    <figcaption aria-hidden="true">SAM文件</figcaption>
+    </figure>
+    <p>接下来使用 <code>chntpw -l SAM</code> 列出所有用户的资料：</p>
+    <figure>
+    <img src="./assets/6.png" alt="列出用户" />
+    <figcaption aria-hidden="true">列出用户</figcaption>
+    </figure>
+    <p>接下来选取用户进入交互编辑模式。使用 RID 而用用户名，因为用户名可能包含空格甚至非 ASCII 字符，tty 下根本打不出来。在键入 RID 注意格式，例如 <code>01f4</code> 要键入为 <code>0x1f4</code>：</p>
+    <figure>
+    <img src="./assets/edit.png" alt="编辑模式" />
+    <figcaption aria-hidden="true">编辑模式</figcaption>
+    </figure>
+    <p>要清除密码，键入 <code>1</code> 然后回车即可。操作完毕以后，输入 <code>q</code> 回车，会提示是否保存，键入 <code>y</code> 回车确认就完成了。</p>
+    <p>接下来回到根目录 <code>sync &amp;&amp; mount /mnt/c</code> 即可。再次进入 Windows ，密码就消失了。</p>
+    <h2 id="建议和提示">建议和提示</h2>
+    <ol type="1">
+    <li><p><code>chntpw</code> 不能从哈希还原出密码，除非是你自己的电脑，直接清除用户密码就是告诉机主自己过来溜门撬锁过。因此要记得备份原来的 SAM 文件以供还原。</p></li>
+    <li><p>关于 <code>Administrator</code> 账户：现代 Windows 中 Administrator 账户并不是没有，只是默认被禁用了，这一点 <code>chntpw -l</code> 可以看得到。除了选择清除已有用户的密码，还可以选择激活这个默认没有密码的账户。在使用 Administrator 进入 Windows 并操作完成后，可以 <code>net user administrator /active:no</code> 再禁用它。</p></li>
+    <li><p>无论如何，你总会留下蛛丝马迹，比如审核日志，比如消失的休眠文件，害人之心不可有。</p></li>
+    </ol>
+    <h2 id="参考">参考</h2>
+    <ul>
+    <li><a href="https://askubuntu.com/questions/145902/unable-to-mount-windows-ntfs-filesystem-due-to-hibernation">Unable to mount Windows (NTFS) filesystem due to hibernation</a></li>
+    <li><a href="https://learn.microsoft.com/zh-cn/windows-hardware/manufacture/desktop/enable-and-disable-the-built-in-administrator-account">启用和禁用内置管理员帐户</a></li>
+    <li><a href="https://manpages.debian.org/bookworm/chntpw/chntpw.8.en.html">Man page of chntpw</a></li>
+    </ul>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-06-22">创建日期：2023-06-22</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

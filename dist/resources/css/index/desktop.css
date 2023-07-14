@@ -1,0 +1,40 @@
+main {
+    max-width: 720px;
+    padding: 4rem 2rem;
+}
+
+ul#content {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+h2 {
+    font-family: 'SCRIPT', 'Times New Roman', Times, serif;
+    font-size: 24px !important;
+    list-style: none;
+    text-decoration: underline;
+    margin-left: -36px;
+    transition: 500ms;
+}
+
+h2:hover {
+    text-decoration: none;
+    font-weight: 900;
+    transition: 500ms;
+}
+
+#hello {
+    font-size: 22px;
+}
+
+@media(prefers-color-scheme: dark) {
+    body {
+        background-image: url("/resources/img/bg.webp");
+    }
+}
+
+@media(prefers-color-scheme: light) {
+    body {
+        background-image: url("/resources/img/bg2.webp");
+    }
+}

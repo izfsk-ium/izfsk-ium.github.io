@@ -1,0 +1,55 @@
+Technology:
+  - url: "https://github.com/dylanaraps/pure-bash-bible"
+    note: "Bash 脚本宝典。枕边参考书级别。"
+  - url: "https://www.petges.lu/"
+    note: "改变Windows上文件/文件夹的修改日期和创建日期等的小工具。"
+  - url: "https://developer.apple.com/fonts/TrueType-Reference-Manual/"
+    note: "TrueType字体的文件解构文档。"
+  - url: "https://heropatterns.com/"
+    note: "免费的svg背景图像生成器"
+  - url: "https://ss64.com/nt/"
+    note: "CMD知识和速查手册"
+  - url: "https://github.com/MattPD/cpplinks"
+    note: "关于C++的资料大全"
+
+Documents:
+  - url: "https://regexlearn.com/cheatsheet"
+    note: "正则表达式快速参考"
+  - url: "https://www.w3.org/TR/clreq/"
+    note: "W3C 中文排版需求"
+  - url: "https://sparanoid.com/note/chinese-copywriting-guidelines"
+    note: "你应该怎么在技术文档里写中文和英文"
+  - url: "https://ohmyraku.github.io/raku-quick-syntax-reference/"
+    note: "Raku 语法小册"
+  - url: "http://www.thebigfly.com/gnu/FDLv1.3/"
+    note: "GNU 自由文本授权 (简体中文翻译版)"
+  - url: "https://learn.justfont.com/pocketbook/"
+    note: "jf 字體口袋書，為字體學習進程補足基礎知識與概念脈絡。"
+
+Books:
+  - url: "http://songjinghe.github.io/TYS-zh-translation/"
+    note: "Scheme语言简明教程"
+  - url: "https://learnyouahaskell.mno2.org/"
+    note: "HASKELL 趣學指南"
+
+Tools:
+  - url: "https://neeva.com/index"
+    note: "另外一个搜索引擎，很好用。"
+  - url: "http://websocketd.com/"
+    note: "Websocket开服务器"
+
+Literature:
+  - url: "https://blogs.harvard.edu/guorui/the-harvard-classics/"
+    note: "The Harvard Classics 全集及其中文书单。"
+  - url: "https://miko.org/~uraki/kuon/furu/furu_index.htm"
+    note: "古事記 ~往古之追慕~　整理編纂: 浦木裕"
+  - url: "https://taiwanebook.ncl.edu.tw"
+    note: "國家圖書館華文電子書庫"
+
+Fun:
+  - url: "https://de.linuxgame.cn"
+    note: "Linux游戏下载站。均为Appimage格式。"
+
+Others:
+  - url: "https://www.equestriacn.com/"
+    note: "小马中国"

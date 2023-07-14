@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2023-07-01" />
+        <title>使用 systemd 进行资源分配</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT03566ccc-fb0d-4ff6-b67f-5e0a53204d4b.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT03566ccc-fb0d-4ff6-b67f-5e0a53204d4b.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">使用 systemd 进行资源分配</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#学习">学习</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#并不只是进程" id="toc-并不只是进程">并不只是“进程”</a></li>
+    <li><a href="#能控制些啥" id="toc-能控制些啥">能控制些啥</a>
+    <ul>
+    <li><a href="#cpu" id="toc-cpu">CPU</a></li>
+    <li><a href="#内存" id="toc-内存">内存</a></li>
+    <li><a href="#网络" id="toc-网络">网络</a></li>
+    </ul></li>
+    <li><a href="#怎么控制" id="toc-怎么控制">怎么控制</a>
+    <ul>
+    <li><a href="#通过-systemd-run" id="toc-通过-systemd-run">通过 <code>systemd-run</code></a></li>
+    <li><a href="#通过-cgroupfs" id="toc-通过-cgroupfs">通过 <code>cgroupfs</code></a></li>
+    <li><a href="#通过-systemctl-set-property" id="toc-通过-systemctl-set-property">通过 <code>systemctl set-property</code></a></li>
+    <li><a href="#用户单元配置文件" id="toc-用户单元配置文件">用户单元配置文件</a></li>
+    </ul></li>
+    <li><a href="#其他提示" id="toc-其他提示">其他提示</a></li>
+    <li><a href="#参考" id="toc-参考">参考</a></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <p><code>systemd</code> 是大多数 Linux 发行版的事实规范，不管大家喜不喜欢都要用它。这篇文章希望解决的问题是“精确的管理和控制进程/应用的各项资源”。</p>
+    <h2 id="并不只是进程">并不只是“进程”</h2>
+    <p>对于 <code>systemd</code> 来讲这样的细分不够，还需要有某种把若干相关的进程组织起来的抽象。<code>systemd</code> 里面主要有三种单元（<code>Unit</code>）类型：</p>
+    <ul>
+    <li><p><code>.service</code>：服务是 <code>systemd</code> 依据磁盘上的配置文件自己启动的东西。一般使用 <code>systemctl start/stop</code> 操纵的就是这类“服务”。</p></li>
+    <li><p><code>.scope</code>：不由配置文件启动的一组进程。只能以编程方式声明和启动。比如说使用 <code>fork</code> 调用出来的子进程。比如说，在 <code>konsole</code> 里面运行 <code>htop</code>，那么这个进程就会出现在某个 <code>scope</code> 里面。</p></li>
+    <li><p><code>.slice</code>：<code>slice</code> 和 <code>cgroup</code> 密切相关，每一个 <code>cgroup</code> 都是一个 <code>slice</code>，每个 <code>slice</code> 都可以有自己的子 <code>slice</code>。一个 <code>slice</code> 里面包含若干进程和/或子 <code>slice</code>。</p></li>
+    </ul>
+    <p><code>systemd</code> 自己有预先定义若干 <code>slice</code>，分别是 <code>system.slice</code>，<code>user.slice</code>，<code>machine.slice</code>。所有的系统服务都放在 <code>system.slice</code> 之中，每一个登录的用户会被分配到自己所属的 <code>user.slice</code> 下的一个子 <code>slice</code> 之中，<code>machine.slice</code> 则是给虚拟化服务使用的。</p>
+    <p>使用 <code>systemd-cgls</code> 可以查看机器上的 <code>cgroup</code> 树，举例来讲：</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r r numberLines"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>Control group <span class="sc">/</span><span class="er">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="sc">-</span>.slice</span>
+<span id="cb1-3"><a href="#cb1-3"></a>├─<span class="fu">user.slice</span> (<span class="co">#888)</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>│ └─user<span class="fl">-1000.</span><span class="fu">slice</span> (<span class="co">#2819)</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>│   ├─user<span class="sc">@</span><span class="fl">1000.</span>service … (<span class="co">#2899)</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>│   │ → user.delegate<span class="sc">:</span> <span class="dv">1</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>│   │ ├─<span class="fu">session.slice</span> (<span class="co">#3129)</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>│   │ │ └─<span class="fu">dbus.service</span> (<span class="co">#3169)</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>│   │ │   ├─<span class="dv">1636</span> <span class="sc">/</span>usr<span class="sc">/</span>bin<span class="sc">/</span>dbus<span class="sc">-</span>daemon <span class="sc">--</span>session <span class="sc">--</span><span class="at">address=</span>systemd<span class="sc">:</span> <span class="sc">--</span>nofork <span class="sc">--</span>n…</span>
+<span id="cb1-10"><a href="#cb1-10"></a>│   │ │   └─<span class="dv">3169</span> <span class="sc">/</span>usr<span class="sc">/</span>libexec<span class="sc">/</span>kf5<span class="sc">/</span>kiod5</span>
+<span id="cb1-11"><a href="#cb1-11"></a>│   │ ├─<span class="fu">background.slice</span> (<span class="co">#3204)</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>│   │ │ └─kde<span class="sc">-</span><span class="fu">baloo.service</span> (<span class="co">#3314)</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>│   │ │   └─<span class="dv">1720</span> <span class="sc">/</span>usr<span class="sc">/</span>libexec<span class="sc">/</span>baloo_file</span>
+<span id="cb1-14"><a href="#cb1-14"></a>│   │ ├─<span class="fu">app.slice</span> (<span class="co">#2979)</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>│   │ │ ├─app<span class="sc">-</span>firefox<span class="sc">-</span><span class="fu">b09f12b43b3d4b4dbf4098d695489166.scope</span> (<span class="co">#5075)</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a>│   │ │ │ ├─ <span class="dv">2340</span> <span class="sc">/</span>usr<span class="sc">/</span>lib64<span class="sc">/</span>firefox<span class="sc">/</span>firefox <span class="sc">-</span>contentproc <span class="sc">-</span>childID <span class="dv">264</span> <span class="sc">-</span>isForBr…</span>
+<span id="cb1-17"><a href="#cb1-17"></a>│   │ │ │ ├─ <span class="dv">4026</span> <span class="sc">/</span>usr<span class="sc">/</span>lib64<span class="sc">/</span>firefox<span class="sc">/</span>firefox</span>
+<span id="cb1-18"><a href="#cb1-18"></a>│   │ │ │ ├─ <span class="dv">4112</span> <span class="sc">/</span>usr<span class="sc">/</span>lib64<span class="sc">/</span>firefox<span class="sc">/</span>firefox <span class="sc">-</span>contentproc <span class="sc">-</span>parentBuildID 202306…</span>
+<span id="cb1-19"><a href="#cb1-19"></a>│   │ │ │ ├─ <span class="dv">4143</span> <span class="sc">/</span>usr<span class="sc">/</span>lib64<span class="sc">/</span>firefox<span class="sc">/</span>firefox <span class="sc">-</span>contentproc <span class="sc">-</span>childID <span class="dv">1</span> <span class="sc">-</span>isForBrow…</span>
+<span id="cb1-20"><a href="#cb1-20"></a>│   │ │ │ ├─ <span class="dv">4175</span> <span class="sc">/</span>usr<span class="sc">/</span>lib64<span class="sc">/</span>firefox<span class="sc">/</span>firefox <span class="sc">-</span>contentproc <span class="sc">-</span>childID <span class="dv">2</span> <span class="sc">-</span>isForBrow…</span>
+<span id="cb1-21"><a href="#cb1-21"></a>│   │ │ │ ├─ <span class="dv">4264</span> <span class="sc">/</span>usr<span class="sc">/</span>bin<span class="sc">/</span>plasma<span class="sc">-</span>browser<span class="sc">-</span>integration<span class="sc">-</span>host <span class="sc">/</span>usr<span class="sc">/</span>lib64<span class="sc">/</span>mozilla<span class="sc">/</span>n…</span>
+<span id="cb1-22"><a href="#cb1-22"></a>│   │ │ │ ├─<span class="dv">19214</span> <span class="sc">/</span>usr<span class="sc">/</span>lib64<span class="sc">/</span>firefox<span class="sc">/</span>firefox <span class="sc">-</span>contentproc <span class="sc">-</span>childID <span class="dv">330</span> <span class="sc">-</span>isForBr…</span>
+<span id="cb1-23"><a href="#cb1-23"></a>│   │ │ │ └─<span class="dv">30710</span> <span class="sc">/</span>usr<span class="sc">/</span>libexec<span class="sc">/</span>kf5<span class="sc">/</span>kio_http_cache_cleaner</span>
+<span id="cb1-24"><a href="#cb1-24"></a>│   │ └─<span class="fu">init.scope</span> (<span class="co">#2939)</span></span>
+<span id="cb1-25"><a href="#cb1-25"></a>│   │   ├─<span class="dv">1608</span> <span class="sc">/</span>usr<span class="sc">/</span>lib<span class="sc">/</span>systemd<span class="sc">/</span>systemd <span class="sc">--</span>user</span>
+<span id="cb1-26"><a href="#cb1-26"></a>│   │   └─<span class="dv">1609</span> (sd<span class="sc">-</span>pam)</span>
+<span id="cb1-27"><a href="#cb1-27"></a>│   └─session<span class="fl">-3.</span><span class="fu">scope</span> (<span class="co">#3089)</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a>│     → user.invocation_id<span class="sc">:</span> 73cac7153fd44d02b76ea50f1a559f7c</span>
+<span id="cb1-29"><a href="#cb1-29"></a>│     └─<span class="dv">9421</span> scdaemon <span class="sc">--</span>multi<span class="sc">-</span>server</span>
+<span id="cb1-30"><a href="#cb1-30"></a>├─<span class="fu">init.scope</span> (<span class="co">#19)</span></span>
+<span id="cb1-31"><a href="#cb1-31"></a>│ └─<span class="dv">1</span> <span class="sc">/</span>usr<span class="sc">/</span>lib<span class="sc">/</span>systemd<span class="sc">/</span>systemd <span class="sc">--</span>switched<span class="sc">-</span>root <span class="sc">--</span>system <span class="sc">--</span><span class="at">deserialize=</span><span class="dv">39</span></span>
+<span id="cb1-32"><a href="#cb1-32"></a>└─<span class="fu">system.slice</span> (<span class="co">#54)</span></span>
+<span id="cb1-33"><a href="#cb1-33"></a>  ├─<span class="fu">cron.service</span> (<span class="co">#2210)</span></span>
+<span id="cb1-34"><a href="#cb1-34"></a>  │ → user.invocation_id<span class="sc">:</span> d3c7344407014f80b4201d10bb4be93a</span>
+<span id="cb1-35"><a href="#cb1-35"></a>  │ └─<span class="dv">1563</span> <span class="sc">/</span>usr<span class="sc">/</span>sbin<span class="sc">/</span>cron <span class="sc">-</span>n</span>
+<span id="cb1-36"><a href="#cb1-36"></a>  ├─display<span class="sc">-</span><span class="fu">manager.service</span> (<span class="co">#2142)</span></span>
+<span id="cb1-37"><a href="#cb1-37"></a>  │ → user.invocation_id<span class="sc">:</span> 35ed91d9971249c4a6c654e1cdf383f4</span>
+<span id="cb1-38"><a href="#cb1-38"></a>  │ ├─<span class="dv">1410</span> <span class="sc">/</span>usr<span class="sc">/</span>bin<span class="sc">/</span>sddm</span>
+<span id="cb1-39"><a href="#cb1-39"></a>  │ └─<span class="dv">1412</span> <span class="sc">/</span>usr<span class="sc">/</span>bin<span class="sc">/</span>Xorg.bin <span class="sc">-</span>nolisten tcp <span class="sc">-</span>auth <span class="sc">/</span>run<span class="sc">/</span>sddm<span class="sc">/</span>{<span class="fl">05446e81</span><span class="dv">-5704</span><span class="sc">-</span>45ac<span class="sc">-</span>…</span>
+<span id="cb1-40"><a href="#cb1-40"></a>  └─systemd<span class="sc">-</span><span class="fu">logind.service</span> (<span class="co">#1989)</span></span>
+<span id="cb1-41"><a href="#cb1-41"></a>    → user.invocation_id<span class="sc">:</span> 3dc53b6e8c274294b617383903571d5f</span>
+<span id="cb1-42"><a href="#cb1-42"></a>    └─<span class="dv">1294</span> <span class="sc">/</span>usr<span class="sc">/</span>lib<span class="sc">/</span>systemd<span class="sc">/</span>systemd<span class="sc">-</span>logind</span></code></pre></div>
+    <p>（以上的内容有删减。）</p>
+    <p>你可以看到，对于系统服务，例如 <code>cron</code>，是运行在 <code>system.slice</code> 里面的，而对于用户进程，比如火狐浏览器(app-firefox-b09f12b43b3d4b4dbf4098d695489166.scope)，则是被放置在 <code>user/user-1000/app.slice</code> 中。其中包含所有火狐的内容进程和其他进程。其他的进程类似。实际上很多应用并不是包含一个进程，像火狐，或者 Chrome 之类的应用都可以在 <code>app.slice</code> 里面找到对应的 <code>scope</code>。</p>
+    <p>其实 <code>systemd</code> 有一个桌面环境规范，定义了常在桌面环境中见到的 <code>slice</code>，来应用程序分配不同的优先级。所有单元都应根据其用途被放入：</p>
+    <ul>
+    <li><code>session.slice</code>： 只包含运行用户图形会话所需的进程。</li>
+    <li><code>app.slice</code>： 包含用户正在运行的所有普通应用程序</li>
+    <li><code>background.slice</code>： 适用于低优先级的后台任务</li>
+    </ul>
+    <p>所以，像 KDE 的文件索引程序 <code>baloo</code> 就会被放在 <code>background.slice</code> 里面。</p>
+    <h2 id="能控制些啥">能控制些啥</h2>
+    <h3 id="cpu">CPU</h3>
+    <p>对于 CPU 的控制，主要使用 <code>CPUQuota</code>，<code>CPUWeight</code>。</p>
+    <p><code>CPUQuota</code> 控制的是单元在最大时应获得多少 CPU 时间，也就是严格的 CPU 资源的使用上限，接收一个百分比值，例如 <code>CPUQuota=85%</code>，对于多核 CPU，这个百分比可以超过 100%，有多少个核心就可以达到多少，比如对于 16 核心的 CPU，最大可以是 <code>CPUQuota=1600%</code> 。</p>
+    <p><code>CPUWeight</code> 替换了原来的 <code>CPUShare</code>，用来设置相对使用时间（相对权重），其值是一个整数，允许的范围是 1 到 10000 。</p>
+    <p>实例：</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 增加 CPU 负载</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">stress-ng</span> <span class="at">-c</span> 16</span></code></pre></div>
+    <p>动态改变 <code>user.slice</code>：</p>
+    <figure>
+    <img src="./assets/Screenshot_002_20230630.png" alt="给出不同的 CPUQuota" />
+    <figcaption aria-hidden="true">给出不同的 CPUQuota</figcaption>
+    </figure>
+    <figure>
+    <img src="./assets/Screenshot_001_20230630.png" alt="得到不同的结果" />
+    <figcaption aria-hidden="true">得到不同的结果</figcaption>
+    </figure>
+    <h3 id="内存">内存</h3>
+    <p>对于内存的使用控制，主要采用 <code>MemoryHigh</code> 和 <code>MemoryMax</code>。</p>
+    <p>两者都接收整数值作为大小（bytes），也可以输入（K，G，M，T）的单位和百分比，用于表示最多占用机器多少比例内存。其中，<code>MemoryHigh</code> 是主要的控制机制，是对目标最大可用内存的“软限制”，目标<strong>可能</strong>短暂的超过内存限制但其超出部分会被旋即回收。而 <code>MemoryMax</code> 是绝对硬限制，进程超出就会出发 <code>OOM</code> 被当即处决。实践中结合两者使用，软硬兼施。</p>
+    <p>实例：</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 生成进程</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">systemd-run</span> <span class="at">--slice</span><span class="op">=</span>stress.slice  <span class="at">--user</span> stress-ng <span class="at">--vm</span> 8 <span class="at">--vm-bytes</span> 256M</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Running as unit: run-u8748.service</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 更改内存控制</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> <span class="at">--user</span> set-property <span class="st">&#39;stress.slice&#39;</span>  MemoryMax=10000</span></code></pre></div>
+    <p>结果是 <code>stress-ng</code> 被 OOM 杀死：</p>
+    <figure>
+    <img src="./assets/oom.png" alt="OOM" />
+    <figcaption aria-hidden="true">OOM</figcaption>
+    </figure>
+    <p>对于启用的 SWAP 的系统，还有一个 <code>MemorySwapMax</code> 可以进行控制。这是一个绝对限制。</p>
+    <h3 id="网络">网络</h3>
+    <p>使用 <code>IPAddressAllow</code> 和 <code>IPAddressDeny</code> 来控制目标的联网。</p>
+    <ul>
+    <li>当被检查的IP地址与 IPAddressAllow 列表中的条目相匹配时，访问被授予。IPAddressAllow 列表中的条目时，允许访问。</li>
+    <li>否则，当检查的IP地址与 IPAddressDeny 列表中的条目相匹配时，将拒绝访问。IPAddressDeny 列表中的条目时，访问被拒绝。</li>
+    <li>否则，允许访问。</li>
+    </ul>
+    <table>
+    <thead>
+    <tr class="header">
+    <th>名称</th>
+    <th>定义</th>
+    <th>含义</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>any</td>
+    <td><code>0.0.0.0/0 ::/0</code></td>
+    <td>所有网络地址</td>
+    </tr>
+    <tr class="even">
+    <td>localhost</td>
+    <td><code>0.0.0.0/0 ::/0</code></td>
+    <td>本地回环</td>
+    </tr>
+    </tbody>
+    </table>
+    <p>例如，要禁止联网：<code>systemctl set-property user.slice IPAddressDeny=any</code>。</p>
+    <p>除了上面提到的，cgroup 还可以控制 IO，块设备访问等等，参见：<a href="https://manpages.ubuntu.com/manpages/impish/man5/systemd.resource-control.5.html">systemd.resource-control</a></p>
+    <h2 id="怎么控制">怎么控制</h2>
+    <figure>
+    <img src="./assets/code.webp" alt="如何查看" />
+    <figcaption aria-hidden="true">如何查看</figcaption>
+    </figure>
+    <h3 id="通过-systemd-run">通过 <code>systemd-run</code></h3>
+    <p>创建一个临时控制组群：</p>
+    <p><code>systemd-run --unit=&lt;name&gt; --slice=&lt;name&gt;.slice &lt;command&gt;</code></p>
+    <p>其中： <code>--unit=&lt;name&gt;</code> 选项为单元取一个名称。如果未指定 <code>--unit</code>，则会自动生成名称。<code>--slice=&lt;name&gt;.slice</code> 选项使单元成为指定片段的成员。默认情况下，服务和范围作为 systemslice 的成员创建。</p>
+    <p>成功后将会提示： <code>Running as unit &lt;name&gt;.service</code></p>
+    <p>适用情况：想要一次性运行一个临时的任务，直接给出限制。例如：</p>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 在 Linux 上玩 Minecraft，限制 Java 最多可以获取的内存大小 8192MB</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">systemd-run</span> <span class="at">--scope</span> <span class="at">--user</span> <span class="at">-p</span> MemoryMax=8192M <span class="at">-p</span> MemoryHigh=8192M java <span class="at">-jar</span> minecraft.jar</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 不紧不慢的更新数据库</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">systemd-run</span> <span class="at">-p</span> IOWeight=10 updatedb</span></code></pre></div>
+    <p>适用情况：运行一个临时的任务，但想要把它放在某个特定的组里便于统一管理：</p>
+    <div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 将一个任务放在已有的 slice 里面</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">systemd-run</span> <span class="at">--user</span> <span class="at">--slice</span><span class="op">=</span>app.slice <span class="at">--scope</span> htop </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 将任务放进一个新的 slice 里面（默认位于 user-uid.slice 之下）</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">systemd-run</span> <span class="at">--user</span> <span class="at">--slice</span><span class="op">=</span>noNetwork.slice <span class="at">--scope</span> some-application</span></code></pre></div>
+    <h3 id="通过-cgroupfs">通过 <code>cgroupfs</code></h3>
+    <p>位于 <code>/sys/fs/cgroup/</code> 的伪文件系统可用于手动查看和配置 cgroup。要查看某个进程所属的 cgroup，请运行 <code>cat proc/&lt;PID&gt;/cgroup</code> 命令。</p>
+    <p>适用情况：想要手动调整某个 slice：</p>
+    <div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 比如要调节火狐，首先过滤出它到底是在哪一个 slice 里面：</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ps</span> <span class="at">-aux</span> <span class="kw">|</span> <span class="fu">grep</span> firefox </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> status pid</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># CGroup: /user.slice/user-1000.slice/user@1000.service</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 接下来到指定的目录：</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/app-firefox-b09f12b43b3d4b4dbf4098d695489166.scope</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看这个组里面包含的进程 PID</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> cgroup.procs</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 接下来就可以进行调节了</span></span></code></pre></div>
+    <h3 id="通过-systemctl-set-property">通过 <code>systemctl set-property</code></h3>
+    <p>这是最方便的方法。</p>
+    <p>还是以调节火狐为例，首先从 <code>systemd-cgls</code> 里面找出其组名称：</p>
+    <div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> <span class="at">--user</span> set-property <span class="st">&#39;app-firefox-b09f12b43b3d4b4dbf4098d695489166.scope&#39;</span> CPUQuota=100%  </span></code></pre></div>
+    <p>对于使用 <code>systemd-run</code> 创建的任务单元（返回 <code>Running as unit &lt;name&gt;.service</code> 的），以及<code>systemd-cgls</code> 列出的大部分内容，无论是 slice，service 还是 scope 都可以这样管理，很方便。<strong>注意：必须添加 <code>--user</code> 选项，否则找不到对应的单元!</strong></p>
+    <h3 id="用户单元配置文件">用户单元配置文件</h3>
+    <p>对于想要持久化的配置，可以使用 systemd 单元配置文件。其路径一般位于 <code>~/.config/systemd/user</code>，示例如下：</p>
+    <p>新建文件 <code>limitMemory.slice</code></p>
+    <div class="sourceCode" id="cb8"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[Slice]</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="dt">MemoryHigh</span><span class="ot">=</span><span class="st">8192M</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="dt">MemoryMax</span><span class="ot">=</span><span class="st">8092M</span></span></code></pre></div>
+    <p>然后运行 <code>systemctl --user daemon-reload</code> 接下来对于想要限制内存的应用程序这样运行：</p>
+    <div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">systemd-run</span> <span class="at">--user</span> <span class="at">--slice</span><span class="op">=</span>limitMemory.slice chromium</span></code></pre></div>
+    <p>或者写 service 也可以：</p>
+    <div class="sourceCode" id="cb10"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[Unit]</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Description</span><span class="ot">=</span><span class="st">Minecraft Game</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">[Service]</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="dt">WorkingDirectory</span><span class="ot">=</span><span class="st">/run/media/izfsk/Data/Games</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="dt">Environment</span><span class="ot">=</span><span class="st">&quot;__NV_PRIME_RENDER_OFFLOAD=1&quot;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="dt">Environment</span><span class="ot">=</span><span class="st">&quot;__GLX_VENDOR_LIBRARY_NAME=nvidia&quot;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="dt">ExecStart</span><span class="ot">=</span><span class="st">java -jar /run/media/izfsk/Data/Games/minecraft.jar</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="dt">ExecStop</span><span class="ot">=</span><span class="st">killall java</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="dt">MemoryMax</span><span class="ot">=</span><span class="st">9000M</span></span></code></pre></div>
+    <p>接下来</p>
+    <div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> <span class="at">--user</span> daemon-reload</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> <span class="at">--user</span> start minecraft</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看日志</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ex">journalctl</span> <span class="at">--user</span> <span class="at">-u</span> minecraft <span class="at">--follow</span> <span class="at">--output</span> cat</span></code></pre></div>
+    <h2 id="其他提示">其他提示</h2>
+    <ol type="1">
+    <li><p><code>slice</code> 的命名规则：把 - 符号当作路径分隔符。例如 <code>foo-bar-baz.slice</code> 应该理解成 <code>foo/bar/baz.slice</code>。systemd 会把特殊字符 escape （ <code>systemd-escape</code> ）来避免出现 - 符号。</p></li>
+    <li><p>不要在 <code>systemd</code> 管理的任意 <code>cgroup</code> 下面创建自己的 <code>cgroup</code>，即没有设置 <code>Delegate=</code>的 <code>cgroup</code>。不要在根 <code>cgroup</code> 下面创建自己的 <code>cgroup</code>。“如果你直接在 <code>cgroup</code> 根目录下创建 <code>cgroup</code>，那么你所做的一切都是自找麻烦。”（Seriously, if you create cgroups directly in the cgroup root, then all you do is ask for trouble.）。</p></li>
+    <li><p>不要对 <code>systemd</code> 创建的 <code>cgroup</code> 的任何属性进行写入。</p></li>
+    </ol>
+    <h2 id="参考">参考</h2>
+    <ul>
+    <li><a href="https://docs.kernel.org/admin-guide/cgroup-v2.html">Control Group v2</a></li>
+    <li><a href="https://www.freedesktop.org/software/systemd/man/systemd-run.html">Systemd-run</a></li>
+    <li><a href="https://manpages.ubuntu.com/manpages/impish/man5/systemd.resource-control.5.html">systemd.resource-control</a></li>
+    <li><a href="https://systemd.io/CGROUP_DELEGATION/">CGROUP_DELEGATION</a></li>
+    <li><a href="https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/9/html/managing_monitoring_and_updating_the_kernel/assembly_using-systemd-to-manage-resources-used-by-applications_managing-monitoring-and-updating-the-kernel">使用 systemd 管理应用程序使用的资源</a></li>
+    </ul>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-07-01">创建日期：2023-07-01</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

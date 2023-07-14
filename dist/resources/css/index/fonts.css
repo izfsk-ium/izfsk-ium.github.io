@@ -1,0 +1,19 @@
+@font-face {
+    font-family: CONTENT;
+    src: url("/resources/fonts/ClearHans/ClearHansSerifGB.index.woff2") format('woff2');
+}
+
+@font-face {
+    font-family: SITENAME;
+    src: url("/resources/fonts/moe.index.woff2") format('woff2');
+}
+
+@font-face {
+    font-family: CODE;
+    src: url("/resources/fonts/FiraCode/FCR.woff2") format('woff2');
+}
+
+@font-face {
+    font-family: SCRIPT;
+    src: url("/resources/fonts/ETBembo/ETBembo-RomanOSF.woff2") format('woff2');
+}

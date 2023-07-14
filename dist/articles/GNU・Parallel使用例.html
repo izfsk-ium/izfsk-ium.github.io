@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2023-02-19" />
+        <title>GNU・Parallel使用例</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT23d00329-9a40-41dc-96e4-673f89a6d1b6.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT23d00329-9a40-41dc-96e4-673f89a6d1b6.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">GNU・Parallel使用例</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#整理">整理</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#替代-xargs--n1-使用" id="toc-替代-xargs--n1-使用">替代 <code>xargs -n1</code> 使用</a></li>
+    <li><a href="#简单网络扫描器" id="toc-简单网络扫描器">简单网络扫描器</a></li>
+    <li><a href="#从命令行读取参数" id="toc-从命令行读取参数">从命令行读取参数</a></li>
+    <li><a href="#突破参数长度限制" id="toc-突破参数长度限制">突破参数长度限制</a></li>
+    <li><a href="#内容替换" id="toc-内容替换">内容替换</a></li>
+    <li><a href="#计算密集型作业" id="toc-计算密集型作业">计算密集型作业</a></li>
+    <li><a href="#替换和重定向" id="toc-替换和重定向">替换和重定向</a></li>
+    <li><a href="#多个命令组合" id="toc-多个命令组合">多个命令组合</a></li>
+    <li><a href="#多重来源数据替换" id="toc-多重来源数据替换">多重来源数据替换</a></li>
+    <li><a href="#移除参数中的特定字符串" id="toc-移除参数中的特定字符串">移除参数中的特定字符串</a></li>
+    <li><a href="#聚合文件内容" id="toc-聚合文件内容">聚合文件内容</a></li>
+    <li><a href="#更好的-for-和-while" id="toc-更好的-for-和-while">更好的 <code>for</code> 和 <code>while</code></a></li>
+    <li><a href="#步进" id="toc-步进">步进</a></li>
+    <li><a href="#加速快速的任务" id="toc-加速快速的任务">加速快速的任务</a></li>
+    <li><a href="#远程运行" id="toc-远程运行">远程运行</a></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <p>当需要并行处理一堆东西的时候，有时候会考虑 <a href="https://www.gnu.org/software/parallel/">GNU Parallel</a>，但它真的很复杂，而且总的来讲比较混乱，最好的办法不是从头到尾学一遍，而是按照例子去操作。官方文档也考虑到了这个问题，提供了<a href="https://www.gnu.org/software/parallel/parallel_examples.html">例子大全</a>，本文是对这些例子的转译，顺便添加一些注解。<strong>注意，这里只保留了我认为有用的例子</strong>，因为这样的工具实在不需要太过复杂的运用。</p>
+    <p>首先写一个验证程序，显示 <code>parallel</code> 到底是怎么给程序添加参数的：</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">){</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;[</span><span class="sc">%d</span><span class="st">]Arguments: &quot;</span><span class="op">,</span> getpid<span class="op">());</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i<span class="op">=</span><span class="dv">0</span><span class="op">;</span> i<span class="op">!=</span>argc<span class="op">;</span> i<span class="op">++){</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot; [</span><span class="sc">%s</span><span class="st">]&quot;</span><span class="op">,</span> argv<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    sleep<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <h2 id="替代-xargs--n1-使用">替代 <code>xargs -n1</code> 使用</h2>
+    <p>很简单，比如你有很多 html 文件要压缩：</p>
+    <p><code>find . -name '*.html' | parallel gzip --best</code></p>
+    <p>当然也可以</p>
+    <p><code>find . -name '*.html' | xargs -n1 gzip --best</code></p>
+    <p>区别就在 parallel 是并行的，使用 <code>xargs</code>：</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span> time ls <span class="op">|</span> xargs <span class="op">-</span>n1 <span class="op">./</span>a<span class="op">.</span><span class="at">out</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">27602</span>]Arguments<span class="op">:</span>  [<span class="op">./</span>a<span class="op">.</span><span class="at">out</span>] [<span class="dv">31</span>]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">27607</span>]Arguments<span class="op">:</span>  [<span class="op">./</span>a<span class="op">.</span><span class="at">out</span>] [<span class="dv">32</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">27608</span>]Arguments<span class="op">:</span>  [<span class="op">./</span>a<span class="op">.</span><span class="at">out</span>] [a<span class="op">.</span><span class="at">out</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">27611</span>]Arguments<span class="op">:</span>  [<span class="op">./</span>a<span class="op">.</span><span class="at">out</span>] [show<span class="op">.</span><span class="at">c</span>]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>ls <span class="op">--</span>color<span class="op">=</span>tty  <span class="fl">0.00</span>s user <span class="fl">0.00</span>s system <span class="dv">73</span><span class="op">%</span> cpu <span class="fl">0.002</span> total</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>xargs <span class="op">-</span>n1 <span class="op">./</span>a<span class="op">.</span><span class="at">out</span>  <span class="fl">0.00</span>s user <span class="fl">0.00</span>s system <span class="dv">0</span><span class="op">%</span> cpu <span class="fl">4.006</span> total</span></code></pre></div>
+    <p>而使用 <code>parallel</code>：</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span> time ls <span class="op">|</span> parallel <span class="op">./</span>a<span class="op">.</span><span class="at">out</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">27945</span>]Arguments<span class="op">:</span>  [<span class="op">./</span>a<span class="op">.</span><span class="at">out</span>] [<span class="dv">31</span>]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">27946</span>]Arguments<span class="op">:</span>  [<span class="op">./</span>a<span class="op">.</span><span class="at">out</span>] [<span class="dv">32</span>]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">27947</span>]Arguments<span class="op">:</span>  [<span class="op">./</span>a<span class="op">.</span><span class="at">out</span>] [a<span class="op">.</span><span class="at">out</span>]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">27948</span>]Arguments<span class="op">:</span>  [<span class="op">./</span>a<span class="op">.</span><span class="at">out</span>] [show<span class="op">.</span><span class="at">c</span>]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>ls <span class="op">--</span>color<span class="op">=</span>tty  <span class="fl">0.00</span>s user <span class="fl">0.00</span>s system <span class="dv">61</span><span class="op">%</span> cpu <span class="fl">0.001</span> total</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>parallel <span class="op">./</span>a<span class="op">.</span><span class="at">out</span>  <span class="fl">0.08</span>s user <span class="fl">0.03</span>s system <span class="dv">9</span><span class="op">%</span> cpu <span class="fl">1.076</span> total</span></code></pre></div>
+    <p>可以看到 <code>parallel</code> <strong>同时运行</strong> 四个程序，只花了一秒。这也是为什么要用 <code>parallel</code> 的原因。所以，同样的，如果碰到视频转码之类的耗费时间的任务，使用 <code>parallel</code> 能加快速度不少。</p>
+    <h2 id="简单网络扫描器">简单网络扫描器</h2>
+    <p><code>prips 130.229.16.0/20 | parallel --timeout 2 -j0 'ping -c 1 {} &gt;/dev/null &amp;&amp; echo {}' 2&gt;/dev/null</code></p>
+    <p>由此可以过滤出返回数据的目标。在这个例子里面，一是要注意换行符号用来分割参数，二是注意使用 <code>{}</code> 来包含每一次的参数。另外 <code>-j</code> 参数用来控制每一批的操作数量。</p>
+    <h2 id="从命令行读取参数">从命令行读取参数</h2>
+    <p><code>parallel</code> 可以从命令行读取参数，而不是一定要找 <code>stdin</code>。例如第一个例子也可以写成：</p>
+    <p><code>parallel gzip --best ::: *.html</code></p>
+    <p>但是只能压缩目前级别的文件。命令行参数同样可以使用 <code>{}</code>，例如使用 <code>ffmpeg</code> 转码：</p>
+    <p><code>parallel ffmpeg -i {} -o {.}.mp3 ::: *.wav</code></p>
+    <p>在这里，<code>{.}</code> 是「取点号之前的字符串」，而 <code>:::</code> 则是分割。</p>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span> ls</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dv">31</span>   <span class="dv">32</span>   a<span class="op">.</span><span class="at">out</span>  <span class="st">&#39;Hello world&#39;</span>   show<span class="op">.</span><span class="at">c</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">%</span> parallel <span class="op">./</span>a<span class="op">.</span><span class="at">out</span> {} {<span class="op">.</span>} <span class="op">:::</span> <span class="op">*</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">4619</span>]Arguments<span class="op">:</span>  [<span class="op">./</span>a<span class="op">.</span><span class="at">out</span>] [<span class="dv">31</span>] [<span class="dv">31</span>]</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">4620</span>]Arguments<span class="op">:</span>  [<span class="op">./</span>a<span class="op">.</span><span class="at">out</span>] [<span class="dv">32</span>] [<span class="dv">32</span>]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">4621</span>]Arguments<span class="op">:</span>  [<span class="op">./</span>a<span class="op">.</span><span class="at">out</span>] [a<span class="op">.</span><span class="at">out</span>] [a]</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">4622</span>]Arguments<span class="op">:</span>  [<span class="op">./</span>a<span class="op">.</span><span class="at">out</span>] [Hello world] [Hello world]</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">4623</span>]Arguments<span class="op">:</span>  [<span class="op">./</span>a<span class="op">.</span><span class="at">out</span>] [show<span class="op">.</span><span class="at">c</span>] [show]</span></code></pre></div>
+    <h2 id="突破参数长度限制">突破参数长度限制</h2>
+    <p>有时候你会碰见这样的问题：</p>
+    <div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span> <span class="op">./</span>a<span class="op">.</span><span class="fu">out</span> <span class="vs">`find ~`</span>     </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>zsh<span class="op">:</span> argument list too long<span class="op">:</span> <span class="op">./</span>a<span class="op">.</span><span class="at">out</span></span></code></pre></div>
+    <p>这是因为文件太多了，超出参数长度限制。 传统的方法是使用 <code>xargs</code>，但也可以使用 <code>parallel</code>：</p>
+    <p><code>find ~ | parallel ./a.out {}</code></p>
+    <p>这会给<strong>每一个操作</strong>单独开一个程序。你可以把每一个的参数加到允许的最大范围来加速操作：</p>
+    <p><code>find ~ | parallel -m ./a.out {}</code></p>
+    <h2 id="内容替换">内容替换</h2>
+    <p>使用</p>
+    <p><code>seq -w 0 9999 | parallel rm pict{}.jpg</code></p>
+    <p>或者</p>
+    <p><code>seq -w 0 9999 | perl -pe 's/(.*)/pict$1.jpg/' | parallel -m rm</code></p>
+    <p>来删除 pict0000.jpg 到 pict9999.jpg。第一个版本允许 <code>rm</code> 10000 次，第二个给每一个允许的 <code>rm</code> 添加刚好不至于突破参数长度限制的参数，更加快速，也可以这样做：</p>
+    <p><code>seq -w 0 9999 | parallel -X rm pict{}.jpg</code></p>
+    <p><code>-X</code> 的作用是，如果多个作业并行运行，则将参数平均分配给作业。</p>
+    <h2 id="计算密集型作业">计算密集型作业</h2>
+    <p>你可以使用 <code>ImageMagick</code> 来给图片制作缩略图：</p>
+    <p><code>convert -geometry 120 foo.jpg thumb_foo.jpg</code></p>
+    <p>这个版本则能够充分利用你的 CPU：</p>
+    <p><code>ls *.jpg | parallel convert -geometry 120 {} thumb_{}</code></p>
+    <p>也可以递归的来处理所有的文件：</p>
+    <p><code>find . -name '*.jpg' | parallel convert -geometry 120 {} {}_thumb.jpg</code></p>
+    <p>如上所述，使用 <code>{.}</code> 来获取文件名，所以如果你想要 <em>./foo/bar_thumb.jpg</em> 的文件名，这样做：</p>
+    <p><code>find . -name '*.jpg' | parallel convert -geometry 120 {} {.}_thumb.jpg</code></p>
+    <p>将所有 <code>wav</code> 变成 <code>mp3</code>，并放到同一个目录：</p>
+    <p><code>find sounddir -type f -name '*.wav' | parallel lame {} -o mydir/{/.}.mp3</code></p>
+    <h2 id="替换和重定向">替换和重定向</h2>
+    <p>你有很多 <code>.gz</code> 文件，你想要获得未压缩版本。你可以这样：</p>
+    <pre class="shell"><code>for file in ./*.gz;do
+    zcat $file &gt; &quot;${file%.*}&quot;
+done</code></pre>
+    <p>使用 <code>parallel</code> 的版本如下：</p>
+    <p><code>parallel zcat {} "&gt;"{.} ::: *.gz</code></p>
+    <p>你需要把 <code>&gt;</code> 用引号包围。否则这样做：</p>
+    <p><code>parallel "zcat {} &gt;{.}" ::: *.gz</code></p>
+    <p>其他特殊符号也许要使用引号包围。例如：<code>* ; $ &gt; &lt; | &gt;&gt; &lt;&lt;</code>，否则它们会被 shell 解释，而不是传递给 <code>parallel</code>。</p>
+    <h2 id="多个命令组合">多个命令组合</h2>
+    <p>一个作业可以包含若干条命令，它们之间使用 <code>;</code> 分割：</p>
+    <p><code>ls | parallel 'echo {} ; ls {} '</code></p>
+    <p>甚至可以输入一个小脚本：</p>
+    <div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>find <span class="op">.</span> <span class="op">|</span> parallel &#39;a<span class="ot">=</span>{}; name<span class="op">=$</span>{a<span class="op">##*/</span>};&#39; \</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  &#39;upper<span class="op">=$</span>(echo <span class="st">&quot;$name&quot;</span> <span class="op">|</span> tr <span class="st">&quot;[:lower:]&quot;</span> <span class="st">&quot;[:upper:]&quot;</span>);&#39;\</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  &#39;echo <span class="st">&quot;$name - $upper&quot;</span>&#39;</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>ls <span class="op">|</span> parallel &#39;mv {} <span class="st">&quot;$(echo {} | tr &quot;</span>[<span class="op">:</span>upper<span class="op">:</span>]<span class="st">&quot; &quot;</span>[<span class="op">:</span>lower<span class="op">:</span>]<span class="st">&quot;)&quot;</span>&#39;</span></code></pre></div>
+    <p>批量下载不是问题。以下命令会打印出下载错误的 url 和行号：</p>
+    <p><code>cat urlfile | parallel "wget {} 2&gt;/dev/null || grep -n {} urlfile"</code></p>
+    <p>创建一个具有相同文件名的镜像目录，除了所有文件和符号链接都是空文件。</p>
+    <p><code>cp -rs /the/source/dir mirror_dir &amp;&amp; find mirror_dir -type l | parallel -m rm {} '&amp;&amp;' touch {}</code></p>
+    <p>在文件列表中过滤出不存在的文件：</p>
+    <p><code>cat file_list | parallel 'if [ ! -e {} ] ; then echo {}; fi'</code></p>
+    <p>很长的操作可以写成 shell 函数调用，不要忘记 export -f：</p>
+    <div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">doit</span>() {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  echo Doing it <span class="cf">for</span> $1</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  sleep <span class="dv">2</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  echo Done <span class="cf">with</span> $1</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="op">-</span>f doit</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>parallel doit <span class="op">:::</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span></code></pre></div>
+    <h2 id="多重来源数据替换">多重来源数据替换</h2>
+    <p>举例：</p>
+    <div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span> parallel <span class="st">&quot;./a.out </span><span class="sc">{1}</span><span class="st"> </span><span class="sc">{2}</span><span class="st">&quot;</span> ::: {a..c} ::: {<span class="fl">0..3</span>}   </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Same as `parallel &quot;./a.out {1} {2}&quot; ::: {a..c} ::: 0 1 2 3`</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">15696</span>]Arguments:  [.<span class="op">/</span>a.out] [a] [<span class="dv">0</span>]</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">15697</span>]Arguments:  [.<span class="op">/</span>a.out] [a] [<span class="dv">1</span>]</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">15699</span>]Arguments:  [.<span class="op">/</span>a.out] [a] [<span class="dv">2</span>]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">15700</span>]Arguments:  [.<span class="op">/</span>a.out] [a] [<span class="dv">3</span>]</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">15701</span>]Arguments:  [.<span class="op">/</span>a.out] [b] [<span class="dv">0</span>]</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">15702</span>]Arguments:  [.<span class="op">/</span>a.out] [b] [<span class="dv">1</span>]</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">15703</span>]Arguments:  [.<span class="op">/</span>a.out] [b] [<span class="dv">2</span>]</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">15704</span>]Arguments:  [.<span class="op">/</span>a.out] [b] [<span class="dv">3</span>]</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">15705</span>]Arguments:  [.<span class="op">/</span>a.out] [c] [<span class="dv">0</span>]</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>[<span class="dv">15706</span>]Arguments:  [.<span class="op">/</span>a.out] [c] [<span class="dv">1</span>]</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">15707</span>]Arguments:  [.<span class="op">/</span>a.out] [c] [<span class="dv">2</span>]</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>[<span class="dv">15708</span>]Arguments:  [.<span class="op">/</span>a.out] [c] [<span class="dv">3</span>]</span></code></pre></div>
+    <p>可以看到它的替换效果类似于笛卡尔积。</p>
+    <h2 id="移除参数中的特定字符串">移除参数中的特定字符串</h2>
+    <p>如果只有一个后缀名，例如 <code>a.mp4</code> 可以使用 <code>{.}</code>，同样地，对于诸如 <code>a.tar.gz</code> 可以使用 <code>{..}</code>，<strong>切记要加上 <code>--plus</code> 参数</strong>。</p>
+    <p>举例：</p>
+    <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span> ls</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>a.tar.gz   b.tar.gz   c.tar.gz   d.tar.gz   e.tar.gz</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="op">%</span> parallel <span class="op">--</span>plus <span class="st">&#39;./a.out {..}&#39;</span> ::: <span class="op">*</span>.tar.gz</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">27784</span>]Arguments:  [.<span class="op">/</span>a.out] [a]</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">27785</span>]Arguments:  [.<span class="op">/</span>a.out] [b]</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">27786</span>]Arguments:  [.<span class="op">/</span>a.out] [c]</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">27787</span>]Arguments:  [.<span class="op">/</span>a.out] [d]</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">27788</span>]Arguments:  [.<span class="op">/</span>a.out] [e]</span></code></pre></div>
+    <p>同样地，对于更多的 <code>.</code> 也可以处理：</p>
+    <div class="sourceCode" id="cb11"><pre class="sourceCode perl"><code class="sourceCode perl"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>% ls</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>a.src.tar.xz   b.src.tar.xz   c.src.tar.xz   d.src.tar.xz   e.src.tar.xz </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>% parallel -<span class="ot">-p</span>lus <span class="ot">&#39;</span><span class="ss">./a.out {...}</span><span class="ot">&#39;</span> ::: <span class="wa">*.</span>src.tar.xz</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">28960</span>]Arguments:  [.<span class="ot">/a.out] </span><span class="ch">[</span><span class="bn">a</span><span class="ch">]</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ch">[</span><span class="bn">28961</span><span class="ch">]</span><span class="ot">Arguments:  </span><span class="ch">[</span><span class="bn">./a.out</span><span class="ch">]</span><span class="ot"> </span><span class="ch">[</span><span class="bn">b</span><span class="ch">]</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="ch">[</span><span class="bn">28962</span><span class="ch">]</span><span class="ot">Arguments:  </span><span class="ch">[</span><span class="bn">./a.out</span><span class="ch">]</span><span class="ot"> </span><span class="ch">[</span><span class="bn">c</span><span class="ch">]</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="ch">[</span><span class="bn">28963</span><span class="ch">]</span><span class="ot">Arguments:  </span><span class="ch">[</span><span class="bn">./a.out</span><span class="ch">]</span><span class="ot"> </span><span class="ch">[</span><span class="bn">d</span><span class="ch">]</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="ch">[</span><span class="bn">28964</span><span class="ch">]</span><span class="ot">Arguments:  </span><span class="ch">[</span><span class="bn">./a.out</span><span class="ch">]</span><span class="ot"> </span><span class="ch">[</span><span class="bn">e</span><span class="ch">]</span></span></code></pre></div>
+    <p>对于任意字符串的替换使用 <code>%</code> （后缀）<code>#</code> （前缀）和 <code>/</code> 正则表达式：</p>
+    <div class="sourceCode" id="cb12"><pre class="sourceCode perl"><code class="sourceCode perl"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>% ls</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>aHello  bHello  cHello  dHello  eHello</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>% parallel -<span class="ot">-p</span>lus <span class="ot">&#39;</span><span class="ss">../a.out {%Hello}</span><span class="ot">&#39;</span> ::: <span class="ot">*</span>       </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">29654</span>]Arguments:  [..<span class="ot">/a.out] </span><span class="ch">[</span><span class="bn">a</span><span class="ch">]</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="ch">[</span><span class="bn">29655</span><span class="ch">]</span><span class="ot">Arguments:  </span><span class="ch">[</span><span class="bn">../a.out</span><span class="ch">]</span><span class="ot"> </span><span class="ch">[</span><span class="bn">b</span><span class="ch">]</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="ch">[</span><span class="bn">29656</span><span class="ch">]</span><span class="ot">Arguments:  </span><span class="ch">[</span><span class="bn">../a.out</span><span class="ch">]</span><span class="ot"> </span><span class="ch">[</span><span class="bn">c</span><span class="ch">]</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="ch">[</span><span class="bn">29657</span><span class="ch">]</span><span class="ot">Arguments:  </span><span class="ch">[</span><span class="bn">../a.out</span><span class="ch">]</span><span class="ot"> </span><span class="ch">[</span><span class="bn">d</span><span class="ch">]</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="ch">[</span><span class="bn">29658</span><span class="ch">]</span><span class="ot">Arguments:  </span><span class="ch">[</span><span class="bn">../a.out</span><span class="ch">]</span><span class="ot"> </span><span class="ch">[</span><span class="bn">e</span><span class="ch">]</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="ot">% parallel --plus &#39;../</span>a.out {<span class="ot">/ello/</span>}<span class="ot">&#39;</span><span class="ss"> ::: *</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="ss">[29835]Arguments:  [../a.out] [aH]</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="ss">[29836]Arguments:  [../a.out] [bH]</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="ss">[29837]Arguments:  [../a.out] [cH]</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="ss">[29838]Arguments:  [../a.out] [dH]</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="ss">[29839]Arguments:  [../a.out] [eH]</span></span></code></pre></div>
+    <p>用这种方法，可以快捷的重命名。再比如给文件加上时间戳：</p>
+    <p><code>parallel mv {} '{= $a=pQ($_); $b=$_;' '$_=qx{date -r "$a" +%FT%T}; chomp; $_="$_ $b" =}' ::: *</code></p>
+    <h2 id="聚合文件内容">聚合文件内容</h2>
+    <p>以下命令将会生成文件 <code>x1y01z1</code> 到 <code>x5y10z5</code>：</p>
+    <p><code>parallel --header : echo x{X}y{Y}z{Z} \&gt; x{X}y{Y}z{Z} ::: X {1..5} ::: Y {01..10} ::: Z {1..5}</code></p>
+    <h2 id="更好的-for-和-while">更好的 <code>for</code> 和 <code>while</code></h2>
+    <p>一般的 <code>for</code> 循环长这样：</p>
+    <div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(for x <span class="kw">in</span> <span class="ot">`cat list`</span> ; <span class="kw">do</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  do_something <span class="op">$</span>x</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>done) <span class="op">|</span> process_output</span></code></pre></div>
+    <p>以及 <code>while</code> 循环：</p>
+    <div class="sourceCode" id="cb14"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cat list <span class="op">|</span> (while <span class="fu">read</span> x ; <span class="kw">do</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  do_something <span class="op">$</span>x</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>done) <span class="op">|</span> process_output</span></code></pre></div>
+    <p>可以重写成这样：</p>
+    <p><code>cat list | parallel do_something | process_output</code></p>
+    <h2 id="步进">步进</h2>
+    <p>假如你有以下输入：</p>
+    <pre><code>aardvark
+babble
+cab
+dab
+each</code></pre>
+    <p>你想要这样：</p>
+    <pre><code>aardvark babble
+babble cab
+cab dab
+dab each</code></pre>
+    <p>对于保存在文件里面的情况，使用这个命令：</p>
+    <p><code>parallel echo {1} - {2} ::::+ &lt;(head -n -1 in.txt) &lt;(tail -n +2 in.txt)</code></p>
+    <h2 id="加速快速的任务">加速快速的任务</h2>
+    <p>在本地机器上启动作业大约需要 3-10 毫秒，如果作业运行时间非常短，这可能是一个很大的开销。可以使用 -X 将小作业组合在一起。例如：</p>
+    <div class="sourceCode" id="cb17"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span> <span class="op">-</span>w <span class="dv">0</span> <span class="dv">9999</span> <span class="op">|</span> parallel touch pict{}<span class="op">.</span>jpg</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span> <span class="op">-</span>w <span class="dv">0</span> <span class="dv">9999</span> <span class="op">|</span> parallel <span class="op">-</span><span class="dt">X</span> touch pict{}<span class="op">.</span>jpg</span></code></pre></div>
+    <h2 id="远程运行">远程运行</h2>
+    <p>要在远程计算机上运行命令，需要设置 SSH，并且必须能够在不输入密码的情况下登录。</p>
+    <p><code>seq 10 | parallel --sshlogin server.example.com echo</code></p>
+    <p>要将命令分发到计算机列表，为所有计算机创建一个文件：</p>
+    <pre><code>server.example.com
+foo@server2.example.com
+server3.example.com
+:</code></pre>
+    <p>然后运行:</p>
+    <p><code>seq 10 | parallel --sshloginfile mycomputers echo</code></p>
+    <p>其中的 <code>:</code> 代表本机。</p>
+    <p>GNU parallel 将尝试确定每台远程计算机上的 CPU 数量，并为每个 CPU 运行一个作业。</p>
+    <p><br/></p>
+    <p>本文档的部分来源是 <a href="https://www.gnu.org/software/parallel/parallel_examples.html">GNU PARALLEL EXAMPLES</a>，其许可证为：</p>
+    <pre><code>Permission is granted to copy, distribute and/or modify this documentation under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, with no Front-Cover Texts, and with no Back-Cover Texts. A copy of the license is included in the file LICENSES/GFDL-1.3-or-later.txt.</code></pre>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-02-19">创建日期：2023-02-19</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

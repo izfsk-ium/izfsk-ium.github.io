@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2022-12-20" />
+        <title>Rclone挂载Office365教育版</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FTe2e757b5-b9d8-4613-92b4-1bdd12738583.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FTe2e757b5-b9d8-4613-92b4-1bdd12738583.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">Rclone挂载Office365教育版</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#备忘录">备忘录</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#非教育版帐号" id="toc-非教育版帐号">非教育版帐号</a></li>
+    <li><a href="#教育版" id="toc-教育版">教育版</a>
+    <ul>
+    <li><a href="#注意事项" id="toc-注意事项">注意事项</a></li>
+    </ul></li>
+    <li><a href="#sftp公钥登录" id="toc-sftp公钥登录">sftp公钥登录</a></li>
+    <li><a href="#参见" id="toc-参见">参见：</a></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <p>有时候我还是很羡慕 Windows 用户能在他们的资源管理器里面直接和 OneDrive 交互，我想要在 Linux 上也实现这样的功能。恰好我有 OneDrive 帐号，结合 rclone 即可。</p>
+    <h1 id="非教育版帐号">非教育版帐号</h1>
+    <p>很简单。安装 rclone 之后，运行 <code>rclone config</code> ，按照向导一步步创建配置即可。建议给配置取的名字不要有空格和非英文符号。在创建完毕以后，使用 <code>rclone lsd &lt;config-name&gt;:</code> 测试即可。 <strong>注意配置名称后面的那个冒号不要漏掉</strong>。</p>
+    <p>至于集成在系统里面很简单。可以直接挂载成 FUSE 文件系统给各个程序无缝使用：</p>
+    <pre class="shell"><code>$ rclone mount remote:path /local/path</code></pre>
+    <p>但是如果网络不稳定那就会带来很多奇怪问题，所以参考<a href="https://imbearchild.cyou/archives/2021/12/onedrive-and-rclone-on-linux/#comment-44">这篇文章</a>使用 Webdav 方法挂载：</p>
+    <pre class="shell"><code>$ rclone serve webdav --addr=127.0.0.1:11451 --user=user --pass=114514 --vfs-cache-mode=full &lt;config-name&gt;:</code></pre>
+    <p>让 rclone 作为 WebDav 服务器运行。如果你使用 KDE 的话，在 Dolphin 中添加一个远程即可：</p>
+    <figure>
+    <img src="./assets/dolphin.webp" alt="dolphin" />
+    <figcaption aria-hidden="true">dolphin</figcaption>
+    </figure>
+    <p>然后你就可以在右侧的 Remote 中找到 OneDrive 了。第一次点开可能需要你输入用户名和密码，这个用户名和密码是 rclone webdav 服务器的，不是你的微软帐号。</p>
+    <p>如下图，上面的教育版，下面的是个人帐号。</p>
+    <figure>
+    <img src="./assets/account.webp" alt="accounts" />
+    <figcaption aria-hidden="true">accounts</figcaption>
+    </figure>
+    <h1 id="教育版">教育版</h1>
+    <p>很遗憾，教育版本不能使用这个方法登录。如果你尝试在浏览器验证，那么会得到 <code>error=invalid_client</code> 的消息。<code>rclone</code> 如果要接管你的教育版 OneDrive，需要得到域管理员的同意。除非你能够说服学校负责人，否则不能连接第三方应用。所以必须使用其他方法。</p>
+    <p>Office365 有个功能叫 SharePoint，而这个玩意可以作为 WebDav 操作。对微软复杂的产品我不很了解，但这个 WebDav 是可以直接用 rclone 挂载的。</p>
+    <ol type="1">
+    <li><p>首先，你需要网页版进入你的 OneDrive，网址应该是以 <code>https://&lt;你的组织名称&gt;-my.sharepoint.com/personal/&lt;你的帐号名称&gt;/....</code> 这样的模式开头。</p></li>
+    <li><p>在 OneDrive 的根目录创建一个 <code>Documents</code> 目录，当然其他名称也可以。</p></li>
+    <li><p>按照这个模式拼接出 SharePoint 地址：</p>
+    <pre class="url"><code>https://&lt;你的组织名称&gt;-my.sharepoint.com/personal/&lt;你的账户名称&gt;/Documents</code></pre>
+    <p>其实也就是直接复制网址，把后面的多余部分清除，再加上 Documents。账户名称里面的下划线不要改动。</p></li>
+    <li><p>创建 rclone 配置，选择类型是 WebDAV，输入第四步创建的 URL，再选择 <code>Sharepoint Online, authenticated by Microsoft account</code> 作为 vendor，接着输入<strong>你的账户名和密码</strong>，也就是你用来登录网页版 OneDrive 的账户名(你的学校邮箱)和密码。</p></li>
+    </ol>
+    <p>最后的结果应该是这样的：</p>
+    <pre class="shell"><code>Configuration complete.
+Options:
+- type: webdav
+- url: https://&lt;你的组织名称&gt;-my.sharepoint.com/personal/&lt;你的账户名称&gt;/Documents
+- vendor: sharepoint
+- user: 你的账户
+- pass: *** ENCRYPTED ***</code></pre>
+    <p>接下来使用 <code>rclone lsd &lt;config-name&gt;:</code> 测试即可。挂载集成和之前一样，开一个 rclone 的 WebDav 再转手一次。</p>
+    <h2 id="注意事项">注意事项</h2>
+    <ol type="1">
+    <li>虽然配置的 url 是 Documents，但是实际挂载的就是整个网盘，url 路径和挂载无关，但必须要有一个，不能是根目录。</li>
+    <li>如果你的 OneDrive 网页版还登录着，那么 Dolphin 中挂载的 SharePoint 就是只读的，必须把其他 session 全部退出再重新挂载才能读写。</li>
+    <li>如果你碰到了 <code>Failed to create file system for "xxx:": :  ()</code> 这样的问题，就是你的账户名和密码不对，检测一遍。<strong>username 就是你的邮箱，不是 「Domain」 的格式，也不要把点号替换成 url 里面的下划线</strong>。</li>
+    </ol>
+    <h1 id="sftp公钥登录">sftp公钥登录</h1>
+    <p>Dolphin 支持的远程协议很多，包括 sftp，如果你有个服务器的话挂载在本地似乎也不错。直接在 Dolphin 新建，输入 <code>sftp://&lt;username&gt;@&lt;ip&gt;</code> 创建配置。</p>
+    <p>但是，如果你的服务器是公钥登录，就会失败， Dolphin 不会让你输入公钥。你需要修改 <code>~/.ssh/config</code>，添加条目来做到自动连接。格式如下：</p>
+    <div class="sourceCode" id="cb5"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Host 114.51.41.191</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dt">  HostName 114.51.41.191</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dt">  IdentityFile ~/path/of/keyfile</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="dt">  User username</span></span></code></pre></div>
+    <p>然后就能正常连接了。</p>
+    <h1 id="参见">参见：</h1>
+    <ul>
+    <li><a href="https://imbearchild.cyou/archives/2021/12/onedrive-and-rclone-on-linux/#comment-44">Linux 版 OneDrive 与 Rclone 食用指南 by IMBEARCHILD</a></li>
+    </ul>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2022-12-20">创建日期：2022-12-20</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

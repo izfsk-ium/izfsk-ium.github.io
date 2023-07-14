@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2022-12-25" />
+        <title>ELF文件结构解析</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT5b68c30c-b953-4bee-a7e9-51aa7f2a30e8.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT5b68c30c-b953-4bee-a7e9-51aa7f2a30e8.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">ELF文件结构解析</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#学习">学习</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#elf-文件" id="toc-elf-文件">ELF 文件</a></li>
+    <li><a href="#读取和解析-elf-文件" id="toc-读取和解析-elf-文件">读取和解析 ELF 文件</a></li>
+    <li><a href="#使用-readelf-工具" id="toc-使用-readelf-工具">使用 readelf 工具</a></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <blockquote>
+    <p>「所谓文件就是一大袋子字节，而它的含义则取决于程序怎么解释它。」</p>
+    </blockquote>
+    <h1 id="elf-文件">ELF 文件</h1>
+    <p>ELF 的全称是「Executable and Linkable Format」。是最常见的可执行文件格式。其源自于 SystemV UNIX R3 版本的 COFF 格式，后来微软基于 COFF 发展了 PE 格式，SystemV UNIX R4 基于 COFF 发展了 ELF 格式。</p>
+    <p>ELF 文件也就是一个普通的文件。它包含一个文件头和若干个段。段的数量是任意的，头只能用一个。每个段都有一个字符串名称，一般以「.」开头的段名称，诸如 <code>.text</code>, <code>.bss</code> 等是编辑器保留的名称。所有的段名对于操作系统来讲没有意义，只有这些段的属性，诸如「可执行」，「只读」等有意义。</p>
+    <p>要解析 ELF 格式，其目标实际上就是精确的得到各个段的位置和它们的名字。</p>
+    <h1 id="读取和解析-elf-文件">读取和解析 ELF 文件</h1>
+    <p>读取 ELF 文件需要获得几个重要的结构，此处以 x86-64 系统为例，需要获取的分别是 ELF 文件头，保存该文件所以段的信息（不是段本身的内容）的数组，以及保存段表字符串表的字符数组。其中：</p>
+    <ul>
+    <li><p>ELF 文件头。</p>
+    <p>结构名称为 <code>Elf64_Ehdr</code>。每一个 ELF 文件只有一个。保存了关于这个文件的属性信息，和用来定位段表位置的 <code>e_phentsize</code> 和用来获取段表字符串表在段表中的下标的 <code>e_shstrndx</code>。</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">typedef</span> <span class="kw">struct</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>      <span class="dt">unsigned</span> <span class="dt">char</span>   e_ident<span class="op">[</span>EI_NIDENT<span class="op">];</span> <span class="co">/* Magic number and other info */</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      Elf64_Half  e_type<span class="op">;</span>         <span class="co">/* Object file type */</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      Elf64_Half  e_machine<span class="op">;</span>      <span class="co">/* Architecture */</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      Elf64_Word  e_version<span class="op">;</span>      <span class="co">/* Object file version */</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      Elf64_Addr  e_entry<span class="op">;</span>        <span class="co">/* Entry point virtual address */</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>      Elf64_Off   e_phoff<span class="op">;</span>        <span class="co">/* Program header table file offset */</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>      Elf64_Off   e_shoff<span class="op">;</span>        <span class="co">/* Section header table file offset */</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      Elf64_Word  e_flags<span class="op">;</span>        <span class="co">/* Processor-specific flags */</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      Elf64_Half  e_ehsize<span class="op">;</span>       <span class="co">/* ELF header size in bytes */</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>      Elf64_Half  e_phentsize<span class="op">;</span>        <span class="co">/* Program header table entry size */</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      Elf64_Half  e_phnum<span class="op">;</span>        <span class="co">/* Program header table entry count */</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      Elf64_Half  e_shentsize<span class="op">;</span>        <span class="co">/* Section header table entry size */</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      Elf64_Half  e_shnum<span class="op">;</span>        <span class="co">/* Section header table entry count */</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      Elf64_Half  e_shstrndx<span class="op">;</span>     <span class="co">/* Section header string table index */</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> Elf64_Ehdr<span class="op">;</span></span></code></pre></div>
+    <p>读取方式可以是：</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Elf64_Ehdr <span class="op">*</span>header <span class="op">=</span> <span class="op">(</span>Elf64_Ehdr <span class="op">*)</span>malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>Elf64_Ehdr<span class="op">));</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>fread<span class="op">(</span>header<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>Elf64_Ehdr<span class="op">),</span> <span class="dv">1</span><span class="op">,</span> fp_elf<span class="op">);</span></span></code></pre></div></li>
+    <li><p>段表。</p>
+    <p>段表是一个 <code>Elf64_Shdr</code> 构成的数组。每一个元素保存了这个段在文件中的偏移，以及这个段的属性。其中 <code>sh_name</code> 是用来定位这个段的名字在段表字符串表中的下标。这个段表的偏移在文件头中，大小可以用「每段长度 * 段的数量」确定。两者都在文件头中给出。</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    Elf64_Word  sh_name<span class="op">;</span>        <span class="co">/* Section name (string tbl index) */</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    Elf64_Word  sh_type<span class="op">;</span>        <span class="co">/* Section type */</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    Elf64_Xword sh_flags<span class="op">;</span>       <span class="co">/* Section flags */</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    Elf64_Addr  sh_addr<span class="op">;</span>        <span class="co">/* Section virtual addr at execution */</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    Elf64_Off   sh_offset<span class="op">;</span>      <span class="co">/* Section file offset */</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    Elf64_Xword sh_size<span class="op">;</span>        <span class="co">/* Section size in bytes */</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    Elf64_Word  sh_link<span class="op">;</span>        <span class="co">/* Link to another section */</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    Elf64_Word  sh_info<span class="op">;</span>        <span class="co">/* Additional section information */</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    Elf64_Xword sh_addralign<span class="op">;</span>       <span class="co">/* Section alignment */</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    Elf64_Xword sh_entsize<span class="op">;</span>     <span class="co">/* Entry size if section holds table */</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> Elf64_Shdr<span class="op">;</span></span></code></pre></div>
+    <p>获取整个段表可以是：</p>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Elf_Shdr <span class="op">*</span>section_table <span class="op">=</span> malloc<span class="op">(</span>header<span class="op">.</span>e_shnum <span class="op">*</span> <span class="kw">sizeof</span><span class="op">(</span>Elf64_Shdr<span class="op">)</span> <span class="op">);</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>fseek<span class="op">(</span>file<span class="op">,</span> header<span class="op">.</span>e_shoff<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>fread<span class="op">(</span>section_table<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>Elf64_Shdr<span class="op">),</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        header<span class="op">.</span>e_shnum<span class="op">,</span> file<span class="op">);</span></span></code></pre></div>
+    <p><strong>注意</strong>：段表的第一项所有项目都是 NULL 。</p></li>
+    <li><p>段表字符串表</p>
+    <p>段表字符串表是保存所有段的名称字符串的单独段，假设一个 ELF 文件有 <code>.text</code>，<code>.bss</code>，<code>.data</code> 三个段（不包括段表和段表字符串表），那么段表字符串表的内容可以是：</p>
+    <figure>
+    <img src="./assets/table.webp" alt="部分内容" />
+    <figcaption aria-hidden="true">部分内容</figcaption>
+    </figure>
+    <p>那么，<code>.text</code> 在段表中的数据中 <code>sh_name</code> 的指向就是 2 ，即等宽的那一项。它的段名一直到最近的 「\0」。</p>
+    <p>要获取段表字符串表，直接在段表中找到对应下标的项目即可。这个下标也就是文件头中的 <code>e_shstrndx</code>。</p></li>
+    </ul>
+    <h1 id="使用-readelf-工具">使用 readelf 工具</h1>
+    <p>可以直接使用 <code>readelf</code> 工具打印出 ELF 文件的信息。一般使用 <code>-S</code> 参数，打印出所有段的信息，起始位置等等。</p>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2022-12-25">创建日期：2022-12-25</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

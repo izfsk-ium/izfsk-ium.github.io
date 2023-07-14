@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2022-12-04" />
+        <title>React+Redux简单使用</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT8535e383-e302-48c1-849a-d0c4447265f4.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT8535e383-e302-48c1-849a-d0c4447265f4.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">React+Redux简单使用</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#学习">学习</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#缘起" id="toc-缘起">缘起</a></li>
+    <li><a href="#场景" id="toc-场景">场景</a></li>
+    <li><a href="#使用" id="toc-使用">使用</a>
+    <ul>
+    <li><a href="#redux-方面" id="toc-redux-方面">Redux 方面</a></li>
+    <li><a href="#react方面" id="toc-react方面">React方面</a>
+    <ul>
+    <li><a href="#订阅数据" id="toc-订阅数据">“订阅”数据</a></li>
+    <li><a href="#组件获取数据" id="toc-组件获取数据">组件获取数据</a></li>
+    <li><a href="#组件更改数据" id="toc-组件更改数据">组件更改数据</a></li>
+    </ul></li>
+    <li><a href="#异步操作和在组件外进行dispatch" id="toc-异步操作和在组件外进行dispatch">异步操作和在组件外进行dispatch</a>
+    <ul>
+    <li><a href="#初始化时fetch内容" id="toc-初始化时fetch内容">初始化时fetch内容</a></li>
+    <li><a href="#组件内fetch内容" id="toc-组件内fetch内容">组件内fetch内容</a></li>
+    </ul></li>
+    </ul></li>
+    <li><a href="#参见" id="toc-参见">参见</a></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <h1 id="缘起">缘起</h1>
+    <p>我需要使用到 redux，找到的教程要么是阐释 redux 设计的大道至简精深奥妙超凡脱俗出类拔萃，要么是只有方案没有解释的片段，难遂我意。所以我在自己摸索以后做一个简单记录。</p>
+    <h1 id="场景">场景</h1>
+    <p>Redux 所适应的场景是需要处理很多复杂数据，并且这些数据被页面上不同的组件依赖和改变。例如，需要制作一个日历 APP ，包括一个日历，显示事件的窗格，显示这一天心情的窗格， 用户点击更改日历上的日期，另外两个窗格也需要更改内容，那么它们都依赖于一个全局的数据源，如果使用传统的方法，在各个 React 组件里面传入一个函数处理，很快就会凌乱不堪， 所以需要一个统一管理这个「全局变量」的东西，实现各个组件订阅数据，一旦改变，各个组件都能够接收到改变的功能。那就是 redux 了。</p>
+    <p>我设想的情景就是这么一个网页 App ，并且需要使用 React 实现三个组件。在改变日期时还需要从服务器动态获取数据异步加载。</p>
+    <h1 id="使用">使用</h1>
+    <h2 id="redux-方面">Redux 方面</h2>
+    <p>首先需要安装 redux 。使用的是 <code>yarn add @reduxjs/toolkit react-redux</code> 。react 项目直接用 <code>creat-vite</code> 来创建一个脚手架项目。</p>
+    <p>使用到 redux 的项目一般不是一个 <code>index.js</code> 就能够解决的。一般来讲需要创建几个不同的目录：</p>
+    <ul>
+    <li>store.js 用来保存初始状态和整个 redux 的配置</li>
+    <li>features 一个目录，用来保存 app 的各个功能需要用到的数据 <code>Slice</code>。</li>
+    </ul>
+    <p>一个 app 是复杂的，比如本文的 app 三个组件，日历组件可能需要时间，日期，这一天星期几；事件查看机需要一个事件列表；而心情窗格需要心情，额外文本等。每个部分的功能所需要的 数据某种程度上独立，但都统合在 store 里面相互影响，比如，星期几的改变会改变另外两个的内容，所以每一个组件所定义的「全局数据片段」保存在单独的 feature 文件里面。所得到的就是各自的 <code>features/XXXSlice.js</code>。</p>
+    <p>如果把redux想象成全局变量管理器，这个全局变量，也就是store需要有一个初始值，分解到每一个Slice，它们各自都需要定义自己的初始状态，才能成为整个store的初始状态。 Slice文件不仅定义的这个组件（功能片段）的数据定义和初始状态，也定义了改变状态的方法，也就是<code>reducer</code>。对于redux来讲，reducer需要是一个<strong>纯函数</strong>， 接收一个状态，返回一个状态。白话来讲，就是：<code>(state, action) =&gt; newState</code>，其中<code>state</code>是老的状态，<code>action</code>是这个reducer的发起者（比如点击日历日期后的事件处理函数） 发送的关于怎么改数据的action，返回一个新的状态。这个<code>action</code>有具体的格式，必须是这样的：</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>actions<span class="op">:</span> {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    payload<span class="op">:</span> <span class="dt">any</span><span class="op">;</span>   <span class="co">// 一般是一个String, 或者可以序列化的类型</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    type<span class="op">:</span> <span class="dt">string</span><span class="op">;</span>   <span class="co">// 类似 &#39;calendarSlice/changeDate&#39; 这样的字符串</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <p>进行reduce的操作叫做<code>dispatch</code>。 幸运的是，react-redux 这个toolkit给了很多便捷的方法来创建这些东西。</p>
+    <p>一个slice（日期组件）的举例：</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { createSlice } <span class="im">from</span> <span class="st">&#39;@reduxjs/toolkit&#39;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> calendarSlice <span class="op">=</span> <span class="fu">createSlice</span>({</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// name是必须的，用来合成各个reducer的payload中的type</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    name<span class="op">:</span> <span class="st">&quot;CalendarSlice&quot;</span><span class="op">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 初始状态</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    initialState<span class="op">:</span> {</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        currentDisplayDate<span class="op">:</span> <span class="kw">new</span> <span class="bu">Date</span>()<span class="op">.</span><span class="fu">getTime</span>()<span class="op">,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        numberOfEventsToday<span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        isHoliday<span class="op">:</span> <span class="kw">false</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    reducers<span class="op">:</span> {</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="co">// 设置日期的reducer，这里的payload是一个action类型</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        setNewDate<span class="op">:</span> (state<span class="op">,</span> payload) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>            state<span class="op">.</span><span class="at">currentDisplayDate</span> <span class="op">=</span> payload<span class="op">.</span><span class="at">payload</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="co">// 设置事件数量的reducer</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        modifyEvents<span class="op">:</span> (state<span class="op">,</span> payload) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (payload<span class="op">.</span><span class="at">payload</span> <span class="op">===</span> <span class="st">&#39;minus&#39;</span>) </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                    state<span class="op">.</span><span class="at">numberOfEventsToday</span> <span class="op">-=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>    state<span class="op">.</span><span class="at">numberOfEventsToday</span> <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="co">// 是否是假期，如果不需要，reducer可以不带payload</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        toggleIsHoliday<span class="op">:</span> (state) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>            state<span class="op">.</span><span class="at">isHoliday</span> <span class="op">=</span> <span class="op">!</span>state<span class="op">.</span><span class="at">isHoliday</span><span class="op">;</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> { setNewDate<span class="op">,</span> toggleIsHoliday<span class="op">,</span> modifyEvents } <span class="op">=</span> calendarSlice<span class="op">.</span><span class="at">actions</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="im">default</span> calendarSlice</span></code></pre></div>
+    <p>这就成功的创建的一个slice了。一般就保存为<code>features/calendarSlice.js</code>。</p>
+    <p>其他的几个组件都是类似的定义，那么最后还需要一个总的store的设置：</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { configureStore }   <span class="im">from</span> <span class="st">&#39;@reduxjs/toolkit&#39;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> EditorSlice          <span class="im">from</span> <span class="st">&#39;./features/editorSlice&#39;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> globalSlice          <span class="im">from</span> <span class="st">&#39;./features/globalSlice&#39;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> calendarSlice        <span class="im">from</span> <span class="st">&#39;./features/calendarSlice&#39;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> applicationStore <span class="op">=</span> <span class="fu">configureStore</span>({</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    reducer<span class="op">:</span> {</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        calendarStatus<span class="op">:</span> calendarSlice<span class="op">.</span><span class="at">reducer</span><span class="op">,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        globalStatus<span class="op">:</span> globalSlice<span class="op">.</span><span class="at">reducer</span><span class="op">,</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        editorStatus<span class="op">:</span> EditorSlice<span class="op">.</span><span class="at">reducer</span><span class="op">,</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+    <p>这就创建了一个全局的store，内含三个组件的Slice，共同组成一个“全局数据”。如果直接看的话，它的内容应该是这样的：</p>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> applicationStore_T {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    calendarStatus<span class="op">:</span> {</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        currentDisplayDate<span class="op">:</span> <span class="dt">number</span><span class="op">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        numberOfEventsToday<span class="op">:</span> <span class="dt">number</span><span class="op">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        isHoliday<span class="op">:</span> <span class="dt">boolean</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    globalStatus<span class="op">:</span> { <span class="co">/* 这个Slice的数据定义 */</span>}<span class="op">,</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    editorStatus<span class="op">:</span> { <span class="co">/* 这个Slice的数据定义 */</span>}</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <p>那么比如要得到目前这一天是不是假期，就可以用<code>store.calendarStatus.isHoliday</code>来判断了。</p>
+    <h2 id="react方面">React方面</h2>
+    <p>光有数据不行，还要能够显示和改变它们。redux的store需要一个“订阅者”来使用这些数据。也就是React组件。虽然React支持函数式和ES6 Class两种类型，但是react-redux更加偏向使用函数类型(<del>虽然我喜欢写class</del>)。</p>
+    <p>众所周知react组件需要props和state，那么在结合了redux以后，<strong>和app整体的数据有关的，比如日历组件的日期和更改日期，就不再采用props，state了，而与app整体数据无关的，比如编辑器显示的目前输入的字符数量之类，既不需要全局数据，也不会对它产生影响，依然可以使用旧的方法处理</strong>。</p>
+    <h3 id="订阅数据">“订阅”数据</h3>
+    <p>只需要在根元素上面“订阅”一次就可以拿来使用了，redux会自动初始化各自的数据：</p>
+    <div class="sourceCode" id="cb5"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { applicationStore } <span class="im">from</span> <span class="st">&#39;./store&#39;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Provider } <span class="im">from</span> <span class="st">&#39;react-redux&#39;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>ReactDOM<span class="op">.</span><span class="fu">createRoot</span>(<span class="bu">root</span>)<span class="op">.</span><span class="fu">render</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>Provider store<span class="op">=</span>{applicationStore}<span class="op">&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;</span>Application <span class="op">/&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;/</span>Provider<span class="op">&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+    <h3 id="组件获取数据">组件获取数据</h3>
+    <p>各个组件需要自己的那一份slice，而不是把整个store的内容都拿来，这就需要对目前的store内容进行一个选择。 在react-redux中，<code>useSelector()</code>就是用来给组件自己的那一份数据的，以日历组件为例：</p>
+    <div class="sourceCode" id="cb6"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { useSelector } <span class="im">from</span> <span class="st">&#39;react-redux&#39;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { useState } <span class="im">from</span> <span class="st">&quot;react&quot;</span><span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">PageHeader</span>(props<span class="op">:</span> <span class="dt">any</span>) {</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> [count<span class="op">,</span> setCount] <span class="op">=</span> <span class="fu">useState</span>(<span class="dv">0</span>)   <span class="co">// 一个和全局数据无关的state，照样使用</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> slice <span class="op">=</span> <span class="fu">useSelector</span>((state<span class="op">:</span> <span class="dt">any</span>) <span class="kw">=&gt;</span> state<span class="op">.</span><span class="at">calendarStatus</span>) <span class="co">// 返回的就是Calendar这个组件需要的Slice内容</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">......</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ({<span class="co">/* Calendar的相关jsx */</span>})</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <p>每当store中的calendarStatus因为某种原因改变了，slice也会改变，并进行<strong>重新渲染</strong>，某种意义上来讲它类似一个<code>props</code>。</p>
+    <h3 id="组件更改数据">组件更改数据</h3>
+    <p>一般在子组件需要更改外部数据，会在props里面设置一个状态提升的函数，当事件发生时调用它来传出去，在redux里面，一个组件要修改store的数据，需要使用dispatch的方法。<code>useDispatch()</code>相当于一个邮递员，帮助组件把信息传递给对应的<code>reducer</code>。依旧举例日历组件：</p>
+    <div class="sourceCode" id="cb7"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { useSelector<span class="op">,</span> useDispatch } <span class="im">from</span> <span class="st">&#39;react-redux&#39;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">PageHeader</span>(props<span class="op">:</span> <span class="dt">any</span>) {</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">......</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> dispatch <span class="op">=</span> <span class="fu">useDispatch</span>()  <span class="co">// 请来邮递员先生！</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;</span>div className<span class="op">=</span><span class="st">&quot;cal&quot;</span><span class="op">&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>            {<span class="co">/* a lot of codes */</span>}</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>            <span class="op">......</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                <span class="op">&lt;</span>div</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                    className<span class="op">=</span><span class="st">&quot;day btn&quot;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>                    onClick<span class="op">=</span>{e <span class="kw">=&gt;</span> <span class="fu">dispatch</span>(<span class="fu">setNewDate</span>(<span class="dv">114514</span>))} <span class="op">/&gt;</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>            <span class="op">......</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;/</span>div<span class="op">&gt;</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <p>在这里，使用了dispatch来调用之前<code>features/calendarSlice.js</code>预先定义的<code>reducer</code>函数，而<code>dispatch</code>的作用就是把消息包装成标准的action类型发送出去。包装出来类似这样：</p>
+    <div class="sourceCode" id="cb8"><pre class="sourceCode ts"><code class="sourceCode typescript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    payload<span class="op">:</span> <span class="dv">114514</span><span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    type<span class="op">:</span> <span class="st">&quot;CalendarSlice/setNewDate&quot;</span><span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <p>然后再去调用<code>setNewDate(state, action)</code>，其中的state自动是原先的状态。改变之后，在通知所有的订阅者。流程就是这样。</p>
+    <h2 id="异步操作和在组件外进行dispatch">异步操作和在组件外进行dispatch</h2>
+    <h3 id="初始化时fetch内容">初始化时fetch内容</h3>
+    <p>没有ajax或者fetch的web是不可想象的，假如用户更改了时间，或者修改了这一天的事件，就要把数据传输回服务器或者请求过来。传输回去直接开一个fetch即可，但请求就有点麻烦，必须要考虑异步问题。</p>
+    <p>比如说，在初始化时fetch内容，这是很常见的需求，一般可以结合UI框架的<code>Skeleton</code>或者类似的组件实现一个”加载中请稍候”的功能，等到初始化完毕再显示。解决方法可以是，现在store里面保存一个全局的<code>isPageLoaded</code>，各个组件检测它，如果为真，就显示内容，否则加载中。这就涉及到在全局数据fetch完毕以后在react组件外部触发reducer。</p>
+    <p>其实是可以的，因为redux本身不依赖于任何框架。react-redux只是提供的快捷方式而已。且看dispatch的定义：</p>
+    <div class="sourceCode" id="cb9"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ToolkitStore<span class="op">&lt;</span>{ <span class="co">/* Store的类型定义 */</span> }<span class="op">,</span> AnyAction<span class="op">,</span> [<span class="op">...</span>]<span class="op">&gt;.</span><span class="at">dispatch</span><span class="op">:</span> <span class="op">&lt;</span>{</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    payload<span class="op">:</span> <span class="dt">boolean</span><span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    type<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>}<span class="op">&gt;</span>(action<span class="op">:</span> {</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    payload<span class="op">:</span> <span class="dt">boolean</span><span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    type<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>}) <span class="kw">=&gt;</span> {</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    payload<span class="op">:</span> <span class="dt">boolean</span><span class="op">;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    type<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <p>所以，你需要生成对应的type字段。在例子中，假如这个<code>isPageLoaded</code>保存在<code>globalSlice</code>中(也就是这个Slice文件的<code>name</code>是<code>globalSlice</code>)，reducer名字是<code>togglePageLoaded</code>，那么手动触发的程式码如下：</p>
+    <div class="sourceCode" id="cb10"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { applicationStore } <span class="im">from</span> <span class="st">&#39;./store&#39;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>applicationStore<span class="op">.</span><span class="fu">dispatch</span>((() <span class="kw">=&gt;</span> {</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> {</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    payload<span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    type<span class="op">:</span> <span class="st">&quot;globalSlice/togglePageLoaded&quot;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>})())</span></code></pre></div>
+    <h3 id="组件内fetch内容">组件内fetch内容</h3>
+    <p>当用户点击一个日期后进行切换，那么另外两个组件在加载完毕数据之前应该显示一个”loading…“之类的提示，一旦加载完毕马上显示出来。</p>
+    <p>为此需要<code>createAsyncThunk()</code>这个功能。首先是在相应的Slice里面定义一个Thunk函数，且看定义：</p>
+    <div class="sourceCode" id="cb11"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">createAsyncThunk</span><span class="op">&lt;</span><span class="dt">any</span><span class="op">,</span> <span class="dt">void</span><span class="op">&gt;</span>(typePrefix<span class="op">:</span> <span class="dt">string</span><span class="op">,</span> payloadCreator<span class="op">:</span> AsyncThunkPayloadCreator<span class="op">&lt;</span><span class="dt">any</span><span class="op">,</span> <span class="dt">void</span><span class="op">,</span> AsyncThunkConfig<span class="op">&gt;,</span> options<span class="op">?:</span> AsyncThunkOptions<span class="op">&lt;</span><span class="dt">void</span><span class="op">,</span> AsyncThunkConfig<span class="op">&gt;</span> <span class="op">|</span> <span class="dt">undefined</span>)<span class="op">:</span> AsyncThunk<span class="op">&lt;...&gt;</span></span></code></pre></div>
+    <p>三个参数 <code>typePrefix</code>，是一个string，也就是用来识别这个action的字符串。对应的就是类似<code>CalendarSlice/setNewDate</code>即action类型的<code>type</code>。<code>payloadCreator</code>是一个Promise，<code>options</code>可以省略。那么，如果要给日历组件写这个chunk，应该是这样：</p>
+    <div class="sourceCode" id="cb12"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> fetchData <span class="op">=</span> <span class="fu">createAsyncThunk</span>(<span class="st">&#39;CalendarSlice/fetchData&#39;</span><span class="op">,</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> response <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetch</span>(<span class="st">&quot;/data&quot;</span>)   <span class="co">// fetch函数</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> response<span class="op">.</span><span class="fu">json</span>()<span class="op">;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+    <p>其次是为这个slice创建额外的reducer，不同于一般的reducer函数，Promise有三个状态，<code>pending</code>,<code>fulfilled</code>,<code>rejected</code>三种情况都需要处理。react-redux为我们提供了<code>ActionReducerMapBuilder</code>来处理这个情况。在原本的<code>features/calendarSlice.js</code>中修改：</p>
+    <div class="sourceCode" id="cb13"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> calendarSlice <span class="op">=</span> <span class="fu">createSlice</span>({</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    name<span class="op">:</span> <span class="st">&quot;CalendarSlice&quot;</span><span class="op">,</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    initialState<span class="op">:</span> {<span class="op">...</span>}<span class="op">,</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    reducers<span class="op">:</span> {<span class="op">...</span>}<span class="op">,</span>    <span class="co">// 同上</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">extraReducers</span>(builder) {</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    builder</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">addCase</span>(fetchData<span class="op">.</span><span class="at">pending</span><span class="op">,</span> (state<span class="op">,</span> action) <span class="kw">=&gt;</span> {</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>            state<span class="op">.</span><span class="at">isLoading</span> <span class="op">=</span> <span class="kw">true</span>      <span class="co">/* 正在加载 */</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">addCase</span>(fetchData<span class="op">.</span><span class="at">fulfilled</span><span class="op">,</span> (state<span class="op">,</span> action) <span class="kw">=&gt;</span> {</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>            state<span class="op">.</span><span class="at">isLoading</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>            state<span class="op">.</span><span class="at">data</span> <span class="op">=</span> action<span class="op">.</span><span class="at">payload</span><span class="op">;</span>    <span class="co">/* 可以处理获取的数据了 */</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">addCase</span>(fetchData<span class="op">.</span><span class="at">rejected</span><span class="op">,</span> (state<span class="op">,</span> action) <span class="kw">=&gt;</span> {</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>            <span class="co">/* 处理出错逻辑 */</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+    <h1 id="参见">参见</h1>
+    <ul>
+    <li><a href="https://redux.js.org/tutorials/index" title="Redux Tutorials">Redux 官方教程</a></li>
+    <li><a href="https://jasonwatmore.com/post/2022/06/16/react-redux-toolkit-fetch-data-in-async-action-with-createasyncthunk" title="React + Redux Toolkit - Fetch Data in Async Action with createAsyncThunk">关于createAsyncThunk的另外一个教程</a></li>
+    </ul>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2022-12-04">创建日期：2022-12-04</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

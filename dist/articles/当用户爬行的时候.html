@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2023-04-06" />
+        <title>当用户爬行的时候</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FTdc6740ad-5546-451a-a74a-c3721cdd76ca.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FTdc6740ad-5546-451a-a74a-c3721cdd76ca.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">当用户爬行的时候</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+  
+  <main>
+    <p>我曾经有幸看到过用户和界面交互的场景。那真是让人绝望：很显然，他们不明白登录和不登陆有什么区别，当遇到问题时，他们在很明显不是交互元素的地方徒劳而倔强的反复的点击，有的用户还算有那么一点使用浏览器的经验，至少知道「刷新」这一功能，于是接连不断绝望的刷新着网页，期待着某一次刷新过后能够魔法般的获得登录状态……</p>
+    <p>看到这种情况，开发人员的恨不得拧着用户的耳朵教会他们，然而目前的技术并不能让人手从显示屏中伸出来，而连登录按钮都看不到的人，自然也不能指望他去阅读有小拇指那么厚的用户文档。他们倔强，会使用各种百度出来的那些奇怪、过时、错误、莫名其妙的技巧反复尝试，但他们又很浮躁，既不愿意了解登录的作用，也不愿意花费哪怕是5分钟时间看一下文档或者来请教一下用户支持，在这种情况下，如果开发者有幸能够发觉这一情况，解决的方案自然只能是给登录按钮加粗，加大，加边框，加背景颜色，乃至到让它漂浮起来像抹了油的台球似的满屏幕弹来弹去────没错，就是那种经常在政府网页上看见的 js 漂浮卡片：<strong>它们真的很难看，但真的很管用</strong>。</p>
+    <p>任何开发人员都不会愿意看到自己的用户是这样的情况，你修了一条路，自然希望人家老老实实是走，或许还能跑，但绝对不希望人家蚰蜒一样曲折的爬行。然而现实情况却总是让人觉得自己不是在修路而是在养蛊。有一个「二八定律」,说法是 80% 用户只会去使用 20% 功能，虽然我觉得从软件功能开发上看这句话并不一定合理，还容易成为偷懒的滥觞，但如果按照它的说法，把用户分为百分之二十的「高级用户」和百分之八十的「一般用户」的话，那么对于软件产品的反馈，百分之八十来自于那些「高级用户」，而那些占据大头的普通用户则是实打实的「沉默的大多数」。这些人计算机操作经验普遍的不足，乃至看着他们操作会让我们这种自诩「专家」的人莫名的生起气来。</p>
+    <p>对于这些用户，我的项目经历告诉我：</p>
+    <ol type="1">
+    <li>他们可能会以一种开发者意想不到的方法使用应用程序。</li>
+    <li>他们永远不会报告和反馈遇到的困难和bug。</li>
+    <li>他们最终还是会成功。</li>
+    </ol>
+    <p>这类用户占据了很大一部分，他们认为「文件管理」就是「qq浏览器」，分不清「内存」和「存储」，问他使用什么系统会很认真的回答你手机的品牌，他们不关心你的 CDN 有没有使用 http3 和 brotli 压缩，他们只是希望这个「东西」能够好好干活，而他们的期望也很具体，某个具体的窗口，一行特定的提示字符串就是成功的符号。</p>
+    <p>但开发者看不见他们。或者说，不愿意看到他们。人总是希望看到自己希望看到的东西，而有意或无意的忽略不合口味的东西。或许程序员多少都有些孤芳自赏，作为开发者，理想的用户是这样的：他有大把的时间研究手册，受到相当程度的计算机教育，汇报 issue 时条理清晰内容简洁，闲时还能和你唠唠技术上的实现细节的阳春白雪（自然，最后还是你占上风）……但即使是在 20% 的「高级用户」中，这样的人也是屈指可数的。而对于一般用户和缺乏计算机能力的用户，却只能受到白眼乃至逐客令 ──── 这一点在某些精英化的开源/自由软件中尤其突出，反而是不够自由的商业软件给了这些低级用户不受（技术上的）歧视的自由。于是，一方面用户沉默不语（即使有什么想说的也入不了开发者的法眼），一方面是开发者日益闭门造车孤芳自赏唯我独尊众人皆醉我独醒，这当然对于软件本身是不利的。如果看见用户在爬行，就应该扶他们起来，而不是抱着「不会走路就给爷爬」的心态和态度把他们一概归为「低端用户」，冷冰冰的一句「不会用就别用」是不可能吸引到更多的用户，以及维持一个健康的社区的。</p>
+    <p>而让用户都去主动适应开发者的「哲学」，要用户来学习他们的软件，就像是某些老板命令程序员实现「能够根据手机壳的颜色切换应用主题」一样娘希匹了。</p>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-04-06">创建日期：2023-04-06</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

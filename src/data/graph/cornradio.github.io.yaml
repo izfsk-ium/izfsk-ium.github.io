@@ -1,0 +1,17 @@
+# self
+- name: "kasusa的技术博客"
+  icon: "https://raw.githubusercontent.com/cornradio/imgs/main/sticker2.webp"
+  site: "self"
+
+- name: "La Bibliothèque de Lumière"
+  icon: "https://ble-m.ltgc.cc/favicon.ico"
+  site: "https://ble-m.ltgc.cc/"
+- name: "Terrarum::异世界丨居正博客"
+  icon: "https://blog.skyju.cc/img/avatar_hu6c171763e14095a1e4a4a09f65f9ff50_7079_300x0_resize_q75_box.jpg"
+  site: "https://blog.skyju.cc/"
+- name: "颜树人"
+  icon: "https://yantree.github.io/img/avatar_hud8215445c04336af6f3d5658bab85db7_7222_300x0_resize_box_2.png"
+  site: "https://yantree.github.io/"
+- name: "白漠流霜"
+  icon: "https://blog.izfsk.top/favicon.ico"
+  site: "https://blog.izfsk.top/"

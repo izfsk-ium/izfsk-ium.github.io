@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2023-06-01" />
+        <title>Getx速查表</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT7f58b9f5-d420-4722-8d41-6191a9453397.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT7f58b9f5-d420-4722-8d41-6191a9453397.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">Getx速查表</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#备忘">备忘</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#安装" id="toc-安装">安装</a></li>
+    <li><a href="#路由" id="toc-路由">路由</a>
+    <ul>
+    <li><a href="#简单路由" id="toc-简单路由">简单路由</a></li>
+    <li><a href="#命名路由" id="toc-命名路由">命名路由</a></li>
+    <li><a href="#snakebar-和-dialog" id="toc-snakebar-和-dialog">Snakebar 和 Dialog</a></li>
+    <li><a href="#bottomsheet" id="toc-bottomsheet">BottomSheet</a></li>
+    </ul></li>
+    <li><a href="#状态管理" id="toc-状态管理">状态管理</a>
+    <ul>
+    <li><a href="#常用模式" id="toc-常用模式">常用模式</a></li>
+    <li><a href="#workers" id="toc-workers">Workers</a></li>
+    <li><a href="#statemixin" id="toc-statemixin">StateMixin</a></li>
+    </ul></li>
+    <li><a href="#依赖管理" id="toc-依赖管理">依赖管理</a>
+    <ul>
+    <li><a href="#何时初始化" id="toc-何时初始化">何时初始化</a></li>
+    <li><a href="#细节" id="toc-细节">细节</a></li>
+    <li><a href="#bindings" id="toc-bindings">Bindings</a></li>
+    </ul></li>
+    <li><a href="#参考" id="toc-参考">参考</a></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <h2 id="安装">安装</h2>
+    <p>在 <code>pubspec.yaml</code> 中添加：</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dependencies<span class="op">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">get</span><span class="op">:</span></span></code></pre></div>
+    <p>注意不用添加版本号。然后在文件中可以使用 <code>import 'package:get/get.dart';</code> 引入。</p>
+    <h2 id="路由">路由</h2>
+    <p>所有的路由都不需要传入 <code>BuildContext</code>。</p>
+    <h3 id="简单路由">简单路由</h3>
+    <ul>
+    <li>导航到新的页面：<code>Get.to(()=&gt;NextScreen());</code></li>
+    <li>返回到之前的页面，也包括关闭 <code>snackbars</code>，<code>dialogs</code> 和 <code>bottomsheets</code> 等元素：<code>Get.back();</code></li>
+    <li>导航到新的页面，不能返回：<code>Get.off(()=&gt;NextScreen());</code></li>
+    <li>导航到新的页面，把之前的东西统统关掉：<code>Get.offAll(()=&gt;NextScreen());</code></li>
+    </ul>
+    <p>路由也可以传输数据，像这样获取页面数据：</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> data <span class="op">=</span> <span class="at">await</span> Get<span class="op">.</span>to(Payment());</span></code></pre></div>
+    <p>对应的页面这样返回数据：</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Get<span class="op">.</span>back(result<span class="op">:</span> <span class="st">&#39;success&#39;</span>);</span></code></pre></div>
+    <h3 id="命名路由">命名路由</h3>
+    <p>首先需要定义路由：</p>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>GetMaterialApp(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>      initialRoute<span class="op">:</span> <span class="st">&#39;/&#39;</span><span class="op">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>      unknownRoute<span class="op">:</span> GetPage(name<span class="op">:</span> <span class="st">&#39;/notfound&#39;</span><span class="op">,</span> page<span class="op">:</span> () <span class="op">=&gt;</span> UnknownRoutePage())<span class="op">,</span>     <span class="co">// 错误路由</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>      getPages<span class="op">:</span> [</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        GetPage(name<span class="op">:</span> <span class="st">&#39;/&#39;</span><span class="op">,</span> page<span class="op">:</span> () <span class="op">=&gt;</span> MyHomePage())<span class="op">,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        GetPage(name<span class="op">:</span> <span class="st">&#39;/second&#39;</span><span class="op">,</span> page<span class="op">:</span> () <span class="op">=&gt;</span> Second())<span class="op">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        GetPage(</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            name<span class="op">:</span> <span class="st">&#39;/profile/:user&#39;</span><span class="op">,</span>     <span class="co">// :user 是一个参数</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>            page<span class="op">:</span> () <span class="op">=&gt;</span> UserProfile()<span class="op">,</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        GetPage(</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>          name<span class="op">:</span> <span class="st">&#39;/third&#39;</span><span class="op">,</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>          page<span class="op">:</span> () <span class="op">=&gt;</span> Third()<span class="op">,</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>          transition<span class="op">:</span> Transition<span class="op">.</span>zoom  <span class="co">// 动画效果</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+    <p>使用方法还是类似无名路由：</p>
+    <div class="sourceCode" id="cb5"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Get<span class="op">.</span>toNamed(<span class="st">&quot;/NextScreen&quot;</span><span class="op">,</span> arguments<span class="op">:</span> <span class="st">&#39;Something...&#39;</span>);</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Get<span class="op">.</span>offNamed(<span class="st">&quot;/NextScreen&quot;</span>);</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Get<span class="op">.</span>offAllNamed(<span class="st">&quot;/NextScreen&quot;</span>);</span></code></pre></div>
+    <p>可以看到给路由加参数也是可以的，在对应的页面的控制器或类中使用 <code>Get.arguments</code> 就可以获取到。除此以外还可以使用类似 Web URL 的方法传递 <code>arguments</code>:<code>Get.toNamed("/profile/34954?flag=true&amp;country=italy");</code>。获取它们是这样：</p>
+    <div class="sourceCode" id="cb6"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>print(Get<span class="op">.</span>parameters[<span class="st">&#39;user&#39;</span>]);</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>print(Get<span class="op">.</span>parameters[<span class="st">&#39;flag&#39;</span>]);</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>print(Get<span class="op">.</span>parameters[<span class="st">&#39;country&#39;</span>]);</span></code></pre></div>
+    <p>还可以给路由加上 <code>Middleware</code>:</p>
+    <div class="sourceCode" id="cb7"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>GetMaterialApp(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  routingCallback<span class="op">:</span> (routing) {</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(routing<span class="op">.</span>current <span class="op">==</span> <span class="st">&#39;/second&#39;</span>){</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>      openAds();</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+    <h3 id="snakebar-和-dialog">Snakebar 和 Dialog</h3>
+    <div class="sourceCode" id="cb8"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Get<span class="op">.</span>snackbar(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Hey i&#39;m a Get SnackBar!&quot;</span><span class="op">,</span> <span class="co">// title</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;SnackBar without context, without boilerplate, without Scaffold!&quot;</span><span class="op">,</span> <span class="co">// message</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  icon<span class="op">:</span> Icon(Icons<span class="op">.</span>alarm)<span class="op">,</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  shouldIconPulse<span class="op">:</span> <span class="cn">true</span><span class="op">,</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  onTap<span class="op">:</span>(){}<span class="op">,</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  barBlur<span class="op">:</span> <span class="dv">20</span><span class="op">,</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  isDismissible<span class="op">:</span> <span class="cn">true</span><span class="op">,</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  duration<span class="op">:</span> Duration(seconds<span class="op">:</span> <span class="dv">3</span>)<span class="op">,</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>Get<span class="op">.</span>defaultDialog(</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  onConfirm<span class="op">:</span> () <span class="op">=&gt;</span> print(<span class="st">&quot;Ok&quot;</span>)<span class="op">,</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  middleText<span class="op">:</span> <span class="st">&quot;Dialog made in 3 lines of code&quot;</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+    <p>无需 <code>BuildContext</code>。</p>
+    <h3 id="bottomsheet">BottomSheet</h3>
+    <p>BottomSheet 就是在页面底部从下往上弹出的那个菜单一样的东西：</p>
+    <div class="sourceCode" id="cb9"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Get<span class="op">.</span>bottomSheet(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  Container(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    child<span class="op">:</span> Wrap(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>      children<span class="op">:</span> <span class="op">&lt;</span>Widget<span class="op">&gt;</span>[</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        ListTile(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>          leading<span class="op">:</span> Icon(Icons<span class="op">.</span>music_note)<span class="op">,</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>          title<span class="op">:</span> Text(<span class="st">&#39;Music&#39;</span>)<span class="op">,</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>          onTap<span class="op">:</span> () {}</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        ListTile(</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>          leading<span class="op">:</span> Icon(Icons<span class="op">.</span>videocam)<span class="op">,</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>          title<span class="op">:</span> Text(<span class="st">&#39;Video&#39;</span>)<span class="op">,</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>          onTap<span class="op">:</span> () {}<span class="op">,</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+    <h2 id="状态管理">状态管理</h2>
+    <p>有了 <code>Getx</code>，再也不需要使用 <code>StatefulWidget</code> 了。</p>
+    <h3 id="常用模式">常用模式</h3>
+    <p>一个通常的模式是这样的：一个页面对应一个控制器(<code>controller</code>)，这个控制器扩展了 <code>GetxController</code>。在一个 Controller 类中，一个 <code>Obs</code> 会<strong>自动更新</strong>订阅了它的组建，其他不是 <code>Obs</code> 的数据必须在修改它们的方法中使用 <code>update();</code> 才行。</p>
+    <p>对于响应式的变量，有特殊的类型来处理：</p>
+    <div class="sourceCode" id="cb10"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> name <span class="op">=</span> RxString(<span class="st">&#39;&#39;</span>);</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> isLogged <span class="op">=</span> RxBool(<span class="cn">false</span>);</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> count <span class="op">=</span> RxInt(<span class="dv">0</span>);</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> balance <span class="op">=</span> RxDouble(<span class="dv">0</span><span class="fl">.0</span>);</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> items <span class="op">=</span> RxList<span class="op">&lt;</span><span class="dt">String</span><span class="op">&gt;</span>([]);</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> myMap <span class="op">=</span> RxMap<span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> <span class="dt">int</span><span class="op">&gt;</span>({});</span></code></pre></div>
+    <p>当然，要获取它们的实际值就需要 <code>xxx.value</code> 了。</p>
+    <p>如何使用：</p>
+    <div class="sourceCode" id="cb11"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>GetX<span class="op">&lt;</span>Controller<span class="op">&gt;</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  builder<span class="op">:</span> (controller) {</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&quot;count 2 rebuild&quot;</span>);</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Text(<span class="st">&#39;${controller.count2.value}&#39;</span>);</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>)<span class="op">,</span></span></code></pre></div>
+    <p>注意事项：如果要在控制器里面初始化什么东西（网络连接，文件，数据库），<strong>不要使用类初始化函数</strong>，而是使用 <code>onInit()</code>。同样的，使用 <code>onClose()</code> 而不是 <code>dispose</code>。</p>
+    <h3 id="workers">Workers</h3>
+    <p>当特定事件在某个值上发生时的 callback：</p>
+    <div class="sourceCode" id="cb12"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">/// Called every time `count1` changes.</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>ever(count1<span class="op">,</span> (_) <span class="op">=&gt;</span> print(<span class="st">&quot;$_ has been changed&quot;</span>));</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">/// Called only first time the variable $_ is changed</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>once(count1<span class="op">,</span> (_) <span class="op">=&gt;</span> print(<span class="st">&quot;$_ was changed once&quot;</span>));</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">/// Anti DDos - Called every time the user stops typing for 1 second, for example.</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>debounce(count1<span class="op">,</span> (_) <span class="op">=&gt;</span> print(<span class="st">&quot;debouce$_&quot;</span>)<span class="op">,</span> time<span class="op">:</span> Duration(seconds<span class="op">:</span> <span class="dv">1</span>));</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">/// Ignore all changes within 1 second.</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>interval(count1<span class="op">,</span> (_) <span class="op">=&gt;</span> print(<span class="st">&quot;interval $_&quot;</span>)<span class="op">,</span> time<span class="op">:</span> Duration(seconds<span class="op">:</span> <span class="dv">1</span>));</span></code></pre></div>
+    <h3 id="statemixin">StateMixin</h3>
+    <div class="sourceCode" id="cb13"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> DataType {</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> <span class="dt">String</span> name;</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> <span class="dt">int</span> age;</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  DataType(<span class="kw">this</span><span class="op">.</span>name<span class="op">,</span> <span class="kw">this</span><span class="op">.</span>age);</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Repo {</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span> getData() <span class="at">async</span> {</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    sleep(Duration(seconds<span class="op">:</span> <span class="dv">1</span>));</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> <span class="st">&quot;hello!&quot;</span>;</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MyController <span class="kw">extends</span> GetxController <span class="kw">with</span> StateMixin<span class="op">&lt;</span>DataType<span class="op">&gt;</span> {</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> Repo repository;</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  MyController(<span class="kw">this</span><span class="op">.</span>repository);</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> onInit() {</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    repository<span class="op">.</span>getData()<span class="op">.</span>then((resp) {</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>      change(DataType(<span class="st">&quot;name&quot;</span><span class="op">,</span> <span class="dv">10</span>)<span class="op">,</span> status<span class="op">:</span> RxStatus<span class="op">.</span>success());</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span> onError<span class="op">:</span> (err) {</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>      change(</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>        <span class="cn">null</span><span class="op">,</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>        status<span class="op">:</span> RxStatus<span class="op">.</span>error(<span class="st">&#39;Error get data&#39;</span>)<span class="op">,</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>      );</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>      <span class="kw">super</span><span class="op">.</span>onInit();</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>    });</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MyHomePage <span class="kw">extends</span> GetView<span class="op">&lt;</span>MyController<span class="op">&gt;</span> {</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>  <span class="at">const</span> MyHomePage({<span class="kw">super</span><span class="op">.</span>key});</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>  Widget build(BuildContext context) {</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    Get<span class="op">.</span>put(MyController(Repo()));</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Scaffold(</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>      appBar<span class="op">:</span> AppBar()<span class="op">,</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>      body<span class="op">:</span> controller<span class="op">.</span>obx(</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>        (state) <span class="op">=&gt;</span> Text(state<span class="op">!.</span>name)<span class="op">,</span></span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>        onLoading<span class="op">:</span> <span class="at">const</span> CircularProgressIndicator()<span class="op">,</span></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>        onError<span class="op">:</span> (error) <span class="op">=&gt;</span> Text(error<span class="op">.</span>toString())<span class="op">,</span></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <h2 id="依赖管理">依赖管理</h2>
+    <h3 id="何时初始化">何时初始化</h3>
+    <div class="sourceCode" id="cb14"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Controller <span class="kw">extends</span> GetxController {</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">static</span> Controller <span class="kw">get</span> to <span class="op">=&gt;</span> Get<span class="op">.</span>find();</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    [<span class="op">...</span>]</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">// on you view:</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>GetBuilder<span class="op">&lt;</span>Controller<span class="op">&gt;</span>(</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  init<span class="op">:</span> Controller()<span class="op">,</span> <span class="co">// use it only first time on each controller</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  builder<span class="op">:</span> (_) <span class="op">=&gt;</span> Text(</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;${Controller.to.counter}&#39;</span><span class="op">,</span> <span class="co">//here</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>)<span class="op">,</span></span></code></pre></div>
+    <h3 id="细节">细节</h3>
+    <p>最常见的插入依赖关系的方式：<code>Get.put</code> 和 <code>Get.lazyPut</code></p>
+    <div class="sourceCode" id="cb15"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>Get<span class="op">.</span>put<span class="op">&lt;</span>SomeClass<span class="op">&gt;</span>(SomeClass());</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>Get<span class="op">.</span>put<span class="op">&lt;</span>LoginController<span class="op">&gt;</span>(LoginController()<span class="op">,</span> permanent<span class="op">:</span> <span class="cn">true</span>);</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>Get<span class="op">.</span>put<span class="op">&lt;</span>ListItemController<span class="op">&gt;</span>(ListItemController<span class="op">,</span> tag<span class="op">:</span> <span class="st">&quot;some unique string&quot;</span>);</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>Get<span class="op">.</span>lazyPut<span class="op">&lt;</span>Controller<span class="op">&gt;</span>( () <span class="op">=&gt;</span> Controller() )</span></code></pre></div>
+    <p>文档有中文版本。（<a href="https://github.com/jonataslaw/getx/blob/master/documentation/zh_CN/dependency_management.md">依赖管理</a>）</p>
+    <h3 id="bindings">Bindings</h3>
+    <p>啥时候去 Put 你的 Controller 总是个问题，Bindings 就是解决这个问题的，它将路由、状态管理器和依赖管理器完全集成。首先创建 binding 类：</p>
+    <div class="sourceCode" id="cb16"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> HomeBinding <span class="kw">implements</span> Bindings {</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> dependencies() {</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    Get<span class="op">.</span>lazyPut<span class="op">&lt;</span>HomeController<span class="op">&gt;</span>(() <span class="op">=&gt;</span> HomeController());</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    Get<span class="op">.</span>put<span class="op">&lt;</span>Service<span class="op">&gt;</span>(()<span class="op">=&gt;</span> Api());</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <p>然后在路由中使用它们：</p>
+    <div class="sourceCode" id="cb17"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>GetPage(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    name<span class="op">:</span> <span class="st">&#39;/&#39;</span><span class="op">,</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    page<span class="op">:</span> () <span class="op">=&gt;</span> HomeView()<span class="op">,</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    binding<span class="op">:</span> HomeBinding()<span class="op">,</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>)<span class="op">,</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>Get<span class="op">.</span>to(DetailsView()<span class="op">,</span> binding<span class="op">:</span> DetailsBinding())</span></code></pre></div>
+    <h2 id="参考">参考</h2>
+    <ul>
+    <li><a href="https://github.com/jonataslaw/getx/tree/master/documentation/zh_CN">官方中文文档</a></li>
+    <li><a href="https://chornthorn.github.io/getx-docs/">GetX Docs</a></li>
+    <li><a href="https://tabpole.github.io/getx/">GetX Handbook</a></li>
+    </ul>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-06-01">创建日期：2023-06-01</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

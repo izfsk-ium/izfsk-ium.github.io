@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2023-04-25" />
+        <title>基础光线追踪</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      <script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+      <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+      </script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+    
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT3d0d8a7b-1966-435e-98dd-b4c59ffd581f.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT3d0d8a7b-1966-435e-98dd-b4c59ffd581f.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">基础光线追踪</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#学习">学习</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#光线追踪" id="toc-光线追踪">光线追踪</a></li>
+    <li><a href="#光路表示" id="toc-光路表示">光路表示</a></li>
+    <li><a href="#球的表示" id="toc-球的表示">球的表示</a></li>
+    <li><a href="#方程组" id="toc-方程组">方程组</a></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <h1 id="光线追踪">光线追踪</h1>
+    <p>如图所示</p>
+    <figure>
+    <img src="./assets/viewport.png.png" alt="图示" />
+    <figcaption aria-hidden="true">图示</figcaption>
+    </figure>
+    <p>摄像机位于坐标系原点，设为<span class="math inline">O</span>，方框则为 Viewport．设<span class="math inline">V_w=V_h=d=1</span>单位长度时，视角<span class="math inline">FOV=53^o</span>.要从<span class="math inline">O</span>进行光线追踪，就是从原点发出一条射线(实际的光线是从物体反射到摄影机，而不是从摄影机发射出去)，穿过 Viewport 直达物体. 光线追踪的算法如下：</p>
+    <pre><code>❶Place the camera and the viewport as desired
+For each pixel on the canvas
+❷Determine which square on the viewport corresponds to this pixel
+❸Determine the color seen through that square
+❹Paint the pixel with that color</code></pre>
+    <ol type="1">
+    <li>放置摄像机(camera)和(viewport)</li>
+    <li>对于画布(canvas)上的每一个点:
+    <ul>
+    <li>找出 Viewport 上对应的那一个点</li>
+    <li>找出对应的颜色</li>
+    <li>在画布上画出那个点</li>
+    </ul></li>
+    </ol>
+    <h1 id="光路表示">光路表示</h1>
+    <p>给定原点<span class="math inline">O</span>，<span class="math inline">\vec {VO}</span> 为光线的方向，设为<span class="math inline">\vec D</span>，那么该光线上的任意一点<span class="math inline">P</span>可以这样表示：<span class="math inline">P=O+t\vec D</span></p>
+    <h1 id="球的表示">球的表示</h1>
+    <p>为了简单起见，设空间中的物体为球，即：与一固定点<span class="math inline">C</span>距离为<span class="math inline">r</span>的所有点<span class="math inline">P</span>的集合，即向量<span class="math inline">\vec {PC}</span>的长度为<span class="math inline">r</span>.</p>
+    <p><span class="math display">
+    |\vec {PC}|=r
+    </span></p>
+    <p>又</p>
+    <p><span class="math display">
+    \vec {PC} \cdot \vec {PC} = r^2
+    </span></p>
+    <p>所以得到方程组，也就是光线和球的交点：</p>
+    <p><span class="math display">
+    \begin{cases}
+    \vec {PC} \cdot \vec {PC} = r^2 \\
+    P = O+t \vec D
+    \end{cases}
+    </span></p>
+    <p>其中：</p>
+    <ul>
+    <li><span class="math inline">O</span>为原点</li>
+    <li><span class="math inline">r</span>为半径</li>
+    <li><span class="math inline">C</span>为圆心</li>
+    <li><span class="math inline">\vec D=\vec {VO}</span>即光线的方向</li>
+    </ul>
+    <p>所以要求的就是<span class="math inline">t</span>.</p>
+    <h1 id="方程组">方程组</h1>
+    <p>把二式代入一式：</p>
+    <p><span class="math display">
+    \langle O + t\vec{D} - C, O + t\vec{D} - C \rangle = r^2 =
+    </span> <span class="math display">
+    (\vec{CO}+t\cdot\vec{D})\cdot \vec{CO}+(\vec{CO}+t\cdot\vec{D})\cdot t\cdot \vec{D} =
+    </span> <span class="math display">
+    \vec{CO}^2+2\cdot\cdot t \cdot \vec{D}+t \cdot \vec{D}^2 = r^2
+    </span></p>
+    <p>也就是二次方程：</p>
+    <p><span class="math display">
+    t^2 \cdot \vec{D}^2 + 2 \cdot t \cdot (\vec{CO} \cdot \vec{D}) + \vec{CO}^2 - r^2 = 0
+    </span></p>
+    <p>按照<span class="math inline">\Delta</span>分类讨论：</p>
+    <p><span class="math display">
+    \Delta = [2(\vec{CO} \cdot \vec{D})]^2 - 4t^2(\vec{CO}^2-r^2)
+    </span></p>
+    <figure>
+    <img src="./assets/solutions.png" alt="分类讨论" />
+    <figcaption aria-hidden="true">分类讨论</figcaption>
+    </figure>
+    <p>参考：</p>
+    <ul>
+    <li><a href="https://www.gabrielgambetta.com/computer-graphics-from-scratch/02-basic-raytracing.html">Basic Raytracing</a></li>
+    </ul>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-04-25">创建日期：2023-04-25</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

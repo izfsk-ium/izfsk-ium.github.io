@@ -1,0 +1,90 @@
+sites:
+  # use favicon.ico as img
+  - id: 0
+    name: "白漠流霜"
+    type: "Technology"
+    site: "/"
+  - id: 1
+    name: "kasusa"
+    type: "Technology"
+    site: "https://cornradio.github.io"
+  - id: 2
+    name: "La Bibliothèque de Lumière"
+    type: "Technology"
+    site: "https://ble-m.ltgc.cc/"
+  - id: 3
+    name: "Terrarum::异世界丨居正博客"
+    type: "Technology"
+    site: "https://blog.skyju.cc/"
+  - id: 4
+    name: "颜树人"
+    type: "Technology"
+    site: "https://yantree.github.io/"
+  - id: 5
+    name: "Qiuyuair的自留地"
+    type: "Technology"
+    site: "https://qiuyuair.com/"
+  - id: 6
+    name: "愤鸟杂记"
+    type: "Technology"
+    site: "https://54df.cc/"
+  - id: 7
+    name: "Zax's Track"
+    type: "Technology"
+    site: "https://xyzax.xyz/"
+  - id: 8
+    name: "无用挂件の日记"
+    type: "Literature"
+    site: "https://raspii.tech/"
+  - id: 9
+    name: "Herry的平行世界"
+    type: "Technology"
+    site: "https://blog.herry001.com/"
+  - id: 10
+    name: "挖站否"
+    type: "BBS"
+    site: "https://wzfou.com/"
+  - id: 11
+    name: "神楽坂ニャン"
+    type: "Technology"
+    site: "https://lensual.space/"
+  - id: 12
+    name: "蚊子"
+    type: "Technology"
+    site: "https://mozz.ie/"
+  - id: 13
+    name: "Finisky Garden"
+    type: "Technology"
+    site: "https://finisky.github.io/"
+  - id: 14
+    name: "Andy在路上"
+    type: "Technology"
+    site: "https://andylive.cn/"
+  - id: 15
+    name: "I BCL."
+    type: "Technology"
+    site: "https://ibcl.us/"
+  - id: 16
+    name: "Shue"
+    type: "Literatire"
+    site: "https://shue.io/"
+
+edges:
+  0: [1, 2]
+  1: [0, 2, 3, 4]
+  2: []
+  3: [1, 2, 5, 6, 7, 8, 9, 10, 11, 12]
+  4: []
+  5: [13, 14, 3, 15, 16]
+
+  6: []
+  7: []
+  8: []
+  9: []
+  10: []
+  11: []
+  12: []
+  13: []
+  14: []
+  15: []
+  16: []

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2022-12-13" />
+        <title>LRU-Cache与functools</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT809dd759-e6d9-4bb0-8e9b-31e48c7a9366.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT809dd759-e6d9-4bb0-8e9b-31e48c7a9366.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">LRU-Cache与functools</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#算法">算法</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#啥是-lru-cache" id="toc-啥是-lru-cache">啥是 LRU Cache</a></li>
+    <li><a href="#实现思路" id="toc-实现思路">实现思路</a>
+    <ul>
+    <li><a href="#c" id="toc-c">C++</a></li>
+    <li><a href="#python" id="toc-python">Python</a>
+    <ul>
+    <li><a href="#双向链表的模拟" id="toc-双向链表的模拟">双向链表的模拟</a></li>
+    <li><a href="#collections.deque" id="toc-collections.deque">collections.deque</a></li>
+    </ul></li>
+    </ul></li>
+    <li><a href="#functools" id="toc-functools">functools</a>
+    <ul>
+    <li><a href="#lru_cache" id="toc-lru_cache"><span class="citation" data-cites="lru_cache">@lru_cache</span></a></li>
+    </ul></li>
+    <li><a href="#参见" id="toc-参见">参见</a></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <h1 id="啥是-lru-cache">啥是 LRU Cache</h1>
+    <p>LRU的全称是 Least recently used，也就是「最近最少使用」，这是一种用来管理缓存的机制。缓存的容量是有限的，不能无限制的放各种数据，通常，在缓存里面放容易命中的常用数据肯定比放冷门的数据好，LRU机制假设一个数据如果在最近一段时间没有被访问，那么它在未来被访问的可能性也比较小。由此，在缓存满了以后，就通过淘汰最近没有用过的数据项来更新。</p>
+    <h1 id="实现思路">实现思路</h1>
+    <p>先陈述一下思路，目标是实现一个 <code>LRUCache</code> 类，可以参照 <a href="https://leetcode.com/problems/lru-cache/">leetcode</a> 上的题目来做。</p>
+    <p>实现一个朴素的 lru cache 需要两个容器，一个双向链表 (item) 用来保存数据权重，一个哈希表 (key:item) 用来保存实际的数据，和链表相互配合。除此以外还需要一个缓存最大大小。保存实际数据的是一个类似于 pair 的结构 LRU_Item ，使用 <code>decltype</code> 来推导类型。</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 大小</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">long</span> capacity<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">// 保存权重</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>list<span class="op">&lt;</span>LRU_Item<span class="op">&lt;</span>Key_T<span class="op">,</span> Val_T<span class="op">&gt;&gt;</span> items<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">// 保存实际数据，真实数据是LRU_Item类型中的Val_T的类型</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>unordered_map<span class="op">&lt;</span>Key_T<span class="op">,</span> <span class="kw">decltype</span><span class="op">(</span>items<span class="op">.</span>begin<span class="op">())&gt;</span> items_map<span class="op">;</span></span></code></pre></div>
+    <p>当访问一个数据项时，从哈希表中寻找目标，如果找不到，返回这个模板类型的默认值，否则就命中缓存项目，<strong>之后，更新权重表</strong>，将目标 key 提到列表的最前面即将该数据移至链表头部。当插入一个数据项目时，如果已经存在项目 key ，删除旧项目，之后作为最新的项目在链表的最前面插入，再检查缓存大小，将多余的项目排除。虽然使用一个定长的双向链表也能实现，但使用哈希表降低了操作的复杂度。</p>
+    <p>举例：假设有一个 Cache ，其容量为2，首先插入一条数据 <code>(k=1,v=1)</code> :</p>
+    <p><code>{ (1:1) }</code></p>
+    <p>接下来插入一条数据 <code>(k=2,v=2)</code> :</p>
+    <p><code>[ (2:2) (1:1) ]</code></p>
+    <p>接下来获取 <code>key=1</code> ，则返回结果后缓存内容变为：</p>
+    <p><code>[ (1:1) (2:2) ]</code></p>
+    <p>可以看到 <code>(1:1)</code> 被提到了最前面。如果在这时再次插入一个 <code>(k=3,v=3)</code> ，由于容量为2，最不常用的也就是处于列表最末尾的元素被移除，新的元素插入开头:</p>
+    <p><code>[ (3:3) (1:1) ]</code></p>
+    <h2 id="c">C++</h2>
+    <p>以下是 C++ 实现的 LRU-Cache 类：</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unordered_map&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;list&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> KT<span class="op">,</span> <span class="kw">typename</span> VT<span class="op">&gt;</span> <span class="kw">struct</span> LRU_Item <span class="op">{</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        KT key<span class="op">;</span> VT value<span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        LRU_Item<span class="op">(</span>KT key<span class="op">,</span>VT value<span class="op">):</span>key<span class="op">(</span>key<span class="op">),</span>value<span class="op">(</span>value<span class="op">)</span> <span class="op">{</span> <span class="op">;</span> <span class="op">}</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> Key_T<span class="op">,</span> <span class="kw">typename</span> Val_T<span class="op">&gt;</span> <span class="kw">class</span> LRU_Cache <span class="op">{</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        LRU_Cache<span class="op">(</span><span class="dt">int</span> capacity<span class="op">):</span>capacity<span class="op">(</span>capacity<span class="op">)</span> <span class="op">{</span> <span class="op">;</span> <span class="op">}</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">void</span> putItem<span class="op">(</span><span class="at">const</span> Key_T <span class="op">&amp;</span>key<span class="op">,</span> <span class="at">const</span> Val_T <span class="op">&amp;</span>value<span class="op">);</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">const</span> Val_T getItem<span class="op">(</span><span class="at">const</span> Key_T <span class="op">&amp;</span>key<span class="op">);</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span><span class="op">:</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">const</span> <span class="dt">long</span> capacity<span class="op">;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        list<span class="op">&lt;</span>LRU_Item<span class="op">&lt;</span>Key_T<span class="op">,</span> Val_T<span class="op">&gt;&gt;</span> items<span class="op">;</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        unordered_map<span class="op">&lt;</span>Key_T<span class="op">,</span> <span class="kw">decltype</span><span class="op">(</span>items<span class="op">.</span>begin<span class="op">())&gt;</span> items_map<span class="op">;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> Key_T<span class="op">,</span> <span class="kw">typename</span> Val_T<span class="op">&gt;</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> LRU_Cache<span class="op">&lt;</span>Key_T<span class="op">,</span> Val_T<span class="op">&gt;::</span>putItem<span class="op">(</span><span class="at">const</span> Key_T <span class="op">&amp;</span>key<span class="op">,</span> <span class="at">const</span> Val_T <span class="op">&amp;</span>value<span class="op">){</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> iter <span class="op">=</span> <span class="kw">this</span><span class="op">-&gt;</span>items_map<span class="op">.</span>find<span class="op">(</span>key<span class="op">);</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>iter <span class="op">!=</span> <span class="kw">this</span><span class="op">-&gt;</span>items_map<span class="op">.</span>end<span class="op">()){</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        <span class="co">// delete exists item and insert in front of list</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">-&gt;</span>items<span class="op">.</span>erase<span class="op">(</span>iter<span class="op">-&gt;</span>second<span class="op">);</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">-&gt;</span>items_map<span class="op">.</span>erase<span class="op">(</span>iter<span class="op">);</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="co">// insert element in front of the list</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> element <span class="op">=</span> LRU_Item<span class="op">&lt;</span>Key_T<span class="op">,</span>Val_T<span class="op">&gt;(</span>key<span class="op">,</span>value<span class="op">);</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">-&gt;</span>items<span class="op">.</span>push_front<span class="op">(</span>element<span class="op">);</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="co">// store it into map</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">-&gt;</span>items_map<span class="op">.</span>insert<span class="op">(</span>make_pair<span class="op">(</span>key<span class="op">,</span> <span class="kw">this</span><span class="op">-&gt;</span>items<span class="op">.</span>begin<span class="op">()));</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="co">// check size and strip</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="kw">this</span><span class="op">-&gt;</span>items_map<span class="op">.</span>size<span class="op">()</span> <span class="op">-</span> <span class="kw">this</span><span class="op">-&gt;</span>capacity <span class="op">;</span> i <span class="op">&gt;</span> <span class="dv">0</span><span class="op">;</span> i<span class="op">--){</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> iter <span class="op">=</span> <span class="kw">this</span><span class="op">-&gt;</span>items<span class="op">.</span>end<span class="op">();</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">-&gt;</span>items_map<span class="op">.</span>erase<span class="op">((--</span>iter<span class="op">)-&gt;</span>key<span class="op">);</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">-&gt;</span>items<span class="op">.</span>pop_back<span class="op">();</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> T<span class="op">&gt;</span> <span class="kw">struct</span> I <span class="op">{</span> T _<span class="op">;</span> I<span class="op">():</span>_<span class="op">()</span> <span class="op">{</span> <span class="op">;</span> <span class="op">}</span> <span class="op">};</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> Key_T<span class="op">,</span> <span class="kw">typename</span> Val_T<span class="op">&gt;</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> Val_T LRU_Cache<span class="op">&lt;</span>Key_T<span class="op">,</span> Val_T<span class="op">&gt;::</span>getItem<span class="op">(</span><span class="at">const</span> Key_T <span class="op">&amp;</span>key<span class="op">){</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> iter <span class="op">=</span> <span class="kw">this</span><span class="op">-&gt;</span>items_map<span class="op">.</span>find<span class="op">(</span>key<span class="op">);</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>iter <span class="op">==</span>  <span class="kw">this</span><span class="op">-&gt;</span>items_map<span class="op">.</span>end<span class="op">()){</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>        <span class="co">// not found, return default value</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">(</span><span class="kw">new</span> I<span class="op">&lt;</span>Val_T<span class="op">&gt;())-&gt;</span>_<span class="op">;</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>    <span class="co">// update list, put iter to the first</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">-&gt;</span>items<span class="op">.</span>splice<span class="op">(</span><span class="kw">this</span><span class="op">-&gt;</span>items<span class="op">.</span>begin<span class="op">(),</span> <span class="kw">this</span><span class="op">-&gt;</span>items<span class="op">,</span> iter<span class="op">-&gt;</span>second<span class="op">);</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> iter<span class="op">-&gt;</span>second<span class="op">-&gt;</span>value<span class="op">;</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <p>测试用例（采取 leetcode 的测试代码）：</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">**</span>argv<span class="op">){</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> lRUCache <span class="op">=</span> <span class="kw">new</span> LRU_Cache<span class="op">&lt;</span><span class="dt">int</span><span class="op">,</span><span class="dt">int</span><span class="op">&gt;(</span><span class="dv">2</span><span class="op">);</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    lRUCache<span class="op">-&gt;</span>putItem<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">);</span> <span class="co">// cache is {1=1}</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    lRUCache<span class="op">-&gt;</span>putItem<span class="op">(</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span><span class="op">);</span> <span class="co">// cache is {1=1, 2=2}</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> lRUCache<span class="op">-&gt;</span>getItem<span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span>    <span class="co">// return 1</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    lRUCache<span class="op">-&gt;</span>putItem<span class="op">(</span><span class="dv">3</span><span class="op">,</span> <span class="dv">3</span><span class="op">);</span> <span class="co">// LRU key was 2, evicts key 2, cache is {1=1, 3=3}</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> lRUCache<span class="op">-&gt;</span>getItem<span class="op">(</span><span class="dv">2</span><span class="op">)</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span>    <span class="co">// returns 0 (not found)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    lRUCache<span class="op">-&gt;</span>putItem<span class="op">(</span><span class="dv">4</span><span class="op">,</span> <span class="dv">4</span><span class="op">);</span> <span class="co">// LRU key was 1, evicts key 1, cache is {4=4, 3=3}</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> lRUCache<span class="op">-&gt;</span>getItem<span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span>    <span class="co">// return 0 (not found)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> lRUCache<span class="op">-&gt;</span>getItem<span class="op">(</span><span class="dv">3</span><span class="op">)</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span>    <span class="co">// return 3</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> lRUCache<span class="op">-&gt;</span>getItem<span class="op">(</span><span class="dv">4</span><span class="op">)</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span>    <span class="co">// return 4</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <p>请注意，这里的代码<strong>并不一定是最佳的解答，效率和性能也不一定最好</strong>，但求清晰。</p>
+    <h2 id="python">Python</h2>
+    <h3 id="双向链表的模拟">双向链表的模拟</h3>
+    <p>当然也可以采用 Python 实现。使用一个 list 和一个 dict 可以轻松的完成任务，但为了和设计一致，在这里使用 python 的列表来模拟循环双向链表(这也是 <code>Lib/functools.py</code> 的实现方式)。</p>
+    <p><strong>不得不吐槽，你必须把自己的思想扭曲到一定程度才能熟练而自然的在 python 里面模拟指针类型和循环双向链表</strong>，以下是一个实现：</p>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>PREV, NEXT, VALUE <span class="op">=</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CircularDoublyLinkedList:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.length <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.root <span class="op">=</span> [] </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.root[:] <span class="op">=</span> [<span class="va">self</span>.root, <span class="va">self</span>.root, <span class="va">None</span>] </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># PREV, NEXT, VALUE</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> insert(<span class="va">self</span>, value):</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        newNode <span class="op">=</span> [<span class="va">None</span>, <span class="va">None</span>, value]</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        last <span class="op">=</span> <span class="va">self</span>.root[PREV]</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        newNode[PREV] <span class="op">=</span> last</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        newNode[NEXT] <span class="op">=</span> <span class="va">self</span>.root</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        last[NEXT] <span class="op">=</span> <span class="va">self</span>.root[PREV] <span class="op">=</span> newNode</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.length <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> getNode(<span class="va">self</span>, index):</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> index <span class="op">&lt;</span> <span class="dv">0</span> <span class="kw">or</span> index <span class="op">&gt;</span> <span class="va">self</span>.length:</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">IndexError</span>()</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        tmp <span class="op">=</span> <span class="va">self</span>.root[NEXT]</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(index):</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>            tmp <span class="op">=</span> tmp[NEXT]</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> tmp</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get(<span class="va">self</span>, index):</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.getNode(index)[VALUE]</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> swapEnd(<span class="va">self</span>, index):</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        targetNode <span class="op">=</span> <span class="va">self</span>.getNode(index)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        prev, <span class="bu">next</span>, value <span class="op">=</span> targetNode</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        <span class="co"># delete node</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>        prev[NEXT] <span class="op">=</span> <span class="bu">next</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>        <span class="bu">next</span>[PREV] <span class="op">=</span> prev</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>        <span class="co"># insert into the end of the list</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>        last <span class="op">=</span> <span class="va">self</span>.root[PREV]</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>        last[NEXT] <span class="op">=</span> <span class="va">self</span>.root[PREV] <span class="op">=</span> targetNode</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>        targetNode[PREV] <span class="op">=</span> last</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>        targetNode[NEXT] <span class="op">=</span> <span class="va">self</span>.root</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> search(<span class="va">self</span>, value) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>        tmp <span class="op">=</span> <span class="va">self</span>.root[NEXT]</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.length):</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> tmp[VALUE] <span class="op">==</span> value:</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> i</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>            tmp <span class="op">=</span> tmp[NEXT]</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> stripLeft(<span class="va">self</span>):</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>        nodeToDelete <span class="op">=</span> <span class="va">self</span>.getNode(<span class="va">self</span>.length <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>        tmp <span class="op">=</span> <span class="va">self</span>.root</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>        tmp[VALUE] <span class="op">=</span> nodeToDelete[VALUE]</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.root <span class="op">=</span> tmp[NEXT]</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>        oldValue <span class="op">=</span> nodeToDelete[VALUE]</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.root[VALUE] <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.length <span class="op">-=</span> <span class="dv">1</span></span></code></pre></div>
+    <p>虽然在这里「模拟」出了双向链表，你以为的链表内容:</p>
+    <div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>[ [<span class="op">&lt;</span>pointer<span class="op">&gt;</span>, <span class="op">&lt;</span>pointer<span class="op">&gt;</span>, <span class="dv">1</span>], [<span class="op">&lt;</span>pointer<span class="op">&gt;</span>, <span class="op">&lt;</span>pointer<span class="op">&gt;</span>, <span class="dv">2</span>] ... [<span class="op">&lt;</span>pointer<span class="op">&gt;</span>, <span class="op">&lt;</span>pointer<span class="op">&gt;</span>, <span class="dv">999</span>] ]</span></code></pre></div>
+    <p>但其实是:</p>
+    <div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>[[[[<span class="op">&lt;</span>Recursion on <span class="bu">list</span> <span class="cf">with</span> <span class="bu">id</span><span class="op">=</span><span class="dv">140593175582080</span><span class="op">&gt;</span>,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>Recursion on <span class="bu">list</span> <span class="cf">with</span> <span class="bu">id</span><span class="op">=</span><span class="dv">140593172979712</span><span class="op">&gt;</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>],</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>   <span class="op">&lt;</span>Recursion on <span class="bu">list</span> <span class="cf">with</span> <span class="bu">id</span><span class="op">=</span><span class="dv">140593173013888</span><span class="op">&gt;</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>   <span class="dv">1</span>],</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;</span>Recursion on <span class="bu">list</span> <span class="cf">with</span> <span class="bu">id</span><span class="op">=</span><span class="dv">140593175582080</span><span class="op">&gt;</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>],</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a> [<span class="op">&lt;</span>Recursion on <span class="bu">list</span> <span class="cf">with</span> <span class="bu">id</span><span class="op">=</span><span class="dv">140593175582080</span><span class="op">&gt;</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  [<span class="op">&lt;</span>Recursion on <span class="bu">list</span> <span class="cf">with</span> <span class="bu">id</span><span class="op">=</span><span class="dv">140593173014784</span><span class="op">&gt;</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>   [<span class="op">&lt;</span>Recursion on <span class="bu">list</span> <span class="cf">with</span> <span class="bu">id</span><span class="op">=</span><span class="dv">140593172979712</span><span class="op">&gt;</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>Recursion on <span class="bu">list</span> <span class="cf">with</span> <span class="bu">id</span><span class="op">=</span><span class="dv">140593175582080</span><span class="op">&gt;</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>],</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>   <span class="dv">1</span>],</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>],</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a> <span class="va">None</span>]</span></code></pre></div>
+    <p>这也就意味着，但凡是比较大的列表，就会 <code>RecursionError: maximum recursion depth exceeded while calling a Python object</code> 。</p>
+    <p>那么接下来使用这个脆弱的双向链表来实现一个脆弱的 LRU_Cache ，注意，和 C++ 实现不同，这里的 item_list 是<strong>反过来存储</strong>的，也就是最新的元素插入在右端，去除的是左端的内容:</p>
+    <div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LRU_Cache:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, size) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.capacity <span class="op">=</span> size</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.item_list <span class="op">=</span> CircularDoublyLinkedList()  <span class="co"># Key queue</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.item_store <span class="op">=</span> <span class="bu">dict</span>()  <span class="co"># real store</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> getItem(<span class="va">self</span>, key):</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        target <span class="op">=</span> <span class="va">self</span>.item_store.get(key)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> target <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.item_list.swapEnd(<span class="va">self</span>.item_list.search(key))</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> target</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> setItem(<span class="va">self</span>, key, value):</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.getItem(key) <span class="op">!=</span> <span class="va">None</span>:</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.item_list.delete(<span class="va">self</span>.item_list.searchKey(key))</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>            <span class="kw">del</span> <span class="va">self</span>.item_store[key]</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.item_store[key] <span class="op">=</span> value</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.item_list.insert(key)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.capacity <span class="op">&lt;</span> <span class="va">self</span>.item_list.length:</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>            keyD <span class="op">=</span> <span class="va">self</span>.item_list.get(<span class="dv">0</span>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.item_list.stripLeft()</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>            <span class="kw">del</span> <span class="va">self</span>.item_store[keyD]</span></code></pre></div>
+    <p>这个实现可以通过测试,<del>但也只保证通过测试(</del></p>
+    <h3 id="collections.deque">collections.deque</h3>
+    <p>其实使用双向链表之类的目的在于能够快捷的处理「在初始插入」之类的操作，但这种操作在标准库 <code>collections</code> 中已经被 <a href="https://docs.python.org/3.3/library/collections.html#collections.deque"><code>deque</code></a> 提供了。<code>deque</code> 是一个内置类型，使用 C 实现，位于源码 <code>Modules/_collectionsmodule.c</code> ，库路径位于 <code>lib64/python/lib-dynload/_collections.so</code> 。它提供了 <code>appendLeft</code> , <code>popLeft</code> 这类操作。</p>
+    <p>对于 deque 来说，删除任意位置元素可以这样实现：</p>
+    <div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> delete_nth(d, n):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    d.rotate(<span class="op">-</span>n)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    d.popleft()</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    d.rotate(n)</span></code></pre></div>
+    <p>再将删除的元素重新排到末尾即可实现 <code>swapEnd</code> 。其他的操作和之前类似。</p>
+    <h1 id="functools">functools</h1>
+    <p>所谓装饰器，可以理解为「操作函数的函数」。实际上就是定义了一个函数，这个函数接收另外一个函数，作出一些修改，再返回这个函数。而「装饰器」是这个过程的语法糖。</p>
+    <h2 id="lru_cache"><span class="citation" data-cites="lru_cache">@lru_cache</span></h2>
+    <p><code>lru_cache</code> 的函数原型是 <code>@functools.lru_cache(maxsize=None, typed=False)</code>，使用 lru 缓存机制，可以设定最大缓存数量。真正的缓存实现位于 <a href="https://github.com/python/cpython/blob/00e24cdca422f792b80016287562b6b3bccab239/Lib/functools.py#L478"><code>_lru_cache_wrapper</code></a> 函数中。该函数使用列表模拟的双向循环链表+ dict 的方式存储缓存。</p>
+    <p>可以像这样来使用：</p>
+    <div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> lru_cache</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> timeit(f):</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> func(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        time_start <span class="op">=</span> time.perf_counter()</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> f(<span class="op">*</span>args, <span class="op">**</span>kwargs)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span>f<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss"> used </span><span class="sc">{</span>time<span class="sc">.</span>perf_counter()<span class="op">-</span>time_start<span class="sc">:.5f}</span><span class="ss"> seconds.&quot;</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> func</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="at">@lru_cache</span>(<span class="dv">2048</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fact(x):</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span> <span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">1</span> <span class="cf">else</span> x <span class="op">*</span> fact(x <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="at">@timeit</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testA():</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    fact(<span class="dv">384</span>)</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="at">@timeit</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testB():</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    fact(<span class="dv">384</span>)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>testA()</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>testB()</span></code></pre></div>
+    <p>结果：</p>
+    <pre><code>testA used 0.00023 seconds.
+testB used 0.00000 seconds.</code></pre>
+    <p>可以看到 lru_cache 显著降低了时间。</p>
+    <h1 id="参见">参见</h1>
+    <ul>
+    <li><a href="https://stackoverflow.com/questions/5300602/template-return-type-with-default-value" title="Template Return Type with Default Value">模板类返回类型默认值</a></li>
+    <li><a href="https://github.com/python/cpython/blob/00e24cdca422f792b80016287562b6b3bccab239/Lib/functools.py#L478">functools 源码</a></li>
+    </ul>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2022-12-13">创建日期：2022-12-13</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2023-02-02" />
+        <title>Svelte 基础速查</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FTad498778-ccfb-4be7-97af-bd60ac5939f9.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FTad498778-ccfb-4be7-97af-bd60ac5939f9.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">Svelte 基础速查</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#学习">学习</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#创建项目" id="toc-创建项目">创建项目</a></li>
+    <li><a href="#文件结构" id="toc-文件结构">文件结构</a></li>
+    <li><a href="#事件处理" id="toc-事件处理">事件处理</a>
+    <ul>
+    <li><a href="#modifiers" id="toc-modifiers"><code>modifiers</code></a></li>
+    </ul></li>
+    <li><a href="#消息传递" id="toc-消息传递">消息传递</a>
+    <ul>
+    <li><a href="#dispatch" id="toc-dispatch">dispatch</a></li>
+    <li><a href="#夹心饼干" id="toc-夹心饼干">夹心饼干</a></li>
+    </ul></li>
+    <li><a href="#组件的-props" id="toc-组件的-props">组件的 props</a></li>
+    <li><a href="#按需渲染" id="toc-按需渲染">按需渲染</a>
+    <ul>
+    <li><a href="#if" id="toc-if">if</a></li>
+    <li><a href="#each" id="toc-each">each</a></li>
+    <li><a href="#promise" id="toc-promise">Promise</a></li>
+    </ul></li>
+    <li><a href="#绑定" id="toc-绑定">绑定</a>
+    <ul>
+    <li><a href="#input" id="toc-input">input</a></li>
+    <li><a href="#select" id="toc-select">select</a></li>
+    <li><a href="#可编辑元素" id="toc-可编辑元素">可编辑元素</a></li>
+    <li><a href="#尺寸绑定" id="toc-尺寸绑定">尺寸绑定</a></li>
+    </ul></li>
+    <li><a href="#生命周期处理" id="toc-生命周期处理">生命周期处理</a>
+    <ul>
+    <li><a href="#onmount" id="toc-onmount"><code>onMount</code></a></li>
+    <li><a href="#ondestroy" id="toc-ondestroy"><code>onDestroy</code></a></li>
+    </ul></li>
+    <li><a href="#调试" id="toc-调试">调试</a></li>
+    <li><a href="#参考" id="toc-参考">参考</a></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <p>记录一下 Svelte 的概念和基础，省得每次去开教程了。</p>
+    <h1 id="创建项目">创建项目</h1>
+    <p>注意 <code>SvelteKit</code> 和 <code>Svelte</code> 不一样。用 <code>create-vite</code> 选择就行了。</p>
+    <h1 id="文件结构">文件结构</h1>
+    <p>一个 Svelte 组件保存的后缀名是 <code>.svelte</code> 内容一般是三个部分，脚本部分，HTML 部分和 CSS 部分。CSS 是只作用于这一个组件的。各个组件可以互相引用，就像 React 那样 Import。举例：</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;script</span> <span class="er">lang</span><span class="ot">=</span><span class="st">&quot;ts&quot;</span><span class="kw">&gt;</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> Another <span class="im">from</span> <span class="st">&#39;./Another.svelte&#39;</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> picture <span class="im">from</span> <span class="st">&#39;./assets/picture.svg&#39;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> name<span class="op">:</span>string <span class="op">=</span> <span class="st">&quot;hello!&quot;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/script&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;p&gt;</span>This is a paragraph.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;Another&gt;&lt;/Another&gt;</span> <span class="co">&lt;!-- 也可以用 &lt;Another/&gt; --&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;img</span> <span class="er">{picture}</span> <span class="er">alt</span><span class="ot">=</span><span class="st">&quot;{name}&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;style&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    p {</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">color</span>: <span class="cn">purple</span><span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">font-family</span>: <span class="st">&#39;Comic Sans MS&#39;</span><span class="op">,</span> <span class="dv">cursive</span><span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">font-size</span>: <span class="dv">2</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/style&gt;</span></span></code></pre></div>
+    <ul>
+    <li>如果一个标签的属性和值相同，可以简单书写，例如：<code>&lt;img {src} alt="A man dances."&gt;</code>。</li>
+    <li>如果变量包含的是 HTML，可以使用 <code>{@html ...}</code> 标签转义，例如：<code>&lt;p&gt;{@html</code><strong>Hello</strong><code>}&lt;/p&gt;</code>。如果引入了 <code>marked</code> 这样的处理器，可以直接 <code>{@html marked(value)}</code> 这样渲染。</li>
+    </ul>
+    <h1 id="事件处理">事件处理</h1>
+    <p>给 HTML 元素加上 <code>on:xxxx</code> 标签注册事件处理器：</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;script&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> count <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="fu">incrementCount</span>() {</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        count <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/script&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;button</span> <span class="er">on:click</span><span class="ot">=</span><span class="st">{incrementCount}</span><span class="kw">&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    Clicked {count} {count === 1 ? &#39;time&#39; : &#39;times&#39;}</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/button&gt;</span></span></code></pre></div>
+    <p>也可以使用简略形式：</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;button</span> <span class="er">on:click</span><span class="ot">=</span><span class="st">&quot;{e=&gt;count++}&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    Clicked {count} {count === 1 ? &#39;time&#39; : &#39;times&#39;}</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/button&gt;</span></span></code></pre></div>
+    <p>使用 <code>$:</code> 来保持引用，这样一个变量改变了，另外一个也能够随之改变。这是一个 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/label">标记语句</a>，就是声明了一个特殊的叫做 <code>$</code> 的标记。</p>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> count <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>$<span class="op">:</span> doubled <span class="op">=</span> count <span class="op">*</span> <span class="dv">2</span><span class="op">;</span></span></code></pre></div>
+    <p><code>Svelte</code> 的更新取决于是否有 assignments 也就是赋值操作，所以单纯的写 <code>somethings.some_prop = 'xxx'</code> 不会触发更新。你还需要 <code>something = something</code> 才行。对于数组，可以便捷的采用 <code>numbers = [...numbers, new_element];</code> 来更新。</p>
+    <div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;script&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> numbers <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="fu">addNumber</span>() {</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        numbers <span class="op">=</span> [<span class="op">...</span>numbers<span class="op">,</span> numbers<span class="op">.</span><span class="at">length</span> <span class="op">+</span> <span class="dv">1</span>]<span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    $<span class="op">:</span> sum <span class="op">=</span> numbers<span class="op">.</span><span class="fu">reduce</span>((t<span class="op">,</span> n) <span class="kw">=&gt;</span> t <span class="op">+</span> n<span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/script&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;p&gt;</span>{numbers.join(&#39; + &#39;)} = {sum}<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;button</span> <span class="er">on:click</span><span class="ot">=</span><span class="st">{addNumber}</span><span class="kw">&gt;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    Add a number</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/button&gt;</span></span></code></pre></div>
+    <h2 id="modifiers"><code>modifiers</code></h2>
+    <p>用 <code>|</code> 来给处理器加额外设置，就像这样：</p>
+    <div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;script&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="fu">handleClick</span>() { <span class="fu">alert</span>(<span class="st">&#39;no more alerts&#39;</span>) }</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/script&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;button</span> <span class="er">on:click|once</span><span class="ot">=</span><span class="st">{handleClick}</span><span class="kw">&gt;</span> Click me <span class="kw">&lt;/button&gt;</span></span></code></pre></div>
+    <p>多个可以叠加，类似 <code>on:click|once|capture={...}</code> 。</p>
+    <ul>
+    <li><code>preventDefault</code> ：就是 <code>e.preventDefault()</code> 。</li>
+    <li><code>stopPropagation</code>：同样地，相当于调用 <code>e.stopPropagation()</code>。</li>
+    <li><code>once</code>：这个处理器只使用一次。</li>
+    <li><code>self</code>：只有在 <code>event.target</code> 是元素自己时调用。</li>
+    <li><code>trusted</code>：只有 <code>event.isTrusted</code> 是 <code>True</code> 才调用。比如 <code>element.click()</code> 就不是。</li>
+    </ul>
+    <h1 id="消息传递">消息传递</h1>
+    <h2 id="dispatch">dispatch</h2>
+    <p>组件之间的消息传递就是所谓 <code>dispatch</code>（这个词中文含义是 <em>调度，派遣，发送</em> 的意思），比如说有一个 Outside 组件，里面包含了一个 Inner 组件，Inner 组件想要让外部组件更新一项信息，如果用简单的 React 的话那就是把外部组件的对应处理函数作为 Inner 的一个 prop 传送进去，让它调用。如果使用 <code>dispatch</code> 方法的话，就是 Inner 向外部组件发送一个消息，告诉他发生了什么，再由外部组件决定干啥。</p>
+    <p>为此，Inner 组件需要引入 <code>createEventDispatcher</code> 来便捷的创建<strong>标准</strong>的消息。而外部组件需要对于每一种类的消息，定义一个 <code>on:&lt;消息种类&gt;</code> 的处理器来接收消息。举例如下：</p>
+    <p>Inner：</p>
+    <div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;script&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> { createEventDispatcher } <span class="im">from</span> <span class="st">&#39;svelte&#39;</span><span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> dispatch <span class="op">=</span> <span class="fu">createEventDispatcher</span>()<span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="fu">sayHello</span>() {</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">dispatch</span>(<span class="st">&#39;sayhi&#39;</span><span class="op">,</span> { <span class="dt">text</span><span class="op">:</span> <span class="st">&#39;Hello!&#39;</span>})<span class="op">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/script&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;button</span> <span class="er">on:click</span><span class="ot">=</span><span class="st">{sayHello}</span><span class="kw">&gt;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    Click to say hello</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/button&gt;</span></span></code></pre></div>
+    <p>Outside：</p>
+    <div class="sourceCode" id="cb8"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;script&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> Inner <span class="im">from</span> <span class="st">&#39;./Inner.svelte&#39;</span><span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="fu">handleMessage</span>(<span class="bu">event</span>) {</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">alert</span>(<span class="bu">event</span><span class="op">.</span><span class="at">detail</span><span class="op">.</span><span class="at">text</span>)<span class="op">;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/script&gt;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;Inner</span> <span class="er">on:sayhi</span><span class="ot">=</span><span class="st">{handleMessage}</span><span class="kw">/&gt;</span></span></code></pre></div>
+    <p>接受到的消息是这样的结构，主要关心的数据就是里面的 <code>detail</code> 和 <code>type</code>：</p>
+    <p><img src="./assets/type.webp" /></p>
+    <h2 id="夹心饼干">夹心饼干</h2>
+    <p>有时候会遇到「夹心饼干」一样的组件堆叠，最里面的组件要传递信息给最外面的组件，于是要穿越中间很多层，<code>Svelte</code> 给被穿越的那些组件提供了简单的数据传递写法。一个没有处理器的 <code>on:xxx</code> 会转发一切到上层：</p>
+    <div class="sourceCode" id="cb9"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;Inner</span> <span class="er">on:sayhi</span><span class="kw">/&gt;</span></span></code></pre></div>
+    <p><code>on:xxx</code> 不仅仅可以转发自定义的消息，对于 DOM 事件也可以转发。所以可以对最内层的某个按钮的 click 事件一层层转发到最上层处理。</p>
+    <h1 id="组件的-props">组件的 props</h1>
+    <p>就像 React 的 props 一样，不过是以 <code>export</code> 变量的形式定义的：</p>
+    <div class="sourceCode" id="cb10"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;script&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="im">export</span> <span class="kw">let</span> answer <span class="op">=</span> <span class="st">&#39;default value&#39;</span><span class="op">;</span>    <span class="co">// answer 是 props，可以设定默认值</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/script&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;p&gt;</span>The answer is {answer}<span class="kw">&lt;/p&gt;</span></span></code></pre></div>
+    <p>其他组件调用它是这样：</p>
+    <div class="sourceCode" id="cb11"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;script&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> MyElement <span class="im">from</span> <span class="st">&#39;./Nested.svelte&#39;</span><span class="op">;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/script&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;MyElement</span> <span class="er">answer</span><span class="ot">=</span><span class="st">{42}</span><span class="kw">/&gt;</span></span></code></pre></div>
+    <p>对于有很多属性的组件，可以用简略的方法定义一个 <code>Object</code> 放进去。假如有一个组件有四个 props ：<code>name</code>，<code>version</code>，<code>speed</code>，<code>website</code>：</p>
+    <div class="sourceCode" id="cb12"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;script&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> Info <span class="im">from</span> <span class="st">&#39;./Info.svelte&#39;</span><span class="op">;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> pkg <span class="op">=</span> {</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">name</span><span class="op">:</span> <span class="st">&#39;svelte&#39;</span><span class="op">,</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">version</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">speed</span><span class="op">:</span> <span class="st">&#39;blazing&#39;</span><span class="op">,</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">website</span><span class="op">:</span> <span class="st">&#39;https://svelte.dev&#39;</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/script&gt;</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--不要这样做--&gt;</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;Info</span> <span class="er">name</span><span class="ot">=</span><span class="st">{pkg.name}</span> <span class="er">version</span><span class="ot">=</span><span class="st">{pkg.version}</span> <span class="er">speed</span><span class="ot">=</span><span class="st">{pkg.speed}</span> <span class="er">website</span><span class="ot">=</span><span class="st">{pkg.website}</span><span class="kw">/&gt;</span> </span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--用缩略形式--&gt;</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;Info</span> <span class="er">{...pkg}</span><span class="kw">/&gt;</span></span></code></pre></div>
+    <h1 id="按需渲染">按需渲染</h1>
+    <h2 id="if">if</h2>
+    <div class="sourceCode" id="cb13"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">// if...</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>{#if user<span class="op">.</span><span class="at">loggedIn</span>}</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>button on<span class="op">:</span>click<span class="op">=</span>{toggle}<span class="op">&gt;</span> Log out <span class="op">&lt;/</span>button<span class="op">&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>{<span class="ss">/if}</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="ss">// if...else</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="ss">{#if user.loggedIn}</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="ss">    &lt;button on:click={toggle}&gt;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="ss">        Log out</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="ss">    &lt;/button</span><span class="op">&gt;</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>{<span class="op">:</span><span class="cf">else</span>}</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>button <span class="dt">on</span><span class="op">:</span>click<span class="op">=</span>{toggle}<span class="op">&gt;</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        Log <span class="kw">in</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;/</span>button<span class="op">&gt;</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>{<span class="ss">/if}</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="ss">// if...else if...</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="ss">{#if x &gt; 10}</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="ss">    &lt;p&gt;{x} is greater than 10&lt;/p</span><span class="op">&gt;</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>{<span class="op">:</span><span class="cf">else</span> <span class="cf">if</span> <span class="dv">5</span> <span class="op">&gt;</span> x}</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>p<span class="op">&gt;</span>{x} is less than <span class="dv">5</span><span class="op">&lt;/</span>p<span class="op">&gt;</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>{<span class="op">:</span><span class="cf">else</span>}</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>p<span class="op">&gt;</span>{x} is between <span class="dv">5</span> and <span class="dv">10</span><span class="op">&lt;/</span>p<span class="op">&gt;</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>{<span class="ss">/if}</span></span></code></pre></div>
+    <h2 id="each">each</h2>
+    <p>循环，类似于 React 中的 <code>map</code> 函数：</p>
+    <div class="sourceCode" id="cb14"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>ul<span class="op">&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    {#each [<span class="st">&#39;hello&#39;</span><span class="op">,</span><span class="st">&#39;world&#39;</span>] <span class="im">as</span> str<span class="op">,</span>index}</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        {index} <span class="op">-&gt;</span> {str} <span class="op">&lt;</span>br<span class="op">/&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    {<span class="ss">/each}</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="ss">&lt;/ul</span><span class="op">&gt;</span></span></code></pre></div>
+    <p>如果循环的对象是一个复杂的 <code>Object</code>，那么可以直接解构。假如数据 <code>addrs</code> 是 <code>{name:string, age:number, address:string}</code> 类型的数组，那么可以这样：</p>
+    <div class="sourceCode" id="cb15"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>{#each addrs {name<span class="op">,</span> age<span class="op">,</span> address}<span class="op">,</span> index}</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// processing data</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>{<span class="ss">/each}</span></span></code></pre></div>
+    <p>默认情况下，当改变 <code>each</code> 中的数据时，最后一个项目会被增加或者删除，然后更新每一个更改的项目。也就是说，<strong>它是倒着更新的</strong>，所以，需要指定一个 <code>key</code>。</p>
+    <pre class="svelte"><code>{#each things as thing (thing.name) }
+    &lt;Thing name={thing.name}/&gt;
+{/each}
+
+{#each things as {id,name},index (id) } // key 的括号放在最后
+    {id} {name} {index} &lt;br/&gt;
+{/each}</code></pre>
+    <h2 id="promise">Promise</h2>
+    <p>直接给 <code>promise</code> 包装一层，很方便：</p>
+    <div class="sourceCode" id="cb17"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>{#await <span class="fu">fetch</span>(<span class="st">&#39;https://www.bing.com/&#39;</span>)}</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>p<span class="op">&gt;...</span>waiting<span class="op">&lt;/</span>p<span class="op">&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>{<span class="op">:</span>then data}</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>p<span class="op">&gt;</span>{data}<span class="op">&lt;/</span>p<span class="op">&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>{<span class="op">:</span><span class="cf">catch</span> error}</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>p style<span class="op">=</span><span class="st">&quot;color: red&quot;</span><span class="op">&gt;</span>{error}<span class="op">&lt;/</span>p<span class="op">&gt;</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>{<span class="ss">/await}</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="ss">// 相同</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="ss">{#await fetch</span><span class="sc">(</span><span class="ss">&#39;https://www.bing.com/</span><span class="st">&#39;) then data}</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    {data}</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>{<span class="op">:</span><span class="cf">catch</span> error}</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>p style<span class="op">=</span><span class="st">&quot;color: red&quot;</span><span class="op">&gt;</span>{error}<span class="op">&lt;/</span>p<span class="op">&gt;</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>{<span class="ss">/await}</span></span></code></pre></div>
+    <h1 id="绑定">绑定</h1>
+    <p>通过绑定，可以更好的处理一些交互式元素，特别是 <code>input</code> 类的处理：</p>
+    <h2 id="input">input</h2>
+    <div class="sourceCode" id="cb18"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;script&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> name <span class="op">=</span> <span class="st">&#39;world&#39;</span><span class="op">,</span> a <span class="op">=</span> <span class="dv">1</span><span class="op">,</span> b <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/script&gt;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;input</span> <span class="er">bind:value</span><span class="ot">=</span><span class="st">{name}</span><span class="kw">&gt;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;input</span> <span class="er">type</span><span class="ot">=</span><span class="st">number</span> <span class="er">bind:value</span><span class="ot">=</span><span class="st">{a}</span> <span class="er">min</span><span class="ot">=</span><span class="st">0</span> <span class="er">max</span><span class="ot">=</span><span class="st">10</span><span class="kw">&gt;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;input</span> <span class="er">type</span><span class="ot">=</span><span class="st">range</span> <span class="er">bind:value</span><span class="ot">=</span><span class="st">{a}</span> <span class="er">min</span><span class="ot">=</span><span class="st">0</span> <span class="er">max</span><span class="ot">=</span><span class="st">10</span><span class="kw">&gt;</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;h1&gt;</span>Hello {name}!<span class="kw">&lt;/h1&gt;</span></span></code></pre></div>
+    <p>如果不使用 <code>bind</code> 的话，就需要捕获输入事件，定义一个处理这个事件的函数，再更新数据，比较繁琐。</p>
+    <p>对于一般的数据，使用 <code>bind:value</code>，对于 checkbox 是否选中，使用 <code>bind:checked</code>。如果你需要绑定更多值，则可以使用 <code>bind:group</code> 将 value 属性放在一起使用。那么多个组件就共享一个数据源了。<strong><code>bind:group</code> 只能用于 checkbox 和 <code>radio</code></strong></p>
+    <p>对于 <code>each</code> 中的元素，可以挨个绑定，详见<a href="https://svelte.dev/tutorial/each-block-bindings">这里</a>。</p>
+    <h2 id="select">select</h2>
+    <div class="sourceCode" id="cb19"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;script&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> questions <span class="op">=</span> [</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">id</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> <span class="vs">`Where did you go to school?`</span> }<span class="op">,</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">id</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> <span class="vs">`What is your mother&#39;s name?`</span> }<span class="op">,</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">id</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> <span class="vs">`What is another personal fact that an attacker could easily find with Google?`</span> }</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>]<span class="op">,</span> selected<span class="op">;</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>script<span class="op">/&gt;</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>select bind<span class="op">:</span>value<span class="op">=</span>{selected} on<span class="op">:</span>change<span class="op">=</span><span class="st">&quot;{() =&gt; answer = &#39;&#39;}&quot;</span><span class="op">&gt;</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    {#each questions <span class="im">as</span> question}</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;</span>option value<span class="op">=</span>{question}<span class="op">&gt;</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>            {question<span class="op">.</span><span class="at">text</span>}</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;/</span>option<span class="op">&gt;</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    {<span class="ss">/each}</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="ss">&lt;/select</span><span class="op">&gt;</span></span></code></pre></div>
+    <p><code>selected</code> 的内容是 <code>{id:number, text:string}</code> 的类型。</p>
+    <h2 id="可编辑元素">可编辑元素</h2>
+    <div class="sourceCode" id="cb20"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;script&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> html <span class="op">=</span> <span class="st">&#39;&lt;p&gt;Write some text!&lt;/p&gt;&#39;</span><span class="op">;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/script&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;div</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="ot">    contenteditable=</span><span class="st">&quot;true&quot;</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="ot">    bind:innerHTML=</span><span class="st">{html}</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="kw">&gt;&lt;/div&gt;</span></span></code></pre></div>
+    <h2 id="尺寸绑定">尺寸绑定</h2>
+    <p>每个块级标签都可以对 <code>clientWidth</code>、<code>clientHeight</code>、<code>offsetWidth</code> 以及 <code>offsetHeight</code> 属性进行绑定：</p>
+    <div class="sourceCode" id="cb21"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;div</span> <span class="er">bind:clientWidth</span><span class="ot">=</span><span class="st">{w}</span> <span class="er">bind:clientHeight</span><span class="ot">=</span><span class="st">{h}</span><span class="kw">&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;span</span> <span class="er">style</span><span class="ot">=</span><span class="st">&quot;font-size: {size}px&quot;</span><span class="kw">&gt;</span>{text}<span class="kw">&lt;/span&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/div&gt;</span></span></code></pre></div>
+    <p>这些绑定是只读的，更改 w 和 h 的值不会有任何效果。</p>
+    <h1 id="生命周期处理">生命周期处理</h1>
+    <ul>
+    <li><code>onMount</code> fired after the component is rendered</li>
+    <li><code>onDestroy</code> fired after the component is destroyed</li>
+    <li><code>beforeUpdate</code> fired before the DOM is updated</li>
+    <li><code>afterUpdate</code> fired after the DOM is updated</li>
+    </ul>
+    <h2 id="onmount"><code>onMount</code></h2>
+    <p>在每个组件第一次渲染之后触发。</p>
+    <div class="sourceCode" id="cb22"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;script&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> { onMount } <span class="im">from</span> <span class="st">&#39;svelte&#39;</span><span class="op">;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> data<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Data is </span><span class="sc">${</span>data<span class="sc">}</span><span class="vs">`</span>)  <span class="co">// 0</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">onMount</span>(()<span class="kw">=&gt;</span>{data<span class="op">=</span><span class="dv">100</span><span class="op">;</span>})</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/script&gt;</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;b&gt;</span>{data}<span class="kw">&lt;/b&gt;</span></span></code></pre></div>
+    <p>在 <code>onMount</code> 中可以注册 async 函数，例如在里面 await fetch 什么东西。如果注册函数返回一个函数，这个函数将在组件销毁时触发。</p>
+    <h2 id="ondestroy"><code>onDestroy</code></h2>
+    <p><code>onDestroy</code> 允许清理数据或停止我们可能在组件初始化时启动的任何操作，例如计时器或使用 <code>setInterval</code> 的计划周期函数。</p>
+    <div class="sourceCode" id="cb23"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;script&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="im">import</span> { onMount } <span class="im">from</span> <span class="st">&#39;svelte&#39;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">onMount</span>(<span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> interval <span class="op">=</span> <span class="pp">setInterval</span>(() <span class="kw">=&gt;</span> {</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>      <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Something...&#39;</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span> <span class="dv">1000</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>      <span class="pp">clearInterval</span>(interval)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/script&gt;</span></span></code></pre></div>
+    <h1 id="调试">调试</h1>
+    <p>使用 <code>{@debug ...}</code> tag。</p>
+    <h1 id="参考">参考</h1>
+    <ol type="1">
+    <li><a href="https://flaviocopes.com/book/read/svelte/">The Svelte Handbook</a></li>
+    </ol>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-02-02">创建日期：2023-02-02</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

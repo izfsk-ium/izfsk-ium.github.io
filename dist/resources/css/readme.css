@@ -1,0 +1,46 @@
+@media (prefers-color-scheme: dark) {
+    /* body {
+        background-image: url("/resources/img/readme-dark.svg") !important;
+    } */
+
+    td,
+    th {
+        border: 1px solid grey;
+        padding: 10px 20px;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    /* body {
+        background-image: url("/resources/img/readme-light.svg") !important;
+    } */
+
+    td,
+    th {
+        border: 1px solid black;
+        padding: 10px 20px;
+    }
+}
+
+li {
+    font-size: 16px;
+}
+
+b {
+    font-family: 'Code', 'Courier New', Courier, monospace;
+}
+
+td {
+    font-family: 'CONTENT', 'Times New Roman', Times, serif;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+@media only screen and (max-width: 500px) {
+    td {
+        max-width: 42vw;
+        word-wrap: break-word;
+    }
+}

@@ -1,0 +1,23 @@
+main {
+    padding: 1rem 1rem;
+}
+
+h2 {
+    padding: 0;
+    font-size: 22px !important;
+    list-style: none;
+    text-decoration: underline;
+}
+
+#content {
+    margin-left: 18px !important;
+}
+
+h2 {
+    margin-left: -15px !important;
+}
+
+footer>section>p,
+footer>section>div>a {
+    font-size: 12px !important;
+}

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2022-12-19" />
+        <title>scrcpy+sndcpy+kdeconnect多屏协作</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT92a3c86b-baca-4a5d-bf87-e4b091adfd74.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT92a3c86b-baca-4a5d-bf87-e4b091adfd74.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">scrcpy+sndcpy+kdeconnect多屏协作</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#备忘录">备忘录</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#目标" id="toc-目标">目标</a></li>
+    <li><a href="#scrcpy" id="toc-scrcpy">scrcpy</a>
+    <ul>
+    <li><a href="#手机关闭显示" id="toc-手机关闭显示">手机关闭显示</a></li>
+    <li><a href="#多个设备连接" id="toc-多个设备连接">多个设备连接</a></li>
+    <li><a href="#无线调试" id="toc-无线调试">无线调试</a></li>
+    <li><a href="#录屏" id="toc-录屏">录屏</a></li>
+    <li><a href="#多重虚拟屏幕" id="toc-多重虚拟屏幕">多重虚拟屏幕</a></li>
+    </ul></li>
+    <li><a href="#sndcpy" id="toc-sndcpy">sndcpy</a></li>
+    <li><a href="#kdeconnect" id="toc-kdeconnect">kdeconnect</a></li>
+    <li><a href="#附录scrcpy-快捷键" id="toc-附录scrcpy-快捷键">附录：scrcpy 快捷键</a></li>
+    <li><a href="#参考" id="toc-参考">参考</a></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <p>「多屏协作」是很多电子设备厂商的卖点，本着 <a href="https://unix.org/license-plate.html">Live free or die</a> 的头铁原则，使用 Linux 也可以利用各种工具实现这样的功能，并且，效果还不错。</p>
+    <h1 id="目标">目标</h1>
+    <p>要达到我心目中的「多屏协作」，至少需要：</p>
+    <ul>
+    <li>手机屏幕投射</li>
+    <li>双向文件互传</li>
+    <li>剪贴板分享</li>
+    <li>双向远程控制</li>
+    <li>媒体转接</li>
+    <li>通知传递</li>
+    </ul>
+    <p>另外这一切都不应该借助数据线，经过一番折腾，我基本实现了这些目标，虽然免不了有一种自由软件大杂烩以后经典的「它能跑，但是毛毛糙糙」的感觉。</p>
+    <h1 id="scrcpy">scrcpy</h1>
+    <p><code>scrcpy</code>是一个命令行应用，用于把安卓设备的屏幕投射到电脑上，支持交互功能。你可以在<a href="https://scrcpy.org">这里</a>下载。除此以外，你还需要在电脑上安装 adb 调试工具链接电脑，并在手机上打开 USB 调试功能。</p>
+    <p>最简单的使用就是直接用 USB 链接手机，允许 USB 调试，之后终端执行</p>
+    <pre class="shell"><code>$ scrcpy </code></pre>
+    <p>即可。scrcpy 自带了键盘模拟输入，鼠标代替触摸操作等。除此以外，系统剪贴板和手机剪贴板可以自动互通，拖放电脑文件到手机窗口会把文件 push 到 <code>/storage/emulated/0/Downloads/</code> 目录，也就是手机默认的「下载」目录。</p>
+    <h2 id="手机关闭显示">手机关闭显示</h2>
+    <p>如果你觉得手机一直亮着很费电，添加 <code>-S</code> 参数在连接电脑后自动熄灭屏幕即可。当然，如果再次操作物理手机还是能够正常使用的。</p>
+    <h2 id="多个设备连接">多个设备连接</h2>
+    <p>如果你有很多设备连接，要么指定设备序列号，要么使用无线调试。先使用 <code>adb devices</code> 列出所有设备，第一列的就是设备编号，scrcpy 使用 <code>-s</code> 参数来辨别你要连接的设备。</p>
+    <pre class="shell"><code>$ scrcpy -S -s your-device</code></pre>
+    <h2 id="无线调试">无线调试</h2>
+    <p>在同一个局域网下，可以使用无线调试功能，解放 usb 插口。</p>
+    <div class="note blue">
+    <table>
+    <colgroup>
+    <col style="width: 100%" />
+    </colgroup>
+    <tbody>
+    <tr class="odd">
+    <td>💭 <strong>无线调试比较费带宽，如果 wifi 信号不好，或者正在下载什么东西，可能会卡顿明显。</strong></td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    <p>首先，你需要 USB 连接手机，确保 adb 畅通，接下来，启用无线调试：</p>
+    <pre class="shell"><code>$ adb tcpip 5555</code></pre>
+    <p>默认的端口是 5555，当然你也可以自定义。接下来你要知道你的手机的 IP 地址：</p>
+    <pre class="shell"><code>$ adb shell ip addr</code></pre>
+    <p>和 PC 不同，Android 设备会密密麻麻显示出几十个网络接口，一般 wlan 接口就是 <code>wlan0</code> 之类的，局域网地址一般以 <code>192.168</code> 开头。找到以后，输入 connect 连接：</p>
+    <pre class="shell"><code>$ adb connect 192.168.1.114:5555</code></pre>
+    <p>如果没有问题，会显示 <code>connected to 192.168.1.114:5555</code>，这时候再 <code>adb devices</code> 会显示出无线调试的设备。此时就可以拔出 USB 线，直接远程连接了。如上所述，远程连接会比较耗费带宽，如果卡顿，可以试试限制视频大小。使用 <code>-m</code> 参数限制视频的宽度和高度，长宽比会被保留。实际上 1024 就可以用了，除非是列文虎克，否则看不太出来差别。</p>
+    <pre class="shell"><code>$ scrcpy -S --tcpip=192.168.1.114 -m 1024</code></pre>
+    <p>如果出现问题或者找不到设备：</p>
+    <ol type="1">
+    <li>再三检查自己的手机有没有连接 wifi，并且和电脑在同一个网域。</li>
+    <li>尝试 <code>adb kill-server</code> 重新来过。</li>
+    </ol>
+    <p>连接结束后，可以使用 <code>adb disconnect</code> 结束连接。</p>
+    <h2 id="录屏">录屏</h2>
+    <p>使用 <code>-r</code> 参数加文件名录屏。格式是 mp4 或者 mkv，按照文件扩展名自动选择。</p>
+    <pre class="shell"><code>$ scrcpy -m 1024 -r record.mp4</code></pre>
+    <p>实际测试一段 8 秒钟的视频，使用 mp4 格式， <code>-m 1024</code> 参数，大小是 4MB 左右（无声音）。</p>
+    <div class="note red">
+    <table>
+    <colgroup>
+    <col style="width: 100%" />
+    </colgroup>
+    <tbody>
+    <tr class="odd">
+    <td>⚠️ <strong>scrcpy 很诚实，它会把所有的一切录下来，包括你的锁屏和锁屏密码！</strong></td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    <p>注：Android 13 以后不再有这个问题。</p>
+    <h2 id="多重虚拟屏幕">多重虚拟屏幕</h2>
+    <p>Android 开发人员选项有一个 Simulate secondary displays 的选项，可以设置虚拟显示屏。如果你的手机支持「桌面模式」，可以尝试开启，在手机和电脑上各开一个显示。</p>
+    <p>你可以使用 adb 命令开启一个虚拟显示输出：</p>
+    <pre class="shell"><code>$ adb shell settings put global overlay_display_devices 3840x2160/480</code></pre>
+    <p>然后通过</p>
+    <pre class="shell"><code>$ adb shell dumpsys display | grep mDisplayId=</code></pre>
+    <p>来获取虚拟显示输出的编号。编号 0 是手机的物理屏幕。接下来就可以使用 scrcpy 连接指定的虚拟屏幕了：</p>
+    <pre class="shell"><code>$ scrcpy -m 1024 --display 11</code></pre>
+    <p><strong>注意，不是每一个型号的手机都可以支持「桌面模式」，大部分手机的虚拟显示器投屏以后只是灰屏。</strong></p>
+    <p>如果你想关闭虚拟显示屏，在「开发人员选项」里面找到 Simulate secondary displays 选取一个再关闭即可。</p>
+    <h1 id="sndcpy">sndcpy</h1>
+    <p><code>scrcpy</code> 只能投送屏幕，不能接管音频。如果想要把手机的音频也接管到电脑上来，需要其他的工具。你可以在<a href="https://github.com/rom1v/sndcpy">这里</a>下载。要运行这个工具，你需要：</p>
+    <ol type="1">
+    <li>Android 10 或者以上的操作系统</li>
+    <li>你的 PC 上安装了 VLC 并且在 path 里面</li>
+    <li>你可以 adb 连接你的手机</li>
+    </ol>
+    <p>解压 release 的压缩包以后，是运行脚本和一个 apk。主要就是依靠这个 apk 来完成音频转发。使用方法：</p>
+    <pre class="shell"><code>./sndcpy &lt;serial&gt;  # replace &lt;serial&gt; by the device serial</code></pre>
+    <p>运行以后有可能会有报错，无妨，稍等即可。尝试表明，音乐应用等的音频可以转发，但是腾讯会议的音频在目前版本 (v1.1) 无法转发。</p>
+    <h1 id="kdeconnect">kdeconnect</h1>
+    <p>在 KDE 上使用 KDE Connect 和手机进行消息通知同步等可以使得你的「多屏协作」体验更好。使用 KDE Connect 需要：</p>
+    <ol type="1">
+    <li>你的手机和电脑在同一个网络下</li>
+    <li>你的手机安装 KDE Connect</li>
+    <li>防火墙放行相关端口</li>
+    </ol>
+    <p><strong>并不是只有 KDE 才能使用 KDE Connect，Gnome 乃至 Windows 平台都可以享受它</strong>。在 Gnome 上你可以使用 <a href="https://extensions.gnome.org/extension/1319/gsconnect/">GSConnect</a> 来替代，在 Windows上你可以直接在<a href="https://apps.microsoft.com/store/detail/9N93MRMSXBF0?hl=zh-cn&amp;gl=CN">微软应用商店</a>下载它。当然，KDE 不可能向国内的手机应用商店交钱上架，所以你需要在 <a href="https://f-droid.org/en/packages/org.kde.kdeconnect_tp/">F-Droid</a> 下载最新的手机应用。</p>
+    <p>KDE Connect 的使用非常简单，一看就能明白。如果你还是无法检测到设备，检查一下你的 PC 防火墙设置。KDE Connect 使用 UDP 和 TCP 端口 1714-1764，确保你的防火墙放行了它们。</p>
+    <pre class="shell"><code># 如果你使用 ufw
+sudo ufw allow 1714:1764/udp
+sudo ufw allow 1714:1764/tcp
+sudo ufw reload
+
+# 如果你使用 firewall-cmd
+sudo firewall-cmd --permanent --zone=public --add-service=kdeconnect
+sudo firewall-cmd --reload
+
+# 如果你非要用 iptables...
+sudo iptables -I INPUT -i &lt;yourinterface&gt; -p udp --dport 1714:1764 -m state --state NEW,ESTABLISHED -j ACCEPT
+sudo iptables -I INPUT -i &lt;yourinterface&gt; -p tcp --dport 1714:1764 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+sudo iptables -A OUTPUT -o &lt;yourinterface&gt; -p udp --sport 1714:1764 -m state --state NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -o &lt;yourinterface&gt; -p tcp --sport 1714:1764 -m state --state NEW,ESTABLISHED -j ACCEPT</code></pre>
+    <h1 id="附录scrcpy-快捷键">附录：scrcpy 快捷键</h1>
+    <p>首先，需要设定 <code>mod</code> 键作为前缀。默认是 <code>lalt, lsuper</code> 使用 <code>--shortcut-mod key</code> 来设置。</p>
+    <table>
+    <thead>
+    <tr class="header">
+    <th style="text-align: left;">序列</th>
+    <th style="text-align: left;">作用</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td style="text-align: left;"><code>Mod + f</code></td>
+    <td style="text-align: left;">进入/退出全屏模式</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: left;"><code>Mod + Left/Right</code></td>
+    <td style="text-align: left;">旋转方向</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: left;"><code>Mod + h</code></td>
+    <td style="text-align: left;">Home 键</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: left;"><code>Mod + b</code></td>
+    <td style="text-align: left;">Back 键盘（右击鼠标亦可）</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: left;"><code>Mod + s</code></td>
+    <td style="text-align: left;">最近应用列表</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: left;"><code>Mod + m</code></td>
+    <td style="text-align: left;">应用菜单键</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: left;"><code>Mod + Up/Down</code></td>
+    <td style="text-align: left;">调节音量</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: left;"><code>Mod + Shift + o</code></td>
+    <td style="text-align: left;">关闭屏幕</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: left;"><code>Mod + Shift + n</code></td>
+    <td style="text-align: left;">下拉系统菜单</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: left;"><code>Mod + Shift + v</code></td>
+    <td style="text-align: left;">从系统剪贴板输入序列</td>
+    </tr>
+    </tbody>
+    </table>
+    <h1 id="参考">参考</h1>
+    <ul>
+    <li><a href="https://github.com/Genymobile/scrcpy/issues/1413">scrcpy有关「桌面模式」的 issue</a></li>
+    <li><a href="https://github.com/rom1v/sndcpy">sndcpy 仓库</a></li>
+    <li><a href="https://userbase.kde.org/KDEConnect">KDE Connect 手册</a></li>
+    </ul>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2022-12-19">创建日期：2022-12-19</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2023-01-06" />
+        <title>Portacle的使用</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT9886aba7-4b9c-4070-9ce3-1e30734b757b.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT9886aba7-4b9c-4070-9ce3-1e30734b757b.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">Portacle的使用</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#备忘录">备忘录</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#安装配置" id="toc-安装配置">安装配置</a></li>
+    <li><a href="#基本操作" id="toc-基本操作">基本操作</a>
+    <ul>
+    <li><a href="#emacs-相关" id="toc-emacs-相关">Emacs 相关</a>
+    <ul>
+    <li><a href="#光标操作" id="toc-光标操作">光标操作</a></li>
+    <li><a href="#撤销重做" id="toc-撤销重做">撤销重做</a></li>
+    <li><a href="#删除" id="toc-删除">删除</a></li>
+    <li><a href="#复制粘贴" id="toc-复制粘贴">复制粘贴</a></li>
+    <li><a href="#在-buff-之间切换" id="toc-在-buff-之间切换">在 buff 之间切换</a></li>
+    <li><a href="#文件操作" id="toc-文件操作">文件操作</a></li>
+    <li><a href="#搜索和替换" id="toc-搜索和替换">搜索和替换</a></li>
+    </ul></li>
+    <li><a href="#slime-相关" id="toc-slime-相关">SLIME 相关</a>
+    <ul>
+    <li><a href="#slime-selector" id="toc-slime-selector">slime-selector</a></li>
+    <li><a href="#执行" id="toc-执行">执行</a></li>
+    <li><a href="#编译" id="toc-编译">编译</a></li>
+    <li><a href="#寻找定义" id="toc-寻找定义">寻找定义</a></li>
+    <li><a href="#获取文档" id="toc-获取文档">获取文档</a></li>
+    <li><a href="#错误处理" id="toc-错误处理">错误处理</a></li>
+    </ul></li>
+    </ul></li>
+    <li><a href="#其他问题" id="toc-其他问题">其他问题</a></li>
+    <li><a href="#参见" id="toc-参见">参见</a></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <p>Portacle 是一个 CommonLisp 运行时和开发环境，没有复杂的安装流程，更没有附带各种恶心限制的许可证(<del>说的就是你 LispWorks</del>)，使用方便。基于 Emacs 构建，自带 SBCL，busybox，Quicklisp，git，SLIME。</p>
+    <h1 id="安装配置">安装配置</h1>
+    <p>在<a href="https://portacle.github.io">官方网站</a>下载 tar.xz 包，然后解压到希望安装的目录下。运行即可。加载配置文件需要一小会儿，之后就能看见主界面了。</p>
+    <p>第一次运行需要先进行用户配置，按 <code>Alt + X</code> 输入 <code>portacle-configure</code> 回车，按照提示进行初次配置。</p>
+    <figure>
+    <img src="./assets/Screenshot_20230106_211912.png" alt="主界面" />
+    <figcaption aria-hidden="true">主界面</figcaption>
+    </figure>
+    <p>主界面默认上下分栏，上面的是 <code>scratch</code> 区域，用来编辑运行环境里面的 Lisp 代码，下面的是 <code>slime-repl</code>，用来和 Lisp 解释器交互。Portacle 有一个现代 IDE 应该有的功能，包括自动补全，文档提示，自动格式化代码，错误提示等等。</p>
+    <h1 id="基本操作">基本操作</h1>
+    <p>由于 Portacle 是基于 Emacs 的，所以掌握 Emacs 的基本操作也就是掌握 Portacle 的基本操作。</p>
+    <h2 id="emacs-相关">Emacs 相关</h2>
+    <p>按照一般的写法，<code>Ctrl + 按键</code> 就写成 <code>C-按键</code>，<code>Meta + 按键</code> 就写成 <code>M-按键</code>。在标准键盘上，Meta 键就是 <code>Alt</code> 键。</p>
+    <p>如果你键入一半的快捷键不想操作了，狠狠的摁几下 <code>C-g</code> 即可。</p>
+    <h3 id="光标操作">光标操作</h3>
+    <table>
+    <thead>
+    <tr class="header">
+    <th style="text-align: center;">键位</th>
+    <th style="text-align: center;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-p</code></td>
+    <td style="text-align: center;">光标向上移动</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>C-n</code></td>
+    <td style="text-align: center;">光标向下移动</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-b</code></td>
+    <td style="text-align: center;">光标向左移动</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>C-f</code></td>
+    <td style="text-align: center;">光标向右移动</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: center;"><code>M-f</code></td>
+    <td style="text-align: center;">向前跳一个字</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>M-b</code></td>
+    <td style="text-align: center;">向后跳一个字</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-a</code></td>
+    <td style="text-align: center;">到一行开头</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>C-e</code></td>
+    <td style="text-align: center;">到一行结尾</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: center;"><code>M-a</code></td>
+    <td style="text-align: center;">到段落开头(函数/宏定义开头)</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>M-e</code></td>
+    <td style="text-align: center;">到段落结尾(函数/宏定义结尾)</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-v</code></td>
+    <td style="text-align: center;">向下一页</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>M-v</code></td>
+    <td style="text-align: center;">向上一页</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="撤销重做">撤销重做</h3>
+    <table>
+    <thead>
+    <tr class="header">
+    <th style="text-align: center;">键位</th>
+    <th style="text-align: center;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-x u</code></td>
+    <td style="text-align: center;">撤销上一个行为</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="删除">删除</h3>
+    <p>被按行/句为单位删除的会被保留在剪切环中，之后可以取回来。</p>
+    <table>
+    <thead>
+    <tr class="header">
+    <th style="text-align: center;">键位</th>
+    <th style="text-align: center;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-d</code></td>
+    <td style="text-align: center;">删除一个字</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>M-Backspace</code></td>
+    <td style="text-align: center;">向后删除一个词</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: center;"><code>M-d</code></td>
+    <td style="text-align: center;">向前删除一个词</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>C-k</code></td>
+    <td style="text-align: center;">删除到行尾</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: center;"><code>M-k</code></td>
+    <td style="text-align: center;">删除到句点</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="复制粘贴">复制粘贴</h3>
+    <ul>
+    <li><p>对于删除掉的保存在剪贴环中的内容，使用 <code>C-y</code> 取得。</p></li>
+    <li><p>使用以下操作进行任意选区的复制粘贴：</p>
+    <ol type="1">
+    <li><p><code>C-Shift-2</code> 进入 <code>Mark</code> 模式；</p></li>
+    <li><p>移动光标选取需要的内容；</p></li>
+    <li><p><code>M-w</code> 复制到剪贴环；</p></li>
+    <li><p><code>C-y</code> 粘贴。</p>
+    <p>也可以直接使用鼠标选取区域。</p></li>
+    </ol></li>
+    </ul>
+    <h3 id="在-buff-之间切换">在 buff 之间切换</h3>
+    <p>可以把 buff 理解成是标签页，一个 Emacs 可以打开很多 buff，你需要在不同的 buff 之间辗转挪移。</p>
+    <figure>
+    <img src="./assets/somanybuffers.png" alt="好多 buff 呀！" />
+    <figcaption aria-hidden="true">好多 buff 呀！</figcaption>
+    </figure>
+    <table>
+    <colgroup>
+    <col style="width: 30%" />
+    <col style="width: 69%" />
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th style="text-align: center;">键位</th>
+    <th style="text-align: center;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-x b name</code></td>
+    <td style="text-align: center;">创建一个空 buff</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>C-x left/right</code></td>
+    <td style="text-align: center;">上一个/下一个 buff，left 和 right 就是小键盘的方向键</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-x C-b</code></td>
+    <td style="text-align: center;">列出所有 buff</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>C-x C-q</code></td>
+    <td style="text-align: center;">设置这个 buff 的只读状态</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-x k</code></td>
+    <td style="text-align: center;">关闭 buff</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>M-x kill-some-buffers</code></td>
+    <td style="text-align: center;">交互式的一个个提示关闭</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="文件操作">文件操作</h3>
+    <p>你在 scratch 里面的文件虽然加载到了 Lisp 环境里面，但并没有保存！</p>
+    <table>
+    <thead>
+    <tr class="header">
+    <th style="text-align: center;">键位</th>
+    <th style="text-align: center;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-x C-f</code></td>
+    <td style="text-align: center;">打开一个文件</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>C-x C-s</code></td>
+    <td style="text-align: center;"><strong>保存文件</strong></td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-x i</code></td>
+    <td style="text-align: center;">在光标处插入指定文件内容</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>C-x s</code></td>
+    <td style="text-align: center;">全部保存</td>
+    </tr>
+    </tbody>
+    </table>
+    <p>另外，如果你要直接载入 Lisp 代码，需要在 Slime 里面执行：</p>
+    <p><code>(load xxx.lisp)</code> 来载入代码。</p>
+    <p>另一种加载文件的方法是，先用 COMPILE-FILE 编译，然后再用 LOAD 加载编译后产生 的文件,也就是 FASL 文件。前者将返回 FASL 文件的名字,所以可以在 REPL 进行编译加载:</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">load</span> (<span class="kw">compile-file</span> <span class="st">&quot;hello.lisp&quot;</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">;;; Compiling file hello.lisp</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">;;; Writing fasl file hello.fasl</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">;;; Fasl write complete</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">; Fast loading /home/xxxx/my-lisp-programs/hello.fasl</span></span></code></pre></div>
+    <p>最后，在一个源代码缓冲区的时候,可以使用 <code>C-c C-l</code> 调用命令 <code>slime-load-file</code> 来加载文件。Emacs 将会提示你给出要加载的文件名,同时将当前的文件名作为默认值，直接回车就可以了。</p>
+    <h3 id="搜索和替换">搜索和替换</h3>
+    <table>
+    <thead>
+    <tr class="header">
+    <th style="text-align: center;">键位</th>
+    <th style="text-align: center;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-r</code></td>
+    <td style="text-align: center;">光标向上移动</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>C-s</code></td>
+    <td style="text-align: center;">向前搜索</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-g</code></td>
+    <td style="text-align: center;">向后搜索</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>C-x C-x</code></td>
+    <td style="text-align: center;">回到搜索执行的地方</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: center;"><code>M-Shift-5</code></td>
+    <td style="text-align: center;">交互式替换</td>
+    </tr>
+    </tbody>
+    </table>
+    <h2 id="slime-相关">SLIME 相关</h2>
+    <p>默认下面的 buff 就是 slime 的 repl，你可以在这里执行 lisp 。<strong>注意，这个 lisp 不是 Emacs 内置的 EmacsLisp，而是 CommonLisp</strong>！</p>
+    <p><strong>repl 中使用 <code>C-&lt;up&gt;</code> <code>C-&lt;down&gt;</code> 来编辑历史命令！</strong></p>
+    <h3 id="slime-selector">slime-selector</h3>
+    <p>这个 slime-selector 可以快捷的在各个不同的 slime buff 之间跳转，相当于是给各个 buff 定义了快捷键。默认情况不绑定，需要手动绑定以下。</p>
+    <p>打开按照目录的 <code>config/user.el</code> 在最后加上按键绑定 <code>(global-set-key "\C-cs" 'slime-selector)</code> 之后重启即可，之后就可以使用 <code>C-c s &lt;按键&gt;</code> 来快捷到达某个 buff。</p>
+    <p>常见的选项：</p>
+    <ul>
+    <li><p>? 查看帮助</p></li>
+    <li><p>r 进入 SLIME 的 repl buff，也就是默认界面下面的 buff</p></li>
+    <li><p>d 最近一次激活的 debugger buff</p></li>
+    <li><p>l 最近一次访问的 lisp-mode 源码 buff.</p></li>
+    <li><p>s <em>slime-scratch</em> buffer，也就是默认界面上面的那个 buff</p></li>
+    </ul>
+    <p>所以，在任何时候想要去 repl 只要 <code>C-c s r</code> 即可。</p>
+    <h3 id="执行">执行</h3>
+    <table>
+    <thead>
+    <tr class="header">
+    <th style="text-align: center;">键位</th>
+    <th style="text-align: center;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-x C-e</code></td>
+    <td style="text-align: center;">执行上一个语句</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="编译">编译</h3>
+    <table>
+    <thead>
+    <tr class="header">
+    <th style="text-align: center;">键位</th>
+    <th style="text-align: center;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-c C-c</code></td>
+    <td style="text-align: center;">编译函数，被编译的对象会被高亮显示</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>C-c C-l</code></td>
+    <td style="text-align: center;">加载文件</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-c C-k</code></td>
+    <td style="text-align: center;">加载并编译文件</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="寻找定义">寻找定义</h3>
+    <table>
+    <thead>
+    <tr class="header">
+    <th style="text-align: center;">键位</th>
+    <th style="text-align: center;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td style="text-align: center;"><code>M-.</code></td>
+    <td style="text-align: center;">跳转到目前光标所在位置的定义</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>M-,</code></td>
+    <td style="text-align: center;">返回寻找时的位置</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-x 4 .</code></td>
+    <td style="text-align: center;">打开新的窗口编辑目标定义</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="获取文档">获取文档</h3>
+    <figure>
+    <img src="./assets/help.webp" alt="自动帮助" />
+    <figcaption aria-hidden="true">自动帮助</figcaption>
+    </figure>
+    <table>
+    <thead>
+    <tr class="header">
+    <th style="text-align: center;">键位</th>
+    <th style="text-align: center;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td style="text-align: center;"><code>C-c C-d d</code></td>
+    <td style="text-align: center;">描述光标处的定义</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><code>C-c C-d A</code></td>
+    <td style="text-align: center;">slime-apropos</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="错误处理">错误处理</h3>
+    <p><img src="./assets/slbd.png" /></p>
+    <p>有时候你的 Lisp 代码出错了，Slime 会打开一个临时 buff 来处理出错，你可以直接按 <code>q</code> 关闭这个 buff。</p>
+    <h1 id="其他问题">其他问题</h1>
+    <p>中文字体似乎很是难看，我尝试了这样配置：</p>
+    <pre class="elisp"><code>(set-fontset-font t &#39;(#x2ff0 . #x9ffc) 
+    (font-spec :family &quot;Sarasa Mono Slab SC&quot; :size 18 :weight &#39;bold))</code></pre>
+    <p>但是无效:-(</p>
+    <p><img src="./assets/bad.png" /></p>
+    <h1 id="参见">参见</h1>
+    <ul>
+    <li><a href="https://mirrors.sjtug.sjtu.edu.cn/emacs-elpa/nongnu-devel/doc/slime.html">SLIME User Manual, version 2.24</a></li>
+    <li><a href="https://scc.ustc.edu.cn/zlsc/czxt/200910/W020100308601210472906.pdf">Emacs 使用手册</a></li>
+    <li><a href="https://portacle.github.io">Portacle 网站</a></li>
+    </ul>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-01-06">创建日期：2023-01-06</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

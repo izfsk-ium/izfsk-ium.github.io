@@ -1,0 +1,49 @@
+reading:
+  - name: "古拉格群岛"
+    cover: "http://www.qzcbs.com/bookImages/glgqd_jz_2015.jpg"
+    description: "“献给没有生存下来的诸君，要叙述此事他们已无能为力。但愿他们原谅我，没有看到一切，没有想起一切，没有猜到一切。”"
+    author: "（俄）亚历山大•索尔仁尼琴"
+    isbn: 9787501453580
+
+  - name: "线性代数及其应用"
+    cover: "https://pic4.zhimg.com/50/v2-d30ece87e80076947482f4e54241e8f3_hd.jpg?source=1940ef5c"
+    description: "线性代数是一种语言，必须用学习外语的方法每天学习这种语言"
+    author: "David C. Lay, Steven R. Lay, Judi J. McDonald"
+    isbn: 9787111602576
+
+finished:
+  - name: "Computer Systems A Programmer’s Perspective"
+    cover: "http://csapp.cs.cmu.edu/3e/images/csapp3e-cover.jpg"
+    description: "著名的 CSAPP，中译名《深入理解计算机系统》"
+    author: "Randal E. Bryant & David R.O’Hallaron"
+    isbn: 9780134092669
+
+  - name: "癌症楼"
+    cover: "https://ts1.cn.mm.bing.net/th?id=OIP-C.uKNzo42awO-3CaDFJjlbFQAAAA&w=146&h=219&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2"
+    description: "他的人生与作品是如此相仿，堪称典范，相互之间，几乎不可分割。"
+    author: "（俄）亚历山大•索尔仁尼琴"
+    isbn: 9787544734882
+
+  - name: "冷战史 - 遏制与共存备忘录"
+    cover: "/resources/img/s7648293.jpg"
+    description: "冷战史"
+    author: "雷蒙德·加特霍夫"
+    isbn: 9787501162222
+
+  - name: "计算的本质・深入剖析程序和计算机"
+    cover: "https://images-cn.ssl-images-amazon.com/images/I/51mcqtNJzhL.jpg"
+    description: "一本比「龙书」简单的注重计算理论和编程语言设计知识介绍的书。"
+    author: "Tom Stuart"
+    isbn: 9787115361547
+
+  - name: "The UNIX-HATERS Handbook"
+    cover: "https://img.yumpu.com/45587413/1/500x640/unix-haters-handbook.jpg"
+    description: "「爱到深处自然黑」"
+    author: "Simson Garfinkel,Daniel Weise, Steven Strassmann"
+    isbn: 9781568842035
+
+  - name: "UNIX编程艺术"
+    cover: "https://ts1.cn.mm.bing.net/th/id/R-C.d2d1344cdf7b04e33b505664620a41fd?rik=7ieLsvZPTjv0Xg&riu=http%3a%2f%2fnathanbalon.com%2fweblog%2fuploaded_images%2fcover-729205.png&ehk=pkm%2f1sukb6Lp0HPXNl4VbCZs6zaTPabYjzF42BEVx1U%3d&risl=&pid=ImgRaw&r=0"
+    description: "推荐和痛恨者手册共同阅读"
+    author: "Eric S. Raymond"
+    isbn: 9787121021169

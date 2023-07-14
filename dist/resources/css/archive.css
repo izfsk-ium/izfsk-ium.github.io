@@ -1,0 +1,76 @@
+/* @media (prefers-color-scheme: dark) {
+    body {
+        background-color: black !important;
+        background-image: url("/resources/img/archive-dark.svg") !important;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: whitesmoke !important;
+        background-image: url("/resources/img/archive-light.svg") !important;
+    }
+} */
+
+sub {
+    font-family: 'SCRIPT', 'SITENAME', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-style: italic;
+}
+
+.l1 {
+    font-family: 'SCRIPT', sans-serif;
+    font-size: 52px;
+    font-weight: 900;
+    margin-bottom: 30px;
+}
+
+.archive-posts {
+    width: 100%;
+    font-size: 16px
+}
+
+.archive-month {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 0;
+    margin-left: 5px;
+}
+
+@media screen and (max-width: 768px) {
+    .archive-month {
+        display: block;
+    }
+
+    .archive-meta>span {
+        font-size: 12px !important;
+    }
+}
+
+.archive-month-header {
+    font-family: 'SCRIPT', Arial, Helvetica, sans-serif;
+    margin: 20px 0;
+    font-size: 22px;
+    width: 200px
+}
+
+.archive-month:not(:last-of-type) {
+    border-bottom: 1px solid var(--border)
+}
+
+.archive-entry {
+    position: relative;
+    padding: 5px;
+    margin: 5px 0
+}
+
+.archive-entry-title {
+    margin: 5px 0;
+    font-weight: 400
+}
+
+.archive-count,
+.archive-meta {
+    word-break: keep-all;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px
+}

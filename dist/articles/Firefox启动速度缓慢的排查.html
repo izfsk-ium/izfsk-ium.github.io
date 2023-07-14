@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2022-12-26" />
+        <title>Firefox启动速度缓慢的排查</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT1e64ae1f-5c22-43eb-a3f1-6a5a0162052b.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT1e64ae1f-5c22-43eb-a3f1-6a5a0162052b.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">Firefox启动速度缓慢的排查</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+  
+  <main>
+    <p><strong>TL；DR</strong>：直接在 <code>/etc/hosts</code> 里增加一行记录，把本机主机名指向 <code>127.0.0.1</code> 即可。</p>
+    <p>一般 Linux 发行版的默认浏览器都是 Firefox, 但是我在 openSUSE 上的 Firefox 启动每一次都需要很久，而且每次等待的时间还不一样，多则 10 秒，少则 3-4 秒，很是折磨人。这个问题之前用其他发行版的时候都遇到过，可以确定不是操作系统的原因，我不想因为这个原因就放弃 Firefox 使用 Chrome，所以打算彻底调查一下问题的原因。</p>
+    <p>首先我尝试着使用安全模式打开 Firefox, 在命令行启动时加上 <code>--safe-mode</code>, 但是依旧没有效果，所以可以排除是扩展插件的问题。我遂怀疑是 Firefox 在寻找某个文件的时候出了故障，用 <code>strace</code> 追踪一下系统调用，加上时间戳，找到间隔好几秒的断层，看看它到底在访问什么文件：</p>
+    <pre class="shell"><code>strace -tt -o log2 -e trace=file firefox</code></pre>
+    <p><code>-tt</code> 是加上时间戳，<code>-o</code> 输出为文件，<code>-e trace=</code> 增加过滤器。</p>
+    <p>结果发现了这个：</p>
+    <figure>
+    <img src="./assets/trace1.webp" alt="第一次追踪" />
+    <figcaption aria-hidden="true">第一次追踪</figcaption>
+    </figure>
+    <p>Firefox 在尝试访问 <code>/etc/resolv.conf</code> 这个文件。但是系统调用是成功的，而且我查看文件内容也没有毛病。这个文件本身是本机 DNS 解析的配置文件，Firefox 访问它想必和 DNS 解析有些关系。那么我想用可能是因为 Firefox 试图访问一个被墙了的网站，超时导致延迟。那么就要捕获所有的 DNS 解析尝试，我想到了使用 <code>proxychain</code>.</p>
+    <p>虽然 <code>proxychain</code> 是一个代理工具，但是它会在控制台显示被代理的程序的互联网访问记录，我尝试了一下，可是一无所获。</p>
+    <p>上网搜索了一下，发现有一位仁兄在 8 年前于 Bugzilla 上提了一个差不多的问题，标号是 <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1189705">Bug 1189705</a>. 他的分析是，Firefox 启动时会对本机进行一次 DNS 查询，导致超时。所以按照这个思路，我只需要过滤出所有的网络相关系统调用，看看有没有我自己的主机名即可：</p>
+    <pre class="shell"><code>strace -o log -e trace=network firefox </code></pre>
+    <p>自己的主机名称在 <code>/etc/hostname</code>，过滤可以看到：</p>
+    <figure>
+    <img src="./assets/trace2.webp" alt="第二次追踪，黑色处为主机名" />
+    <figcaption aria-hidden="true">第二次追踪，黑色处为主机名</figcaption>
+    </figure>
+    <p><strong>果然</strong>。</p>
+    <p>那么，只要让 DNS 访问直接指向本机即可，解决方案很简单，直接在 <code>/etc/hosts</code> 里增加一行记录，把本机主机名指向 <code>127.0.0.1</code> 即可。再次尝试打开 Firefox, 启动速度稳定保持在 2 秒左右。</p>
+    <p>现在想起来，应该是自己自定义主机名时，把原来主机名后面的 <code>.localhost</code> 去掉了，导致 DNS 解析不出来。</p>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2022-12-26">创建日期：2022-12-26</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

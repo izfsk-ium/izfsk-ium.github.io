@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2023-01-18" />
+        <title>CommonLisp基础-基本概念</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FTf7127a84-86a8-41dc-8fdc-893cd1118438.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FTf7127a84-86a8-41dc-8fdc-893cd1118438.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">CommonLisp基础-基本概念</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#学习">学习</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#历史" id="toc-历史">历史</a></li>
+    <li><a href="#概念" id="toc-概念">概念</a></li>
+    <li><a href="#基本类型" id="toc-基本类型">基本类型</a>
+    <ul>
+    <li><a href="#真和假" id="toc-真和假">真和假</a></li>
+    <li><a href="#数字" id="toc-数字">数字</a></li>
+    <li><a href="#字符串" id="toc-字符串">字符串</a>
+    <ul>
+    <li><a href="#字符" id="toc-字符">字符</a></li>
+    <li><a href="#字符串-1" id="toc-字符串-1">字符串</a></li>
+    </ul></li>
+    <li><a href="#函数类型" id="toc-函数类型">函数类型</a></li>
+    <li><a href="#集合类型" id="toc-集合类型">集合类型</a>
+    <ul>
+    <li><a href="#列表list" id="toc-列表list">列表（list）</a></li>
+    <li><a href="#排序和映射" id="toc-排序和映射">排序和映射</a></li>
+    <li><a href="#树" id="toc-树">树</a></li>
+    <li><a href="#集合" id="toc-集合">集合</a></li>
+    <li><a href="#栈" id="toc-栈">栈</a></li>
+    </ul></li>
+    </ul></li>
+    <li><a href="#变量和常量" id="toc-变量和常量">变量和常量</a>
+    <ul>
+    <li><a href="#使用-let-来引入局部变量" id="toc-使用-let-来引入局部变量">使用 <code>let</code> 来引入局部变量</a></li>
+    <li><a href="#使用-defparameter-和-defvar-来引入全局变量" id="toc-使用-defparameter-和-defvar-来引入全局变量">使用 <code>defparameter</code> 和 <code>defvar</code> 来引入全局变量</a></li>
+    <li><a href="#使用-defconstant-来引入全局常量" id="toc-使用-defconstant-来引入全局常量">使用 <code>defconstant</code> 来引入全局常量</a></li>
+    <li><a href="#使用-setf-来赋值" id="toc-使用-setf-来赋值">使用 <code>setf</code> 来赋值</a></li>
+    </ul></li>
+    <li><a href="#注释" id="toc-注释">注释</a></li>
+    <li><a href="#函数" id="toc-函数">函数</a>
+    <ul>
+    <li><a href="#参数" id="toc-参数">参数</a>
+    <ul>
+    <li><a href="#必要形参" id="toc-必要形参">必要形参</a></li>
+    <li><a href="#可选形参" id="toc-可选形参">可选形参</a></li>
+    <li><a href="#剩余形参" id="toc-剩余形参">剩余形参</a></li>
+    <li><a href="#关键字形参" id="toc-关键字形参">关键字形参</a></li>
+    </ul></li>
+    </ul></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <p>本文整理作为一门编程语言的 CommonLisp 的基本元素，以便「能够用它写出程序来」。</p>
+    <h1 id="历史">历史</h1>
+    <p><a href="http://zh.wikipedia.org/zh-cn/%E7%BA%A6%E7%BF%B0%C2%B7%E9%BA%A6%E5%8D%A1%E9%94%A1">约翰麦卡锡</a>和他的学生于 1958 年展开 Lisp 的初次实现工作。 Lisp 是继 FORTRAN 之后，仍在使用的最古老的程序语言。 Lisp 是计算机科学领域的「经典语言」之一，完全是一门现代通用语言,其设计反映了尽可能高效和可靠地求解实际问题的实用主义观点。</p>
+    <h1 id="概念">概念</h1>
+    <p>Lisp 是一门交互式语言。有一个叫做「顶层」的环境运行 Lisp 代码。</p>
+    <p>所有的 Lisp 代码都是「S-表达式」，但并不是所有的 S-表达式都是合法的 Lisp 代码。宏给了语言的用户一种扩展其语法的方式，把任意的 S-表达式转换成合法的 Lisp 代码。</p>
+    <p>使用 <code>quote</code> 可以防止表达式被求值。例如：</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>&#39;(<span class="op">+</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)</span></code></pre></div>
+    <h1 id="基本类型">基本类型</h1>
+    <h2 id="真和假">真和假</h2>
+    <p>符号 <code>NIL</code> 是唯一的假值,其他所有的都是真值，符号 <code>T</code> 是标准的真值。</p>
+    <p>测试相等性有四种方法：</p>
+    <ul>
+    <li><p><code>EQ</code>：测试「对象标识」，两个对象是同一个东西时才等价。<strong>移植性差，避免使用</strong>。</p></li>
+    <li><p><code>EQL</code>：类似 <code>EQ</code>， 保证当相同类型的两个对象代表相同的数字或字符值的时候是等价的。所以 <code>(eql 1 1)</code> 确保是真的。</p></li>
+    <li><p><code>EQUAL</code> ：将具有递归相同结构和内容的列表视为等价。<code>(eql '(1 2 3) '(1 2 3)</code> 为 <code>NIL</code>，而 <code>(equal '(1 2 3) '(1 2 3)'</code> 为 <code>T</code>。</p></li>
+    <li><p><code>EQUALP</code>：更加宽松的相等。</p></li>
+    </ul>
+    <p>测试：</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> test-eq </span>(a b)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">progn</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">print</span> (<span class="kw">eq</span> a b))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">print</span> (<span class="kw">eql</span> a b))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">print</span> (<span class="kw">equal</span> a b))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">print</span> (<span class="kw">equalp</span> a b))))</span></code></pre></div>
+    <table>
+    <thead>
+    <tr class="header">
+    <th></th>
+    <th>a=1,b=1</th>
+    <th>a=1,b=1.0</th>
+    <th>a=“hi”,b=“hi”</th>
+    <th>a=‘(),b=’()</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>eq</code></td>
+    <td>T</td>
+    <td>NIL</td>
+    <td>NIL</td>
+    <td>T</td>
+    </tr>
+    <tr class="even">
+    <td><code>eql</code></td>
+    <td>T</td>
+    <td>NIL</td>
+    <td>NIL</td>
+    <td>T</td>
+    </tr>
+    <tr class="odd">
+    <td><code>equal</code></td>
+    <td>T</td>
+    <td>NIL</td>
+    <td>T</td>
+    <td>T</td>
+    </tr>
+    <tr class="even">
+    <td><code>equalp</code></td>
+    <td>T</td>
+    <td>T</td>
+    <td>T</td>
+    <td>T</td>
+    </tr>
+    </tbody>
+    </table>
+    <h2 id="数字">数字</h2>
+    <p>CommonLisp 支持整数，浮点数，复数等。</p>
+    <p><img src="https://acl.readthedocs.io/en/latest/_images/Figure-9.1.png" /></p>
+    <ul>
+    <li><p>整数：</p>
+    <p>可以使用常规的写法，也可以使用任意进制写法：</p>
+    <p>常规写法：<code>10</code>，<code>22/2</code>，<code>-14</code>，<code>-17</code></p>
+    <p>任意进制写法：二进制：<code>#b101001</code>，八进制：<code>#o777</code>，使用 <code>#nR</code> 以 2 到 36 的其他进制书写有理数</p></li>
+    <li><p>浮点数：</p>
+    <p>同样可以使用多种写法：<code>1.0</code>，<code>1e0</code>，<code>0.114514</code>，<code>124E-3</code>，<code>195d23</code></p></li>
+    </ul>
+    <p>四则运算的截断和舍入：</p>
+    <ol type="1">
+    <li><p><code>ceiling</code>：向正无穷截断，<strong>返回大于或等于参数的最小整数。</strong></p></li>
+    <li><p><code>truncate</code>：向零截断。</p></li>
+    <li><p><code>round</code>：舍入到最接近的整数上。如果参数刚好位于两个整数之间它舍入到最接近的偶数上。</p></li>
+    <li><p><code>floor</code>：向负无穷方向截断，<strong>返回小于或等于参数的最大整数。</strong></p></li>
+    </ol>
+    <p>模和余数：</p>
+    <ul>
+    <li><p>模：<code>(mod number divisor)</code></p></li>
+    <li><p>余数：<code>(rem number divisor)</code></p></li>
+    </ul>
+    <p>变量的增减：<code>incf</code>，<code>decf</code></p>
+    <p>其他：<code>min</code>，<code>max</code>，<code>evenp</code>（检测偶数），<code>oddp</code>（检测奇数）</p>
+    <p><strong>数字的比较使用 <code>=</code></strong></p>
+    <h2 id="字符串">字符串</h2>
+    <h3 id="字符">字符</h3>
+    <p>字符和数字是不同类型的对象，字符的表示：<code>#\+字符</code>，例如字符 <code>H</code>：<code>#\H</code>，字符<code>和</code>：<code>#\和</code>（<code>#\U548C</code>）,特定字符的替代语法是 # 后跟该字符的名字。例如 <code>#\Tab</code></p>
+    <p>字符不是数字，不能使用数值比较函数。使用 <code>char-equal</code>。它接受任一数量的参数并 只在它们全是相同字符时返回真，相应的还有 <code>char-not-equal</code>，<code>char-lessp</code>，<code>char-not-lessp</code>，<code>char-greaterp</code>等对应 <code>&gt;</code>，<code>&lt;</code>等。</p>
+    <h3 id="字符串-1">字符串</h3>
+    <p>字符串是字符的一维数组，字面字符串写在闭合的双引号里，使用斜杠来转引 <code>\</code> 和 <code>"</code> 符号。字符串的比较使用 <code>string-equal</code> 系列函数，简单地来讲就是把字符比较系列中的 <code>char</code> 替换为 <code>string</code>。</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">string-equal</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;foobarbaz&quot;</span> <span class="st">&quot;quuxbarfoo&quot;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">:start1</span> <span class="dv">3</span> <span class="bu">:end1</span> <span class="dv">6</span> <span class="bu">:start2</span> <span class="dv">4</span> <span class="bu">:end2</span> <span class="dv">7</span>)</span></code></pre></div>
+    <h2 id="函数类型">函数类型</h2>
+    <p>把函数的名字传给 function ，它会返回相关联的对象，用 <code>#'</code> 作为 function 的缩写。</p>
+    <p>使用 <code>lambda</code> 定义匿名函数：<code>(lambda (x) (+ x 100))</code></p>
+    <p><code>lambda</code> 函数：<code>(lambda (parameters) body)</code></p>
+    <h2 id="集合类型">集合类型</h2>
+    <p>列表和向量的区别应该可以类比为 C++ 中标准库容器和 C array 的区别(？)</p>
+    <h3 id="列表list">列表（list）</h3>
+    <p>列表使用括号直接创建：<code>'()</code>，也可以使用 <code>make-list</code> 来创建。列表是序列的子类型。列表是最常见的数据结构，可以用来模拟树，下推栈等数据结构。</p>
+    <p>列表的基本元素是 Cons，一个 Cons 可以看作是由一个保存元素的单元和指向下一个元素的指针， <code>CONS</code> 最初是动词 construct 的简称，除非第二个值是 NIL 或是另一个点对单元,否则一个点对将被打印两个值在括号中用一个点所分隔的形式，前面一个元素叫做 <code>car</code>，后面一个元素叫做 <code>cdr</code>。所以，一个包含 1，2 的列表类似于：</p>
+    <pre><code>[O|O]---&gt;[O|null]
+ |        |
+ 1        2</code></pre>
+    <p>它事实上是 <code>(cons 1 (cons 2 nil))</code> ，简单写作 <code>(list 1 2)</code>。</p>
+    <p>取出列表元素的基本函数是 car/first 和 cdr/rest 。对列表取 car 返回第一个元素，而对列表取 cdr 返回第一个元素之后的所有元素，你可以使用 setf 来设置一个 cons 单元的 car 或者 cdr：</p>
+    <div class="sourceCode" id="cb5"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defparameter</span><span class="fu"> *cons* </span>(<span class="kw">cons</span> <span class="dv">1</span> <span class="dv">2</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">setf</span> (<span class="kw">car</span> *cons*) <span class="dv">10</span>) </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">setf</span> (<span class="kw">cdr</span> *cons*) <span class="dv">20</span>) </span></code></pre></div>
+    <p>常用函数：</p>
+    <ul>
+    <li><code>reverse</code>：翻转列表：<code>(reverse "hi!")</code> -&gt; <code>"!ih"</code></li>
+    <li><code>second</code> 到 <code>tenth</code>：获得某个元素。</li>
+    <li><code>nth</code>：接受两个参数,一个索引和一个列表,并返回列表中第 n 个(从 0 开始)元素</li>
+    <li>复合 <code>car/cdr</code> 函数：例如：<code>(cadadr list) ≡ (car (cdr (car (cdr list))))</code></li>
+    </ul>
+    <p>参见：<a href="https://lispcookbook.github.io/cl-cookbook/data-structures.html">The Common Lisp Cookbook – Data structures</a></p>
+    <p>副作用和「破坏性操作」：</p>
+    <p>纯粹的「函数」是说函数完全基于其参数的值来计算结果，比如 <code>(+ 5 6)</code> 是完全「函数式」的。修改已有对象的操作被称作是破坏性的，原来的那个对象的状态改变来了。</p>
+    <h3 id="排序和映射">排序和映射</h3>
+    <ul>
+    <li><p>排序使用 <code>sort</code> 和 <code>stable-sort</code></p>
+    <p>两者会破坏序列。参数是序列和谓词函数。例如：<code>(sort '(1 2 3 71 29) #'&lt;)</code>，对一个序列排序并赋值一般使用 <code>(setf my-sequence (sort my-sequence #'string&lt;))</code> 的形式。 可以使用关键词参数 <code>:key</code> 来指定复杂数据结构中用来排序的元素。</p></li>
+    <li><p>映射</p>
+    <p>映射是对高阶函数的使用。有六个用于列表的 map 函数，最常用的是这两个：</p>
+    <ol type="1">
+    <li><code>mapcar</code>：<code>(mapcar #'+ (list 1 2 3) (list 10 20 30)) → (11 22 33)</code></li>
+    <li><code>maplist</code>：将列表的渐进的下一个 cdr 传入函数。 <code>(maplist #'(lambda (x y) (list (first x) (first y))) '(1 2 3 4) '(1 2 3 4)</code> -&gt; <code>((1 1) (2 2) (3 3) (4 4))</code></li>
+    </ol></li>
+    </ul>
+    <h3 id="树">树</h3>
+    <p>Cons 对象可以想成是二叉树， car 代表左子树，而 cdr 代表右子树，Common Lisp 有几个内置的操作树的函数。copy-tree 接受一个树，并返回一份副本。</p>
+    <h3 id="集合">集合</h3>
+    <p>CommonLisp 的列表可以看作是一个集合，使用一系列函数来把列表作为集合操作：</p>
+    <ul>
+    <li><code>pushnew</code>：向一个集合添加元素。</li>
+    <li><code>member</code> 和 <code>member-if</code>：测试是否在集合中</li>
+    <li><code>INTERSECTION</code> 、 <code>UNION</code> 、及 <code>SET-EXCLUSIVE-OR</code>：集合论相关操作（交集，并集，异或）。</li>
+    </ul>
+    <h3 id="栈">栈</h3>
+    <p><code>(push x y)</code> 把 x 放入列表 y 的前端。而 <code>(pop x)</code> 则是将列表 x 的第一个元素移除，并返回这个元素。</p>
+    <h1 id="变量和常量">变量和常量</h1>
+    <h2 id="使用-let-来引入局部变量">使用 <code>let</code> 来引入局部变量</h2>
+    <p><code>let</code> 的一般形式是：</p>
+    <div class="sourceCode" id="cb6"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">let</span> (variable*) body-form*)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">;;举例</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">let</span> ((x <span class="dv">1</span>) (y <span class="dv">2</span>) z)  <span class="co">;; z 是 nil</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>   (<span class="op">+</span> x y))</span></code></pre></div>
+    <p>局部变量不会「污染」外部的变量，它们只在特定的上下文里有效，嵌套绑定同名变量，那么最内层的变量绑定将覆盖外层的绑定，所有的绑定形式都将引入词法作用域变量。</p>
+    <h2 id="使用-defparameter-和-defvar-来引入全局变量">使用 <code>defparameter</code> 和 <code>defvar</code> 来引入全局变量</h2>
+    <p>**命名约定：全局变量使用信号「*」包围起来。**，例如 <code>*global-counter*</code>。参数：变量名，初始值和文档字符串。其中文档字符串可选。<code>DEFPARAMETER</code> 总是将初始值赋给命名的变量,而 <code>DEFVAR</code> 只有当变量未定义时才这样做。</p>
+    <div class="sourceCode" id="cb7"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defvar</span><span class="fu"> *count* </span><span class="dv">0</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Count of something.&quot;</span>)</span></code></pre></div>
+    <h2 id="使用-defconstant-来引入全局常量">使用 <code>defconstant</code> 来引入全局常量</h2>
+    <p>和 <code>defparameter</code> 类似：<code>(defconstant name initial-value-form [ documentation-string ])</code>，一些常量是预先定义的，例如 π 的值：<code>pi</code>。</p>
+    <h2 id="使用-setf-来赋值">使用 <code>setf</code> 来赋值</h2>
+    <p>可以用来给全局或局部变量赋值，类似其他语言的 <code>=</code>。</p>
+    <div class="sourceCode" id="cb8"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">setf</span> x (<span class="kw">setf</span> y (<span class="kw">random</span> <span class="dv">10</span>)))</span></code></pre></div>
+    <h1 id="注释">注释</h1>
+    <p>注释使用 <code>;</code> 来开头。</p>
+    <p>;;;; 四个分号用于文件头注释。</p>
+    <p>;;; 一个带有三个分号的注释将通常作为段落注释应用到接下来的 ;;; 一大段代码上。</p>
+    <p>;; 两个分号说明该注释应用于接下来的代码上。</p>
+    <p>; 一个分号仅用于本行</p>
+    <p>另外可以使用「文档字符串」功能。</p>
+    <h1 id="函数">函数</h1>
+    <p>所有 Lisp 程序的三个最基本组成部分是函数、变量和宏。要定义一个函数，使用 <code>defun</code>。<code>defun</code> 是一个宏。</p>
+    <div class="sourceCode" id="cb9"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> name </span>(parameter*)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Optional documentation string.&quot;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  body-form*)</span></code></pre></div>
+    <h2 id="参数">参数</h2>
+    <h3 id="必要形参">必要形参</h3>
+    <p>必要形式参数和预期的一样工作，按照传入的次序绑定。不能多也不能少。</p>
+    <div class="sourceCode" id="cb10"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> say-hello </span>(name age)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">format</span> <span class="kw">t</span> <span class="st">&quot;Hello ! ~s ~d.&quot;</span> name age))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>(say-hello <span class="st">&quot;izfsk&quot;</span> <span class="dv">10</span>)</span></code></pre></div>
+    <h3 id="可选形参">可选形参</h3>
+    <p>可选形参为调用者提供了一个默认的值，而关系它们的人可以提供一个指定的值。定义方法是在必要参数的名字之后放置符号&amp;optional，后接可选形参的名字。默认的缺省值为 <code>nil</code>，将形参名替换成一个含有名字跟一个表达式的列表来指定该缺省值。</p>
+    <div class="sourceCode" id="cb11"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> optional-arguments </span>(a b &amp;optional (c <span class="dv">100</span>) (d <span class="dv">100</span>) (e (<span class="op">+</span> a <span class="dv">1</span>)))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  (<span class="op">*</span> a b c d e))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>(optional-arguments <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">;; 120</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>(optional-arguments <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">;; 48</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>(optional-arguments <span class="dv">1</span> <span class="dv">2</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">;; 40000</span></span></code></pre></div>
+    <p>可选形参表达式可以绑定第三个参数，用来判断这个参数是用户提供的还是默认的，例如 <code>(argument "default" argument-not-default)</code> 中的 <code>argument-not-default</code> 将会在用户指定值时为 <code>T</code>，否则为 <code>nil</code>。</p>
+    <h3 id="剩余形参">剩余形参</h3>
+    <p>在符号 <code>&amp;rest</code> 之后包括一个一揽子形参。如果一个函数带有一个 <code>&amp;rest</code> 形参,任何满足了必要和可选形参之后的其余所有参数将被收集到一个列表里成为该 <code>&amp;rest</code> 形参。</p>
+    <div class="sourceCode" id="cb12"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> many-arguments </span>(&amp;<span class="kw">rest</span> numbers)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">format</span> <span class="kw">t</span> <span class="st">&quot;There are ~d arguments.&quot;</span> (<span class="kw">length</span> numbers)))</span></code></pre></div>
+    <h3 id="关键字形参">关键字形参</h3>
+    <p>在任何必要的 <code>&amp;optional</code> 和 <code>&amp;rest</code> 形参之后可以加上符号 <code>&amp;key</code> 以及任意数量的关键字形参标识符。</p>
+    <div class="sourceCode" id="cb13"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> foo </span>(&amp;<span class="kw">rest</span> <span class="kw">rest</span> &amp;key a b c) (<span class="kw">list</span> <span class="kw">rest</span> a b c))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>(foo :a <span class="dv">1</span> :b <span class="dv">2</span> :c <span class="dv">3</span>) <span class="co">; ((:A 1 :B 2 :C 3) 1 2 3)</span></span></code></pre></div>
+    <p>参数声明的顺序是：<strong>首先是必要形参,其次是可选形参,再次是剩余形参,最后是关键字形参。</strong></p>
+    <p>正常情况下，函数的最后一行会作为返回值返回，如果需要在控制流程中返回，使用 <code>return-from</code>。</p>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-01-18">创建日期：2023-01-18</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

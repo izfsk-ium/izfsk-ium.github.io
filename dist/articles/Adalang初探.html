@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2023-03-24" />
+        <title>Adalang初探</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT8f47beda-8cb7-4835-a463-a60e6ac2dcd5.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT8f47beda-8cb7-4835-a463-a60e6ac2dcd5.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">Adalang初探</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#学习">学习</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#if" id="toc-if">If</a></li>
+    <li><a href="#case-switch" id="toc-case-switch">case (switch)</a></li>
+    <li><a href="#loop" id="toc-loop">loop</a></li>
+    <li><a href="#for" id="toc-for">for</a></li>
+    <li><a href="#异常处理" id="toc-异常处理">异常处理</a></li>
+    <li><a href="#multitasking" id="toc-multitasking">MultiTasking</a></li>
+    <li><a href="#参考" id="toc-参考">参考</a></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <p>学习 Ada 的原因无非是两个：一是好奇这个从来没有接触过的语言，二是想要尝试一个不同「风格」的语言。</p>
+    <p>首先是要安装开发环境。Ada 语言是 GCC 编译器集合里面官方支持的。但光有编译器还不行，还需要工具链条，以及 IDE。具体的来讲就是：</p>
+    <ul>
+    <li>安装 GNAT：<code>sudo zypper in gcc-ada</code>；</li>
+    <li>安装 GPRBuild，Ada 的项目管理工具，需要在 OBS 里面下载：<a href="https://build.opensuse.org/package/show/home:vibondare:devel:languages:Ada/gprbuild">The GPRBuild Ada/multilanguage build tool</a></li>
+    </ul>
+    <p>创建和编译运行的简单示例：</p>
+    <ol type="1">
+    <li><p>创建 gpr 项目文件：</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode ada"><code class="sourceCode ada"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>project Default <span class="kw">is</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> Main <span class="kw">use</span> <span class="op">(</span><span class="st">&quot;main.adb&quot;</span><span class="op">)</span>;</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> Object_Dir <span class="kw">use</span> <span class="st">&quot;obj&quot;</span>;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> Source_Dirs <span class="kw">use</span> <span class="op">(</span><span class="st">&quot;src/**&quot;</span><span class="op">)</span>;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span> Default;</span></code></pre></div></li>
+    <li><p>创建源文件：</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode ada"><code class="sourceCode ada"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">--- src/lib/hello.ads</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span> hello <span class="kw">is</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">procedure</span> SayHello;</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span> hello;</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">--- src/lib.hello.adb</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">with</span> Ada<span class="op">.</span>Text_IO; <span class="kw">use</span> Ada<span class="op">.</span>Text_IO;</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span> <span class="kw">body</span> hello <span class="kw">is</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">procedure</span> SayHello <span class="kw">is</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">begin</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        Put <span class="op">(</span><span class="st">&quot;Hello!&quot;</span><span class="op">)</span>;</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span> SayHello;</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span> hello;</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">--- src/main.adb</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">with</span> hello;</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="kw">procedure</span> main <span class="kw">is</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="kw">begin</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    hello<span class="op">.</span>SayHello;</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span> main;</span></code></pre></div></li>
+    <li><p>编译运行：</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gprbuild</span> <span class="kw">&amp;&amp;</span> <span class="ex">./obj/main</span></span></code></pre></div></li>
+    </ol>
+    <p>可以看到相比于 C 系的大括号语言和 Python 系的游标卡尺语言，Ada 在语法上有明显的不同，举个例子：</p>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode ada"><code class="sourceCode ada"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a> <span class="kw">with</span> Ada<span class="op">.</span>Text_IO;                                       <span class="co">--  1</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a> <span class="kw">procedure</span> Hello <span class="kw">is</span>                                      <span class="co">--  2</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a> <span class="kw">begin</span>                                                   <span class="co">--  3</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>     Ada<span class="op">.</span>Text_IO<span class="op">.</span>Put <span class="op">(</span><span class="st">&quot;Hello world!&quot;</span><span class="op">)</span>;                   <span class="co">--  4</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>     Ada<span class="op">.</span>Text_IO<span class="op">.</span>New_Line;                               <span class="co">--  5</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a> <span class="kw">end</span> Hello;                                              <span class="co">--  6</span></span></code></pre></div>
+    <p>首先，Ada 是<strong>严格区分「过程」和「函数」的</strong>。函数<strong>必须</strong>返回一个值，而过程不一定需要。我印象里面似乎只有 Pascal 这样干。Functions 和 Procedures 都是 <code>Subprograms</code>。函数作为表达式的组成部分被调用，并返回一个值作为表达式的一部分，而过程就是「一组语句」。定义一个过程如下：</p>
+    <div class="sourceCode" id="cb5"><pre class="sourceCode ada"><code class="sourceCode ada"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">procedure</span> 过程名 <span class="op">(</span>参数<span class="op">)</span> <span class="kw">is</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">--- 需要用到的变量等信息</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">begin</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">--- 过程体</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span> 过程名;</span></code></pre></div>
+    <p>调用过程则是：<code>过程名 + 括号</code>。比较奇特的是，如果过程没有参数，那么调用也不需要括号。所以直接调用 <code>New_Line</code> 是换行，加一个括号调用 <code>New_Line(10)</code> 则是 10 个空行：</p>
+    <div class="sourceCode" id="cb6"><pre class="sourceCode ada"><code class="sourceCode ada"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">with</span> Ada<span class="op">.</span>Text_IO;         <span class="kw">use</span> Ada<span class="op">.</span>Text_IO;</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">with</span> Ada<span class="op">.</span>Integer_Text_IO; <span class="kw">use</span> Ada<span class="op">.</span>Integer_Text_IO;</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">--- hello</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span> <span class="kw">body</span> hello <span class="kw">is</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">procedure</span> SayHello <span class="op">(</span>Name <span class="op">:</span> <span class="kw">in</span> <span class="dt">String</span> <span class="op">:=</span> <span class="st">&quot;Someone&quot;</span><span class="op">)</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        LengthOfName <span class="op">:</span> <span class="dt">Integer</span> <span class="op">:=</span> Name&#39;Length;</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">begin</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        Put <span class="op">(</span><span class="st">&quot;Hello! &quot;</span><span class="op">)</span>;</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        Put <span class="op">(</span>Name<span class="op">)</span>;</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        Put <span class="op">(</span>LengthOfName<span class="op">)</span>;</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span> SayHello;</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span> hello;</span></code></pre></div>
+    <p>这里还有几个点：首先是过程的参数有 <code>in</code> 和 <code>out</code> 两种，<code>in</code> 关键字表示参数在过程中是只读的，这意味着过程可以访问参数的值但不能修改它。<code>out</code> 关键字表示参数在过程中是只写的，这意味着过程可以修改参数的值但不能读取其原始值；其次获取一个对象的属性是使用 <code>'</code> 符号而不是其他语言的 <code>.</code> 表示方法，所以获取字符串的长度就变成了 <code>Name'Length</code>；再者，给一个变量赋值是使用 <code>:=</code> 符号而非 <code>=</code> 符号、指明类型（Ada 是强类型语言，必须指明类型）是使用 <code>:</code>，这一点倒是和 Typescript 一致，最后，注释使用 <code>---</code> 符号。所以可以很方便的框一个大框出来（</p>
+    <p>另外，Ada 中的定义变量<strong>必须</strong>在 begin 之前。</p>
+    <p>调用：</p>
+    <div class="sourceCode" id="cb7"><pre class="sourceCode ada"><code class="sourceCode ada"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>hello<span class="op">.</span>SayHello <span class="op">(</span><span class="st">&quot;izfsk&quot;</span><span class="op">)</span>;   <span class="co">--- 直接调用</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>hello<span class="op">.</span>SayHello <span class="op">(</span>Name <span class="op">=&gt;</span> <span class="st">&quot;izfsk&quot;</span><span class="op">)</span>;   <span class="co">--- 按照名字调用</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>hello<span class="op">.</span>SayHello; <span class="co">--- 默认</span></span></code></pre></div>
+    <p>相比之下，定义一个函数是这样的，必须要指明返回类型。调用方法和过程类似。</p>
+    <div class="sourceCode" id="cb8"><pre class="sourceCode ada"><code class="sourceCode ada"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> add <span class="op">(</span>a <span class="op">:</span> <span class="dt">Integer</span> <span class="op">:=</span> <span class="dv">10</span>; b <span class="op">:</span> <span class="dt">Integer</span> <span class="op">:=</span> <span class="dv">20</span><span class="op">)</span> <span class="kw">return</span> <span class="dt">Integer</span> <span class="kw">is</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">begin</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">return</span> a <span class="op">+</span> b;</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span> add;</span></code></pre></div>
+    <p>接下来是喜闻乐见的基本 statements 环节，举例说明：</p>
+    <h2 id="if">If</h2>
+    <div class="sourceCode" id="cb9"><pre class="sourceCode ada"><code class="sourceCode ada"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Example 1: using multiple conditions in if statement</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> A <span class="op">&gt;</span> <span class="dv">0</span> <span class="kw">and</span> <span class="kw">then</span> B <span class="op">&lt;</span> <span class="dv">30</span> <span class="kw">then</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>   Put_Line<span class="op">(</span><span class="st">&quot;A is greater than 0 and B is less than 30.&quot;</span><span class="op">)</span>;</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end if</span>;</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Example 2: using if statement with elsif and else clauses</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> A <span class="op">&gt;</span> B <span class="kw">then</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>   Put_Line<span class="op">(</span><span class="st">&quot;A is greater than B.&quot;</span><span class="op">)</span>;</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="kw">elsif</span> A <span class="op">&lt;</span> B <span class="kw">then</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>   Put_Line<span class="op">(</span><span class="st">&quot;A is less than B.&quot;</span><span class="op">)</span>;</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="kw">else</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>   Put_Line<span class="op">(</span><span class="st">&quot;A is equal to B.&quot;</span><span class="op">)</span>;</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="kw">end if</span>;</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">-- Example 3: using if statement with logical negation</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> A <span class="op">/=</span> B <span class="kw">then</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>   Put_Line<span class="op">(</span><span class="st">&quot;Something&quot;</span><span class="op">)</span>;</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="kw">end if</span>;</span></code></pre></div>
+    <p><strong>注意</strong>，判断相等是 <code>=</code> 而不是 <code>==</code>，判断不相等是 <code>/=</code> 而非 <code>!=</code>。除此以外，判断是否在一个范围可以这样：<code>if Number in 1 .. 100 then</code>。</p>
+    <h2 id="case-switch">case (switch)</h2>
+    <div class="sourceCode" id="cb10"><pre class="sourceCode ada"><code class="sourceCode ada"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">procedure</span> Greetings <span class="kw">is</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  Answer <span class="op">:</span> <span class="dt">Character</span>;</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">begin</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  Put <span class="op">(</span><span class="st">&quot;Is it morning (m) or afternoon (a)? &quot;</span><span class="op">)</span>;</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  Get <span class="op">(</span>Answer<span class="op">)</span>;</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">case</span> Answer <span class="kw">is</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>      <span class="kw">when</span> <span class="ch">&#39;M&#39;</span> <span class="op">|</span> <span class="ch">&#39;m&#39;</span> <span class="op">=&gt;</span>                    <span class="co">-- 1</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>          Put_Line <span class="op">(</span><span class="st">&quot;Good morning!&quot;</span><span class="op">)</span>;</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>      <span class="kw">when</span> <span class="ch">&#39;A&#39;</span> <span class="op">|</span> <span class="ch">&#39;a&#39;</span> <span class="op">=&gt;</span>                    <span class="co">-- 2</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>          Put_Line <span class="op">(</span><span class="st">&quot;Good afternoon!&quot;</span><span class="op">)</span>;</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>      <span class="kw">when</span> <span class="kw">others</span> <span class="op">=&gt;</span>                       <span class="co">-- 3</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>          Put_Line <span class="op">(</span><span class="st">&quot;Please type &#39;m&#39; or &#39;a&#39;!&quot;</span><span class="op">)</span>;</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">end case</span>;</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span> Greetings;</span></code></pre></div>
+    <p>以及范围测试：</p>
+    <div class="sourceCode" id="cb11"><pre class="sourceCode ada"><code class="sourceCode ada"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">case</span> Answer <span class="kw">is</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">when</span> <span class="ch">&#39;A&#39;</span> <span class="op">..</span> <span class="ch">&#39;Z&#39;</span> <span class="op">|</span> <span class="ch">&#39;a&#39;</span> <span class="op">..</span> <span class="ch">&#39;z&#39;</span> <span class="op">=&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>      Put_Line <span class="op">(</span><span class="st">&quot;Letter!&quot;</span><span class="op">)</span>;</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">when</span> <span class="kw">others</span> <span class="op">=&gt;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>      <span class="kw">null</span>;  <span class="co">-- 啥都不做</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end case</span>;</span></code></pre></div>
+    <h2 id="loop">loop</h2>
+    <p>首先 Ada 中的 <code>do</code> 大致可以替换成 <code>loop</code>，所以：</p>
+    <div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">){</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// do something</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <p>就是</p>
+    <div class="sourceCode" id="cb13"><pre class="sourceCode ada"><code class="sourceCode ada"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">while</span> True <span class="kw">loop</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">--- do something</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end loop</span>;</span></code></pre></div>
+    <h2 id="for">for</h2>
+    <div class="sourceCode" id="cb14"><pre class="sourceCode ada"><code class="sourceCode ada"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> N <span class="kw">in</span> <span class="dv">1</span><span class="op">..</span><span class="dv">20</span> <span class="kw">loop</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  Put <span class="op">(</span><span class="st">&quot;*&quot;</span><span class="op">)</span>;</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end loop</span>;</span></code></pre></div>
+    <h2 id="异常处理">异常处理</h2>
+    <p>Ada 内置了完整的异常处理机制：</p>
+    <div class="sourceCode" id="cb15"><pre class="sourceCode ada"><code class="sourceCode ada"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">procedure</span> Calculator <span class="kw">is</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">begin</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">--- code to process data</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">when</span> Constraint_Error <span class="op">=&gt;</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>      Put_Line <span class="op">(</span><span class="st">&quot;Value out of range&quot;</span><span class="op">)</span>;</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">when</span> Program_Error <span class="op">|</span> Data_Error <span class="op">=&gt;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>      Put_Line <span class="op">(</span><span class="st">&quot;Error in input -- integer expected&quot;</span><span class="op">)</span>;</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span> Calculator;</span></code></pre></div>
+    <p>Ada 中有以下几种异常：</p>
+    <ul>
+    <li><code>Constraint_Error</code>：当某个值不符合类型限制时抛出</li>
+    <li><code>Program_Error</code>：当程序出现逻辑错误时抛出</li>
+    <li><code>Storage_Error</code>：当程序无法分配足够的内存时抛出</li>
+    <li><code>Tasking_Error</code>：当任务相关的错误发生时抛出</li>
+    <li><code>Numerics_Error</code>：当数字计算出现错误时抛出</li>
+    <li><code>Check_Error</code>：当某些检查失败时抛出</li>
+    <li><code>System_Error</code>：当系统错误发生时抛出</li>
+    <li><code>Use_Error</code>：当程序使用不正确时抛出</li>
+    <li><code>Assertion_Error</code>：当程序中的断言失败时抛出</li>
+    </ul>
+    <h2 id="multitasking">MultiTasking</h2>
+    <p>说起 <code>MultiTasking</code> 现在第一个想到的就是 <code>Golang</code>，但 Adalang 这个比我的年龄还大的语言也可以做到：而且一点也不勉强：</p>
+    <div class="sourceCode" id="cb16"><pre class="sourceCode ada"><code class="sourceCode ada"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">procedure</span> Show_Simple_Tasks <span class="kw">is</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">task</span> T;</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>   <span class="kw">task</span> T2;</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>   <span class="kw">task</span> <span class="kw">body</span> T <span class="kw">is</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>   <span class="kw">begin</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>      <span class="kw">delay</span> <span class="fl">1.25</span>; <span class="co">--- sleep 1.25 秒</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>      Put_Line <span class="op">(</span><span class="st">&quot;In task T&quot;</span><span class="op">)</span>;</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>   <span class="kw">end</span> T;</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>   <span class="kw">task</span> <span class="kw">body</span> T2 <span class="kw">is</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>   <span class="kw">begin</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>      <span class="kw">delay</span> <span class="fl">2.25</span>; <span class="co">--- sleep 2.25 秒</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>      Put_Line <span class="op">(</span><span class="st">&quot;In task T2&quot;</span><span class="op">)</span>;</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>   <span class="kw">end</span> T2;</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="kw">begin</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>   Put_Line <span class="op">(</span><span class="st">&quot;In main&quot;</span><span class="op">)</span>;</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span> Show_Simple_Tasks;</span></code></pre></div>
+    <p>程序的输出是</p>
+    <div class="sourceCode" id="cb17"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>In main</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>In task T</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>In task T2</span></code></pre></div>
+    <p>并且是并行的。</p>
+    <p><code>select</code> 也可以轻松实现：</p>
+    <div class="sourceCode" id="cb18"><pre class="sourceCode ada"><code class="sourceCode ada"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">procedure</span> Show_Rendezvous_Loop <span class="kw">is</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">task</span> T <span class="kw">is</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>      <span class="kw">entry</span> Reset;</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>      <span class="kw">entry</span> Increment;</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>   <span class="kw">end</span> T;</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>   <span class="kw">task</span> <span class="kw">body</span> T <span class="kw">is</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>      Cnt <span class="op">:</span> <span class="dt">Integer</span> <span class="op">:=</span> <span class="dv">0</span>;</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>   <span class="kw">begin</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>      <span class="kw">loop</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>         <span class="kw">select</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>            <span class="kw">accept</span> Reset <span class="kw">do</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>               Cnt <span class="op">:=</span> <span class="dv">0</span>;</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>            <span class="kw">end</span> Reset;</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>            Put_Line <span class="op">(</span><span class="st">&quot;Reset&quot;</span><span class="op">)</span>;</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>         <span class="kw">or</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>            <span class="kw">accept</span> Increment <span class="kw">do</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>               Cnt <span class="op">:=</span> Cnt <span class="op">+</span> <span class="dv">1</span>;</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>            <span class="kw">end</span> Increment;</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>            <span class="kw">delay</span> <span class="fl">1.0</span>;</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>            Put_Line <span class="op">(</span><span class="st">&quot;In T&#39;s loop (&quot;</span> <span class="op">&amp;</span> Integer&#39;Image <span class="op">(</span>Cnt<span class="op">)</span> <span class="op">&amp;</span> <span class="st">&quot;)&quot;</span><span class="op">)</span>;</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>         <span class="kw">or</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>            <span class="kw">terminate</span>;</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>         <span class="kw">end select</span>;</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>      <span class="kw">end loop</span>;</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>   <span class="kw">end</span> T;</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="kw">begin</span></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>   Put_Line <span class="op">(</span><span class="st">&quot;In Main&quot;</span><span class="op">)</span>;</span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>   <span class="kw">for</span> I <span class="kw">in</span> <span class="dv">1</span> <span class="op">..</span> <span class="dv">4</span> <span class="kw">loop</span></span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>      T<span class="op">.</span>Increment;</span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>   <span class="kw">end loop</span>;</span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>   T<span class="op">.</span>Reset;</span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>   <span class="kw">for</span> I <span class="kw">in</span> <span class="dv">1</span> <span class="op">..</span> <span class="dv">4</span> <span class="kw">loop</span></span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>      T<span class="op">.</span>Increment;</span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>   <span class="kw">end loop</span>;</span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span> Show_Rendezvous_Loop;</span></code></pre></div>
+    <p>结果：</p>
+    <pre class="elisp"><code>In Main
+In T&#39;s loop ( 1)
+In T&#39;s loop ( 2)
+In T&#39;s loop ( 3)
+In T&#39;s loop ( 4)
+Reset
+In T&#39;s loop ( 1)
+In T&#39;s loop ( 2)
+In T&#39;s loop ( 3)
+In T&#39;s loop ( 4)</code></pre>
+    <p>编译结果 <code>-rwxr-xr-x 1 izfsk izfsk 359K Mar 26 21:09 Show_Simple_Tasks</code></p>
+    <p>总而言之，Ada 是一个超越时代的语言，它有类似 Golang 甚至 Rust 的一些特性，而且语法也很优雅，但时代局限了它。</p>
+    <h2 id="参考">参考</h2>
+    <ol type="1">
+    <li><a href="https://www.adaic.org/resources/add_content/docs/craft/html/appa.htm">Ada 语言参考</a></li>
+    <li><a href="https://learn.adacore.com">Adacore 提供的学习资源</a></li>
+    <li><a href="https://www.adaic.org/learn/materials/">学习资源列表</a></li>
+    </ol>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-03-24">创建日期：2023-03-24</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

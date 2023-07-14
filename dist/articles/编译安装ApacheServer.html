@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2023-03-04" />
+        <title>编译安装ApacheServer</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT1a6ce92c-d5be-4fdb-a324-fa03d0dd6e93.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT1a6ce92c-d5be-4fdb-a324-fa03d0dd6e93.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">编译安装ApacheServer</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#备忘录">备忘录</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#再次编译升级" id="toc-再次编译升级">再次编译升级</a></li>
+    <li><a href="#所以-ibm-为什么知道-apache-的版本" id="toc-所以-ibm-为什么知道-apache-的版本">所以 IBM 为什么知道 Apache 的版本</a></li>
+    <li><a href="#后续" id="toc-后续">后续</a></li>
+    <li><a href="#参考" id="toc-参考">参考</a></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <p>早上收到 linuxOne 的邮件：</p>
+    <figure>
+    <img src="assets/vl.webp" alt="和蔼的恐吓(bushi)" />
+    <figcaption aria-hidden="true">和蔼的恐吓(bushi)</figcaption>
+    </figure>
+    <p>一开始受宠若惊，毕竟这样就某个软件的漏洞专门发邮提醒的服务商不多见，仔细一看人家是 kindly ask you to correct all the ones listed below within 5 days…… 好吧，那看来我不在 5 天内修复那我就要寄，白嫖党可没什么好硬气的，人家都警告的 Your access will be revoked for any non-compliance.</p>
+    <p>本来以为是 <code>apt update &amp;&amp; apt upgrade</code> 一波，但是软件源里面的 apache 版本只到 2.4.52，只能自己编译安装了。</p>
+    <p>整个依赖链条是这样的：</p>
+    <pre class="shell"><code>            /----&gt; PCRE2 (Perl Compatible Regular Expressions 2)
+Apache2 ---|
+            \----&gt; Apache Portable Runtime (APR) ----&gt; libxml2</code></pre>
+    <p>所以需要单独编译安装它们。</p>
+    <p>一图以蔽之：</p>
+    <p><img src="./assets/quick.webp" /></p>
+    <ol start="0" type="1">
+    <li><p>首先：<strong>卸载原来的 apache2</strong>，使用 <code>sudo apt purge apache2 &amp;&amp; sudo apt autoremove</code> 因为自己编译安装的 apache 不使用 /etc 里面的配置文件。</p></li>
+    <li><p>安装编译器集合</p>
+    <p><code>sudo apt install build-essential</code></p></li>
+    <li><p>安装 <code>apr</code></p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/apache/apr</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> apr</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">./buildconf</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">./configure</span> <span class="at">--with-libxml2</span></span></code></pre></div>
+    <p>注意它需要 <code>libxml2</code> 但是软件源里面安装的 <code>libxml2-dev</code> 需要手动软链接一下：</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ln <span class="at">-s</span> /usr/include/libxml2/libxml /usr/include/libxml</span></code></pre></div>
+    <p>接下来再</p>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> <span class="at">-j8</span> <span class="kw">&amp;&amp;</span> <span class="fu">make</span> install</span></code></pre></div></li>
+    <li><p>安装 <code>pcre</code></p>
+    <p><strong>替换为最新的版本！</strong></p>
+    <div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.42/pcre2-10.42.tar.bz2</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xvf</span> pcre2-10.42.tar.bz2</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> pcre2-10.42/</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">./configure</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> <span class="at">-j8</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> make install</span></code></pre></div></li>
+    <li><p>安装 <code>apache2</code></p>
+    <p>寻找最新的版本：<a href="http://httpd.apache.org/download.cgi">http://httpd.apache.org/download.cgi</a></p>
+    <div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://dlcdn.apache.org/httpd/httpd-2.4.55.tar.bz2</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xvf</span> httpd-2.4.55.tar.bz2 </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> httpd-2.4.55/</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">./configure</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> <span class="at">-j8</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> make install</span></code></pre></div></li>
+    </ol>
+    <ul>
+    <li>配置文件位置：<code>/usr/local/apache2/conf</code></li>
+    <li>服务器控制：<code>/usr/local/apache2/bin/apachectl</code></li>
+    </ul>
+    <p>所以启动服务器：<code>/usr/local/apache2/bin/apachectl -k restart</code></p>
+    <h2 id="再次编译升级">再次编译升级</h2>
+    <p>在已安装服务器的构建目录中或旧安装的源代码树的根目录中找到文件 <code>config.nice</code>。然后，将 <code>config.nice</code> 文件复制到新版本的源代码树中，对其进行编辑以进行任何所需的更改，然后编译即可。</p>
+    <h1 id="所以-ibm-为什么知道-apache-的版本">所以 IBM 为什么知道 Apache 的版本</h1>
+    <p><code>top</code> 一下，看见两个程序 <code>iucvconn</code> <code>iucvserv</code>，<code>strings</code> 之看见不少 <code>z/VM</code>，<code>Copyright IBM Corp</code> 之类的字符串，看来就是它没错了。</p>
+    <p>当然我还是不敢去掉它们，毕竟我也不知道这算不算 <code>non-compliance</code>（</p>
+    <h1 id="后续">后续</h1>
+    <p>服务器被收回了，悲……</p>
+    <h1 id="参考">参考</h1>
+    <ul>
+    <li><a href="https://httpd.apache.org/docs/current/install.html">Apache - Compiling and Installing</a></li>
+    <li><a href="http://pcre.org/current/doc/html/pcre2build.html">pcre2build man page</a></li>
+    </ul>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-03-04">创建日期：2023-03-04</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>

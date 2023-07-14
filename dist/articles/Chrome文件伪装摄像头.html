@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2022-12-31" />
+        <title>Chrome文件伪装摄像头</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT6f21a5a7-d7da-48e5-8afc-54d5644d73bf.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT6f21a5a7-d7da-48e5-8afc-54d5644d73bf.ttf') format('truetype');
+}
+</style>
+  
+
+  <script src="/resources/js/article.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <h1 class="title">Chrome文件伪装摄像头</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#备忘录">备忘录</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#文件准备" id="toc-文件准备">文件准备</a></li>
+    <li><a href="#开启选项" id="toc-开启选项">开启选项</a></li>
+    <li><a href="#检测和注意事项" id="toc-检测和注意事项">检测和注意事项</a></li>
+    <li><a href="#参考" id="toc-参考">参考</a></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+      <li>&nbsp;</li>
+      <li class="tools">
+        <span id="backtomain">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+          </svg>
+        </span>
+        <span id="larger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </span>
+        <span id="smaller">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+          </svg>
+        </span>
+        <span id="switchfont">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+          </svg>
+        </span>
+        <span id="backtotop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </span>
+      </li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    <p>有时候需要用到伪装摄像头的功能，特别是使用某些网课平台考试的时候，有的建议是使用 OBS Studio 模拟一个摄像头，但是其实 Chrome 浏览器就可以把文件作为摄像头的视频来源采集。</p>
+    <h1 id="文件准备">文件准备</h1>
+    <p>首先你需要有视频或者图片文件，但一般的 mp4, mkv 之类的格式是不行的。关于 Chrome 支持什么格式，手册页里面没有说明，但是源代码里面有：</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// https://chromium.googlesource.com/chromium/src/+/3015459a9bf07f62ab7a8816ff88824568d87c04/media/capture/video/file_video_capture_device.cc</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">// line 286</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>base<span class="op">::</span>EndsWith<span class="op">(</span>file_name<span class="op">,</span> <span class="st">&quot;y4m&quot;</span><span class="op">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                     base<span class="op">::</span>CompareCase<span class="op">::</span>INSENSITIVE_ASCII<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    file_parser<span class="op">.</span>reset<span class="op">(</span><span class="kw">new</span> Y4mFileParser<span class="op">(</span>file_path<span class="op">));</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>base<span class="op">::</span>EndsWith<span class="op">(</span>file_name<span class="op">,</span> <span class="st">&quot;mjpeg&quot;</span><span class="op">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                            base<span class="op">::</span>CompareCase<span class="op">::</span>INSENSITIVE_ASCII<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    file_parser<span class="op">.</span>reset<span class="op">(</span><span class="kw">new</span> MjpegFileParser<span class="op">(</span>file_path<span class="op">));</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    LOG<span class="op">(</span>ERROR<span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="st">&quot;Unsupported file format.&quot;</span><span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> file_parser<span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span></code></pre></div>
+    <p>要作为流的来源你需要 y4m 或者 mjpeg 格式的视频。使用 ffmpeg 可以转换。</p>
+    <pre class="shell"><code>$ ffmpeg -i input.mp4 output.y4m</code></pre>
+    <h1 id="开启选项">开启选项</h1>
+    <p>接下来你需要使用命令行参数启动 Chrome 浏览器，加上你的文件：</p>
+    <pre class="shell"><code>$ google-chrome --use-fake-device-for-media-stream --use-file-for-fake-video-capture=test.y4m </code></pre>
+    <h1 id="检测和注意事项">检测和注意事项</h1>
+    <ul>
+    <li>y4m 格式是很大的，一分钟不到的视频都可能达到 700 MB。</li>
+    <li>可以使用<a href="https://webcamtests.com/">这个网站</a>来测试。</li>
+    <li>网页检测到的「摄像头硬件名称」将会是你的文件名，注意起一个正常的名字。</li>
+    </ul>
+    <h1 id="参考">参考</h1>
+    <ol type="1">
+    <li><a href="https://stackoverflow.com/questions/52095416/how-can-i-correctly-provide-a-mock-webcam-video-to-chrome">How can I correctly provide a mock webcam video to Chrome?</a></li>
+    </ol>
+
+    <br />
+    <!--%%REF%%-->
+
+
+    <br/>
+    <div data-chirpy-comment="true"></div>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2022-12-31">创建日期：2022-12-31</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+    </div>
+    </p>
+  </footer>
+
+  </body>
+
+</html>
