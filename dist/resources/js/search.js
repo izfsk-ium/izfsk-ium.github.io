@@ -97,6 +97,7 @@ export const Search = {
     },
 
     start: async () => {
+        target.innerHTML = html_search;
         if (!LibraryLoaded) {
             function loadCSS(url) {
                 return new Promise((resolve, reject) => {
@@ -123,8 +124,6 @@ export const Search = {
 
             LibraryLoaded = true;
         }
-
-        target.innerHTML = html_search;
 
         const resultContainer = document.getElementById("searchResults");
         if (!SearchContentLoaded) {
