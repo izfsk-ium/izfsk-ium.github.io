@@ -22,11 +22,11 @@
     <meta name="apple-mobile-web-app-title" content="白漠流霜">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/resources/css/normalize.css">
     <link rel="stylesheet" href=/resources/css/prebuilt-fonts.css>
     <link rel="stylesheet" href=/resources/css/index/index.css>
     <link rel="stylesheet" href="/resources/css/readme.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
     <!-- Start -->
     <title>白漠流霜::关于</title>
@@ -44,42 +44,97 @@
 
         <div id="content">
             <section>
-                <h2>About this site</h2>
-
-                <!-- 名称？来源？ -->
+                <h2>站点名字</h2>
                 <p>
                     我觉得，作为个人站点，还是应该有一个独特的名字。你想，大多数人（包括我自己）现实生活中的名字实在是太平常，太无聊了，
-                    既然拥有了给自己的“数字生命”和它栖息之处命名的权利，为什么不好好珍惜呢？为此我想了很久，但还是没有找到一个满意的名字。
+                    既然拥有了给自己的“数字生命”和它栖息之处命名的权利，为什么不好好珍惜呢？
+                    <br />
+                    目前的这个名字，「白漠流霜」是我在某次散步的间隙想出来的，名字的来源一半是索尔仁尼琴《癌症楼》第二部第二十二章的标题「流入沙漠的河」，
+                    一半是普希金《一八二五年十月十九日》 中的意向「流动的霜」。解释起来倒也没啥特殊含义，觉得好听就是了...
                 </p>
 
-                <!-- 形式 -->
+                <h2>关于站点主题</h2>
+                <p>
+                    我的博客，或者说个人站点经历了三次大的变更。最初的版本是纯粹手写的，以至于每一篇文章需要手动编辑 HTML，整体的审美也呈现出上世纪 90 年代的风格，
+                    可惜它已经彻底丢失了。
+                    第二个版本可以在<a
+                        href="http://web.archive.org/web/20220701051352/https://winterazure.bitbucket.io/">这里</a>查看，总的来讲
+                    有所进步，毕竟不用手写 HTML 了，但其加载 JSON 化的 Markdown 文件再在前端实时渲染的方式依旧过于生草。
+                    于是有了第三个版本，大致的排版和目前类似，但是配色和各个细节上略有不同。考虑到便于维护，优化以后就成为了第四版。
+                </p>
+                <p>
+                    我并没有购买服务器，所以不使用 Wordpress 或是 Typecho，况且我也从来没有学过 PHP。整个站点是纯静态的，但不使用 Hexo 等静态网站生成工具，
+                    它们提供的主题要么我似曾相识，要么不太喜欢，自己创建主题又麻烦的很，再加上无法抵御自建轮子的诱惑和乐趣，就自己建了一套。
+                    <br />
+                    整个站点基本上就是 HTML + CSS，JavaScript 抱着宁缺毋滥的原则，尽可能少添加。站点生成使用 Makefile + Python 脚本的方式，
+                    文章转换则使用 Pandoc 和自定义插件。
+                </p>
+                <p> 在页面样式的修修补补中， <a target="_blank" href="https://github.com/riggraz/no-style-please">这个 jekyll
+                        主题</a>和<a href="https://jez.io/pandoc-markdown-css-theme/">这个 Pandoc </a>模板给了我很大的启发。
+                </p>
+                <hr />
                 <p>
                     你应该能注意到这个站点的一些特点，比如说，我极力避免出现明确的 UI 元素，比如按钮，菜单之类（当然还是不免会出现一些）。
-                    在很久以前，似乎还是我在上高中的时候，我在英语阅读理解中看到过一种所谓
-                    <a target="_blank" href="https://en.wikipedia.org/wiki/Hypertext_fiction"><em>Hypertext
-                            fiction</em></a>（超文字小说），
-                    虽然不懂文学理论，但我觉得这是很有趣的想法，所以我尝试着把原本模块化地放置在按钮和菜单中的内容融合起来，连缀成“一篇”，
+                    我尝试着把原本模块化地放置在按钮和菜单中的内容融合起来，连缀成“一篇”，
                     使得整个网页看上去像是某种“可以点击的印刷品”。这个站点就是一个小小的实验。
                 </p>
                 <p>
-                    我并不是很喜欢有大量动画和特效的网页，一方面是因为设备性能问题，另外对我来讲实现这些效果实在太过复杂，超出了能力之外，
+                    另外，我并不是很喜欢有大量动画和特效的网页，一方面是因为设备性能问题，另外对我来讲实现这些效果实在太过复杂，超出了能力之外，
                     除此以外，我发现很多个人博客和网站所使用的都是同一套主题，虽然绚丽，到底还是缺乏新意。于是我决定将网站做成以文本内容为核心的
                     样式。没有视频，没有背景音乐，没有动画特效。只添加一些必要的装饰和改善。
                 </p>
                 <p>
-                <p> 在页面样式的修修补补中， <a target="_blank" href="https://github.com/riggraz/no-style-please">这个 jekyll
-                        主题</a>和<a href="https://jez.io/pandoc-markdown-css-theme/">这个 Pandoc </a>模板给了我很大的启发。
+            </section>
+
+            <section>
+                <h2>站点内容</h2>
+                <p>
+                    估计是因为人群的高度重合，有很多中文独立博客的内容都是技术相关，其中又以计算机技术占据绝大部分。虽然我并不是计算机科班
+                    出身，但站点的内容似乎也向这个方面倾斜了，而且就这些内容来看，质量其实并不是特别好。
+                </p>
+                <p>
+                    反思之后，我觉得这个站点不应该只是一个倾倒技术垃圾的备忘录，我会尝试着添加更多的内容。
+                </p>
+            </section>
+
+            <section>
+                <h2>关于我</h2>
+                <p>
+                    我是<b>&nbsp;izfsk&nbsp;</b>。
+                </p>
+                <p>
+                    这个名字没有任何意义，作为一个代表我的符号， 它是我小时候使用谷歌翻译的发音功能翻译自己的名字为拉丁文所转换为的音译。
+                </p>
+                <p>
+                    目前是某二流院校本科在读汉语言文学学生，喜欢计算机技术，但目前被宿命绑架，正在想办法逃离。
+                </p>
+                <p>
+                    <b>自然语言：</b>汉语普通话，English<br />
+                    <b>编程语言：</b>Python，Javascript & Typescript；略懂 Java，C & C++ <br />
+                    <b>框架：</b>Svelte，Flutter，NodeJS，Qt<br />
+                </p>
+                <p>
+                    <b>操作系统：</b>openSUSE Tumbleweed，crDroid，Windows 8.1<br />
+                </p>
+                <p>
+                    <b>游戏：</b>Minecraft，Tetris，碧蓝航线，Muse Dash<br />
                 </p>
 
-                <!-- 技术架构 -->
-                <p>
-                    我并没有购买服务器，所以不使用 Wordpress 或是 Typecho，况且我也从来没有学过 PHP。至于 Hexo 或是 Hugo，我用过，然而
-                    它们提供的主题要么我似曾相识，要么不太喜欢，自己创建主题又麻烦的很，再加上无法抵御自建轮子的诱惑和乐趣，就自己建了一套。
-                </p>
-                <p>
-                    整个站点是纯静态的，JavaScript 也抱着宁缺毋滥的原则，尽可能少添加。站点生成器使用 Makefile + Python 脚本的方式，
-                    文章转换则使用 Pandoc。以下是站点使用到的其他资源：
-                </p>
+                <p>联系方式(按照使用频率)</p>
+                <ul>
+                    <li><i class="bi bi-envelope-fill"></i>・<b>E-Mail : </b>
+                        <a target="_blank" href='mailto:me@izfsk.top'><code>me@izfsk.top</code></a>，<a target="_blank"
+                            href="/gpg.asc"><code>GPG</code></a>
+                    </li>
+                    <li><i class="bi bi-github"></i>・</i><b>Github : </b>
+                        <a hre='https://github.com/izfsk-ium' target="_blank"><code>izfsk-ium</code></a>
+                    </li>
+                </ul>
+
+            </section>
+
+            <section>
+                <h2>站点的其他细节</h2>
                 <p>
                     <b>构建服务：</b><a target="_blank" href="https://render.com">render.com</a>, &nbsp; <a
                         href="https://cloudflare.com">cloudflare.com</a><br />
@@ -87,12 +142,8 @@
                     <span style="font-family: 'CONTENT';">
                         <a target="_blank" href="https://github.com/airinghost/clear-han-serif-subset">屏显臻宋</a>
                     </span>,
-                    <span style="font-family: 'TITLE';">
-                        <a target="_blank" href="https://github.com/nowar-fonts/Nowar-CnC">有爱锐方</a>
-                    </span>,
                     <span style="font-family: 'SITENAME';font-weight: 900;">
-                        <a target="_blank"
-                            href="https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/edusun.pdf">標準宋體字形檔</a>
+                        <a target="_blank" href="http://www.cns11643.gov.tw">CNS11643 中文全字库</a>
                     </span>,
                     <span style="font-family: 'SCRIPT';">
                         <a target="_blank" href="https://github.com/DavidBarts/ET_Bembo">Edward Tufte's
@@ -109,74 +160,22 @@
                         Yukhtenko</a>
                     <br />
                     <b>图标集：</b><a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap Icons</a>
-                </p>
-            </section>
-
-            <section>
-                <h2>About content</h2>
-                <p>
-                    估计是因为人群的高度重合，有很多中文独立博客的内容都是技术相关，其中又以计算机技术占据绝大部分。虽然我并不是计算机科班
-                    出身，但站点的内容似乎也向这个方面倾斜了，而且就这些内容来看，质量其实并不是特别好。
-                </p>
-                <p>
-                    因此，我觉得这个站点不应该只是一个倾倒技术垃圾的备忘录，我会尝试着添加更多的内容。
-                </p>
-            </section>
-
-            <section>
-                <h2>About me</h2>
-                <p>
-                    <b>关于名字：</b>这个名字没有任何意义，作为一个代表我的符号， 它是我小时候使用谷歌翻译的发音功能翻译自己的名字为拉丁文所转换为的音译。
-                </p>
-                <p>
-                    <b>学历：</b>二流院校本科在读，汉语言文学专业<br />
-                </p>
-                <p>
-                    <b>自然语言：</b>汉语普通话，English<br />
-                    <b>编程语言：</b>会一点 Python，Javascript 和 Typescript；Java，C 和 C++ 略懂皮毛。<br />
-                    <b>主要用：</b>Svelte，Flutter，NodeJS<br />
-                </p>
-                <p>
-                    <b>操作系统：</b>openSUSE Tumbleweed，crDroid，Windows 8.1<br />
-                    <b>其他：</b>Vim 苦手，(前)Brony
                     <br />
-                </p>
-                <p>
-                    <b>游戏：</b>Minecraft，Tetris，碧蓝航线，Muse Dash<br />
-                    <b>目前状态：</b>想搞计算机但被专业卡死，想随遇而安但太内向，<del>混吃等死。</del>
-                </p>
-
-                <p>联系方式(按照使用频率)</p>
-                <li><i class="bi bi-envelope-fill"></i>・<b>E-Mail : </b>
-                    <a target="_blank" href='mailto:me@izfsk.top'><code>me@izfsk.top</code></a>，<a target="_blank"
-                        href="/gpg.asc"><code>GPG</code></a>
-                </li>
-                <li><i class="bi bi-github"></i>・</i><b>Github : </b>
-                    <a hre='https://github.com/izfsk-ium' target="_blank"><code>izfsk-ium</code></a>
-                </li>
-            </section>
-
-            <section>
-                <h2>History</h2>
-                <p>
-                <table>
-                    <tr>
-                        <td><code>2022-11-11</code></td>
-                        <td>/resources/fonts/ETBembo/ETBembo-RomanOSF.woff2事实</td>
-                    </tr>
-                </table>
-
+                    <b>构建器：</b><a href="https://pandoc.org/" target="_blank">Pandoc 3.1.3</a>，<a
+                        href="https://github.com/jez/pandoc-sidenote">pandoc-sidenote</a>
+                    <br />
+                    <b>网站分析：</b>无
                 </p>
             </section>
         </div>
 
         <footer>
             <section id="lastBuild">
-                <h6>Last Build: <code>2023-07-09</code></h6>
+                <h6>Last Build: <code>2023-07-16</code></h6>
             </section>
 
             <section>
-                <h6>Copyright&nbsp;©&nbsp;<code>2022-2023 </code>izfsk</h6>
+                <h6>Copyright&nbsp;©&nbsp;<code>2021-2023</code>izfsk</h6>
             </section>
         </footer>
     </main>

@@ -38,6 +38,11 @@ table {
     border-collapse: collapse;
 }
 
+h2 {
+    font-family: 'SCRIPT', 'SITENAME', Arial, Helvetica, sans-serif;
+    font-weight: 900;
+}
+
 @media only screen and (max-width: 500px) {
     td {
         max-width: 42vw;

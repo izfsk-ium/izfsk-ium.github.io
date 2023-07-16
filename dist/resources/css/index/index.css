@@ -23,6 +23,7 @@
 
 /* Common */
 body {
+    background-color: black;
     background-image: url("/resources/img/bg.webp");
     background-size: cover;
     background-attachment: fixed;
