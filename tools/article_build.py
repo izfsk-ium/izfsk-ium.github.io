@@ -9,6 +9,7 @@ import os
 import string
 from datetime import datetime
 import yaml
+import shutil
 
 
 SRC_FILE = argv[1]
@@ -91,11 +92,12 @@ def save_buildtime():
     )
 
 
-def save_reflinks():
+def process_metadata():
     """
     Save ref links in markdown
+    Process draft and outdated flag
     """
-    global TARGET_UUID
+    global TARGET_UUID, HTML_FILE
     global RAW_CONTENT
 
     ref_template = """
@@ -126,10 +128,39 @@ def save_reflinks():
     except KeyError:
         pass
 
+    is_outdated = data.get("outdated", False)
+    is_draft = data.get("draft", False)
+
+    buffer = ""
+    if is_outdated:
+        buffer += """
+            <aside class="warning-outdated">
+                <span>⚠️</span>注意：本文章被标记为过期！请谨慎对待其内容。 <span>⚠️</span>
+            </aside>"""
+    if is_draft:
+        buffer += """
+            <aside class="warning-draft">
+                <span>⚠️</span>注意：本文章被标记为草稿！请谨慎对待其内容。 <span>⚠️</span>
+            </aside>"""
+    RAW_CONTENT = RAW_CONTENT.replace("<!--%%FLAGS%%-->", buffer)
+
+    # If the article have english name, use it as url
+    if data.get("english", False) != False:
+        shutil.copyfile(
+            HTML_FILE,
+            os.path.splitext(os.path.join("dist/articles", data.get("english")))[0]
+            + ".html",
+        )
+        os.unlink(HTML_FILE)
+        HTML_FILE = (
+            os.path.splitext(os.path.join("dist/articles", data.get("english")))[0]
+            + ".html"
+        )
+
 
 if __name__ == "__main__":
     save_buildtime()
-    save_reflinks()
+    process_metadata()
     font_minify()
 
     with open(HTML_FILE, "w") as fp:

@@ -2,9 +2,12 @@
 uuid: "87b181b2-202e-11ee-b1e5-84a93896bec6"
 title: "模版功能简介"
 subtitle: "好好利用本主题吧~"
+english: "README"
 date: "1980-01-01"
 category: "测试"
 project: "测试"
+outdated: true
+draft: true
 ref: 
   - name: "第一个参考链接"
     url: "www.example_1.com"
@@ -19,9 +22,20 @@ YAML metadata block, like this:
 
 ```{.yaml .numberLines}
 ---
-title: "Features"
-date: 2021-06-26
-# ...
+uuid: "87b181b2-202e-11ee-b1e5-84a93896bec6"
+title: "模版功能简介"
+subtitle: "好好利用本主题吧~"
+english: "README"
+date: "1980-01-01"
+category: "测试"
+project: "测试"
+outdated: true
+draft: true
+ref: 
+  - name: "第一个参考链接"
+    url: "www.example_1.com"
+  - name: "第二个参考链接"
+    url: "www.example_2.com"
 ---
 
 ... markdown content ...

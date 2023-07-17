@@ -422,6 +422,7 @@ h2 {
 
 h2 code {
   font-size: var(--h2-code-font-size);
+  word-break: break-all;
 }
 
 h3.subtitle {
@@ -461,6 +462,27 @@ h3+p {
 /* }}} */
 /* ----- Prose --------------------------------------------------------- {{{ */
 
+aside {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+aside.warning-outdated {
+  background-color: var(--highlight-yellow);
+  padding: 10px;
+  text-align: center;
+  border: 1px solid var(--color-border);
+}
+
+aside.warning-draft {
+  background-color: rgba(128, 128, 128, 0.25);
+  padding: 10px;
+  text-align: center;
+  border: 1px solid var(--color-border);
+}
+
 p,
 main>ul,
 main>ol,
@@ -469,7 +491,8 @@ main>pre,
 img,
 table {
   margin-top: var(--line-height);
-  margin-bottom: var(--line-height)
+  margin-bottom: var(--line-height);
+  word-break: break-word;
 }
 
 ul:not(.task-list) {
@@ -718,7 +741,7 @@ span.underline {
 
 code {
   font-family: var(--font-family-code);
-
+  word-break: break-all !important;
   word-spacing: normal;
 
   /* Only for inline code */

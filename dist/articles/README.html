@@ -125,15 +125,34 @@
   </nav>
   
   <main>
+    
+            <aside class="warning-outdated">
+                <span>⚠️</span>注意：本文章被标记为过期！请谨慎对待其内容。 <span>⚠️</span>
+            </aside>
+            <aside class="warning-draft">
+                <span>⚠️</span>注意：本文章被标记为草稿！请谨慎对待其内容。 <span>⚠️</span>
+            </aside>
+
     <h1 id="document-metadata">Document metadata</h1>
     <p>Pandoc allows setting <a href="https://pandoc.org/MANUAL.html#variables">variables</a> in the preamble of a Markdown document with a YAML metadata block, like this:</p>
     <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource yaml numberLines"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">---</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Features&quot;</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-06-26</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># ...</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="pp">---</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="at">... markdown content ...</span></span></code></pre></div>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">uuid</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;87b181b2-202e-11ee-b1e5-84a93896bec6&quot;</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;模版功能简介&quot;</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;好好利用本主题吧~&quot;</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">english</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;README&quot;</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;1980-01-01&quot;</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">category</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;测试&quot;</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">project</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;测试&quot;</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">outdated</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">draft</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="fu">ref</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;第一个参考链接&quot;</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="at">    </span><span class="fu">url</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;www.example_1.com&quot;</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;第二个参考链接&quot;</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="at">    </span><span class="fu">url</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;www.example_2.com&quot;</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="pp">---</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="at">... markdown content ...</span></span></code></pre></div>
     <p>This theme’s HTML template allows setting some, but not all, of the variables that Pandoc supports, including:</p>
     <ul>
     <li><code>title</code>
@@ -629,7 +648,7 @@ And so is this:
     <p class="signoff">
     <div class="metadata">
             <p class="date"><time datetime="1980-01-01">创建日期：1980-01-01</time></p>
-            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-17</time></p>
     </div>
     </p>
   </footer>

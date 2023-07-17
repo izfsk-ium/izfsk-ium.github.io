@@ -13,10 +13,10 @@
       <link>http://blog.izfsk.top/rss.xml</link>
     </image>
     <language>zh_CN</language>
-    <lastBuildDate>Fri, 14 Jul 2023 09:17:45 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 17 Jul 2023 14:23:16 +0000</lastBuildDate>
     <item>
       <title>模版功能简介</title>
-      <link>https://blog.izfsk.top/articles/readme.html</link>
+      <link>https://blog.izfsk.top/articles/README.html</link>
       <description>模版功能简介</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
@@ -88,15 +88,32 @@
 &lt;/ul&gt;
 &lt;/nav&gt;
 &lt;main&gt;
+&lt;aside class="warning-outdated"&gt;
+&lt;span&gt;⚠️&lt;/span&gt;注意：本文章被标记为过期！请谨慎对待其内容。 &lt;span&gt;⚠️&lt;/span&gt;
+&lt;/aside&gt;
+&lt;aside class="warning-draft"&gt;
+&lt;span&gt;⚠️&lt;/span&gt;注意：本文章被标记为草稿！请谨慎对待其内容。 &lt;span&gt;⚠️&lt;/span&gt;
+&lt;/aside&gt;
 &lt;h1 id="document-metadata"&gt;Document metadata&lt;/h1&gt;
 &lt;p&gt;Pandoc allows setting &lt;a href="https://pandoc.org/MANUAL.html#variables"&gt;variables&lt;/a&gt; in the preamble of a Markdown document with a YAML metadata block, like this:&lt;/p&gt;
 &lt;div class="sourceCode" id="cb1"&gt;&lt;pre class="sourceCode numberSource yaml numberLines"&gt;&lt;code class="sourceCode yaml"&gt;&lt;span id="cb1-1"&gt;&lt;a href="#cb1-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;---&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-2"&gt;&lt;a href="#cb1-2"&gt;&lt;/a&gt;&lt;span class="fu"&gt;title&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"Features"&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-3"&gt;&lt;a href="#cb1-3"&gt;&lt;/a&gt;&lt;span class="fu"&gt;date&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; 2021-06-26&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-4"&gt;&lt;a href="#cb1-4"&gt;&lt;/a&gt;&lt;span class="co"&gt;# ...&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-5"&gt;&lt;a href="#cb1-5"&gt;&lt;/a&gt;&lt;span class="pp"&gt;---&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-6"&gt;&lt;a href="#cb1-6"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb1-7"&gt;&lt;a href="#cb1-7"&gt;&lt;/a&gt;&lt;span class="at"&gt;... markdown content ...&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span id="cb1-2"&gt;&lt;a href="#cb1-2"&gt;&lt;/a&gt;&lt;span class="fu"&gt;uuid&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"87b181b2-202e-11ee-b1e5-84a93896bec6"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-3"&gt;&lt;a href="#cb1-3"&gt;&lt;/a&gt;&lt;span class="fu"&gt;title&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"模版功能简介"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-4"&gt;&lt;a href="#cb1-4"&gt;&lt;/a&gt;&lt;span class="fu"&gt;subtitle&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"好好利用本主题吧~"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-5"&gt;&lt;a href="#cb1-5"&gt;&lt;/a&gt;&lt;span class="fu"&gt;english&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"README"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-6"&gt;&lt;a href="#cb1-6"&gt;&lt;/a&gt;&lt;span class="fu"&gt;date&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"1980-01-01"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-7"&gt;&lt;a href="#cb1-7"&gt;&lt;/a&gt;&lt;span class="fu"&gt;category&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"测试"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-8"&gt;&lt;a href="#cb1-8"&gt;&lt;/a&gt;&lt;span class="fu"&gt;project&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"测试"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-9"&gt;&lt;a href="#cb1-9"&gt;&lt;/a&gt;&lt;span class="fu"&gt;outdated&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="ch"&gt;true&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-10"&gt;&lt;a href="#cb1-10"&gt;&lt;/a&gt;&lt;span class="fu"&gt;draft&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="ch"&gt;true&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-11"&gt;&lt;a href="#cb1-11"&gt;&lt;/a&gt;&lt;span class="fu"&gt;ref&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-12"&gt;&lt;a href="#cb1-12"&gt;&lt;/a&gt;&lt;span class="at"&gt;  &lt;/span&gt;&lt;span class="kw"&gt;-&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="fu"&gt;name&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"第一个参考链接"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-13"&gt;&lt;a href="#cb1-13"&gt;&lt;/a&gt;&lt;span class="at"&gt;    &lt;/span&gt;&lt;span class="fu"&gt;url&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"www.example_1.com"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-14"&gt;&lt;a href="#cb1-14"&gt;&lt;/a&gt;&lt;span class="at"&gt;  &lt;/span&gt;&lt;span class="kw"&gt;-&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="fu"&gt;name&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"第二个参考链接"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-15"&gt;&lt;a href="#cb1-15"&gt;&lt;/a&gt;&lt;span class="at"&gt;    &lt;/span&gt;&lt;span class="fu"&gt;url&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"www.example_2.com"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-16"&gt;&lt;a href="#cb1-16"&gt;&lt;/a&gt;&lt;span class="pp"&gt;---&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-17"&gt;&lt;a href="#cb1-17"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-18"&gt;&lt;a href="#cb1-18"&gt;&lt;/a&gt;&lt;span class="at"&gt;... markdown content ...&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This theme’s HTML template allows setting some, but not all, of the variables that Pandoc supports, including:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;title&lt;/code&gt;
@@ -581,7 +598,7 @@ And so is this:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="1980-01-01"&gt;创建日期：1980-01-01&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-14&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-17&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -7988,7 +8005,7 @@ server3.example.com
     </item>
     <item>
       <title>博客迁移从域名到部署</title>
-      <link>https://blog.izfsk.top/articles/博客迁移从域名到部署.html</link>
+      <link>https://blog.izfsk.top/articles/Journey-of-blog-migrating-from-domain-to-deployment.html</link>
       <description>博客迁移从域名到部署</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
@@ -8089,7 +8106,7 @@ server3.example.com
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-02-26"&gt;创建日期：2023-02-26&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-14&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-17&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -10818,7 +10835,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
     </item>
     <item>
       <title>使用 systemd 进行资源分配</title>
-      <link>https://blog.izfsk.top/articles/使用systemd进行资源分配.html</link>
+      <link>https://blog.izfsk.top/articles/Resource-managenent-using-systemd.html</link>
       <description>使用 systemd 进行资源分配</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
@@ -11097,7 +11114,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-07-01"&gt;创建日期：2023-07-01&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-14&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-17&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;

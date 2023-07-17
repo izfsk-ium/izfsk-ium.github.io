@@ -1,6 +1,7 @@
 ---
 uuid: "03566ccc-fb0d-4ff6-b67f-5e0a53204d4b"
 title: 使用 systemd 进行资源分配
+english: "Resource-managenent-using-systemd"
 date: 2023-07-01
 category: 学习
 ---

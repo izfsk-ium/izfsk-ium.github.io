@@ -33,10 +33,28 @@ class ArticleMetaData:
         self.date = self.get_unix_timestamp(str(data["date"]))
         self.dateObj = datetime.datetime.fromtimestamp(self.date)
         self.category = data["category"]
+        self.isOutdated = data.get("outdated", False)
+        self.isDraft = data.get("draft", False)
 
         self.project = data.get("project", None)
-        self.htmlPath = "dist/articles/" + path.basename(filename)[:-3] + ".html"
-        self.url = "/articles/" + path.basename(filename)[:-3] + ".html"
+        self.htmlPath = (
+            "dist/articles/"
+            + (
+                path.basename(filename)[:-3]
+                if data.get("english", None) == None
+                else data["english"]
+            )
+            + ".html"
+        )
+        self.url = (
+            "/articles/"
+            + (
+                path.basename(filename)[:-3]
+                if data.get("english", None) == None
+                else data["english"]
+            )
+            + ".html"
+        )
         self.content = content
 
     def get_unix_timestamp(self, date_string):
@@ -90,7 +108,7 @@ def generate_index(articles: list):
 
     recent_articles_template = "<ul>\n{ARTICLES}{SUMMARY}</ul>"
     links_html = ""
-    for i in articles[:4]:
+    for i in list(filter(lambda x: not x.isOutdated and not x.isDraft, articles))[:4]:
         links_html += f"\t<li><span>{format_unix_timestamp(i.date)}</span>&nbsp;&nbsp;<a href='{i.url}'>{i.title}</a></li>\n"
 
     total_article_count = an2cn(len(articles))

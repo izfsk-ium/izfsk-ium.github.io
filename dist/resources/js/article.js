@@ -3,11 +3,29 @@ let contentFontSize = 18,
     blockCodeSize = 14;
 let fontFamily = 'CONTENT';
 
+const stylesheetReplacer = (selector, newRule) => {
+    const styleSheet = Array.from(document.styleSheets).find(sheet => sheet.href === null);
+
+    let ruleIndex = -1;
+    for (let i = 0; i < styleSheet.rules.length; i++) {
+        if (styleSheet.rules[i].selectorText === selector) {
+            ruleIndex = i;
+            break;
+        }
+    }
+
+    if (ruleIndex !== -1) {
+        styleSheet.deleteRule(ruleIndex);
+    }
+
+    styleSheet.addRule(selector, newRule, 0);
+};
+
 const stylesheetSetter = () => {
-    document.styleSheets[0].addRule(':root', `--font-size: ${contentFontSize}px`);
-    document.styleSheets[0].addRule(':root', `--code-block-font-size: ${blockCodeSize}px;`);
-    document.styleSheets[0].addRule(":root", `--inline-code-font-size: ${inlineCodeSize}px`);
-}
+    stylesheetReplacer(':root', `--font-size: ${contentFontSize}px`);
+    stylesheetReplacer(':root', `--code-block-font-size: ${blockCodeSize}px`);
+    stylesheetReplacer(':root', `--inline-code-font-size: ${inlineCodeSize}px`);
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     new Viewer(document.querySelector('main'));
@@ -24,7 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
         stylesheetSetter();
     }
     document.getElementById("switchfont").onclick = () => {
-        document.styleSheets[0].addRule(':root', `--font-family-prose: ${fontFamily === 'CONTENT' ? 'system-ui' : 'CONTENT'}`);
+        const styleSheet = Array.from(document.styleSheets).find(sheet => sheet.href === null);
+        styleSheet.addRule(':root', `--font-family-prose: ${fontFamily === 'CONTENT' ? 'system-ui' : 'CONTENT'}`);
         fontFamily = (fontFamily === 'CONTENT' ? 'system-ui' : 'CONTENT');
     }
 
@@ -48,4 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
         progressBar.max = document.documentElement.scrollHeight - window.innerHeight;
         progressBar.value = window.scrollY;
     });
+
+    if (document.querySelector(".subtitle").innerHTML == "&nbsp;") {
+        document.querySelector(".subtitle").innerHTML = document.querySelector(".date > time:nth-child(1)").innerHTML.substr(5);
+    }
 }, false);
