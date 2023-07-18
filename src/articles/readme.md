@@ -15,6 +15,31 @@ ref:
     url: "www.example_2.com"
 ---
 
+# Encryptes Sections
+
+use `echo -n "YOUR_TEXT_TO_ENCRYPT" | gpg --symmetric --cipher-algo AES256 --armor ` to encrypt text, then put here like:
+
+```js
+
+```{.gpg}
+-----BEGIN PGP MESSAGE-----
+
+jA0ECQMCB49M3yRPGh7/0kkB5Cb5CBsZ/fKB6KC3BWh5BPrFAMnjZPwHm9kuW3k8
+s0A+4QO/lyv7tvRfh7x65AfqqgdYPdhcXtdRfMD7ldKyIFFx8vQDklSS
+=necK
+-----END PGP MESSAGE-----
+
+```
+
+```{.gpg}
+-----BEGIN PGP MESSAGE-----
+
+jA0ECQMCB49M3yRPGh7/0kkB5Cb5CBsZ/fKB6KC3BWh5BPrFAMnjZPwHm9kuW3k8
+s0A+4QO/lyv7tvRfh7x65AfqqgdYPdhcXtdRfMD7ldKyIFFx8vQDklSS
+=necK
+-----END PGP MESSAGE-----
+```
+
 # Document metadata
 
 Pandoc allows setting [variables] in the preamble of a Markdown document with a
@@ -644,6 +669,26 @@ see how the image updates:
 [^media]:
   At the moment, this means there is no way to programmatically toggle between
   light and dark mode except by toggling the OS or browser's setting.
+
+```{.gpg}
+-----BEGIN PGP MESSAGE-----
+
+jA0ECQMCPqkzW25xRi7/0ukBiR+8M1Q2/xMKMRY3abKJMvNEdu5ltkUDOdldDr6H
+GpOGL5/zQZcimxyRZ9EbN4QjXHSomxPuaNyTzNzTSYTCfQbqd4dAZRpa3Hw91PnQ
+8P13AGBKc+8ta0H3PJ0Mffk6gVgFxkvN+ZEFbhCJ0nWTGkW0E/vXFAC0PrUOZvwf
+EUpZnrnmaTDDZvDg4ZKNP4IMpCP1gIQcdtjxfqrENy3+qE7mxun8Q1UrlfuNwyub
+ln9NIS/8xpYdy1EuGh/Kv6n2fCuTSWJhUkMuse3LfF3pg0EINEfWxZ8QYsJ8uN15
+E0hjKZuy5DT2D/z+MVVdjXwk8FxrkuWYKm8Sik940LmRIY6xMMaKdAK0OubQTzUl
+8CqJS1SoeQS3S4Osd/M2/RTjccR4ZbmrrFQgwLwUwVPdwv6LhYqfxcwB8RO1GGN2
+LopgEwSeELRUJQiitThq5JpIoiaCrQz40fpYD6EKcWEbE2RW2nCy7JuLXUfM0LVJ
+SSVnJ+6s4PQ+0CvmCS2frpdhZfnBRlLVReW69Mmy/sg661bBVV9uh8xwqcTkSJJ1
+tzayiEpi3JvBWiBvnaI5asKz52vAyfdJBt0soDeAXsovge2wLoSECCYXSajmSjSB
+RR5P/Mngv3wIxWomL7rqa2JggLCI8rJQWi75nkSExexsqO2Fh4cQIKmG4uiqgW/o
+E1cYREuQLTTL5fZ04VL7KSh9WMCcCnXiUU+8ipUVCAZy1aBXl9hQ4/fmRVgUo2Ks
+VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
+=6dpw
+-----END PGP MESSAGE-----
+```
 
 # Print styles
 

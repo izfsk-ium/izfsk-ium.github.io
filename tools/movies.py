@@ -7,7 +7,7 @@ from datetime import datetime
 BOOK_CARD_TEMPLATE = """
  <div class="col" ontouchstart="this.classList.toggle('hover');">
     <div class="container" onclick="window.open('https://www.google.com/search?q={NAME}')">
-        <div class="front" style="background-image: url({COVER})">
+        <div class="front" style="background-image: url('{COVER}')">
             <div class="inner" >
                 <p class="name">{NAME}</p>
                 <span class="author">{YEAR}</span>

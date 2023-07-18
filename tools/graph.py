@@ -36,7 +36,7 @@ class FileInfo:
         self.site: Site
         self.edges: List[Site] = []
 
-        print(">> Process " + filename)
+        print(">> Graph: Processing " + filename)
 
         for i in data:
             if i["site"] == "self":
@@ -45,14 +45,12 @@ class FileInfo:
                 )
 
                 id = hash_string_to_number(name)
-                print(f"ME   {id} " + name)
                 self.site = Site(id, name, i["icon"], i["site"])
                 continue
             else:
                 name = get_hostname(i["site"])
 
                 id = hash_string_to_number(name)
-                print(f"EDGE {id} " + name)
                 self.edges.append(Site(id, name, i["icon"], i["site"]))
 
     def __repr__(self) -> str:

@@ -20,12 +20,16 @@
 @media (prefers-color-scheme: light) {
 
     .front,
-    .back {
-        background-color: white !important;
+    .back,
+    .author,
+    .name {
+        background-color: grey !important;
+        color: black !important;
     }
 
     .front::after {
         background-color: grey !important;
+        color: black !important;
     }
 }
 

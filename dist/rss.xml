@@ -13,7 +13,7 @@
       <link>http://blog.izfsk.top/rss.xml</link>
     </image>
     <language>zh_CN</language>
-    <lastBuildDate>Mon, 17 Jul 2023 14:23:16 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 18 Jul 2023 00:19:09 +0000</lastBuildDate>
     <item>
       <title>模版功能简介</title>
       <link>https://blog.izfsk.top/articles/README.html</link>
@@ -32,6 +32,7 @@
 &lt;strong&gt;文章归类: &lt;a href="/pages/category.html#测试"&gt;测试&lt;/a&gt; &lt;/strong&gt;
 &lt;input id="contents" type="checkbox"/&gt;
 &lt;ul&gt;
+&lt;li&gt;&lt;a href="#encryptes-sections" id="toc-encryptes-sections"&gt;Encryptes Sections&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#document-metadata" id="toc-document-metadata"&gt;Document metadata&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#assorted-prose-elements" id="toc-assorted-prose-elements"&gt;Assorted prose elements&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#side-notes-and-margin-notes" id="toc-side-notes-and-margin-notes"&gt;Side notes and margin notes&lt;/a&gt;
@@ -94,26 +95,42 @@
 &lt;aside class="warning-draft"&gt;
 &lt;span&gt;⚠️&lt;/span&gt;注意：本文章被标记为草稿！请谨慎对待其内容。 &lt;span&gt;⚠️&lt;/span&gt;
 &lt;/aside&gt;
+&lt;h1 id="encryptes-sections"&gt;Encryptes Sections&lt;/h1&gt;
+&lt;p&gt;use &lt;code&gt;echo -n "YOUR_TEXT_TO_ENCRYPT" | gpg --symmetric --cipher-algo AES256 --armor&lt;/code&gt; to encrypt text, then put here like:&lt;/p&gt;
+&lt;div class="sourceCode" id="cb1"&gt;&lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb1-1"&gt;&lt;a aria-hidden="true" href="#cb1-1" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-2"&gt;&lt;a aria-hidden="true" href="#cb1-2" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="vs"&gt;```{.gpg}&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-3"&gt;&lt;a aria-hidden="true" href="#cb1-3" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="vs"&gt;-----BEGIN PGP MESSAGE-----&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-4"&gt;&lt;a aria-hidden="true" href="#cb1-4" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-5"&gt;&lt;a aria-hidden="true" href="#cb1-5" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="vs"&gt;jA0ECQMCB49M3yRPGh7/0kkB5Cb5CBsZ/fKB6KC3BWh5BPrFAMnjZPwHm9kuW3k8&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-6"&gt;&lt;a aria-hidden="true" href="#cb1-6" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="vs"&gt;s0A+4QO/lyv7tvRfh7x65AfqqgdYPdhcXtdRfMD7ldKyIFFx8vQDklSS&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-7"&gt;&lt;a aria-hidden="true" href="#cb1-7" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="vs"&gt;=necK&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-8"&gt;&lt;a aria-hidden="true" href="#cb1-8" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="vs"&gt;-----END PGP MESSAGE-----&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;pre class="gpg"&gt;&lt;code&gt;-----BEGIN PGP MESSAGE-----
+
+jA0ECQMCB49M3yRPGh7/0kkB5Cb5CBsZ/fKB6KC3BWh5BPrFAMnjZPwHm9kuW3k8
+s0A+4QO/lyv7tvRfh7x65AfqqgdYPdhcXtdRfMD7ldKyIFFx8vQDklSS
+=necK
+-----END PGP MESSAGE-----&lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id="document-metadata"&gt;Document metadata&lt;/h1&gt;
 &lt;p&gt;Pandoc allows setting &lt;a href="https://pandoc.org/MANUAL.html#variables"&gt;variables&lt;/a&gt; in the preamble of a Markdown document with a YAML metadata block, like this:&lt;/p&gt;
-&lt;div class="sourceCode" id="cb1"&gt;&lt;pre class="sourceCode numberSource yaml numberLines"&gt;&lt;code class="sourceCode yaml"&gt;&lt;span id="cb1-1"&gt;&lt;a href="#cb1-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;---&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-2"&gt;&lt;a href="#cb1-2"&gt;&lt;/a&gt;&lt;span class="fu"&gt;uuid&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"87b181b2-202e-11ee-b1e5-84a93896bec6"&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-3"&gt;&lt;a href="#cb1-3"&gt;&lt;/a&gt;&lt;span class="fu"&gt;title&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"模版功能简介"&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-4"&gt;&lt;a href="#cb1-4"&gt;&lt;/a&gt;&lt;span class="fu"&gt;subtitle&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"好好利用本主题吧~"&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-5"&gt;&lt;a href="#cb1-5"&gt;&lt;/a&gt;&lt;span class="fu"&gt;english&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"README"&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-6"&gt;&lt;a href="#cb1-6"&gt;&lt;/a&gt;&lt;span class="fu"&gt;date&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"1980-01-01"&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-7"&gt;&lt;a href="#cb1-7"&gt;&lt;/a&gt;&lt;span class="fu"&gt;category&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"测试"&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-8"&gt;&lt;a href="#cb1-8"&gt;&lt;/a&gt;&lt;span class="fu"&gt;project&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"测试"&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-9"&gt;&lt;a href="#cb1-9"&gt;&lt;/a&gt;&lt;span class="fu"&gt;outdated&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="ch"&gt;true&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-10"&gt;&lt;a href="#cb1-10"&gt;&lt;/a&gt;&lt;span class="fu"&gt;draft&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="ch"&gt;true&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-11"&gt;&lt;a href="#cb1-11"&gt;&lt;/a&gt;&lt;span class="fu"&gt;ref&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-12"&gt;&lt;a href="#cb1-12"&gt;&lt;/a&gt;&lt;span class="at"&gt;  &lt;/span&gt;&lt;span class="kw"&gt;-&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="fu"&gt;name&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"第一个参考链接"&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-13"&gt;&lt;a href="#cb1-13"&gt;&lt;/a&gt;&lt;span class="at"&gt;    &lt;/span&gt;&lt;span class="fu"&gt;url&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"www.example_1.com"&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-14"&gt;&lt;a href="#cb1-14"&gt;&lt;/a&gt;&lt;span class="at"&gt;  &lt;/span&gt;&lt;span class="kw"&gt;-&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="fu"&gt;name&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"第二个参考链接"&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-15"&gt;&lt;a href="#cb1-15"&gt;&lt;/a&gt;&lt;span class="at"&gt;    &lt;/span&gt;&lt;span class="fu"&gt;url&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"www.example_2.com"&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-16"&gt;&lt;a href="#cb1-16"&gt;&lt;/a&gt;&lt;span class="pp"&gt;---&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-17"&gt;&lt;a href="#cb1-17"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb1-18"&gt;&lt;a href="#cb1-18"&gt;&lt;/a&gt;&lt;span class="at"&gt;... markdown content ...&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="sourceCode" id="cb3"&gt;&lt;pre class="sourceCode numberSource yaml numberLines"&gt;&lt;code class="sourceCode yaml"&gt;&lt;span id="cb3-1"&gt;&lt;a href="#cb3-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;---&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-2"&gt;&lt;a href="#cb3-2"&gt;&lt;/a&gt;&lt;span class="fu"&gt;uuid&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"87b181b2-202e-11ee-b1e5-84a93896bec6"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-3"&gt;&lt;a href="#cb3-3"&gt;&lt;/a&gt;&lt;span class="fu"&gt;title&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"模版功能简介"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-4"&gt;&lt;a href="#cb3-4"&gt;&lt;/a&gt;&lt;span class="fu"&gt;subtitle&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"好好利用本主题吧~"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-5"&gt;&lt;a href="#cb3-5"&gt;&lt;/a&gt;&lt;span class="fu"&gt;english&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"README"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-6"&gt;&lt;a href="#cb3-6"&gt;&lt;/a&gt;&lt;span class="fu"&gt;date&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"1980-01-01"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-7"&gt;&lt;a href="#cb3-7"&gt;&lt;/a&gt;&lt;span class="fu"&gt;category&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"测试"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-8"&gt;&lt;a href="#cb3-8"&gt;&lt;/a&gt;&lt;span class="fu"&gt;project&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"测试"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-9"&gt;&lt;a href="#cb3-9"&gt;&lt;/a&gt;&lt;span class="fu"&gt;outdated&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="ch"&gt;true&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-10"&gt;&lt;a href="#cb3-10"&gt;&lt;/a&gt;&lt;span class="fu"&gt;draft&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="ch"&gt;true&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-11"&gt;&lt;a href="#cb3-11"&gt;&lt;/a&gt;&lt;span class="fu"&gt;ref&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-12"&gt;&lt;a href="#cb3-12"&gt;&lt;/a&gt;&lt;span class="at"&gt;  &lt;/span&gt;&lt;span class="kw"&gt;-&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="fu"&gt;name&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"第一个参考链接"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-13"&gt;&lt;a href="#cb3-13"&gt;&lt;/a&gt;&lt;span class="at"&gt;    &lt;/span&gt;&lt;span class="fu"&gt;url&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"www.example_1.com"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-14"&gt;&lt;a href="#cb3-14"&gt;&lt;/a&gt;&lt;span class="at"&gt;  &lt;/span&gt;&lt;span class="kw"&gt;-&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="fu"&gt;name&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"第二个参考链接"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-15"&gt;&lt;a href="#cb3-15"&gt;&lt;/a&gt;&lt;span class="at"&gt;    &lt;/span&gt;&lt;span class="fu"&gt;url&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;"www.example_2.com"&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-16"&gt;&lt;a href="#cb3-16"&gt;&lt;/a&gt;&lt;span class="pp"&gt;---&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-17"&gt;&lt;a href="#cb3-17"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb3-18"&gt;&lt;a href="#cb3-18"&gt;&lt;/a&gt;&lt;span class="at"&gt;... markdown content ...&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This theme’s HTML template allows setting some, but not all, of the variables that Pandoc supports, including:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;title&lt;/code&gt;
@@ -238,13 +255,13 @@ This is a code block.
 &lt;pre&gt;&lt;code&gt;```ruby
 def greet; "Hello, world!"; end
 ```&lt;/code&gt;&lt;/pre&gt;
-&lt;div class="sourceCode" id="cb10"&gt;&lt;pre class="sourceCode ruby"&gt;&lt;code class="sourceCode ruby"&gt;&lt;span id="cb10-1"&gt;&lt;a aria-hidden="true" href="#cb10-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="cf"&gt;def&lt;/span&gt; greet; &lt;span class="st"&gt;"Hello, world!"&lt;/span&gt;; &lt;span class="cf"&gt;end&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="sourceCode" id="cb12"&gt;&lt;pre class="sourceCode ruby"&gt;&lt;code class="sourceCode ruby"&gt;&lt;span id="cb12-1"&gt;&lt;a aria-hidden="true" href="#cb12-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="cf"&gt;def&lt;/span&gt; greet; &lt;span class="st"&gt;"Hello, world!"&lt;/span&gt;; &lt;span class="cf"&gt;end&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id="numbered-and-highlighted-lines"&gt;Numbered and highlighted lines&lt;/h2&gt;
 &lt;p&gt;Pandoc Markdown also supports attaching line numbers to a code block, plain or with syntax highlighting using the &lt;code&gt;.numberLines&lt;/code&gt; CSS class:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;```{.ruby .numberLines}
 def greet; "Hello, world!"; end
 ```&lt;/code&gt;&lt;/pre&gt;
-&lt;div class="sourceCode" id="cb12"&gt;&lt;pre class="sourceCode numberSource ruby numberLines"&gt;&lt;code class="sourceCode ruby"&gt;&lt;span id="cb12-1"&gt;&lt;a href="#cb12-1"&gt;&lt;/a&gt;&lt;span class="cf"&gt;def&lt;/span&gt; greet; &lt;span class="st"&gt;"Hello, world!"&lt;/span&gt;; &lt;span class="cf"&gt;end&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="sourceCode" id="cb14"&gt;&lt;pre class="sourceCode numberSource ruby numberLines"&gt;&lt;code class="sourceCode ruby"&gt;&lt;span id="cb14-1"&gt;&lt;a href="#cb14-1"&gt;&lt;/a&gt;&lt;span class="cf"&gt;def&lt;/span&gt; greet; &lt;span class="st"&gt;"Hello, world!"&lt;/span&gt;; &lt;span class="cf"&gt;end&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The line numbers are clickable and all have HTML IDs attached to them, making them linkable.&lt;/p&gt;
 &lt;p&gt;This theme extends Pandoc’s code blocks with line numbers by allowing individual lines to be highlighted. Emphasize specific lines in a code block by adding various &lt;code&gt;.hl-*&lt;/code&gt; classes for the lines you’d like to highlight, like this:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;```{.numberLines .hl-2 .hl-3}
@@ -253,18 +270,18 @@ This line is highlighted.
 This line is also highlighted.
 This is another line.
 ```&lt;/code&gt;&lt;/pre&gt;
-&lt;div class="sourceCode" id="cb14"&gt;&lt;pre class="sourceCode numberSource numberLines hl-2 hl-3"&gt;&lt;code class="sourceCode"&gt;&lt;span id="cb14-1"&gt;&lt;a href="#cb14-1"&gt;&lt;/a&gt;This is the first line.&lt;/span&gt;
-&lt;span id="cb14-2"&gt;&lt;a href="#cb14-2"&gt;&lt;/a&gt;This line is highlighted.&lt;/span&gt;
-&lt;span id="cb14-3"&gt;&lt;a href="#cb14-3"&gt;&lt;/a&gt;This line is also highlighted.&lt;/span&gt;
-&lt;span id="cb14-4"&gt;&lt;a href="#cb14-4"&gt;&lt;/a&gt;This is another line.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="sourceCode" id="cb16"&gt;&lt;pre class="sourceCode numberSource numberLines hl-2 hl-3"&gt;&lt;code class="sourceCode"&gt;&lt;span id="cb16-1"&gt;&lt;a href="#cb16-1"&gt;&lt;/a&gt;This is the first line.&lt;/span&gt;
+&lt;span id="cb16-2"&gt;&lt;a href="#cb16-2"&gt;&lt;/a&gt;This line is highlighted.&lt;/span&gt;
+&lt;span id="cb16-3"&gt;&lt;a href="#cb16-3"&gt;&lt;/a&gt;This line is also highlighted.&lt;/span&gt;
+&lt;span id="cb16-4"&gt;&lt;a href="#cb16-4"&gt;&lt;/a&gt;This is another line.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The &lt;code&gt;.numberLines&lt;/code&gt; class is required for these line highlights to render correctly.&lt;/p&gt;
 &lt;h3 id="line-highlight-limit"&gt;Line highlight limit&lt;/h3&gt;
 &lt;p&gt;A quick note on line highlights: this feature is implemented in CSS, and is currently limited to a max line highlight of the 40&lt;sup&gt;th&lt;/sup&gt; line. More lines can always be specified by adding &lt;a href="https://github.com/jez/pandoc-markdown-css-theme/blob/27d0aa58bfc6eafe296e2cef1900a39c9c2507a7/public/css/theme.css#L539-L578"&gt;more lines like this&lt;/a&gt; using the &lt;code&gt;header-includes&lt;/code&gt; variable:&lt;/p&gt;
-&lt;div class="sourceCode" id="cb15"&gt;&lt;pre class="sourceCode yaml"&gt;&lt;code class="sourceCode yaml"&gt;&lt;span id="cb15-1"&gt;&lt;a aria-hidden="true" href="#cb15-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;---&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb15-2"&gt;&lt;a aria-hidden="true" href="#cb15-2" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;# ...&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb15-3"&gt;&lt;a aria-hidden="true" href="#cb15-3" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="fu"&gt;header-includes&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb15-4"&gt;&lt;a aria-hidden="true" href="#cb15-4" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;-&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;'&amp;lt;style&amp;gt;pre.hl-41 &amp;gt; code.sourceCode &amp;gt; span:nth-of-type(41)::after { content: ""; }&amp;lt;/style&amp;gt;'&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb15-5"&gt;&lt;a aria-hidden="true" href="#cb15-5" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;---&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="sourceCode" id="cb17"&gt;&lt;pre class="sourceCode yaml"&gt;&lt;code class="sourceCode yaml"&gt;&lt;span id="cb17-1"&gt;&lt;a aria-hidden="true" href="#cb17-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;---&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb17-2"&gt;&lt;a aria-hidden="true" href="#cb17-2" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;# ...&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb17-3"&gt;&lt;a aria-hidden="true" href="#cb17-3" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="fu"&gt;header-includes&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb17-4"&gt;&lt;a aria-hidden="true" href="#cb17-4" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;-&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;'&amp;lt;style&amp;gt;pre.hl-41 &amp;gt; code.sourceCode &amp;gt; span:nth-of-type(41)::after { content: ""; }&amp;lt;/style&amp;gt;'&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb17-5"&gt;&lt;a aria-hidden="true" href="#cb17-5" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;---&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id="tight-code-blocks"&gt;Tight code blocks&lt;/h2&gt;
 &lt;p&gt;Another feature unique to this theme is is &lt;code&gt;.tight-code&lt;/code&gt;. Sometimes for drawing ASCII art it’s important that there be no gaps between lines, so that things like unicode box drawing characters attach:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;```{.tight-code}
@@ -334,20 +351,20 @@ And so is this:
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;On top of the syntax Pandoc Markdown provides, this theme supports attaching captions to code blocks by wrapping the code block in a &lt;code&gt;&amp;lt;figure&amp;gt;&lt;/code&gt; tag.&lt;/p&gt;
-&lt;div class="sourceCode" id="cb20"&gt;&lt;pre class="sourceCode numberSource html numberLines hl-1 hl-8 hl-9"&gt;&lt;code class="sourceCode html"&gt;&lt;span id="cb20-1"&gt;&lt;a href="#cb20-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;figure&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb20-2"&gt;&lt;a href="#cb20-2"&gt;&lt;/a&gt;```ruby&lt;/span&gt;
-&lt;span id="cb20-3"&gt;&lt;a href="#cb20-3"&gt;&lt;/a&gt;source 'https://rubygems.org'&lt;/span&gt;
-&lt;span id="cb20-4"&gt;&lt;a href="#cb20-4"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb20-5"&gt;&lt;a href="#cb20-5"&gt;&lt;/a&gt;gem 'sorbet'&lt;/span&gt;
-&lt;span id="cb20-6"&gt;&lt;a href="#cb20-6"&gt;&lt;/a&gt;gem 'sorbet-runtime'&lt;/span&gt;
-&lt;span id="cb20-7"&gt;&lt;a href="#cb20-7"&gt;&lt;/a&gt;```&lt;/span&gt;
-&lt;span id="cb20-8"&gt;&lt;a href="#cb20-8"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;figcaption&amp;gt;&lt;/span&gt;An example Gemfile&lt;span class="kw"&gt;&amp;lt;/figcaption&amp;gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb20-9"&gt;&lt;a href="#cb20-9"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;/figure&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="sourceCode" id="cb22"&gt;&lt;pre class="sourceCode numberSource html numberLines hl-1 hl-8 hl-9"&gt;&lt;code class="sourceCode html"&gt;&lt;span id="cb22-1"&gt;&lt;a href="#cb22-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;figure&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb22-2"&gt;&lt;a href="#cb22-2"&gt;&lt;/a&gt;```ruby&lt;/span&gt;
+&lt;span id="cb22-3"&gt;&lt;a href="#cb22-3"&gt;&lt;/a&gt;source 'https://rubygems.org'&lt;/span&gt;
+&lt;span id="cb22-4"&gt;&lt;a href="#cb22-4"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb22-5"&gt;&lt;a href="#cb22-5"&gt;&lt;/a&gt;gem 'sorbet'&lt;/span&gt;
+&lt;span id="cb22-6"&gt;&lt;a href="#cb22-6"&gt;&lt;/a&gt;gem 'sorbet-runtime'&lt;/span&gt;
+&lt;span id="cb22-7"&gt;&lt;a href="#cb22-7"&gt;&lt;/a&gt;```&lt;/span&gt;
+&lt;span id="cb22-8"&gt;&lt;a href="#cb22-8"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;figcaption&amp;gt;&lt;/span&gt;An example Gemfile&lt;span class="kw"&gt;&amp;lt;/figcaption&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb22-9"&gt;&lt;a href="#cb22-9"&gt;&lt;/a&gt;&lt;span class="kw"&gt;&amp;lt;/figure&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;figure&gt;
-&lt;div class="sourceCode" id="cb21"&gt;&lt;pre class="sourceCode ruby"&gt;&lt;code class="sourceCode ruby"&gt;&lt;span id="cb21-1"&gt;&lt;a aria-hidden="true" href="#cb21-1" tabindex="-1"&gt;&lt;/a&gt;source &lt;span class="vs"&gt;'https://rubygems.org'&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb21-2"&gt;&lt;a aria-hidden="true" href="#cb21-2" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb21-3"&gt;&lt;a aria-hidden="true" href="#cb21-3" tabindex="-1"&gt;&lt;/a&gt;gem &lt;span class="vs"&gt;'sorbet'&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb21-4"&gt;&lt;a aria-hidden="true" href="#cb21-4" tabindex="-1"&gt;&lt;/a&gt;gem &lt;span class="vs"&gt;'sorbet-runtime'&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="sourceCode" id="cb23"&gt;&lt;pre class="sourceCode ruby"&gt;&lt;code class="sourceCode ruby"&gt;&lt;span id="cb23-1"&gt;&lt;a aria-hidden="true" href="#cb23-1" tabindex="-1"&gt;&lt;/a&gt;source &lt;span class="vs"&gt;'https://rubygems.org'&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb23-2"&gt;&lt;a aria-hidden="true" href="#cb23-2" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb23-3"&gt;&lt;a aria-hidden="true" href="#cb23-3" tabindex="-1"&gt;&lt;/a&gt;gem &lt;span class="vs"&gt;'sorbet'&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb23-4"&gt;&lt;a aria-hidden="true" href="#cb23-4" tabindex="-1"&gt;&lt;/a&gt;gem &lt;span class="vs"&gt;'sorbet-runtime'&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;figcaption&gt;
     An example Gemfile
     &lt;/figcaption&gt;
@@ -448,11 +465,11 @@ And so is this:
     &lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;div class="wide"&gt;
-&lt;div class="sourceCode" id="cb22"&gt;&lt;pre class="sourceCode numberSource yaml numberLines hl-4"&gt;&lt;code class="sourceCode yaml"&gt;&lt;span id="cb22-1"&gt;&lt;a href="#cb22-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;---&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb22-2"&gt;&lt;a href="#cb22-2"&gt;&lt;/a&gt;&lt;span class="co"&gt;# ...&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb22-3"&gt;&lt;a href="#cb22-3"&gt;&lt;/a&gt;&lt;span class="fu"&gt;header-includes&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb22-4"&gt;&lt;a href="#cb22-4"&gt;&lt;/a&gt;&lt;span class="kw"&gt;-&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;'&amp;lt;style&amp;gt;pre.hl-41 &amp;gt; code.sourceCode &amp;gt; span:nth-of-type(41)::after { content: ""; }&amp;lt;/style&amp;gt;'&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb22-5"&gt;&lt;a href="#cb22-5"&gt;&lt;/a&gt;&lt;span class="pp"&gt;---&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="sourceCode" id="cb24"&gt;&lt;pre class="sourceCode numberSource yaml numberLines hl-4"&gt;&lt;code class="sourceCode yaml"&gt;&lt;span id="cb24-1"&gt;&lt;a href="#cb24-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;---&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb24-2"&gt;&lt;a href="#cb24-2"&gt;&lt;/a&gt;&lt;span class="co"&gt;# ...&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb24-3"&gt;&lt;a href="#cb24-3"&gt;&lt;/a&gt;&lt;span class="fu"&gt;header-includes&lt;/span&gt;&lt;span class="kw"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb24-4"&gt;&lt;a href="#cb24-4"&gt;&lt;/a&gt;&lt;span class="kw"&gt;-&lt;/span&gt;&lt;span class="at"&gt; &lt;/span&gt;&lt;span class="st"&gt;'&amp;lt;style&amp;gt;pre.hl-41 &amp;gt; code.sourceCode &amp;gt; span:nth-of-type(41)::after { content: ""; }&amp;lt;/style&amp;gt;'&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb24-5"&gt;&lt;a href="#cb24-5"&gt;&lt;/a&gt;&lt;span class="pp"&gt;---&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;(There is currently a bug where using &lt;code&gt;.wide&lt;/code&gt; with &lt;code&gt;.numberLines&lt;/code&gt; code blocks causes the line numbers to be hidden. They are still highlightable and linkable.)&lt;/p&gt;
 &lt;p&gt;There are two supported syntaxes for marking things wide:&lt;/p&gt;
@@ -559,13 +576,13 @@ And so is this:
 &lt;br/&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;You can also use the &lt;code&gt;.only-light-mode&lt;/code&gt; and &lt;code&gt;.only-dark-mode&lt;/code&gt; CSS classes to make something appear only in light or dark mode. One use case for this is with images. For example, here’s some Pandoc markdown using &lt;a href="https://pandoc.org/MANUAL.html#extension-fenced_divs"&gt;&lt;code&gt;fenced_divs&lt;/code&gt;&lt;/a&gt; that shows a light or dark mode version of an image:&lt;/p&gt;
-&lt;div class="sourceCode" id="cb26"&gt;&lt;pre class="sourceCode numberSource markdown numberLines hl-1 hl-5"&gt;&lt;code class="sourceCode markdown"&gt;&lt;span id="cb26-1"&gt;&lt;a href="#cb26-1"&gt;&lt;/a&gt;:::{.only-light-mode}&lt;/span&gt;
-&lt;span id="cb26-2"&gt;&lt;a href="#cb26-2"&gt;&lt;/a&gt;&lt;span class="al"&gt;![The light-mode version of the image](../img/light-desktop.png)&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb26-3"&gt;&lt;a href="#cb26-3"&gt;&lt;/a&gt;:::&lt;/span&gt;
-&lt;span id="cb26-4"&gt;&lt;a href="#cb26-4"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb26-5"&gt;&lt;a href="#cb26-5"&gt;&lt;/a&gt;:::{.only-dark-mode}&lt;/span&gt;
-&lt;span id="cb26-6"&gt;&lt;a href="#cb26-6"&gt;&lt;/a&gt;&lt;span class="al"&gt;![The dark-mode version of the image](../img/dark-desktop.png)&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb26-7"&gt;&lt;a href="#cb26-7"&gt;&lt;/a&gt;:::&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="sourceCode" id="cb28"&gt;&lt;pre class="sourceCode numberSource markdown numberLines hl-1 hl-5"&gt;&lt;code class="sourceCode markdown"&gt;&lt;span id="cb28-1"&gt;&lt;a href="#cb28-1"&gt;&lt;/a&gt;:::{.only-light-mode}&lt;/span&gt;
+&lt;span id="cb28-2"&gt;&lt;a href="#cb28-2"&gt;&lt;/a&gt;&lt;span class="al"&gt;![The light-mode version of the image](../img/light-desktop.png)&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb28-3"&gt;&lt;a href="#cb28-3"&gt;&lt;/a&gt;:::&lt;/span&gt;
+&lt;span id="cb28-4"&gt;&lt;a href="#cb28-4"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb28-5"&gt;&lt;a href="#cb28-5"&gt;&lt;/a&gt;:::{.only-dark-mode}&lt;/span&gt;
+&lt;span id="cb28-6"&gt;&lt;a href="#cb28-6"&gt;&lt;/a&gt;&lt;span class="al"&gt;![The dark-mode version of the image](../img/dark-desktop.png)&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb28-7"&gt;&lt;a href="#cb28-7"&gt;&lt;/a&gt;:::&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Only one of those divs will be rendered, depending on which theme is active. You can see the result below, and you can toggle your light or dark mode theme to see how the image updates:&lt;/p&gt;
 &lt;div class="only-light-mode"&gt;
 &lt;figure&gt;
@@ -579,6 +596,23 @@ And so is this:
 &lt;figcaption aria-hidden="true"&gt;The dark-mode version of the image&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;/div&gt;
+&lt;pre class="gpg"&gt;&lt;code&gt;-----BEGIN PGP MESSAGE-----
+
+jA0ECQMCPqkzW25xRi7/0ukBiR+8M1Q2/xMKMRY3abKJMvNEdu5ltkUDOdldDr6H
+GpOGL5/zQZcimxyRZ9EbN4QjXHSomxPuaNyTzNzTSYTCfQbqd4dAZRpa3Hw91PnQ
+8P13AGBKc+8ta0H3PJ0Mffk6gVgFxkvN+ZEFbhCJ0nWTGkW0E/vXFAC0PrUOZvwf
+EUpZnrnmaTDDZvDg4ZKNP4IMpCP1gIQcdtjxfqrENy3+qE7mxun8Q1UrlfuNwyub
+ln9NIS/8xpYdy1EuGh/Kv6n2fCuTSWJhUkMuse3LfF3pg0EINEfWxZ8QYsJ8uN15
+E0hjKZuy5DT2D/z+MVVdjXwk8FxrkuWYKm8Sik940LmRIY6xMMaKdAK0OubQTzUl
+8CqJS1SoeQS3S4Osd/M2/RTjccR4ZbmrrFQgwLwUwVPdwv6LhYqfxcwB8RO1GGN2
+LopgEwSeELRUJQiitThq5JpIoiaCrQz40fpYD6EKcWEbE2RW2nCy7JuLXUfM0LVJ
+SSVnJ+6s4PQ+0CvmCS2frpdhZfnBRlLVReW69Mmy/sg661bBVV9uh8xwqcTkSJJ1
+tzayiEpi3JvBWiBvnaI5asKz52vAyfdJBt0soDeAXsovge2wLoSECCYXSajmSjSB
+RR5P/Mngv3wIxWomL7rqa2JggLCI8rJQWi75nkSExexsqO2Fh4cQIKmG4uiqgW/o
+E1cYREuQLTTL5fZ04VL7KSh9WMCcCnXiUU+8ipUVCAZy1aBXl9hQ4/fmRVgUo2Ks
+VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
+=6dpw
+-----END PGP MESSAGE-----&lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id="print-styles"&gt;Print styles&lt;/h1&gt;
 &lt;p&gt;As a reminder, this theme has custom print styles for U.S. Letter size paper. The print styles look similar to a somewhat narrow desktop screen, with enough room for a right margin with sidenotes, but not quite enough width to support the full 745px that the main body would normally take up. There is no large left margin, so the table of contents is shown at the top of the page (expanded).&lt;/p&gt;
 &lt;p&gt;If print styles matter to you, take care to make sure that things don’t wrap. Some things like tables or math that would normally overflow and scroll on a screen will be clipped when printed. Always test your content before publishing.&lt;/p&gt;
@@ -598,7 +632,7 @@ And so is this:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="1980-01-01"&gt;创建日期：1980-01-01&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-17&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-18&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;

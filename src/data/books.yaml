@@ -11,6 +11,12 @@ reading:
     author: "David C. Lay, Steven R. Lay, Judi J. McDonald"
     isbn: 9787111602576
 
+  - name: "1984"
+    cover: "https://ia804601.us.archive.org/19/items/19840000orwe_p4z8/__ia_thumb.jpg"
+    description: "A novel about today."
+    author: "Orwell, George"
+    isbn: 9781782124207
+
 finished:
   - name: "Computer Systems A Programmer’s Perspective"
     cover: "http://csapp.cs.cmu.edu/3e/images/csapp3e-cover.jpg"
