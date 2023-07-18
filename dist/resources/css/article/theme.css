@@ -39,8 +39,8 @@
 
   /* --- Text --- */
 
-  --font-family-prose: 'CONTENT', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  --font-family-heading: 'SCRIPT', 'CONTENT', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --font-family-prose: 'CONTENT', system-ui, -apple-system, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --font-family-heading: 'SCRIPT', 'CONTENT', system-ui, -apple-system, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   --font-family-code: 'CODE', Menlo, monospace;
   --side-note-number-font-family: var(--font-family-prose);
 
@@ -72,7 +72,7 @@
 
   --h1-font-size: 2.35em;
   --h1-code-font-size: 29px;
-  --h1-line-height: 36px;
+  --h1-line-height: 48px;
   --h1-word-spacing: 1px;
   --h1-margin-top: 35px;
   --h1-margin-bottom: 12px;
@@ -111,14 +111,48 @@
   /* --- Layout --- */
 
   --main-width: 750px;
-  /* The name doesn't indicate it, but this variable actually specifies an
-   * effective minimum width. (It didn't previously behave this way, but the
-   * change to do so was made in a backwards-compatible way, so the variable
-   * was not renamed.)
-   **/
   --main-width-narrow: 550px;
   --side-note-max-width: 300px;
 
+}
+
+@media only screen and (max-width: 500px) {
+  :root {
+    --title-font-size: 34px;
+    --title-line-height: 40px;
+    --line-height: 28px;
+    --font-size: 18px;
+
+    --h1-font-size: 24px;
+    --h1-code-font-size: 26px;
+    --h1-line-height: 30px;
+    --h1-word-spacing: 1px;
+
+    --h2-font-size: 24px;
+    --h2-code-font-size: 20px;
+    --h2-line-height: 38px;
+    --h2-word-spacing: 0.5px;
+  }
+
+  h1.title {
+    margin-top: 1.5em !important;
+  }
+
+  h3.subtitle {
+    line-height: 15px;
+    font-style: normal;
+    margin-bottom: 2.45rem;
+  }
+
+  main>h1,
+  main>h2,
+  main>h3 {
+    color: var(--color-link);
+  }
+
+  .metadata {
+    align-items: flex-start !important;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -341,6 +375,12 @@ label.sidenote-number {
 /* }}} */
 /* }}} */
 /* ----- Headings ------------------------------------------------------ {{{ */
+h1,
+h2,
+h3 {
+  page-break-after: avoid;
+  margin-bottom: 20px;
+}
 
 h1::before,
 h2::before,
@@ -375,6 +415,7 @@ h1,
 h2 {
   font-family: var(--font-family-heading);
   font-weight: var(--heading-font-weight);
+  word-break: keep-all;
 }
 
 h4,
@@ -524,6 +565,12 @@ label>em {
 
 ol>li {
   padding-left: var(--ol-li-padding-left);
+}
+
+ol>li>p,
+ul>li>p {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 ol {
@@ -1602,107 +1649,6 @@ span#backtotop {
   margin-left: 0.25in;
 }
 
-@media print {
-  :root {
-    --line-height: 18px;
-    --font-size: 12px;
-
-    --inline-code-font-size: 11px;
-    --code-block-font-size: 10px;
-    --code-block-side-padding: 6px;
-    --line-numbers-font-size: 8.5px;
-
-    --tight-code-line-height: 12.5px;
-    --tight-code-padding-top: 2px;
-
-    --side-note-line-height: 14px;
-    --side-note-font-size: 9px;
-    --side-note-code-font-size: 9px;
-    --side-note-baseline-offset: 3px;
-    --side-note-sup-offset: -4px;
-    --side-note-number-hang-left: -4px;
-    --side-note-text-indent: -6.5px;
-
-    --title-font-size: 30px;
-    --title-code-font-size: 29px;
-    --title-line-height: 37px;
-    --title-margin-top: 71px;
-
-    --h1-font-size: 22px;
-    --h1-code-font-size: 20px;
-    --h1-line-height: 28px;
-    --h1-word-spacing: 0.5px;
-    --h1-margin-top: 18px;
-    --h1-margin-bottom: 6px;
-
-    --h2-font-size: 16.5px;
-    --h2-code-font-size: 15px;
-    --h2-line-height: 22px;
-    --h2-word-spacing: 0px;
-    --h2-margin-top: 14px;
-    --h2-margin-bottom: 4.5px;
-
-    --ul-indent-size: 18px;
-    --ol-indent-size: 14px;
-
-    --hr-margin-top: 14px;
-
-    --figcaption-line-height: 16px;
-    --figcaption-font-size: 10px;
-    --figcaption-code-font-size: 9.5px;
-    --figcaption-gap: 4.5px;
-    --captioned-figure-gap: 7.5px;
-
-    --table-line-height: 16px;
-    --table-font-size: 10px;
-    --table-code-font-size: 9.5px;
-
-    --nav-toc-font-size: 8.5px;
-    --nav-toc-code-font-size: 8.5px;
-  }
-
-  body {
-    padding-top: 0;
-    /* To make room for line numbers in left margin. */
-    padding-left: 0.25in;
-  }
-
-  header,
-  nav#TOC,
-  main,
-  footer {
-    width: 5.25in;
-    margin-right: auto;
-  }
-
-  .sidenote,
-  .marginnote {
-    width: 2in;
-    margin-right: -2.25in;
-  }
-
-  .wide {
-    width: 7.5in;
-    overflow-x: hidden;
-    overflow-y: hidden;
-  }
-
-  .wide .katex-display,
-  .wide .katex-display>.katex {
-    text-align: left;
-  }
-
-  .wide figcaption,
-  .wide table>caption {
-    text-align: left;
-    width: 5.25in;
-  }
-
-  .wide pre>code {
-    white-space: pre-wrap;
-  }
-}
-
 .tools {
   display: flex;
   align-items: center;
@@ -1712,13 +1658,6 @@ span#backtotop {
 .tools>span {
   display: contents;
   cursor: url("/resources/img/select.cur"), auto;
-}
-
-h1,
-h2,
-h3 {
-  page-break-after: avoid;
-  margin-bottom: 20px;
 }
 
 table,
