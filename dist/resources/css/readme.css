@@ -22,6 +22,11 @@
     }
 }
 
+@font-face {
+    font-family: 'UNI';
+    src: url("/resources/fonts/subsets/unifont-15.0.06.subset.woff2");
+}
+
 li {
     font-size: 16px;
 }

@@ -20,7 +20,7 @@
 </style>
 
 
-  <script src="/resources/js/article.js"></script>
+  <script src="/resources/js/article.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
 </head>
@@ -40,6 +40,8 @@
 
   
   <main>
+    
+
     <p>我想要禁止服务器发送 Server: Apache 的 Header，但是不能通过直接配置的方法实现，需要使用第三方模块来实现。也就是这个 ModSecurity。除了这个功能以外 ModSecurity 就像它的名字那样包含了大量的的安全加强功能。</p>
     <p>首先你需要安装一系列前置:编译器套件不用多说，在 SUSE 上还需要额外安装 gcc-c++ 。除此以外还有其他的前置需要安装，<code>zypper in libyajl libyajl-devel</code> 即可。</p>
     <p>接下来编译安装 ModSecurity 主体：</p>
@@ -90,7 +92,7 @@ modsecurity on</code></pre>
     <p class="signoff">
     <div class="metadata">
             <p class="date"><time datetime="2023-03-10">创建日期：2023-03-10</time></p>
-            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-19</time></p>
     </div>
     </p>
   </footer>

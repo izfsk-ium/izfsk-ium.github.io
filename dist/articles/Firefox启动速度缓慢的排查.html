@@ -20,7 +20,7 @@
 </style>
 
 
-  <script src="/resources/js/article.js"></script>
+  <script src="/resources/js/article.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
 </head>
@@ -40,6 +40,8 @@
 
   
   <main>
+    
+
     <p><strong>TL；DR</strong>：直接在 <code>/etc/hosts</code> 里增加一行记录，把本机主机名指向 <code>127.0.0.1</code> 即可。</p>
     <p>一般 Linux 发行版的默认浏览器都是 Firefox, 但是我在 openSUSE 上的 Firefox 启动每一次都需要很久，而且每次等待的时间还不一样，多则 10 秒，少则 3-4 秒，很是折磨人。这个问题之前用其他发行版的时候都遇到过，可以确定不是操作系统的原因，我不想因为这个原因就放弃 Firefox 使用 Chrome，所以打算彻底调查一下问题的原因。</p>
     <p>首先我尝试着使用安全模式打开 Firefox, 在命令行启动时加上 <code>--safe-mode</code>, 但是依旧没有效果，所以可以排除是扩展插件的问题。我遂怀疑是 Firefox 在寻找某个文件的时候出了故障，用 <code>strace</code> 追踪一下系统调用，加上时间戳，找到间隔好几秒的断层，看看它到底在访问什么文件：</p>
@@ -81,7 +83,7 @@
     <p class="signoff">
     <div class="metadata">
             <p class="date"><time datetime="2022-12-26">创建日期：2022-12-26</time></p>
-            <p class="lastmodify"><time>最后编译：2023-07-14</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-19</time></p>
     </div>
     </p>
   </footer>

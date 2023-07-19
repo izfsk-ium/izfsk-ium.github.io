@@ -1,4 +1,4 @@
-let fontFamily = 'CONTENT';
+let fontFamily = 'CONTENT', unifontLoaded = false;
 
 function handleGPGData() {
     function generateUniqueID() {
@@ -82,6 +82,22 @@ function handleGPGData() {
 
 }
 
+function removeAllStylesheets() {
+    document.querySelectorAll('link[rel="stylesheet"]').forEach((linkElement) => {
+        linkElement.remove();
+    });
+    document.querySelectorAll('style').forEach((styleElement) => {
+        styleElement.remove();
+    });
+}
+
+function loadNewStylesheet(src) {
+    const newStylesheet = document.createElement('link');
+    newStylesheet.rel = 'stylesheet';
+    newStylesheet.href = src;
+    document.head.appendChild(newStylesheet);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     new Viewer(document.querySelector('main'));
     document.getElementById('backtotop').onclick = e => {
@@ -92,10 +108,37 @@ document.addEventListener('DOMContentLoaded', () => {
     /** remove */
     document.getElementById("larger").style.display = 'none';
     document.getElementById("smaller").style.display = 'none';
+    /** Change font */
     document.getElementById("switchfont").onclick = () => {
+        if (!unifontLoaded) {
+            unifontLoaded = true;
+            const fontStylesheet = `
+                @font-face { font-family: 'UNI';
+                    src: url('/resources/fonts/subsets/unifont-15.0.06.subset.woff2'); }
+            `;
+            const styleElement = document.createElement('style');
+            styleElement.innerHTML = fontStylesheet;
+            document.head.appendChild(styleElement);
+        }
         const styleSheet = Array.from(document.styleSheets).find(sheet => sheet.href === null);
-        styleSheet.addRule(':root', `--font-family-prose: ${fontFamily === 'CONTENT' ? 'system-ui' : 'CONTENT'}`);
-        fontFamily = (fontFamily === 'CONTENT' ? 'system-ui' : 'CONTENT');
+        styleSheet.addRule(':root', `--font-family-prose: ${fontFamily === 'CONTENT' ? 'UNI' : 'CONTENT'}`);
+        styleSheet.addRule(':root', `--font-family-heading: ${fontFamily === 'CONTENT' ? 'UNI' : 'CONTENT'}`);
+        fontFamily = (fontFamily === 'CONTENT' ? 'UNI' : 'CONTENT');
+    }
+    /** Reading mode */
+    document.getElementById("readingmode").onclick = () => {
+        removeAllStylesheets();
+        loadNewStylesheet("/resources/css/article/simple.css");
+        const buttonHTML = '<button id="goBack">返回普通模式</button>';
+        document.getElementById('TOC').insertAdjacentHTML('beforebegin', buttonHTML);
+        document.getElementById("goBack").onclick = e => {
+            e.preventDefault();
+            removeAllStylesheets();
+            loadNewStylesheet("/resources/css/article/theme.css");
+            loadNewStylesheet("/resources/css/article/code.css");
+            loadNewStylesheet("/resources/css/article/prebuilt-fonts.css")
+            document.getElementById("goBack").remove();
+        }
     }
 
     // Non-essential if user has JavaScript off. Just makes checkboxes look nicer.
@@ -119,9 +162,8 @@ document.addEventListener('DOMContentLoaded', () => {
         progressBar.value = window.scrollY;
     });
 
-    if (document.querySelector(".subtitle").innerHTML == "&nbsp;") {
+    if (document.querySelector(".subtitle").innerHTML == "&nbsp;")
         document.querySelector(".subtitle").innerHTML = document.querySelector(".date > time:nth-child(1)").innerHTML.substr(5);
-    }
 
     handleGPGData();
 }, false);

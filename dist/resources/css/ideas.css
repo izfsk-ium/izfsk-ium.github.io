@@ -22,7 +22,7 @@ body {
 
 @media (prefers-color-scheme: light) {
     h1 {
-        color: black;
+        color: blanchedalmond;
     }
 
     header .logo {
@@ -254,14 +254,7 @@ a.pageButton:hover {
 .update code {
     background: var(--hover-bg);
     font-size: 1em;
-    font-family: 'IBM Plex Mono', 'Menlo', 'Monaco', monospace;
-    /*
-     * In Safari (2021), word-break: break-word from `.update` combined with
-     * certain contents of <pre> tags that do not begin lines with whitespace
-     * break line-wrapping behavior. This inversion of word-break works around
-     * that Safari bug (or at least, what appears to be a browser bug, as
-     * Chrome does not reproduce).
-     */
+    font-family: 'CODE', 'Menlo', 'Monaco', monospace;
     word-break: initial;
 }
 
