@@ -13,7 +13,7 @@
       <link>http://blog.izfsk.top/rss.xml</link>
     </image>
     <language>zh_CN</language>
-    <lastBuildDate>Wed, 19 Jul 2023 00:09:53 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 20 Jul 2023 06:42:30 +0000</lastBuildDate>
     <item>
       <title>模版功能简介</title>
       <link>https://blog.izfsk.top/articles/README.html</link>
@@ -8056,7 +8056,7 @@ server3.example.com
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-02-26"&gt;创建日期：2023-02-26&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-20&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -11066,6 +11066,234 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">03566ccc-fb0d-4ff6-b67f-5e0a53204d4b</guid>
       <pubDate>Sat, 01 Jul 2023 00:00:00 +0800</pubDate>
+    </item>
+    <item>
+      <title>在虚拟机中安装 Windows95</title>
+      <link>https://blog.izfsk.top/articles/install-Windows95-in-oracle-virtual-box.html</link>
+      <description>在虚拟机中安装 Windows95</description>
+      <content:encoded>&lt;body&gt;
+&lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
+&lt;header&gt;
+&lt;h1 class="title"&gt;在虚拟机中安装 Windows95&lt;/h1&gt;
+&lt;!-- Subtitle --&gt;
+&lt;h3 class="subtitle"&gt; &lt;/h3&gt;
+&lt;/header&gt;
+&lt;nav id="TOC" role="doc-toc"&gt;
+&lt;strong&gt;文章归类: &lt;a href="/pages/category.html#考古"&gt;考古&lt;/a&gt; &lt;/strong&gt;
+&lt;input id="contents" type="checkbox"/&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#转换安装镜像" id="toc-转换安装镜像"&gt;转换安装镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#创建虚拟机" id="toc-创建虚拟机"&gt;创建虚拟机&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#安装系统" id="toc-安装系统"&gt;安装系统&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#安装-windows95" id="toc-安装-windows95"&gt;安装 Windows95&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#解决-2.1ghz-问题" id="toc-解决-2.1ghz-问题"&gt;解决 2.1GHz 问题&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#文件复制问题" id="toc-文件复制问题"&gt;文件复制问题&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#reference"&gt;参考链接&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt; &lt;/li&gt;
+&lt;li class="tools"&gt;
+&lt;span id="backtomain"&gt;
+&lt;svg class="bi bi-house" fill="currentColor" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"&gt;
+&lt;path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/span&gt;
+&lt;span id="readingmode"&gt;
+&lt;svg class="bi bi-book" fill="currentColor" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"&gt;
+&lt;path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/span&gt;
+&lt;span id="larger"&gt; &lt;/span&gt;
+&lt;span id="smaller"&gt;&lt;/span&gt;
+&lt;span id="switchfont"&gt;
+&lt;svg class="bi bi-fonts" fill="currentColor" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"&gt;
+&lt;path d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/span&gt;
+&lt;span id="backtotop"&gt;
+&lt;svg class="bi bi-arrow-bar-up" fill="currentColor" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"&gt;
+&lt;path d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" fill-rule="evenodd"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/span&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/nav&gt;
+&lt;main&gt;
+&lt;p&gt;我想要安装 FreeDOS 来考古，以及安装 Windows95 和 Borland C++ 游玩。安装 FreeDOS 和普通操作系统有些不同，以下做一个记录。&lt;/p&gt;
+&lt;div class="note red"&gt;
+&lt;table&gt;
+&lt;tbody&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;ℹ️ 如果你要参考，请&lt;strong&gt;完整的阅读完这篇文章&lt;/strong&gt;！&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;h2 id="转换安装镜像"&gt;转换安装镜像&lt;/h2&gt;
+&lt;p&gt;首先你需要一个&lt;a href="https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.3/official/FD13-FullUSB.zip"&gt;安装镜像文件&lt;/a&gt;，这是一个 ZIP 压缩包，而不是期望的 ISO 镜像。 解压以后，会有一个 img 文件，同样无法直接挂载使用。这玩意实际上是一个完整的磁盘镜像文件。VirtualBox 提供了对应的工具转换其为 VDI 格式：&lt;/p&gt;
+&lt;div class="sourceCode" id="cb1"&gt;&lt;pre class="sourceCode sh"&gt;&lt;code class="sourceCode bash"&gt;&lt;span id="cb1-1"&gt;&lt;a aria-hidden="true" href="#cb1-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="ex"&gt;$&lt;/span&gt; VBoxManage convertfromraw &lt;span class="at"&gt;--format&lt;/span&gt; VDI &lt;span class="pp"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;filename&lt;/span&gt;&lt;span class="pp"&gt;]&lt;/span&gt;.img &lt;span class="pp"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;filename&lt;/span&gt;&lt;span class="pp"&gt;]&lt;/span&gt;.vdi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;然后就会得到一个可用的 VDI 镜像了。&lt;/p&gt;
+&lt;h2 id="创建虚拟机"&gt;创建虚拟机&lt;/h2&gt;
+&lt;p&gt;按照一半流程创建虚拟机，但注意&lt;strong&gt;不要添加任何磁盘&lt;/strong&gt;：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="创建虚拟机" src="./assets/%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA.jpg"/&gt;
+&lt;figcaption aria-hidden="true"&gt;创建虚拟机&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;接下来配置磁盘，打开新建的虚拟机的配置页面：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在原有的 IDE 控制器上增加一个新的磁盘，选定刚才转换好的 VID 镜像&lt;/li&gt;
+&lt;li&gt;新增一个 AHCI 控制器，创建一个新的空 VID 介质&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;最后的配置应该是这样：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="磁盘配置结果" src="./assets/%E9%85%8D%E7%BD%AE%E7%A3%81%E7%9B%98.png"/&gt;
+&lt;figcaption aria-hidden="true"&gt;磁盘配置结果&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;然后启动。&lt;/p&gt;
+&lt;h2 id="安装系统"&gt;安装系统&lt;/h2&gt;
+&lt;p&gt;启动的第一屏是选择语言：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="选择语言" src="./assets/boot1.png"/&gt;
+&lt;figcaption aria-hidden="true"&gt;选择语言&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;接下来一路 Enter 下去，按照它的要求给磁盘分区，然后重新启动。&lt;strong&gt;但是，重启之后又会回到同样的步骤&lt;/strong&gt;。你需要在第一次分区完毕以后，关掉虚拟机，打开虚拟机设置，将 IDE 控制器中的安装镜像 VDI 删除，再重新添加这个 VDI，再重新启动虚拟机。按照原来的方式 Enter 下去，这一次要求分区确认后，会得到不一样的显示界面：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="不同的界面" src="./assets/boot2.png"/&gt;
+&lt;figcaption aria-hidden="true"&gt;不同的界面&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;这就是真正的安装了。选择键盘布局，选择完全安装：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="选择安装类型" src="./assets/install3.png"/&gt;
+&lt;figcaption aria-hidden="true"&gt;选择安装类型&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;安装完毕以后会自动重启，然后&lt;strong&gt;又一次回到安装界面&lt;/strong&gt;，这一次需要做的是在设置中将 IDE 控制器中的安装镜像 VDI 移除。再次启动应该就能看到已经安装好的 FreeDOS 了。&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="安装完毕" src="./assets/ins4.png"/&gt;
+&lt;figcaption aria-hidden="true"&gt;安装完毕&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;figure&gt;
+&lt;img alt="启动的 FreeDOS" src="./assets/ok4.png"/&gt;
+&lt;figcaption aria-hidden="true"&gt;启动的 FreeDOS&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h2 id="安装-windows95"&gt;安装 Windows95&lt;/h2&gt;
+&lt;p&gt;也许 DOS 之于 Windows95 有点类似于「内核」与「桌面环境」的关系？总之，需要单独安装 Windows95。&lt;/p&gt;
+&lt;p&gt;首先下载镜像，可以在一些地方找到它，例如&lt;a href="https://winworldpc.com/product/windows-95/osr-2"&gt;这里&lt;/a&gt;。这一次下载下来的应该是 ISO 格式的镜像。先别急着挂载，为了保证速度，建议的方法是解压到磁盘，然后通过 VirtualBox 的工具将磁盘文件作为 ISO 虚拟镜像挂载。无论采用什么方法，挂载的磁盘会出现在 &lt;code&gt;D:\&lt;/code&gt;。挂载完毕后，键入 &lt;code&gt;D:&lt;/code&gt; 进入对应目录，使用 &lt;code&gt;dir&lt;/code&gt; 列出文件，应该能看到 &lt;code&gt;setup.exe&lt;/code&gt;，使用 &lt;code&gt;.\setup.exe&lt;/code&gt; 运行它。如果一切正常，就能够看到安装前的自检：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="安装前的检查" src="./assets/win95_1.png"/&gt;
+&lt;figcaption aria-hidden="true"&gt;安装前的检查&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;注意：如果它提示遇到 FAT 文件系统错误，不要自动修复，那会搞坏 DOS 系统，检查你的安装介质。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;然后是图形化的安装界面，并没有什么难度。为了通过喜闻乐见的输入密钥环节，密钥的规律如下：&lt;/p&gt;
+&lt;div class="sourceCode" id="cb2"&gt;&lt;pre class="sourceCode go"&gt;&lt;code class="sourceCode go"&gt;&lt;span id="cb2-1"&gt;&lt;a aria-hidden="true" href="#cb2-1" tabindex="-1"&gt;&lt;/a&gt;dddyy&lt;span class="op"&gt;-&lt;/span&gt;OEM&lt;span class="op"&gt;-&lt;/span&gt;xxxxx&lt;span class="op"&gt;-&lt;/span&gt;zzzzz&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;其中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ddd 是密钥发布天 (范围 001-366)&lt;/li&gt;
+&lt;li&gt;yy 是二位数的年份 (范围 95-02)&lt;/li&gt;
+&lt;li&gt;xxxxx, 第一个数字必须为零，最后一个数字不能是 0、8 或 9。这些数字加在一起时必须能被 7 整除。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;一个示例：&lt;code&gt;06197-OEM-0014907-15227&lt;/code&gt;&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="安装过程中" src="./assets/win95_2.png"/&gt;
+&lt;figcaption aria-hidden="true"&gt;安装过程中&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;在询问是否创建 &lt;em&gt;startup disk&lt;/em&gt; 时，选择否。&lt;/p&gt;
+&lt;p&gt;然后就是慢慢的等待并祈祷这玩意不要卡住：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="薛定谔的安装程序" src="./assets/win95_3.png"/&gt;
+&lt;figcaption aria-hidden="true"&gt;薛定谔的安装程序&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;最后安装完毕，重启&lt;/p&gt;
+&lt;h2 id="解决-2.1ghz-问题"&gt;解决 2.1GHz 问题&lt;/h2&gt;
+&lt;p&gt;再次启动，会遇到这个问题：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="Windows Protection Error" src="./assets/win95_5.png"/&gt;
+&lt;figcaption aria-hidden="true"&gt;Windows Protection Error&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;这是因为 Windows 95 不支持运行速度高于 2.1GHz 的处理器，如果 CPU 以 2.1 GHz 或更快的速度运行，网络驱动程序接口规范 (NDIS) 驱动程序中的时序校准代码会导致除以零。以 2.1 GHz 或更低速度运行的 CPU 不会出现此问题。&lt;/p&gt;
+&lt;p&gt;为了解决这个问题，需要进行人工 patch。在&lt;a href="https://archive.org/details/fix-95-cpu-v3-final"&gt;此处&lt;/a&gt;下载 patch，解压其中的 ISO 作为引导，继续启动：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="Patch" src="./assets/hspd.png"/&gt;
+&lt;figcaption aria-hidden="true"&gt;Patch&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;然后按照提示操作就行：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="完成" src="./assets/patchok.png"/&gt;
+&lt;figcaption aria-hidden="true"&gt;完成&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;再次重启，如果还是不行，说明&lt;strong&gt;内存给多了&lt;/strong&gt;，降到 256MB 以下。&lt;/p&gt;
+&lt;h2 id="文件复制问题"&gt;文件复制问题&lt;/h2&gt;
+&lt;p&gt;再次开机，但别忘了还没装玩呢（&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="复制文件" src="./assets/win95_6.png"/&gt;
+&lt;figcaption aria-hidden="true"&gt;复制文件&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;然而，安装介质中是&lt;strong&gt;没有&lt;/strong&gt;这些文件的，而如果你鬼迷心窍的点击的取消，那系统就会死机，只能重启，这样做意味着文件系统损坏，然后 ScanDisk 会自作聪明的移除所有受到波及的文件，然后……就只能重新安装整个系统了。&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="重装吧…" src="./assets/badluck.png"/&gt;
+&lt;figcaption aria-hidden="true"&gt;重装吧…&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;是的，你甚至连桌面都没看到，系统就自己把自己搞坏了。所以在虚拟机玩的时候，一定要&lt;strong&gt;步步为营，做好快照&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;为了能够正常的进入系统，需要做的就是：Skip。跳过所有找不到的文件。实际上它们就在 ISO 中的某个 CAB 文档中，但 Windows 就是会告诉你：找不到。最后我进入了安全模式：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="安全模式" src="./assets/savemode.png"/&gt;
+&lt;figcaption aria-hidden="true"&gt;安全模式&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;br/&gt;
+&lt;h2&gt;参考链接&lt;/h2&gt;
+&lt;ul id="reference"&gt;
+&lt;li&gt;&lt;a href="https://superuser.com/questions/554862/" target="_blank"&gt;&lt;strong&gt;How to convert .img to usable VirtualBox format&lt;/strong&gt;.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://winworldpc.com/product/windows-95/osr-2" target="_blank"&gt;&lt;strong&gt;Windows95 镜像下载&lt;/strong&gt;.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://archive.org/details/fix-95-cpu-v3-final" target="_blank"&gt;&lt;strong&gt;FIX95CPU_V3_FINAL&lt;/strong&gt;.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://msfn.org/board/topic/141402-windows-95-21ghz-cpu-limit-broken/" target="_blank"&gt;&lt;strong&gt;Windows 95 2.1GHz CPU Limit BROKEN!&lt;/strong&gt;.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://web.archive.org/web/20040302015309/http://support.microsoft.com/?id=312108" target="_blank"&gt;&lt;strong&gt;While initializing device NDIS: Windows protection error&lt;/strong&gt;.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.streetinfo.lu/computing/sysadmin/windows/win95_missing.html" target="_blank"&gt;&lt;strong&gt;Missing VXD and DLL files on Windows 95.&lt;/strong&gt;.&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+&lt;p class="signoff"&gt;
+&lt;div class="metadata"&gt;
+&lt;p class="date"&gt;&lt;time datetime="2023-07-20"&gt;创建日期：2023-07-20&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-20&lt;/time&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
+&lt;/body&gt;</content:encoded>
+      <guid isPermaLink="false">5725ea26-0d1f-e95b-4611-5e40d236f79f</guid>
+      <pubDate>Thu, 20 Jul 2023 00:00:00 +0800</pubDate>
     </item>
   </channel>
 </rss>

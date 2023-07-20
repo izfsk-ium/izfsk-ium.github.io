@@ -109,7 +109,7 @@ def generate_index(articles: list):
     recent_articles_template = "<ul>\n{ARTICLES}{SUMMARY}</ul>"
     links_html = ""
     for i in list(filter(lambda x: not x.isOutdated and not x.isDraft, articles))[:4]:
-        links_html += f"\t<li><span>{format_unix_timestamp(i.date)}</span>&nbsp;&nbsp;<a href='{i.url}'>{i.title}</a></li>\n"
+        links_html += f"\t<li><span>{i.dateObj.strftime('%Y-%m-%d')}</span>&nbsp;&nbsp;<a href='{i.url}'>{i.title}</a></li>\n"
 
     total_article_count = an2cn(len(articles))
     total_categories_count = an2cn(
