@@ -13,7 +13,7 @@
       <link>http://blog.izfsk.top/rss.xml</link>
     </image>
     <language>zh_CN</language>
-    <lastBuildDate>Thu, 20 Jul 2023 06:42:30 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 22 Jul 2023 13:55:42 +0000</lastBuildDate>
     <item>
       <title>模版功能简介</title>
       <link>https://blog.izfsk.top/articles/README.html</link>
@@ -618,8 +618,8 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
 &lt;br/&gt;
 &lt;h2&gt;参考链接&lt;/h2&gt;
 &lt;ul id="reference"&gt;
-&lt;li&gt;&lt;strong&gt;第一个参考链接&lt;/strong&gt;：&lt;a href="www.example_1.com" target="_blank"&gt;www.example_1.com&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;第二个参考链接&lt;/strong&gt;：&lt;a href="www.example_2.com" target="_blank"&gt;www.example_2.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="www.example_1.com" target="_blank"&gt;&lt;strong&gt;第一个参考链接&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="www.example_2.com" target="_blank"&gt;&lt;strong&gt;第二个参考链接&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;br/&gt;
 &lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
@@ -629,7 +629,7 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="1980-01-01"&gt;创建日期：1980-01-01&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -661,6 +661,7 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">87b181b2-202e-11ee-b1e5-84a93896bec6</guid>
       <pubDate>Tue, 01 Jan 1980 00:00:00 +0800</pubDate>
@@ -854,7 +855,7 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2021-07-11"&gt;创建日期：2021-07-11&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -886,6 +887,7 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">5d2a083c-a623-460a-9cfc-77666376e598</guid>
       <pubDate>Sun, 11 Jul 2021 00:00:00 +0800</pubDate>
@@ -1094,7 +1096,7 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2021-07-28"&gt;创建日期：2021-07-28&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -1126,6 +1128,7 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">3fff20fc-0bcc-497f-a3e2-79c5ca797426</guid>
       <pubDate>Wed, 28 Jul 2021 00:00:00 +0800</pubDate>
@@ -1308,7 +1311,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-07-13"&gt;创建日期：2022-07-13&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -1340,6 +1343,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">27229a58-7f89-47b6-b217-54f35d638fb1</guid>
       <pubDate>Wed, 13 Jul 2022 00:00:00 +0800</pubDate>
@@ -1438,7 +1442,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-11-14"&gt;创建日期：2022-11-14&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -1470,6 +1474,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">9a1f2f73-527f-40cc-b3ad-3ca0d7380bf9</guid>
       <pubDate>Mon, 14 Nov 2022 00:00:00 +0800</pubDate>
@@ -1730,7 +1735,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-11-23"&gt;创建日期：2022-11-23&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -1762,6 +1767,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">7f47edb7-e725-491a-b870-567ba2c80029</guid>
       <pubDate>Wed, 23 Nov 2022 00:00:00 +0800</pubDate>
@@ -2064,7 +2070,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-11-24"&gt;创建日期：2022-11-24&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -2096,6 +2102,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">49154284-8978-4e9b-81d9-e5cfa757dcea</guid>
       <pubDate>Thu, 24 Nov 2022 00:00:00 +0800</pubDate>
@@ -2362,7 +2369,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-04"&gt;创建日期：2022-12-04&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -2394,6 +2401,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">8535e383-e302-48c1-849a-d0c4447265f4</guid>
       <pubDate>Sun, 04 Dec 2022 00:00:00 +0800</pubDate>
@@ -2891,7 +2899,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-08"&gt;创建日期：2022-12-08&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -2923,6 +2931,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">426704c4-a51f-470c-a9c9-f3e3ecc43bfc</guid>
       <pubDate>Thu, 08 Dec 2022 00:00:00 +0800</pubDate>
@@ -3246,7 +3255,7 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-13"&gt;创建日期：2022-12-13&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -3278,6 +3287,7 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">809dd759-e6d9-4bb0-8e9b-31e48c7a9366</guid>
       <pubDate>Tue, 13 Dec 2022 00:00:00 +0800</pubDate>
@@ -3370,7 +3380,7 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-14"&gt;创建日期：2022-12-14&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -3402,6 +3412,7 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">0b76294d-1212-48fa-98d0-f7fda869006e</guid>
       <pubDate>Wed, 14 Dec 2022 00:00:00 +0800</pubDate>
@@ -3647,7 +3658,7 @@ sudo iptables -A OUTPUT -o &amp;lt;yourinterface&amp;gt; -p tcp --sport 1714:176
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-19"&gt;创建日期：2022-12-19&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -3679,6 +3690,7 @@ sudo iptables -A OUTPUT -o &amp;lt;yourinterface&amp;gt; -p tcp --sport 1714:176
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">92a3c86b-baca-4a5d-bf87-e4b091adfd74</guid>
       <pubDate>Mon, 19 Dec 2022 00:00:00 +0800</pubDate>
@@ -3805,7 +3817,7 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-20"&gt;创建日期：2022-12-20&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -3837,6 +3849,7 @@ Options:
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">e2e757b5-b9d8-4613-92b4-1bdd12738583</guid>
       <pubDate>Tue, 20 Dec 2022 00:00:00 +0800</pubDate>
@@ -3966,7 +3979,7 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-25"&gt;创建日期：2022-12-25&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -3998,6 +4011,7 @@ Options:
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">5b68c30c-b953-4bee-a7e9-51aa7f2a30e8</guid>
       <pubDate>Sun, 25 Dec 2022 00:00:00 +0800</pubDate>
@@ -4049,7 +4063,7 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-26"&gt;创建日期：2022-12-26&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -4081,6 +4095,7 @@ Options:
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">1e64ae1f-5c22-43eb-a3f1-6a5a0162052b</guid>
       <pubDate>Mon, 26 Dec 2022 00:00:00 +0800</pubDate>
@@ -4178,7 +4193,7 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-31"&gt;创建日期：2022-12-31&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -4210,6 +4225,7 @@ Options:
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">6f21a5a7-d7da-48e5-8afc-54d5644d73bf</guid>
       <pubDate>Sat, 31 Dec 2022 00:00:00 +0800</pubDate>
@@ -4403,7 +4419,7 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-04"&gt;创建日期：2023-01-04&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -4435,6 +4451,7 @@ Options:
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">4ca67c26-00b4-4c79-bbac-65f9a7a434b5</guid>
       <pubDate>Wed, 04 Jan 2023 00:00:00 +0800</pubDate>
@@ -4881,7 +4898,7 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-06"&gt;创建日期：2023-01-06&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -4913,6 +4930,7 @@ Options:
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">9886aba7-4b9c-4070-9ce3-1e30734b757b</guid>
       <pubDate>Fri, 06 Jan 2023 00:00:00 +0800</pubDate>
@@ -5174,7 +5192,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-09"&gt;创建日期：2023-01-09&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -5206,6 +5224,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">4798069b-f6d7-48df-ab8c-a64c0da7739d</guid>
       <pubDate>Mon, 09 Jan 2023 00:00:00 +0800</pubDate>
@@ -5516,7 +5535,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-18"&gt;创建日期：2023-01-18&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -5548,6 +5567,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">f7127a84-86a8-41dc-8fdc-893cd1118438</guid>
       <pubDate>Wed, 18 Jan 2023 00:00:00 +0800</pubDate>
@@ -5751,7 +5771,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-19"&gt;创建日期：2023-01-19&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -5783,6 +5803,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">41a43b0c-279b-438f-9ee6-dbe98965ce46</guid>
       <pubDate>Thu, 19 Jan 2023 00:00:00 +0800</pubDate>
@@ -6069,7 +6090,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-20"&gt;创建日期：2023-01-20&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -6101,6 +6122,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">704f2611-4448-4f94-a4c1-7b797aad7a43</guid>
       <pubDate>Fri, 20 Jan 2023 00:00:00 +0800</pubDate>
@@ -6500,7 +6522,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-25"&gt;创建日期：2023-01-25&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -6532,6 +6554,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">3b4b4117-f9bc-4a49-937b-5fefbfc12f9c</guid>
       <pubDate>Wed, 25 Jan 2023 00:00:00 +0800</pubDate>
@@ -6725,7 +6748,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-28"&gt;创建日期：2023-01-28&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -6757,6 +6780,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">ec07d825-9c76-442d-85f5-7deaf5ab889a</guid>
       <pubDate>Sat, 28 Jan 2023 00:00:00 +0800</pubDate>
@@ -6919,7 +6943,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-31"&gt;创建日期：2023-01-31&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -6951,6 +6975,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">ac2beaa1-e98c-4108-9d0c-06f035cbaad3</guid>
       <pubDate>Tue, 31 Jan 2023 00:00:00 +0800</pubDate>
@@ -7332,7 +7357,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-02-02"&gt;创建日期：2023-02-02&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -7364,6 +7389,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">ad498778-ccfb-4be7-97af-bd60ac5939f9</guid>
       <pubDate>Thu, 02 Feb 2023 00:00:00 +0800</pubDate>
@@ -7518,7 +7544,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-02-07"&gt;创建日期：2023-02-07&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -7550,6 +7576,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">86894309-f881-4d14-b82f-6f3e755f2866</guid>
       <pubDate>Tue, 07 Feb 2023 00:00:00 +0800</pubDate>
@@ -7591,7 +7618,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-02-13"&gt;创建日期：2023-02-13&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -7623,6 +7650,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">4f81285d-6c9a-46af-a72b-af1bcb736623</guid>
       <pubDate>Mon, 13 Feb 2023 00:00:00 +0800</pubDate>
@@ -7920,7 +7948,7 @@ server3.example.com
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-02-19"&gt;创建日期：2023-02-19&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -7952,6 +7980,7 @@ server3.example.com
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">23d00329-9a40-41dc-96e4-673f89a6d1b6</guid>
       <pubDate>Sun, 19 Feb 2023 00:00:00 +0800</pubDate>
@@ -8056,7 +8085,7 @@ server3.example.com
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-02-26"&gt;创建日期：2023-02-26&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-20&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -8088,6 +8117,7 @@ server3.example.com
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">3dcffc06-560d-4ab2-9c64-62cf2b24682a</guid>
       <pubDate>Sun, 26 Feb 2023 00:00:00 +0800</pubDate>
@@ -8270,7 +8300,7 @@ server3.example.com
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-03-02"&gt;创建日期：2023-03-02&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -8302,6 +8332,7 @@ server3.example.com
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">3f650bd0-bdbb-4ac4-a2a6-5c62da3749dd</guid>
       <pubDate>Thu, 02 Mar 2023 00:00:00 +0800</pubDate>
@@ -8430,7 +8461,7 @@ Apache2 ---|
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-03-04"&gt;创建日期：2023-03-04&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -8462,6 +8493,7 @@ Apache2 ---|
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">1a6ce92c-d5be-4fdb-a324-fa03d0dd6e93</guid>
       <pubDate>Sat, 04 Mar 2023 00:00:00 +0800</pubDate>
@@ -8522,7 +8554,7 @@ modsecurity on&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-03-10"&gt;创建日期：2023-03-10&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -8554,6 +8586,7 @@ modsecurity on&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">fa8435d4-54a4-4d3a-bb65-d26f913e009e</guid>
       <pubDate>Fri, 10 Mar 2023 00:00:00 +0800</pubDate>
@@ -8866,7 +8899,7 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-03-24"&gt;创建日期：2023-03-24&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -8898,6 +8931,7 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">8f47beda-8cb7-4835-a463-a60e6ac2dcd5</guid>
       <pubDate>Fri, 24 Mar 2023 00:00:00 +0800</pubDate>
@@ -8939,7 +8973,7 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-04-06"&gt;创建日期：2023-04-06&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -8971,6 +9005,7 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">dc6740ad-5546-451a-a74a-c3721cdd76ca</guid>
       <pubDate>Thu, 06 Apr 2023 00:00:00 +0800</pubDate>
@@ -9063,7 +9098,7 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-04-13"&gt;创建日期：2023-04-13&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -9095,6 +9130,7 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">de5bb46d-a069-4de8-b61b-18cfe5e38fc7</guid>
       <pubDate>Thu, 13 Apr 2023 00:00:00 +0800</pubDate>
@@ -9266,7 +9302,7 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-04-20"&gt;创建日期：2023-04-20&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -9298,6 +9334,7 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">5ef70152-7905-48bc-b22e-51a82d1956d6</guid>
       <pubDate>Thu, 20 Apr 2023 00:00:00 +0800</pubDate>
@@ -9672,7 +9709,7 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-04-21"&gt;创建日期：2023-04-21&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -9704,6 +9741,7 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">45479e53-d727-48f5-8946-657556b4110c</guid>
       <pubDate>Fri, 21 Apr 2023 00:00:00 +0800</pubDate>
@@ -9843,7 +9881,7 @@ For each pixel on the canvas
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-04-25"&gt;创建日期：2023-04-25&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -9875,6 +9913,7 @@ For each pixel on the canvas
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">3d0d8a7b-1966-435e-98dd-b4c59ffd581f</guid>
       <pubDate>Tue, 25 Apr 2023 00:00:00 +0800</pubDate>
@@ -10175,7 +10214,7 @@ For each pixel on the canvas
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-06-01"&gt;创建日期：2023-06-01&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -10207,6 +10246,7 @@ For each pixel on the canvas
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">7f58b9f5-d420-4722-8d41-6191a9453397</guid>
       <pubDate>Thu, 01 Jun 2023 00:00:00 +0800</pubDate>
@@ -10331,7 +10371,7 @@ For each pixel on the canvas
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-06-22"&gt;创建日期：2023-06-22&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -10363,6 +10403,7 @@ For each pixel on the canvas
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">17e1a6a4-4eed-4a8e-94ae-5ed078e75530</guid>
       <pubDate>Thu, 22 Jun 2023 00:00:00 +0800</pubDate>
@@ -10597,7 +10638,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-06-25"&gt;创建日期：2023-06-25&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -10629,6 +10670,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">d335a295-647a-4f5e-b15b-140178c18782</guid>
       <pubDate>Sun, 25 Jun 2023 00:00:00 +0800</pubDate>
@@ -10717,7 +10759,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-06-28"&gt;创建日期：2023-06-28&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -10749,6 +10791,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">79ef49e0-db49-4547-bfbf-78b6a511e91d</guid>
       <pubDate>Wed, 28 Jun 2023 00:00:00 +0800</pubDate>
@@ -11031,7 +11074,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-07-01"&gt;创建日期：2023-07-01&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-19&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -11063,6 +11106,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">03566ccc-fb0d-4ff6-b67f-5e0a53204d4b</guid>
       <pubDate>Sat, 01 Jul 2023 00:00:00 +0800</pubDate>
@@ -11244,12 +11288,12 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;br/&gt;
 &lt;h2&gt;参考链接&lt;/h2&gt;
 &lt;ul id="reference"&gt;
-&lt;li&gt;&lt;a href="https://superuser.com/questions/554862/" target="_blank"&gt;&lt;strong&gt;How to convert .img to usable VirtualBox format&lt;/strong&gt;.&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://winworldpc.com/product/windows-95/osr-2" target="_blank"&gt;&lt;strong&gt;Windows95 镜像下载&lt;/strong&gt;.&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://archive.org/details/fix-95-cpu-v3-final" target="_blank"&gt;&lt;strong&gt;FIX95CPU_V3_FINAL&lt;/strong&gt;.&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://msfn.org/board/topic/141402-windows-95-21ghz-cpu-limit-broken/" target="_blank"&gt;&lt;strong&gt;Windows 95 2.1GHz CPU Limit BROKEN!&lt;/strong&gt;.&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://web.archive.org/web/20040302015309/http://support.microsoft.com/?id=312108" target="_blank"&gt;&lt;strong&gt;While initializing device NDIS: Windows protection error&lt;/strong&gt;.&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://www.streetinfo.lu/computing/sysadmin/windows/win95_missing.html" target="_blank"&gt;&lt;strong&gt;Missing VXD and DLL files on Windows 95.&lt;/strong&gt;.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://superuser.com/questions/554862/" target="_blank"&gt;&lt;strong&gt;How to convert .img to usable VirtualBox format&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://winworldpc.com/product/windows-95/osr-2" target="_blank"&gt;&lt;strong&gt;Windows95 镜像下载&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://archive.org/details/fix-95-cpu-v3-final" target="_blank"&gt;&lt;strong&gt;FIX95CPU_V3_FINAL&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://msfn.org/board/topic/141402-windows-95-21ghz-cpu-limit-broken/" target="_blank"&gt;&lt;strong&gt;Windows 95 2.1GHz CPU Limit BROKEN!&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://web.archive.org/web/20040302015309/http://support.microsoft.com/?id=312108" target="_blank"&gt;&lt;strong&gt;While initializing device NDIS: Windows protection error&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.streetinfo.lu/computing/sysadmin/windows/win95_missing.html" target="_blank"&gt;&lt;strong&gt;Missing VXD and DLL files on Windows 95&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;br/&gt;
 &lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
@@ -11259,7 +11303,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-07-20"&gt;创建日期：2023-07-20&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-20&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -11291,9 +11335,128 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">5725ea26-0d1f-e95b-4611-5e40d236f79f</guid>
       <pubDate>Thu, 20 Jul 2023 00:00:00 +0800</pubDate>
+    </item>
+    <item>
+      <title>UNIX System V 的安装和设置</title>
+      <link>https://blog.izfsk.top/articles/install-unix-system-v.html</link>
+      <description>UNIX System V 的安装和设置</description>
+      <content:encoded>&lt;body&gt;
+&lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;button id="back-to-top"&gt;
+    回页顶
+  &lt;/button&gt;
+&lt;header&gt;
+&lt;h1 class="title"&gt;UNIX System V 的安装和设置&lt;/h1&gt;
+&lt;!-- Subtitle --&gt;
+&lt;h3 class="subtitle"&gt; &lt;/h3&gt;
+&lt;/header&gt;
+&lt;nav id="TOC" role="doc-toc"&gt;
+&lt;strong&gt;文章归类: &lt;a href="/pages/category.html#考古"&gt;考古&lt;/a&gt; &lt;/strong&gt;
+&lt;input id="contents" type="checkbox"/&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#主系统" id="toc-主系统"&gt;主系统&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#编译器" id="toc-编译器"&gt;编译器&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#reference"&gt;参考链接&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt; &lt;/li&gt;
+&lt;li class="tools"&gt;
+&lt;span id="backtomain"&gt;
+&lt;svg class="bi bi-house" fill="currentColor" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"&gt;
+&lt;path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/span&gt;
+&lt;span id="readingmode"&gt;
+&lt;svg class="bi bi-book" fill="currentColor" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"&gt;
+&lt;path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/span&gt;
+&lt;span id="larger"&gt; &lt;/span&gt;
+&lt;span id="smaller"&gt;&lt;/span&gt;
+&lt;span id="switchfont"&gt;
+&lt;svg class="bi bi-fonts" fill="currentColor" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"&gt;
+&lt;path d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/span&gt;
+&lt;span id="backtotop"&gt;
+&lt;svg class="bi bi-arrow-bar-up" fill="currentColor" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"&gt;
+&lt;path d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" fill-rule="evenodd"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/span&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/nav&gt;
+&lt;main&gt;
+&lt;aside class="warning-draft"&gt;
+&lt;span&gt;⚠️&lt;/span&gt;注意：本文章被标记为草稿！请谨慎对待其内容。 &lt;span&gt;⚠️&lt;/span&gt;
+&lt;/aside&gt;
+&lt;p&gt;最近考古上瘾，这次打算安装一下 UNIX 的老祖：AT&amp;amp;T System V Unix。顺便装上 C 编译套件，体验一下上古编程的感觉。本来还想装一个图形化环境玩玩，但最终因为没有找到对应的软盘而放弃。&lt;/p&gt;
+&lt;h2 id="主系统"&gt;主系统&lt;/h2&gt;
+&lt;p&gt;首先是要&lt;a href="./assets/AT%26T%20UNIX%20System%20V%20Release%204%20Version%202.1%20(3.5).7z"&gt;下载安装镜像&lt;/a&gt;。这一次下载下来的是若干张 3.5 英寸软盘镜像。安装就从这些软盘镜像开始。创建一个虚拟机，添加 IDE 硬盘以及 I82078 软驱设备，记得不要调过高的 RAM，然后插入启动，软驱中插入 &lt;code&gt;Base 01 (2.1a).img&lt;/code&gt;，启动：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="Panic!" src="./assets/panic.png"/&gt;
+&lt;figcaption aria-hidden="true"&gt;Panic!&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;然后系统就 Panic 了。原因是所谓的&lt;embed src="http://www.steunebrink.info/bioslim.htm#Contents"/&gt;。&lt;/p&gt;
+&lt;h2 id="编译器"&gt;编译器&lt;/h2&gt;
+&lt;br/&gt;
+&lt;h2&gt;参考链接&lt;/h2&gt;
+&lt;ul id="reference"&gt;
+&lt;li&gt;&lt;a href="https://winworldpc.com/product/att-system-v-unix/2-x" target="_blank"&gt;&lt;strong&gt;AT&amp;amp;T System V Unix 2.x&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.steunebrink.info/bioslim.htm#Contents" target="_blank"&gt;&lt;strong&gt;The BIOS IDE Harddisk Limitations&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.linuxquestions.org/questions/other-*nix-55/using-floppies-in-at-and-t-unix-system-v-release-4-version-2-1-or-docs-link-4175428440/" target="_blank"&gt;&lt;strong&gt;Using floppies in AT&amp;amp;T UNIX System V&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://retrocomputing.stackexchange.com/questions/7890/how-can-i-use-imagedisk-imd-images-with-virtualbox-winimage-etc" target="_blank"&gt;&lt;strong&gt;How can I use ImageDiskimages with VirtualBox?&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/keirf/Disk-Utilities" target="_blank"&gt;&lt;strong&gt;keirf / disk-utilities&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://archive.org/details/unixsystemvrelea0000unse_b3c8" target="_blank"&gt;&lt;strong&gt;UNIX System V, release 4 : programmer's guide&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+&lt;p class="signoff"&gt;
+&lt;div class="metadata"&gt;
+&lt;p class="date"&gt;&lt;time datetime="2023-07-21"&gt;创建日期：2023-07-21&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;/footer&gt;
+&lt;style&gt;
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: none;
+      border-radius: 0;
+      padding: 3px;
+      background: var(--background-color);
+      border-color: gray;
+      z-index: 999;
+      color: var(--color-text);
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    window.addEventListener('scroll', function () {
+      var button = document.getElementById('back-to-top');
+      if (window.pageYOffset &gt; 125) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  &lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</content:encoded>
+      <guid isPermaLink="false">ca4147da-03bf-e4cc-3d48-3e7cd2e44295</guid>
+      <pubDate>Fri, 21 Jul 2023 00:00:00 +0800</pubDate>
     </item>
   </channel>
 </rss>

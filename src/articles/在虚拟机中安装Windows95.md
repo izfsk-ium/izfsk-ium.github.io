@@ -17,7 +17,7 @@ ref:
     url: "https://msfn.org/board/topic/141402-windows-95-21ghz-cpu-limit-broken/"
   - name: "While initializing device NDIS: Windows protection error"
     url: "https://web.archive.org/web/20040302015309/http://support.microsoft.com/?id=312108"
-  - name: "Missing VXD and DLL files on Windows 95."
+  - name: "Missing VXD and DLL files on Windows 95"
     url: "https://www.streetinfo.lu/computing/sysadmin/windows/win95_missing.html"
 ---
 

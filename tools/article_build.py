@@ -119,7 +119,7 @@ def process_metadata():
             ref_template.format(
                 REFS="\n".join(
                     [
-                        f'<li><a href="{i["url"]}" target="_blank"><strong>{i["name"]}</strong>.</a></li>'
+                        f'<li><a href="{i["url"]}" target="_blank"><strong>{i["name"]}</strong></a></li>'
                         for i in data["ref"]
                     ]
                 )
