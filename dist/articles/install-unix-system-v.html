@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2023-07-21" />
+      <meta name="dcterms.date" content="2023-07-22" />
         <title>UNIX System V 的安装和设置</title>
     <link rel="stylesheet" href="/resources/css/article/theme.css" />
     <link rel="stylesheet" href="/resources/css/article/code.css" />
@@ -43,7 +43,7 @@
     <input type="checkbox" id="contents">
     <ul>
     <li><a href="#主系统" id="toc-主系统">主系统</a></li>
-    <li><a href="#编译器" id="toc-编译器">编译器</a></li>
+    <li><a href="#安装软件" id="toc-安装软件">安装软件</a></li>
     </ul>
     <ul>
       <li><a href="#reference">参考链接</a></li>
@@ -86,19 +86,61 @@
   
   <main>
     
-            <aside class="warning-draft">
-                <span>⚠️</span>注意：本文章被标记为草稿！请谨慎对待其内容。 <span>⚠️</span>
-            </aside>
 
-    <p>最近考古上瘾，这次打算安装一下 UNIX 的老祖：AT&amp;T System V Unix。顺便装上 C 编译套件，体验一下上古编程的感觉。本来还想装一个图形化环境玩玩，但最终因为没有找到对应的软盘而放弃。</p>
+    <p>最近考古上瘾，这次打算安装一下 UNIX 的老祖：AT&amp;T System V Unix。</p>
     <h2 id="主系统">主系统</h2>
     <p>首先是要<a href="./assets/AT%26T%20UNIX%20System%20V%20Release%204%20Version%202.1%20(3.5).7z">下载安装镜像</a>。这一次下载下来的是若干张 3.5 英寸软盘镜像。安装就从这些软盘镜像开始。创建一个虚拟机，添加 IDE 硬盘以及 I82078 软驱设备，记得不要调过高的 RAM，然后插入启动，软驱中插入 <code>Base 01 (2.1a).img</code>，启动：</p>
     <figure>
     <img src="./assets/panic.png" alt="Panic!" />
     <figcaption aria-hidden="true">Panic!</figcaption>
     </figure>
-    <p>然后系统就 Panic 了。原因是所谓的<embed src="http://www.steunebrink.info/bioslim.htm#Contents" />。</p>
-    <h2 id="编译器">编译器</h2>
+    <p>然后系统就 Panic 了。原因是所谓的 <a href="http://www.steunebrink.info/bioslim.htm#Contents">504MB限制</a>。</p>
+    <p>在很久很久以前，至少回溯到 DOS 时代，那时候为了和磁盘交互，系统需要使用 BIOS 中断。也就是调用 <code>INT 13h</code> 将跳转到计算机 <code>BIOS</code> 代码中进行低级磁盘服务，该代码将为程序执行基于物理扇区的磁盘读取或写入操作。这就使得操作系统不需要处理各个不同硬盘厂商生存的硬盘，只需要和 BIOS 交互即可。早期的 BIOS 可以寻址 1024 个柱面、256 个磁头和 63 个扇区。按照每个扇区 512 bytes 计算，这也就意味着 512 × (1024 × 256 × 63) = 8455716864 bytes 可以达到 8 GB。这也是理论上的最大限制。</p>
+    <p>很快，为了满足人民群众对更大硬盘的向往，IBM 和 Western Digital 又发明了另外一套接口，也就是 (IDE/AT) HD Interface，理论上相当不错：65535 个柱面、16 个磁头和 256 个扇区，乘起来就是 65535 × 16 × 256 × 512 = 137436856320 bytes 相当于约 127.5 GB。</p>
+    <p>然而问题在于：<strong>这两套系统并不相互兼容</strong>，孤独的天才们独立创作，丝毫没有和同行们沟通。为了让两个系统可以合作，只能对使用每个规格中最小的进行寻址！也就是说：</p>
+    <p>16 柱面 x 1024 磁头 x 63 扇区 x 512 bytes 每个扇区 = 528,482,304 Bytes = 504 MB</p>
+    <p>所以为了安装能够继续下去，最方便的方法就是新建一个新的 VDI，设置大小为 503 MB。</p>
+    <figure>
+    <img src="./assets/installsysv.png" alt="安装过程" />
+    <figcaption aria-hidden="true">安装过程</figcaption>
+    </figure>
+    <p>接下来的工作很无聊：按照屏幕上的提示，格式化硬盘，重启，然后挨个把对应的软盘放进去安装。</p>
+    <figure>
+    <img src="./assets/installsysv2.png" alt="插入一系列软盘" />
+    <figcaption aria-hidden="true">插入一系列软盘</figcaption>
+    </figure>
+    <p>然后是设置密码，主机名等等。</p>
+    <figure>
+    <img src="./assets/setpassword.png" alt="设置密码" />
+    <figcaption aria-hidden="true">设置密码</figcaption>
+    </figure>
+    <p>重启，大功告成。</p>
+    <figure>
+    <img src="./assets/installsysvdone.png" alt="安装完毕" />
+    <figcaption aria-hidden="true">安装完毕</figcaption>
+    </figure>
+    <h2 id="安装软件">安装软件</h2>
+    <p>这是一个很「干净的系统」，<code>/usr/bin</code> 目录下只有 255 个程序，相比之下我的电脑上有 2950 个之多。当然，这玩意也是有包管理器的，只不过并没有网络功能，需要依靠软盘安装。键入 <code>pkgadd -d diskette1</code> 再按照提示将包含软件包的磁碟放入即可安装。</p>
+    <figure>
+    <img src="./assets/systemvinstallpackages.png" alt="安装软件包" />
+    <figcaption aria-hidden="true">安装软件包</figcaption>
+    </figure>
+    <p>安装完毕后重启，<strong>如果卡在第一屏一动不动，只有光标闪烁，说明忘记把软件安装软盘弹出软驱。</strong>。</p>
+    <p>但是这些软件包中并没有 C 编译器套件。你可以在<a href="http://www.bitsavers.org/bits/ATT/SYSV_386/SYSV_Rel_4.0_Ver_1.0_386_486_partial.zip">这里</a>下载它们。其中包括的 <code>Standard_C_Development_Environment_R5.0</code> 就是 C 开发环境。</p>
+    <figure>
+    <img src="./assets/Standard_C_Development_Environment_R5.0.webp" alt="安装软盘封面" />
+    <figcaption aria-hidden="true">安装软盘封面</figcaption>
+    </figure>
+    <p>接下来需要做的是把 IMD 镜像转换成 IMG 格式。有一个工具 <a href="https://github.com/keirf/Disk-Utilities">disk-utilities</a> 可以做到这一点。克隆仓库并编译之。然后使用 <code>disk-analyse input.IMD output.img</code> 即可。如果遇到 <code>error while loading shared libraries: libdisk.so.0</code>，更新 LD_PATH 为 <code>LD_LIBRARY_PATH=libdisk disk-analyse/disk-analyse</code> 即可。方便起见，将转换完毕的文件放在<a href="./assets/Standard_C_Development_Environment_R5.0.7z">这里</a>。插入安装：</p>
+    <figure>
+    <img src="./assets/install_sdce.png" alt="安装 SDCE" />
+    <figcaption aria-hidden="true">安装 SDCE</figcaption>
+    </figure>
+    <p>安装完毕后，使用 vi 编辑器创建源文件并编译成功。</p>
+    <figure>
+    <img src="./assets/hellosysvunix.png" alt="编译" />
+    <figcaption aria-hidden="true">编译</figcaption>
+    </figure>
 
     <br />
     
@@ -106,10 +148,11 @@
     <ul id="reference">
       <li><a href="https://winworldpc.com/product/att-system-v-unix/2-x" target="_blank"><strong>AT&T System V Unix 2.x</strong></a></li>
 <li><a href="http://www.steunebrink.info/bioslim.htm#Contents" target="_blank"><strong>The BIOS IDE Harddisk Limitations</strong></a></li>
+<li><a href="https://en.wikipedia.org/wiki/INT_13H" target="_blank"><strong>INT 13H</strong></a></li>
 <li><a href="https://www.linuxquestions.org/questions/other-*nix-55/using-floppies-in-at-and-t-unix-system-v-release-4-version-2-1-or-docs-link-4175428440/" target="_blank"><strong>Using floppies in AT&T UNIX System V</strong></a></li>
 <li><a href="https://retrocomputing.stackexchange.com/questions/7890/how-can-i-use-imagedisk-imd-images-with-virtualbox-winimage-etc" target="_blank"><strong>How can I use ImageDiskimages with VirtualBox?</strong></a></li>
 <li><a href="https://github.com/keirf/Disk-Utilities" target="_blank"><strong>keirf / disk-utilities</strong></a></li>
-<li><a href="https://archive.org/details/unixsystemvrelea0000unse_b3c8" target="_blank"><strong>UNIX System V, release 4 : programmer's guide</strong></a></li>
+<li><a href="https://www.admin.com/samples/UUCP.pdf" target="_blank"><strong>About UUCP</strong></a></li>
     </ul>
     
 
@@ -127,8 +170,8 @@
   <footer>
     <p class="signoff">
     <div class="metadata">
-            <p class="date"><time datetime="2023-07-21">创建日期：2023-07-21</time></p>
-            <p class="lastmodify"><time>最后编译：2023-07-22</time></p>
+            <p class="date"><time datetime="2023-07-22">创建日期：2023-07-22</time></p>
+            <p class="lastmodify"><time>最后编译：2023-07-23</time></p>
     </div>
     </p>
   </footer>
