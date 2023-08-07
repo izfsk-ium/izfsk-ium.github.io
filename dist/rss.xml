@@ -13,7 +13,7 @@
       <link>http://blog.izfsk.top/rss.xml</link>
     </image>
     <language>zh_CN</language>
-    <lastBuildDate>Sun, 23 Jul 2023 13:30:22 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 07 Aug 2023 07:53:12 +0000</lastBuildDate>
     <item>
       <title>模版功能简介</title>
       <link>https://blog.izfsk.top/articles/README.html</link>
@@ -24,6 +24,7 @@
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;87b181b2-202e-11ee-b1e5-84a93896bec6&lt;/small&gt;
 &lt;h1 class="title"&gt;模版功能简介&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt;好好利用本主题吧~&lt;/h3&gt;
@@ -629,7 +630,8 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="1980-01-01"&gt;创建日期：1980-01-01&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -660,6 +662,22 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -676,6 +694,7 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;5d2a083c-a623-460a-9cfc-77666376e598&lt;/small&gt;
 &lt;h1 class="title"&gt;经典数据结构・单向链表&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -855,7 +874,8 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2021-07-11"&gt;创建日期：2021-07-11&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -886,6 +906,22 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -902,6 +938,7 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;3fff20fc-0bcc-497f-a3e2-79c5ca797426&lt;/small&gt;
 &lt;h1 class="title"&gt;交换类排序&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -1096,7 +1133,8 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2021-07-28"&gt;创建日期：2021-07-28&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -1127,6 +1165,22 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -1143,6 +1197,7 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;27229a58-7f89-47b6-b217-54f35d638fb1&lt;/small&gt;
 &lt;h1 class="title"&gt;Lenovo Legion R7000 安装 openSUSE&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -1311,7 +1366,8 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-07-13"&gt;创建日期：2022-07-13&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -1342,6 +1398,22 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -1358,6 +1430,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;9a1f2f73-527f-40cc-b3ad-3ca0d7380bf9&lt;/small&gt;
 &lt;h1 class="title"&gt;CSS_Tooltip技巧&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -1442,7 +1515,8 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-11-14"&gt;创建日期：2022-11-14&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -1473,6 +1547,22 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -1489,6 +1579,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;7f47edb7-e725-491a-b870-567ba2c80029&lt;/small&gt;
 &lt;h1 class="title"&gt;仿Github热力图设计&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -1735,7 +1826,8 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-11-23"&gt;创建日期：2022-11-23&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -1766,6 +1858,22 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -1782,6 +1890,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;49154284-8978-4e9b-81d9-e5cfa757dcea&lt;/small&gt;
 &lt;h1 class="title"&gt;Kotlin笔记(1)&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -2070,7 +2179,8 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-11-24"&gt;创建日期：2022-11-24&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -2101,6 +2211,22 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -2117,6 +2243,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;8535e383-e302-48c1-849a-d0c4447265f4&lt;/small&gt;
 &lt;h1 class="title"&gt;React+Redux简单使用&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -2369,7 +2496,8 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-04"&gt;创建日期：2022-12-04&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -2400,6 +2528,22 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -2416,6 +2560,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;426704c4-a51f-470c-a9c9-f3e3ecc43bfc&lt;/small&gt;
 &lt;h1 class="title"&gt;Python的more-itertools模块&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -2899,7 +3044,8 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-08"&gt;创建日期：2022-12-08&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -2930,6 +3076,22 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -2946,6 +3108,7 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;809dd759-e6d9-4bb0-8e9b-31e48c7a9366&lt;/small&gt;
 &lt;h1 class="title"&gt;LRU-Cache与functools&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -3255,7 +3418,8 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-13"&gt;创建日期：2022-12-13&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -3286,6 +3450,22 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -3302,6 +3482,7 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;0b76294d-1212-48fa-98d0-f7fda869006e&lt;/small&gt;
 &lt;h1 class="title"&gt;我的2022&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -3380,7 +3561,8 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-14"&gt;创建日期：2022-12-14&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -3411,6 +3593,22 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -3427,6 +3625,7 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;92a3c86b-baca-4a5d-bf87-e4b091adfd74&lt;/small&gt;
 &lt;h1 class="title"&gt;scrcpy+sndcpy+kdeconnect多屏协作&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -3658,7 +3857,8 @@ sudo iptables -A OUTPUT -o &amp;lt;yourinterface&amp;gt; -p tcp --sport 1714:176
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-19"&gt;创建日期：2022-12-19&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -3689,6 +3889,22 @@ sudo iptables -A OUTPUT -o &amp;lt;yourinterface&amp;gt; -p tcp --sport 1714:176
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -3705,6 +3921,7 @@ sudo iptables -A OUTPUT -o &amp;lt;yourinterface&amp;gt; -p tcp --sport 1714:176
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;e2e757b5-b9d8-4613-92b4-1bdd12738583&lt;/small&gt;
 &lt;h1 class="title"&gt;Rclone挂载Office365教育版&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -3817,7 +4034,8 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-20"&gt;创建日期：2022-12-20&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -3848,6 +4066,22 @@ Options:
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -3864,6 +4098,7 @@ Options:
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;5b68c30c-b953-4bee-a7e9-51aa7f2a30e8&lt;/small&gt;
 &lt;h1 class="title"&gt;ELF文件结构解析&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -3979,7 +4214,8 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-25"&gt;创建日期：2022-12-25&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -4010,6 +4246,22 @@ Options:
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -4026,6 +4278,7 @@ Options:
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;1e64ae1f-5c22-43eb-a3f1-6a5a0162052b&lt;/small&gt;
 &lt;h1 class="title"&gt;Firefox启动速度缓慢的排查&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -4063,7 +4316,8 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-26"&gt;创建日期：2022-12-26&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -4094,6 +4348,22 @@ Options:
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -4110,6 +4380,7 @@ Options:
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;6f21a5a7-d7da-48e5-8afc-54d5644d73bf&lt;/small&gt;
 &lt;h1 class="title"&gt;Chrome文件伪装摄像头&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -4193,7 +4464,8 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-31"&gt;创建日期：2022-12-31&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -4224,6 +4496,22 @@ Options:
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -4240,6 +4528,7 @@ Options:
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;4ca67c26-00b4-4c79-bbac-65f9a7a434b5&lt;/small&gt;
 &lt;h1 class="title"&gt;雨课堂考试系统分析&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -4419,7 +4708,8 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-04"&gt;创建日期：2023-01-04&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -4450,6 +4740,22 @@ Options:
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -4466,6 +4772,7 @@ Options:
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;9886aba7-4b9c-4070-9ce3-1e30734b757b&lt;/small&gt;
 &lt;h1 class="title"&gt;Portacle的使用&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -4898,7 +5205,8 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-06"&gt;创建日期：2023-01-06&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -4929,6 +5237,22 @@ Options:
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -4945,6 +5269,7 @@ Options:
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;4798069b-f6d7-48df-ab8c-a64c0da7739d&lt;/small&gt;
 &lt;h1 class="title"&gt;Python协程的使用&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -5192,7 +5517,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-09"&gt;创建日期：2023-01-09&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -5223,6 +5549,22 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -5239,6 +5581,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;f7127a84-86a8-41dc-8fdc-893cd1118438&lt;/small&gt;
 &lt;h1 class="title"&gt;CommonLisp基础-基本概念&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -5535,7 +5878,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-18"&gt;创建日期：2023-01-18&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -5566,6 +5910,22 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -5582,6 +5942,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;41a43b0c-279b-438f-9ee6-dbe98965ce46&lt;/small&gt;
 &lt;h1 class="title"&gt;CommonLisp基础-分支和循环&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -5771,7 +6132,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-19"&gt;创建日期：2023-01-19&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -5802,6 +6164,22 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -5818,6 +6196,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;704f2611-4448-4f94-a4c1-7b797aad7a43&lt;/small&gt;
 &lt;h1 class="title"&gt;CommonLisp基础-常见操作&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -6090,7 +6469,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-20"&gt;创建日期：2023-01-20&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -6121,6 +6501,22 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -6137,6 +6533,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;3b4b4117-f9bc-4a49-937b-5fefbfc12f9c&lt;/small&gt;
 &lt;h1 class="title"&gt;旧式书信整理1&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -6522,7 +6919,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-25"&gt;创建日期：2023-01-25&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -6553,6 +6951,22 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -6569,6 +6983,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;ec07d825-9c76-442d-85f5-7deaf5ab889a&lt;/small&gt;
 &lt;h1 class="title"&gt;旧式书信整理2&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -6748,7 +7163,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-28"&gt;创建日期：2023-01-28&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -6779,6 +7195,22 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -6795,6 +7227,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;ac2beaa1-e98c-4108-9d0c-06f035cbaad3&lt;/small&gt;
 &lt;h1 class="title"&gt;使用 TeXmacs 排版作业&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -6943,7 +7376,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-31"&gt;创建日期：2023-01-31&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -6974,6 +7408,22 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -6990,6 +7440,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;ad498778-ccfb-4be7-97af-bd60ac5939f9&lt;/small&gt;
 &lt;h1 class="title"&gt;Svelte 基础速查&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -7357,7 +7808,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-02-02"&gt;创建日期：2023-02-02&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -7388,6 +7840,22 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -7404,6 +7872,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;86894309-f881-4d14-b82f-6f3e755f2866&lt;/small&gt;
 &lt;h1 class="title"&gt;CROS，Cookie与hapi&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -7544,7 +8013,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-02-07"&gt;创建日期：2023-02-07&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -7575,6 +8045,22 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -7591,6 +8077,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;4f81285d-6c9a-46af-a72b-af1bcb736623&lt;/small&gt;
 &lt;h1 class="title"&gt;为什么 OpenAI 并不 Open&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -7618,7 +8105,8 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-02-13"&gt;创建日期：2023-02-13&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -7649,6 +8137,22 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -7665,6 +8169,7 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;23d00329-9a40-41dc-96e4-673f89a6d1b6&lt;/small&gt;
 &lt;h1 class="title"&gt;GNU・Parallel使用例&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -7948,7 +8453,8 @@ server3.example.com
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-02-19"&gt;创建日期：2023-02-19&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -7979,6 +8485,22 @@ server3.example.com
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -7995,6 +8517,7 @@ server3.example.com
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;3dcffc06-560d-4ab2-9c64-62cf2b24682a&lt;/small&gt;
 &lt;h1 class="title"&gt;博客迁移从域名到部署&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -8085,7 +8608,8 @@ server3.example.com
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-02-26"&gt;创建日期：2023-02-26&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -8116,6 +8640,22 @@ server3.example.com
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -8132,6 +8672,7 @@ server3.example.com
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;3f650bd0-bdbb-4ac4-a2a6-5c62da3749dd&lt;/small&gt;
 &lt;h1 class="title"&gt;使用fetch下载时获取进度信息&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -8300,7 +8841,8 @@ server3.example.com
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-03-02"&gt;创建日期：2023-03-02&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -8331,6 +8873,22 @@ server3.example.com
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -8347,6 +8905,7 @@ server3.example.com
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;1a6ce92c-d5be-4fdb-a324-fa03d0dd6e93&lt;/small&gt;
 &lt;h1 class="title"&gt;编译安装ApacheServer&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -8461,7 +9020,8 @@ Apache2 ---|
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-03-04"&gt;创建日期：2023-03-04&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -8492,6 +9052,22 @@ Apache2 ---|
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -8508,6 +9084,7 @@ Apache2 ---|
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;fa8435d4-54a4-4d3a-bb65-d26f913e009e&lt;/small&gt;
 &lt;h1 class="title"&gt;给Apache2安装ModSecurity&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -8554,7 +9131,8 @@ modsecurity on&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-03-10"&gt;创建日期：2023-03-10&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -8585,6 +9163,22 @@ modsecurity on&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -8601,6 +9195,7 @@ modsecurity on&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;8f47beda-8cb7-4835-a463-a60e6ac2dcd5&lt;/small&gt;
 &lt;h1 class="title"&gt;Adalang初探&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -8902,7 +9497,8 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-03-24"&gt;创建日期：2023-03-24&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-23&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -8933,6 +9529,22 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -8949,6 +9561,7 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;dc6740ad-5546-451a-a74a-c3721cdd76ca&lt;/small&gt;
 &lt;h1 class="title"&gt;当用户爬行的时候&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -8976,7 +9589,8 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-04-06"&gt;创建日期：2023-04-06&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -9007,6 +9621,22 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -9023,6 +9653,7 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;de5bb46d-a069-4de8-b61b-18cfe5e38fc7&lt;/small&gt;
 &lt;h1 class="title"&gt;给Nautilus添加自定义菜单项&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -9101,7 +9732,8 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-04-13"&gt;创建日期：2023-04-13&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -9132,6 +9764,22 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -9148,6 +9796,7 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;5ef70152-7905-48bc-b22e-51a82d1956d6&lt;/small&gt;
 &lt;h1 class="title"&gt;关于光线追踪,颜色和反射&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -9305,7 +9954,8 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-04-20"&gt;创建日期：2023-04-20&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -9336,6 +9986,22 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -9352,6 +10018,7 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;45479e53-d727-48f5-8946-657556b4110c&lt;/small&gt;
 &lt;h1 class="title"&gt;刚好够用的线性代数基础&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -9712,7 +10379,8 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-04-21"&gt;创建日期：2023-04-21&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -9743,6 +10411,22 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -9759,6 +10443,7 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;3d0d8a7b-1966-435e-98dd-b4c59ffd581f&lt;/small&gt;
 &lt;h1 class="title"&gt;基础光线追踪&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -9884,7 +10569,8 @@ For each pixel on the canvas
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-04-25"&gt;创建日期：2023-04-25&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -9915,6 +10601,22 @@ For each pixel on the canvas
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -9931,6 +10633,7 @@ For each pixel on the canvas
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;7f58b9f5-d420-4722-8d41-6191a9453397&lt;/small&gt;
 &lt;h1 class="title"&gt;Getx速查表&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -10217,7 +10920,8 @@ For each pixel on the canvas
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-06-01"&gt;创建日期：2023-06-01&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -10248,6 +10952,22 @@ For each pixel on the canvas
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -10264,6 +10984,7 @@ For each pixel on the canvas
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;17e1a6a4-4eed-4a8e-94ae-5ed078e75530&lt;/small&gt;
 &lt;h1 class="title"&gt;使用 chntpw 修改 Windows 密码&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -10374,7 +11095,8 @@ For each pixel on the canvas
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-06-22"&gt;创建日期：2023-06-22&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -10405,6 +11127,22 @@ For each pixel on the canvas
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -10421,6 +11159,7 @@ For each pixel on the canvas
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;d335a295-647a-4f5e-b15b-140178c18782&lt;/small&gt;
 &lt;h1 class="title"&gt;v2ray 结合 cgproxy 全局代理方案&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -10641,7 +11380,8 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-06-25"&gt;创建日期：2023-06-25&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -10672,6 +11412,22 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -10688,6 +11444,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;79ef49e0-db49-4547-bfbf-78b6a511e91d&lt;/small&gt;
 &lt;h1 class="title"&gt;给 flutter 设置代理&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -10762,7 +11519,8 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-06-28"&gt;创建日期：2023-06-28&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -10793,6 +11551,22 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -10809,6 +11583,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;03566ccc-fb0d-4ff6-b67f-5e0a53204d4b&lt;/small&gt;
 &lt;h1 class="title"&gt;使用 systemd 进行资源分配&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -11077,7 +11852,8 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-07-01"&gt;创建日期：2023-07-01&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -11108,6 +11884,22 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -11124,6 +11916,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;5725ea26-0d1f-e95b-4611-5e40d236f79f&lt;/small&gt;
 &lt;h1 class="title"&gt;在虚拟机中安装 Windows95&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -11306,7 +12099,8 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-07-20"&gt;创建日期：2023-07-20&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -11337,6 +12131,22 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -11353,6 +12163,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;ca4147da-03bf-e4cc-3d48-3e7cd2e44295&lt;/small&gt;
 &lt;h1 class="title"&gt;UNIX System V 的安装和设置&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
@@ -11467,7 +12278,8 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-07-22"&gt;创建日期：2023-07-22&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-23&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -11498,6 +12310,22 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -11505,28 +12333,169 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
       <pubDate>Sat, 22 Jul 2023 00:00:00 +0800</pubDate>
     </item>
     <item>
-      <title>硬盘大小极限的一段历史</title>
-      <link>https://blog.izfsk.top/articles/A-History-of-Hard-Drive-Size-Limits.html</link>
-      <description>硬盘大小极限的一段历史</description>
+      <title>创建一个简单的访问计数器</title>
+      <link>https://blog.izfsk.top/articles/create-a-simple-webpage-counter.html</link>
+      <description>创建一个简单的访问计数器</description>
       <content:encoded>&lt;body&gt;
 &lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
 &lt;button id="back-to-top"&gt;
     回页顶
   &lt;/button&gt;
 &lt;header&gt;
-&lt;h1 class="title"&gt;硬盘大小极限的一段历史&lt;/h1&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;1edffa3a-8990-4bc9-bb7a-a760909b4a93&lt;/small&gt;
+&lt;h1 class="title"&gt;创建一个简单的访问计数器&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
 &lt;h3 class="subtitle"&gt; &lt;/h3&gt;
 &lt;/header&gt;
+&lt;nav id="TOC" role="doc-toc"&gt;
+&lt;strong&gt;文章归类: &lt;a href="/pages/category.html#杂项"&gt;杂项&lt;/a&gt; &lt;/strong&gt;
+&lt;input id="contents" type="checkbox"/&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#原理" id="toc-原理"&gt;原理&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#源码" id="toc-源码"&gt;源码&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#部署" id="toc-部署"&gt;部署&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#创建-mongodb-数据库" id="toc-创建-mongodb-数据库"&gt;创建 MongoDB 数据库&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#创建-render-项目" id="toc-创建-render-项目"&gt;创建 Render 项目&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#添加前端代码" id="toc-添加前端代码"&gt;添加前端代码&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#reference"&gt;参考链接&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt; &lt;/li&gt;
+&lt;li class="tools"&gt;
+&lt;span id="backtomain"&gt;
+&lt;svg class="bi bi-house" fill="currentColor" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"&gt;
+&lt;path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/span&gt;
+&lt;span id="readingmode"&gt;
+&lt;svg class="bi bi-book" fill="currentColor" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"&gt;
+&lt;path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/span&gt;
+&lt;span id="larger"&gt; &lt;/span&gt;
+&lt;span id="smaller"&gt;&lt;/span&gt;
+&lt;span id="switchfont"&gt;
+&lt;svg class="bi bi-fonts" fill="currentColor" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"&gt;
+&lt;path d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/span&gt;
+&lt;span id="backtotop"&gt;
+&lt;svg class="bi bi-arrow-bar-up" fill="currentColor" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"&gt;
+&lt;path d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" fill-rule="evenodd"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/span&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/nav&gt;
 &lt;main&gt;
-&lt;aside class="warning-draft"&gt;
-&lt;span&gt;⚠️&lt;/span&gt;注意：本文章被标记为草稿！请谨慎对待其内容。 &lt;span&gt;⚠️&lt;/span&gt;
-&lt;/aside&gt;
+&lt;p&gt;我要为站点添加一个计数器小组件，按惯例，虽然有现成的免费服务，比如&lt;a href="https://moe-counter.glitch.me/"&gt;这个&lt;/a&gt;或者&lt;a href="https://hits.seeyoufarm.com"&gt;这个&lt;/a&gt;，但我还是决定自己造一个。最终我利用一系列可以白嫖的服务构建了一个简单的访问计数器。&lt;/p&gt;
+&lt;h2 id="原理"&gt;原理&lt;/h2&gt;
+&lt;p&gt;计数器的原理很简单，就是「有访问，则加一」。一个可行的实现就是用 redis 并定期写入到数据库。不过这样一来就需要找到两个（免费的）服务。所以我不使用 redis，直接 操作数据库。经过调查，我发现 MongoDB 有提供免费的 512MB 实例，并且不会有定期清除数据之类恶心人的限制，所以就使用它了。当然，直接在浏览器访问操作数据库是不可能的， 所以我还使用 Render.com 提供的 Web Server 作为中间层，提供一个 api 来给浏览器端调用。其他的诸如 CROS，速率限制就不多赘述了。&lt;/p&gt;
+&lt;h2 id="源码"&gt;源码&lt;/h2&gt;
+&lt;p&gt;源码很少很少，这毕竟不是什么大型服务，而且从网站的访问量来看，基本上不用考虑什么性能问题：&lt;/p&gt;
+&lt;div class="sourceCode" id="cb1"&gt;&lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb1-1"&gt;&lt;a aria-hidden="true" href="#cb1-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;const&lt;/span&gt; express &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="pp"&gt;require&lt;/span&gt;(&lt;span class="st"&gt;'express'&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-2"&gt;&lt;a aria-hidden="true" href="#cb1-2" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;const&lt;/span&gt; cors &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="pp"&gt;require&lt;/span&gt;(&lt;span class="st"&gt;'cors'&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-3"&gt;&lt;a aria-hidden="true" href="#cb1-3" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;const&lt;/span&gt; rateLimit &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="pp"&gt;require&lt;/span&gt;(&lt;span class="st"&gt;'express-rate-limit'&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-4"&gt;&lt;a aria-hidden="true" href="#cb1-4" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;const&lt;/span&gt; app &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="fu"&gt;express&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-5"&gt;&lt;a aria-hidden="true" href="#cb1-5" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;const&lt;/span&gt; port &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="dv"&gt;3000&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-6"&gt;&lt;a aria-hidden="true" href="#cb1-6" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;const&lt;/span&gt; { MongoClient&lt;span class="op"&gt;,&lt;/span&gt; ServerApiVersion } &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="pp"&gt;require&lt;/span&gt;(&lt;span class="st"&gt;'mongodb'&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-7"&gt;&lt;a aria-hidden="true" href="#cb1-7" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-8"&gt;&lt;a aria-hidden="true" href="#cb1-8" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;const&lt;/span&gt; uri &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="st"&gt;"mongodb+srv:modgodb-connection-string"&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-9"&gt;&lt;a aria-hidden="true" href="#cb1-9" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-10"&gt;&lt;a aria-hidden="true" href="#cb1-10" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;const&lt;/span&gt; client &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; &lt;span class="fu"&gt;MongoClient&lt;/span&gt;(uri&lt;span class="op"&gt;,&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb1-11"&gt;&lt;a aria-hidden="true" href="#cb1-11" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;serverApi&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb1-12"&gt;&lt;a aria-hidden="true" href="#cb1-12" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="dt"&gt;version&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; ServerApiVersion&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;v1&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-13"&gt;&lt;a aria-hidden="true" href="#cb1-13" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="dt"&gt;strict&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-14"&gt;&lt;a aria-hidden="true" href="#cb1-14" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="dt"&gt;deprecationErrors&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-15"&gt;&lt;a aria-hidden="true" href="#cb1-15" tabindex="-1"&gt;&lt;/a&gt;    }&lt;/span&gt;
+&lt;span id="cb1-16"&gt;&lt;a aria-hidden="true" href="#cb1-16" tabindex="-1"&gt;&lt;/a&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-17"&gt;&lt;a aria-hidden="true" href="#cb1-17" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-18"&gt;&lt;a aria-hidden="true" href="#cb1-18" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;const&lt;/span&gt; limiter &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="fu"&gt;rateLimit&lt;/span&gt;({&lt;/span&gt;
+&lt;span id="cb1-19"&gt;&lt;a aria-hidden="true" href="#cb1-19" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;windowMs&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="dv"&gt;15&lt;/span&gt; &lt;span class="op"&gt;*&lt;/span&gt; &lt;span class="dv"&gt;60&lt;/span&gt; &lt;span class="op"&gt;*&lt;/span&gt; &lt;span class="dv"&gt;1000&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;/span&gt;
+&lt;span id="cb1-20"&gt;&lt;a aria-hidden="true" href="#cb1-20" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;max&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="dv"&gt;100&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-21"&gt;&lt;a aria-hidden="true" href="#cb1-21" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;standardHeaders&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;/span&gt;
+&lt;span id="cb1-22"&gt;&lt;a aria-hidden="true" href="#cb1-22" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="dt"&gt;legacyHeaders&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;false&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-23"&gt;&lt;a aria-hidden="true" href="#cb1-23" tabindex="-1"&gt;&lt;/a&gt;})&lt;/span&gt;
+&lt;span id="cb1-24"&gt;&lt;a aria-hidden="true" href="#cb1-24" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-25"&gt;&lt;a aria-hidden="true" href="#cb1-25" tabindex="-1"&gt;&lt;/a&gt;app&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;use&lt;/span&gt;(limiter)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-26"&gt;&lt;a aria-hidden="true" href="#cb1-26" tabindex="-1"&gt;&lt;/a&gt;app&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;use&lt;/span&gt;(&lt;span class="fu"&gt;cors&lt;/span&gt;({ &lt;span class="dt"&gt;origin&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="st"&gt;'*'&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;}))&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-27"&gt;&lt;a aria-hidden="true" href="#cb1-27" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-28"&gt;&lt;a aria-hidden="true" href="#cb1-28" tabindex="-1"&gt;&lt;/a&gt;app&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;get&lt;/span&gt;(&lt;span class="st"&gt;'/keepAlive'&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; (req&lt;span class="op"&gt;,&lt;/span&gt; res) &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb1-29"&gt;&lt;a aria-hidden="true" href="#cb1-29" tabindex="-1"&gt;&lt;/a&gt;  req&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;send&lt;/span&gt;(&lt;span class="bu"&gt;Math&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;random&lt;/span&gt;()&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;toString&lt;/span&gt;())&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-30"&gt;&lt;a aria-hidden="true" href="#cb1-30" tabindex="-1"&gt;&lt;/a&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-31"&gt;&lt;a aria-hidden="true" href="#cb1-31" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-32"&gt;&lt;a aria-hidden="true" href="#cb1-32" tabindex="-1"&gt;&lt;/a&gt;app&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;get&lt;/span&gt;(&lt;span class="st"&gt;'/counter/:uuid'&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; (req&lt;span class="op"&gt;,&lt;/span&gt; res) &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb1-33"&gt;&lt;a aria-hidden="true" href="#cb1-33" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;async&lt;/span&gt; &lt;span class="kw"&gt;function&lt;/span&gt; &lt;span class="fu"&gt;run&lt;/span&gt;() {&lt;/span&gt;
+&lt;span id="cb1-34"&gt;&lt;a aria-hidden="true" href="#cb1-34" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;const&lt;/span&gt; targetID &lt;span class="op"&gt;=&lt;/span&gt; req&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;params&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;uuid&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-35"&gt;&lt;a aria-hidden="true" href="#cb1-35" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-36"&gt;&lt;a aria-hidden="true" href="#cb1-36" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="cf"&gt;try&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb1-37"&gt;&lt;a aria-hidden="true" href="#cb1-37" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="cf"&gt;await&lt;/span&gt; client&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;connect&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-38"&gt;&lt;a aria-hidden="true" href="#cb1-38" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; result &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="cf"&gt;await&lt;/span&gt; client&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;db&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;collection&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;findOne&lt;/span&gt;({ &lt;span class="st"&gt;"url"&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; targetID })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-39"&gt;&lt;a aria-hidden="true" href="#cb1-39" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="cf"&gt;if&lt;/span&gt; (result &lt;span class="op"&gt;===&lt;/span&gt; &lt;span class="kw"&gt;null&lt;/span&gt;) {&lt;/span&gt;
+&lt;span id="cb1-40"&gt;&lt;a aria-hidden="true" href="#cb1-40" tabindex="-1"&gt;&lt;/a&gt;                &lt;span class="cf"&gt;await&lt;/span&gt; client&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;db&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;collection&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;insertOne&lt;/span&gt;({ &lt;span class="st"&gt;"url"&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; targetID&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"count"&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="dv"&gt;1&lt;/span&gt; })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-41"&gt;&lt;a aria-hidden="true" href="#cb1-41" tabindex="-1"&gt;&lt;/a&gt;                res&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;send&lt;/span&gt;(&lt;span class="st"&gt;"0"&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-42"&gt;&lt;a aria-hidden="true" href="#cb1-42" tabindex="-1"&gt;&lt;/a&gt;            } &lt;span class="cf"&gt;else&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb1-43"&gt;&lt;a aria-hidden="true" href="#cb1-43" tabindex="-1"&gt;&lt;/a&gt;                &lt;span class="cf"&gt;await&lt;/span&gt; client&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;db&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;collection&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;updateOne&lt;/span&gt;(&lt;/span&gt;
+&lt;span id="cb1-44"&gt;&lt;a aria-hidden="true" href="#cb1-44" tabindex="-1"&gt;&lt;/a&gt;                    { &lt;span class="st"&gt;"_id"&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; result&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;_id&lt;/span&gt; }&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="co"&gt;// Filter&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-45"&gt;&lt;a aria-hidden="true" href="#cb1-45" tabindex="-1"&gt;&lt;/a&gt;                    { &lt;span class="dt"&gt;$set&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; { &lt;span class="st"&gt;"count"&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; result&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;count&lt;/span&gt; &lt;span class="op"&gt;+&lt;/span&gt; &lt;span class="dv"&gt;1&lt;/span&gt; } }&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="co"&gt;// Update&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-46"&gt;&lt;a aria-hidden="true" href="#cb1-46" tabindex="-1"&gt;&lt;/a&gt;                    { &lt;span class="dt"&gt;upsert&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt; }&lt;/span&gt;
+&lt;span id="cb1-47"&gt;&lt;a aria-hidden="true" href="#cb1-47" tabindex="-1"&gt;&lt;/a&gt;                )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-48"&gt;&lt;a aria-hidden="true" href="#cb1-48" tabindex="-1"&gt;&lt;/a&gt;                res&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;send&lt;/span&gt;(result&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;count&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;toString&lt;/span&gt;())&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-49"&gt;&lt;a aria-hidden="true" href="#cb1-49" tabindex="-1"&gt;&lt;/a&gt;            }&lt;/span&gt;
+&lt;span id="cb1-50"&gt;&lt;a aria-hidden="true" href="#cb1-50" tabindex="-1"&gt;&lt;/a&gt;        } &lt;span class="cf"&gt;finally&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb1-51"&gt;&lt;a aria-hidden="true" href="#cb1-51" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="cf"&gt;await&lt;/span&gt; client&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;close&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-52"&gt;&lt;a aria-hidden="true" href="#cb1-52" tabindex="-1"&gt;&lt;/a&gt;        }&lt;/span&gt;
+&lt;span id="cb1-53"&gt;&lt;a aria-hidden="true" href="#cb1-53" tabindex="-1"&gt;&lt;/a&gt;    }&lt;/span&gt;
+&lt;span id="cb1-54"&gt;&lt;a aria-hidden="true" href="#cb1-54" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="fu"&gt;run&lt;/span&gt;()&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;catch&lt;/span&gt;(&lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;dir&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-55"&gt;&lt;a aria-hidden="true" href="#cb1-55" tabindex="-1"&gt;&lt;/a&gt;})&lt;/span&gt;
+&lt;span id="cb1-56"&gt;&lt;a aria-hidden="true" href="#cb1-56" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-57"&gt;&lt;a aria-hidden="true" href="#cb1-57" tabindex="-1"&gt;&lt;/a&gt;app&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;listen&lt;/span&gt;(port&lt;span class="op"&gt;,&lt;/span&gt; () &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb1-58"&gt;&lt;a aria-hidden="true" href="#cb1-58" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;log&lt;/span&gt;(&lt;span class="vs"&gt;`Counter app start in -&amp;gt; &lt;/span&gt;&lt;span class="sc"&gt;${&lt;/span&gt;port&lt;span class="sc"&gt;}&lt;/span&gt;&lt;span class="vs"&gt;`&lt;/span&gt;)&lt;/span&gt;
+&lt;span id="cb1-59"&gt;&lt;a aria-hidden="true" href="#cb1-59" tabindex="-1"&gt;&lt;/a&gt;})&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id="部署"&gt;部署&lt;/h2&gt;
+&lt;h3 id="创建-mongodb-数据库"&gt;创建 MongoDB 数据库&lt;/h3&gt;
+&lt;p&gt;这没什么好说的，注册，新建等等有向导，无须过多阐述。要注意的是等会儿为数据库添加允许访问的 IP。在面板左侧 Security -&amp;gt; Network Access 里面，添加 Render 的 Static Outbound IP Addresses。&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="Static Outbound IP Addresses" src="https://render.com/static/c3e7a39e5b97189dfc2414433d3be597/285d6/static-ip-connect.webp"/&gt;
+&lt;figcaption aria-hidden="true"&gt;Static Outbound IP Addresses&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;figure&gt;
+&lt;img alt="Network Access" src="./assets/mongodb-ipsettings.webp"/&gt;
+&lt;figcaption aria-hidden="true"&gt;Network Access&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h3 id="创建-render-项目"&gt;创建 Render 项目&lt;/h3&gt;
+&lt;p&gt;先在 GitHub 创建一个私有仓库，给 Render 使用。&lt;strong&gt;由于在这里 mongodb 的连接字符串是写死在代码里的，所以一定要设置为私有&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;新建一个 Web Server，把对应的仓库导入进去，填写相应的信息即可。如果愿意的话，在 Cloudflare 里面添加一个子域名绑定也是不错的选择。 Render 为免费用户提供的 Web Server 服务主要的限制是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;免费实例类型上的 Web 服务将在 15 分钟不活动后自动停止运行。当收到新的免费服务请求时，Render 会再次启动它，以便可以处理该请求。这意味着有时候请求会花费很长时间，乃至会超时。&lt;/li&gt;
+&lt;li&gt;免费实例类型允许您帐户中的所有免费 Web 服务每月有 750 小时（相当于 31.25 天）的运行时间，并且每个免费服务有 100 GB 的出口带宽。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对于第一个问题，可以使用多种多样的方法「保活」，比如在 VPS 上写一个 cron 任务自动 curl，又比如再设置一个 WebServer，每隔一段时间相互访问，当然这样做似乎不是很厚道的样子XD。&lt;/p&gt;
+&lt;h3 id="添加前端代码"&gt;添加前端代码&lt;/h3&gt;
+&lt;p&gt;你可能注意到每篇文章最下面的计数器了（如果没有那说明服务器寄了或者重启超时），实现如下：&lt;/p&gt;
+&lt;div class="sourceCode" id="cb2"&gt;&lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb2-1"&gt;&lt;a aria-hidden="true" href="#cb2-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;const&lt;/span&gt; target &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="bu"&gt;document&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;getElementById&lt;/span&gt;(&lt;span class="st"&gt;"counter-span"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerHTML&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-2"&gt;&lt;a aria-hidden="true" href="#cb2-2" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;const&lt;/span&gt; uuid &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="bu"&gt;document&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;getElementById&lt;/span&gt;(&lt;span class="st"&gt;"article-uuid"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerText&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-3"&gt;&lt;a aria-hidden="true" href="#cb2-3" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb2-4"&gt;&lt;a aria-hidden="true" href="#cb2-4" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="cf"&gt;if&lt;/span&gt; (location&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;href&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;includes&lt;/span&gt;(&lt;span class="st"&gt;"127.0.0.1:8080"&lt;/span&gt;)) {&lt;/span&gt;
+&lt;span id="cb2-5"&gt;&lt;a aria-hidden="true" href="#cb2-5" tabindex="-1"&gt;&lt;/a&gt;   &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="st"&gt;"development mode. ignore counter request."&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-6"&gt;&lt;a aria-hidden="true" href="#cb2-6" tabindex="-1"&gt;&lt;/a&gt;} &lt;span class="cf"&gt;else&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb2-7"&gt;&lt;a aria-hidden="true" href="#cb2-7" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="fu"&gt;fetch&lt;/span&gt;(&lt;span class="st"&gt;"https://counter.izfsk.top/counter/"&lt;/span&gt; &lt;span class="op"&gt;+&lt;/span&gt; uuid)&lt;/span&gt;
+&lt;span id="cb2-8"&gt;&lt;a aria-hidden="true" href="#cb2-8" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;then&lt;/span&gt;(r &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; r&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;text&lt;/span&gt;())&lt;/span&gt;
+&lt;span id="cb2-9"&gt;&lt;a aria-hidden="true" href="#cb2-9" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;then&lt;/span&gt;(d &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb2-10"&gt;&lt;a aria-hidden="true" href="#cb2-10" tabindex="-1"&gt;&lt;/a&gt;      &lt;span class="cf"&gt;if&lt;/span&gt; (&lt;span class="op"&gt;!&lt;/span&gt;d&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;startsWith&lt;/span&gt;(&lt;span class="st"&gt;"Too"&lt;/span&gt;))&lt;/span&gt;
+&lt;span id="cb2-11"&gt;&lt;a aria-hidden="true" href="#cb2-11" tabindex="-1"&gt;&lt;/a&gt;        target&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerText&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="st"&gt;"访问次数："&lt;/span&gt; &lt;span class="op"&gt;+&lt;/span&gt; d&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;toString&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-12"&gt;&lt;a aria-hidden="true" href="#cb2-12" tabindex="-1"&gt;&lt;/a&gt;      &lt;span class="cf"&gt;else&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-13"&gt;&lt;a aria-hidden="true" href="#cb2-13" tabindex="-1"&gt;&lt;/a&gt;        target&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerHTML&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="st"&gt;""&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-14"&gt;&lt;a aria-hidden="true" href="#cb2-14" tabindex="-1"&gt;&lt;/a&gt;    })&lt;/span&gt;
+&lt;span id="cb2-15"&gt;&lt;a aria-hidden="true" href="#cb2-15" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;catch&lt;/span&gt;(e &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;warn&lt;/span&gt;(e))&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-16"&gt;&lt;a aria-hidden="true" href="#cb2-16" tabindex="-1"&gt;&lt;/a&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;br/&gt;
 &lt;h2&gt;参考链接&lt;/h2&gt;
 &lt;ul id="reference"&gt;
-&lt;li&gt;&lt;a href="http://209.68.14.80/ref/hdd/bios/size.htm" target="_blank"&gt;&lt;strong&gt;Hard Disk Size Barriers&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://bitsavers.informatik.uni-stuttgart.de/pdf/ibm/pc/xt/1502237_PC_XT_Technical_Reference_Apr83.pdf" target="_blank"&gt;&lt;strong&gt;IBM PC-XT Technical Reference&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://cloud.mongodb.com/" target="_blank"&gt;&lt;strong&gt;MongoDB 数据库&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://render.com/docs/node-version" target="_blank"&gt;&lt;strong&gt;Render.com Node 文档&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;br/&gt;
 &lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
@@ -11535,8 +12504,9 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;footer&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
-&lt;p class="date"&gt;&lt;time datetime="2023-07-24"&gt;创建日期：2023-07-24&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-07-23&lt;/time&gt;&lt;/p&gt;
+&lt;p class="date"&gt;&lt;time datetime="2023-08-07"&gt;创建日期：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
@@ -11567,11 +12537,27 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e =&gt; console.warn(e));
+    }
+
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
-      <guid isPermaLink="false">95998e2d-8777-af68-d93b-dfd81aefdba6</guid>
-      <pubDate>Mon, 24 Jul 2023 00:00:00 +0800</pubDate>
+      <guid isPermaLink="false">1edffa3a-8990-4bc9-bb7a-a760909b4a93</guid>
+      <pubDate>Mon, 07 Aug 2023 00:00:00 +0800</pubDate>
     </item>
   </channel>
 </rss>

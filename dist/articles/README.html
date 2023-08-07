@@ -49,6 +49,7 @@
 
   
   <header>
+    <small style="display: none !important;" id="article-uuid">87b181b2-202e-11ee-b1e5-84a93896bec6</small>
     <h1 class="title">模版功能简介</h1>
     <!-- Subtitle -->
         <h3 class="subtitle">好好利用本主题吧~</h3>
@@ -678,7 +679,8 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
     <p class="signoff">
     <div class="metadata">
             <p class="date"><time datetime="1980-01-01">创建日期：1980-01-01</time></p>
-            <p class="lastmodify"><time>最后编译：2023-07-22</time></p>
+            <p class="lastmodify"><time>最后编译：2023-08-07</time></p>
+      <p class="lastmodify" id="counter-span">访问次数：</p>
     </div>
     </p>
   </footer>
@@ -711,8 +713,25 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r => r.text())
+        .then(d => {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e => console.warn(e));
+    }
+
   </script>
-  <script async src="https://analytics.umami.is/script.js" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3"></script>
+  <script async src="https://analytics.umami.is/script.js"
+    data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3"></script>
 </body>
 
 </html>

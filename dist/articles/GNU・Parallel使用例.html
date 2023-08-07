@@ -33,6 +33,7 @@
 
   
   <header>
+    <small style="display: none !important;" id="article-uuid">23d00329-9a40-41dc-96e4-673f89a6d1b6</small>
     <h1 class="title">GNU・Parallel使用例</h1>
     <!-- Subtitle -->
         <h3 class="subtitle">&nbsp;</h3>
@@ -338,7 +339,8 @@ server3.example.com
     <p class="signoff">
     <div class="metadata">
             <p class="date"><time datetime="2023-02-19">创建日期：2023-02-19</time></p>
-            <p class="lastmodify"><time>最后编译：2023-07-22</time></p>
+            <p class="lastmodify"><time>最后编译：2023-08-07</time></p>
+      <p class="lastmodify" id="counter-span">访问次数：</p>
     </div>
     </p>
   </footer>
@@ -371,8 +373,25 @@ server3.example.com
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r => r.text())
+        .then(d => {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e => console.warn(e));
+    }
+
   </script>
-  <script async src="https://analytics.umami.is/script.js" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3"></script>
+  <script async src="https://analytics.umami.is/script.js"
+    data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3"></script>
 </body>
 
 </html>

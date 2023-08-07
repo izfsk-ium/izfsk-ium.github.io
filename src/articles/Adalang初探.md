@@ -3,6 +3,7 @@ uuid: "8f47beda-8cb7-4835-a463-a60e6ac2dcd5"
 title: Adalang初探
 date: 2023-03-24
 category: 学习
+draft: true
 ---
 
 学习 Ada 的原因无非是两个：一是好奇这个从来没有接触过的语言，二是想要尝试一个不同「风格」的语言。

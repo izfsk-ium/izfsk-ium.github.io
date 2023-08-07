@@ -21,3 +21,11 @@ footer>section>p,
 footer>section>div>a {
     font-size: 12px !important;
 }
+
+#posts>ul>li>span {
+    display: none;
+}
+
+#posts>ul>li>a:is(:last-child) {
+    margin-left: -12px;
+}

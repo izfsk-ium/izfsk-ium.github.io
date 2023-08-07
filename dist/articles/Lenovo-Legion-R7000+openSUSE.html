@@ -33,6 +33,7 @@
 
   
   <header>
+    <small style="display: none !important;" id="article-uuid">27229a58-7f89-47b6-b217-54f35d638fb1</small>
     <h1 class="title">Lenovo Legion R7000 安装 openSUSE</h1>
     <!-- Subtitle -->
         <h3 class="subtitle">&nbsp;</h3>
@@ -223,7 +224,8 @@ sudo zypper in x11-video-nvidiaG05</code></pre>
     <p class="signoff">
     <div class="metadata">
             <p class="date"><time datetime="2022-07-13">创建日期：2022-07-13</time></p>
-            <p class="lastmodify"><time>最后编译：2023-07-22</time></p>
+            <p class="lastmodify"><time>最后编译：2023-08-07</time></p>
+      <p class="lastmodify" id="counter-span">访问次数：</p>
     </div>
     </p>
   </footer>
@@ -256,8 +258,25 @@ sudo zypper in x11-video-nvidiaG05</code></pre>
     document.getElementById('back-to-top').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      fetch("https://counter.izfsk.top/counter/" + uuid)
+        .then(r => r.text())
+        .then(d => {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        })
+        .catch(e => console.warn(e));
+    }
+
   </script>
-  <script async src="https://analytics.umami.is/script.js" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3"></script>
+  <script async src="https://analytics.umami.is/script.js"
+    data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3"></script>
 </body>
 
 </html>
