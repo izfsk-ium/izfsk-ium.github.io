@@ -5,21 +5,7 @@ import yaml
 from datetime import datetime
 
 BOOK_CARD_TEMPLATE = """
- <div class="col" ontouchstart="this.classList.toggle('hover');">
-    <div class="container" onclick="window.open('https://www.google.com/search?q={NAME}')">
-        <div class="front" style="background-image: url('{COVER}')">
-            <div class="inner" >
-                <p class="name">{NAME}</p>
-                <span class="author">{YEAR}</span>
-            </div>
-        </div>
-        <div class="back">
-            <div class="inner">
-                <p>{DESCRIPTION}</p>
-            </div>
-        </div>
-    </div>
-</div>
+<li>{NAME}</li>
 """
 
 
@@ -32,10 +18,7 @@ def generate_reading():
     ).items():
         for movie in items:
             html = BOOK_CARD_TEMPLATE.format(
-                COVER=movie["cover"],
                 NAME=movie["name"],
-                YEAR=movie["year"],
-                DESCRIPTION=movie["description"],
             )
             if category == "watching":
                 watching_html += html

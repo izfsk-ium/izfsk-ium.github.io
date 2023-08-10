@@ -266,12 +266,6 @@ a.src.tar.xz   b.src.tar.xz   c.src.tar.xz   d.src.tar.xz   e.src.tar.xz
 % ls
 aHello  bHello  cHello  dHello  eHello
 
-% parallel --plus '../a.out {%Hello}' ::: *       
-[29654]Arguments:  [../a.out] [a]
-[29655]Arguments:  [../a.out] [b]
-[29656]Arguments:  [../a.out] [c]
-[29657]Arguments:  [../a.out] [d]
-[29658]Arguments:  [../a.out] [e]
 
 % parallel --plus '../a.out {/ello/}' ::: *
 [29835]Arguments:  [../a.out] [aH]
