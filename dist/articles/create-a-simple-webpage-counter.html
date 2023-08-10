@@ -3,8 +3,9 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
       <meta name="dcterms.date" content="2023-08-07" />
         <title>创建一个简单的访问计数器</title>
     <link rel="stylesheet" href="/resources/css/article/theme.css" />
@@ -130,7 +131,7 @@
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  req<span class="op">.</span><span class="fu">send</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()<span class="op">.</span><span class="fu">toString</span>())<span class="op">;</span></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>app<span class="op">.</span><span class="fu">get</span>(<span class="st">&#39;/counter/:uuid&#39;</span><span class="op">,</span> (req<span class="op">,</span> res) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>app<span class="op">.</span><span class="fu">get</span>(<span class="st">&#39;/readOnly/:uuid&#39;</span><span class="op">,</span> (req<span class="op">,</span> res) <span class="kw">=&gt;</span> {</span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">async</span> <span class="kw">function</span> <span class="fu">run</span>() {</span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> targetID <span class="op">=</span> req<span class="op">.</span><span class="at">params</span><span class="op">.</span><span class="at">uuid</span><span class="op">;</span></span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
@@ -138,26 +139,45 @@
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>            <span class="cf">await</span> client<span class="op">.</span><span class="fu">connect</span>()<span class="op">;</span></span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>            <span class="kw">const</span> result <span class="op">=</span> <span class="cf">await</span> client<span class="op">.</span><span class="fu">db</span>(<span class="st">&quot;count&quot;</span>)<span class="op">.</span><span class="fu">collection</span>(<span class="st">&quot;count&quot;</span>)<span class="op">.</span><span class="fu">findOne</span>({ <span class="st">&quot;url&quot;</span><span class="op">:</span> targetID })<span class="op">;</span></span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (result <span class="op">===</span> <span class="kw">null</span>) {</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>                <span class="cf">await</span> client<span class="op">.</span><span class="fu">db</span>(<span class="st">&quot;count&quot;</span>)<span class="op">.</span><span class="fu">collection</span>(<span class="st">&quot;count&quot;</span>)<span class="op">.</span><span class="fu">insertOne</span>({ <span class="st">&quot;url&quot;</span><span class="op">:</span> targetID<span class="op">,</span> <span class="st">&quot;count&quot;</span><span class="op">:</span> <span class="dv">1</span> })<span class="op">;</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>                res<span class="op">.</span><span class="fu">send</span>(<span class="st">&quot;0&quot;</span>)<span class="op">;</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>            } <span class="cf">else</span> {</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>                <span class="cf">await</span> client<span class="op">.</span><span class="fu">db</span>(<span class="st">&quot;count&quot;</span>)<span class="op">.</span><span class="fu">collection</span>(<span class="st">&quot;count&quot;</span>)<span class="op">.</span><span class="fu">updateOne</span>(</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>                    { <span class="st">&quot;_id&quot;</span><span class="op">:</span> result<span class="op">.</span><span class="at">_id</span> }<span class="op">,</span> <span class="co">// Filter</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>                    { <span class="dt">$set</span><span class="op">:</span> { <span class="st">&quot;count&quot;</span><span class="op">:</span> result<span class="op">.</span><span class="at">count</span> <span class="op">+</span> <span class="dv">1</span> } }<span class="op">,</span> <span class="co">// Update</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>                    { <span class="dt">upsert</span><span class="op">:</span> <span class="kw">true</span> }</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>                )<span class="op">;</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>                res<span class="op">.</span><span class="fu">send</span>(result<span class="op">.</span><span class="at">count</span><span class="op">.</span><span class="fu">toString</span>())<span class="op">;</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>            }</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">finally</span> {</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>            <span class="cf">await</span> client<span class="op">.</span><span class="fu">close</span>()<span class="op">;</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">run</span>()<span class="op">.</span><span class="fu">catch</span>(<span class="bu">console</span><span class="op">.</span><span class="fu">dir</span>)<span class="op">;</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>app<span class="op">.</span><span class="fu">listen</span>(port<span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Counter app start in -&gt; </span><span class="sc">${</span>port<span class="sc">}</span><span class="vs">`</span>)</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>                res<span class="op">.</span><span class="fu">send</span>(<span class="st">&quot;0&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>            } <span class="cf">else</span> {</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>                res<span class="op">.</span><span class="fu">send</span>(result<span class="op">.</span><span class="at">count</span><span class="op">.</span><span class="fu">toString</span>())<span class="op">;</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">finally</span> {</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>            <span class="cf">await</span> client<span class="op">.</span><span class="fu">close</span>()<span class="op">;</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">run</span>()<span class="op">.</span><span class="fu">catch</span>(<span class="bu">console</span><span class="op">.</span><span class="fu">dir</span>)<span class="op">;</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>app<span class="op">.</span><span class="fu">get</span>(<span class="st">&#39;/counter/:uuid&#39;</span><span class="op">,</span> (req<span class="op">,</span> res) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    <span class="kw">async</span> <span class="kw">function</span> <span class="fu">run</span>() {</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> targetID <span class="op">=</span> req<span class="op">.</span><span class="at">params</span><span class="op">.</span><span class="at">uuid</span><span class="op">;</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span> {</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>            <span class="cf">await</span> client<span class="op">.</span><span class="fu">connect</span>()<span class="op">;</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>            <span class="kw">const</span> result <span class="op">=</span> <span class="cf">await</span> client<span class="op">.</span><span class="fu">db</span>(<span class="st">&quot;count&quot;</span>)<span class="op">.</span><span class="fu">collection</span>(<span class="st">&quot;count&quot;</span>)<span class="op">.</span><span class="fu">findOne</span>({ <span class="st">&quot;url&quot;</span><span class="op">:</span> targetID })<span class="op">;</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (result <span class="op">===</span> <span class="kw">null</span>) {</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>                <span class="cf">await</span> client<span class="op">.</span><span class="fu">db</span>(<span class="st">&quot;count&quot;</span>)<span class="op">.</span><span class="fu">collection</span>(<span class="st">&quot;count&quot;</span>)<span class="op">.</span><span class="fu">insertOne</span>({ <span class="st">&quot;url&quot;</span><span class="op">:</span> targetID<span class="op">,</span> <span class="st">&quot;count&quot;</span><span class="op">:</span> <span class="dv">1</span> })<span class="op">;</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>                res<span class="op">.</span><span class="fu">send</span>(<span class="st">&quot;0&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>            } <span class="cf">else</span> {</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>                <span class="cf">await</span> client<span class="op">.</span><span class="fu">db</span>(<span class="st">&quot;count&quot;</span>)<span class="op">.</span><span class="fu">collection</span>(<span class="st">&quot;count&quot;</span>)<span class="op">.</span><span class="fu">updateOne</span>(</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>                    { <span class="st">&quot;_id&quot;</span><span class="op">:</span> result<span class="op">.</span><span class="at">_id</span> }<span class="op">,</span> <span class="co">// Filter</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>                    { <span class="dt">$set</span><span class="op">:</span> { <span class="st">&quot;count&quot;</span><span class="op">:</span> result<span class="op">.</span><span class="at">count</span> <span class="op">+</span> <span class="dv">1</span> } }<span class="op">,</span> <span class="co">// Update</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>                    { <span class="dt">upsert</span><span class="op">:</span> <span class="kw">true</span> }</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>                )<span class="op">;</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>                res<span class="op">.</span><span class="fu">send</span>(result<span class="op">.</span><span class="at">count</span><span class="op">.</span><span class="fu">toString</span>())<span class="op">;</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">finally</span> {</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>            <span class="cf">await</span> client<span class="op">.</span><span class="fu">close</span>()<span class="op">;</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>    <span class="fu">run</span>()<span class="op">.</span><span class="fu">catch</span>(<span class="bu">console</span><span class="op">.</span><span class="fu">dir</span>)<span class="op">;</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>app<span class="op">.</span><span class="fu">listen</span>(port<span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Counter app start in -&gt; </span><span class="sc">${</span>port<span class="sc">}</span><span class="vs">`</span>)</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
     <h2 id="部署">部署</h2>
     <h3 id="创建-mongodb-数据库">创建 MongoDB 数据库</h3>
     <p>这没什么好说的，注册，新建等等有向导，无须过多阐述。要注意的是等会儿为数据库添加允许访问的 IP。在面板左侧 Security -&gt; Network Access 里面，添加 Render 的 Static Outbound IP Addresses。</p>
@@ -179,22 +199,27 @@
     <p>对于第一个问题，可以使用多种多样的方法「保活」，比如在 VPS 上写一个 cron 任务自动 curl，又比如再设置一个 WebServer，每隔一段时间相互访问，当然这样做似乎不是很厚道的样子XD。</p>
     <h3 id="添加前端代码">添加前端代码</h3>
     <p>你可能注意到每篇文章最下面的计数器了（如果没有那说明服务器寄了或者重启超时），实现如下：</p>
-    <div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> target <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&quot;counter-span&quot;</span>)<span class="op">.</span><span class="at">innerHTML</span><span class="op">;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> uuid <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&quot;article-uuid&quot;</span>)<span class="op">.</span><span class="at">innerText</span><span class="op">;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (location<span class="op">.</span><span class="at">href</span><span class="op">.</span><span class="fu">includes</span>(<span class="st">&quot;127.0.0.1:8080&quot;</span>)) {</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>   <span class="op">=</span> <span class="st">&quot;development mode. ignore counter request.&quot;</span><span class="op">;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fetch</span>(<span class="st">&quot;https://counter.izfsk.top/counter/&quot;</span> <span class="op">+</span> uuid)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">then</span>(r <span class="kw">=&gt;</span> r<span class="op">.</span><span class="fu">text</span>())</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">then</span>(d <span class="kw">=&gt;</span> {</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="op">!</span>d<span class="op">.</span><span class="fu">startsWith</span>(<span class="st">&quot;Too&quot;</span>))</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        target<span class="op">.</span><span class="at">innerText</span> <span class="op">=</span> <span class="st">&quot;访问次数：&quot;</span> <span class="op">+</span> d<span class="op">.</span><span class="fu">toString</span>()<span class="op">;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="cf">else</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        target<span class="op">.</span><span class="at">innerHTML</span> <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">;</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">catch</span>(e <span class="kw">=&gt;</span> <span class="bu">console</span><span class="op">.</span><span class="fu">warn</span>(e))<span class="op">;</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (location<span class="op">.</span><span class="at">href</span><span class="op">.</span><span class="fu">includes</span>(<span class="st">&quot;127.0.0.1:8080&quot;</span>)) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&quot;counter-span&quot;</span>)<span class="op">.</span><span class="at">innerHTML</span> <span class="op">=</span> <span class="st">&quot;[[development mode]]&quot;</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> uuid <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&quot;article-uuid&quot;</span>)<span class="op">.</span><span class="at">innerText</span><span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> target <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&quot;counter-span&quot;</span>)<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> last <span class="op">=</span> localStorage<span class="op">.</span><span class="fu">getItem</span>(<span class="st">&quot;lastVisit-&quot;</span> <span class="op">+</span> uuid)<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> shouldIncrease <span class="op">=</span> last <span class="op">===</span> <span class="kw">null</span> <span class="op">||</span> <span class="kw">new</span> <span class="bu">Date</span>()<span class="op">.</span><span class="fu">getTime</span>() <span class="op">-</span> <span class="pp">parseInt</span>(last) <span class="op">&gt;=</span> (<span class="dv">1000</span> <span class="op">*</span> <span class="dv">60</span> <span class="op">*</span> <span class="dv">15</span>)<span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fetch</span>(shouldIncrease <span class="op">?</span> (<span class="st">&quot;https://counter.izfsk.top/counter/&quot;</span> <span class="op">+</span> uuid) <span class="op">:</span> (<span class="st">&quot;https://counter.izfsk.top/readOnly/&quot;</span> <span class="op">+</span> uuid))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">then</span>(r <span class="kw">=&gt;</span> r<span class="op">.</span><span class="fu">text</span>())</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">then</span>(d <span class="kw">=&gt;</span> {</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="op">!</span>d<span class="op">.</span><span class="fu">startsWith</span>(<span class="st">&quot;Too&quot;</span>))</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&quot;counter-span&quot;</span>)<span class="op">.</span><span class="at">innerText</span> <span class="op">=</span> <span class="st">&quot;访问次数：&quot;</span> <span class="op">+</span> d<span class="op">.</span><span class="fu">toString</span>()<span class="op">;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&quot;counter-span&quot;</span>)<span class="op">.</span><span class="at">innerHTML</span> <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    localStorage<span class="op">.</span><span class="fu">setItem</span>(<span class="st">&quot;lastVisit-&quot;</span> <span class="op">+</span> uuid<span class="op">,</span> <span class="kw">new</span> <span class="bu">Date</span>()<span class="op">.</span><span class="fu">getTime</span>())<span class="op">;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 
     <br />
     
@@ -220,56 +245,50 @@
     <p class="signoff">
     <div class="metadata">
             <p class="date"><time datetime="2023-08-07">创建日期：2023-08-07</time></p>
-            <p class="lastmodify"><time>最后编译：2023-08-07</time></p>
+            <p class="lastmodify"><time>最后编译：2023-08-10</time></p>
       <p class="lastmodify" id="counter-span">访问次数：</p>
     </div>
     </p>
   </footer>
 
   
-  <style>
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  </style>
   <script>
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset > 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i => i.insertAdjacentHTML('beforeend', '<div class="copy">复制</div>')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i => i.addEventListener(
+        'click',
+        () => {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() => {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) >= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r => r.text())
         .then(d => {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e => console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   </script>
   <script async src="https://analytics.umami.is/script.js"
     data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3"></script>

@@ -1733,6 +1733,27 @@ pre.gpg>div>button {
   color: var(--color-text);
 }
 
+#back-to-top {
+  display: none !important;
+}
+
+code.sourceCode>div.copy {
+  cursor: url("/resources/img/select.cur"), pointer;
+  position: absolute;
+  top: 0;
+  font-weight: lighter;
+  margin-top: -20px;
+  margin-right: -10px;
+  font-size: 13px;
+  filter: opacity(0.35);
+  z-index: 999;
+  right: 0;
+}
+
+code.sourceCode>div.copy:hover {
+  filter: none;
+}
+
 /* }}} */
 /* }}} */
 

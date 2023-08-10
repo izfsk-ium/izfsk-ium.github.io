@@ -3,8 +3,9 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
       <meta name="dcterms.date" content="2023-01-19" />
         <title>CommonLisp基础-分支和循环</title>
     <link rel="stylesheet" href="/resources/css/article/theme.css" />
@@ -245,56 +246,50 @@
     <p class="signoff">
     <div class="metadata">
             <p class="date"><time datetime="2023-01-19">创建日期：2023-01-19</time></p>
-            <p class="lastmodify"><time>最后编译：2023-08-07</time></p>
+            <p class="lastmodify"><time>最后编译：2023-08-10</time></p>
       <p class="lastmodify" id="counter-span">访问次数：</p>
     </div>
     </p>
   </footer>
 
   
-  <style>
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  </style>
   <script>
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset > 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i => i.insertAdjacentHTML('beforeend', '<div class="copy">复制</div>')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i => i.addEventListener(
+        'click',
+        () => {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() => {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) >= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r => r.text())
         .then(d => {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e => console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   </script>
   <script async src="https://analytics.umami.is/script.js"
     data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3"></script>

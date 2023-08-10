@@ -13,7 +13,7 @@
       <link>http://blog.izfsk.top/rss.xml</link>
     </image>
     <language>zh_CN</language>
-    <lastBuildDate>Mon, 07 Aug 2023 07:53:12 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 10 Aug 2023 03:22:28 +0000</lastBuildDate>
     <item>
       <title>模版功能简介</title>
       <link>https://blog.izfsk.top/articles/README.html</link>
@@ -630,54 +630,48 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="1980-01-01"&gt;创建日期：1980-01-01&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -874,54 +868,48 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2021-07-11"&gt;创建日期：2021-07-11&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -1133,54 +1121,48 @@ VfLEnGuZ3yDtNjCsuGReKNNx4OCjKbp/UobOuO+NHhqJfoe6wRHOIbw=
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2021-07-28"&gt;创建日期：2021-07-28&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -1366,54 +1348,48 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-07-13"&gt;创建日期：2022-07-13&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -1515,54 +1491,48 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-11-14"&gt;创建日期：2022-11-14&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -1826,54 +1796,48 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-11-23"&gt;创建日期：2022-11-23&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -2179,54 +2143,48 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-11-24"&gt;创建日期：2022-11-24&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -2496,54 +2454,48 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-04"&gt;创建日期：2022-12-04&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -3044,54 +2996,48 @@ sudo zypper in x11-video-nvidiaG05&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-08"&gt;创建日期：2022-12-08&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -3418,54 +3364,48 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-13"&gt;创建日期：2022-12-13&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -3561,54 +3501,48 @@ testB used 0.00000 seconds.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-14"&gt;创建日期：2022-12-14&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -3857,54 +3791,48 @@ sudo iptables -A OUTPUT -o &amp;lt;yourinterface&amp;gt; -p tcp --sport 1714:176
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-19"&gt;创建日期：2022-12-19&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -4034,54 +3962,48 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-20"&gt;创建日期：2022-12-20&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -4214,54 +4136,48 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-25"&gt;创建日期：2022-12-25&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -4316,54 +4232,48 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-26"&gt;创建日期：2022-12-26&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -4464,54 +4374,48 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-31"&gt;创建日期：2022-12-31&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -4708,54 +4612,48 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-04"&gt;创建日期：2023-01-04&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -5205,54 +5103,48 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-06"&gt;创建日期：2023-01-06&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -5517,54 +5409,48 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-09"&gt;创建日期：2023-01-09&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -5878,54 +5764,48 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-18"&gt;创建日期：2023-01-18&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -6132,54 +6012,48 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-19"&gt;创建日期：2023-01-19&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -6469,54 +6343,48 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-20"&gt;创建日期：2023-01-20&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -6919,54 +6787,48 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-25"&gt;创建日期：2023-01-25&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -7163,54 +7025,48 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-28"&gt;创建日期：2023-01-28&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -7376,54 +7232,48 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-01-31"&gt;创建日期：2023-01-31&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -7808,54 +7658,48 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-02-02"&gt;创建日期：2023-02-02&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -8013,54 +7857,48 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-02-07"&gt;创建日期：2023-02-07&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -8105,54 +7943,48 @@ python3 demo.py  2.60s user 0.00s system 99% cpu 2.598 total&lt;/code&gt;&lt;/pr
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-02-13"&gt;创建日期：2023-02-13&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -8453,54 +8285,48 @@ server3.example.com
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-02-19"&gt;创建日期：2023-02-19&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -8608,54 +8434,48 @@ server3.example.com
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-02-26"&gt;创建日期：2023-02-26&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -8841,54 +8661,48 @@ server3.example.com
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-03-02"&gt;创建日期：2023-03-02&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -9020,54 +8834,48 @@ Apache2 ---|
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-03-04"&gt;创建日期：2023-03-04&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -9131,54 +8939,48 @@ modsecurity on&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-03-10"&gt;创建日期：2023-03-10&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -9497,54 +9299,48 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-03-24"&gt;创建日期：2023-03-24&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -9589,54 +9385,48 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-04-06"&gt;创建日期：2023-04-06&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -9732,54 +9522,48 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-04-13"&gt;创建日期：2023-04-13&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -9954,54 +9738,48 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-04-20"&gt;创建日期：2023-04-20&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -10379,54 +10157,48 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-04-21"&gt;创建日期：2023-04-21&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -10569,54 +10341,48 @@ For each pixel on the canvas
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-04-25"&gt;创建日期：2023-04-25&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -10920,54 +10686,48 @@ For each pixel on the canvas
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-06-01"&gt;创建日期：2023-06-01&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -11095,54 +10855,48 @@ For each pixel on the canvas
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-06-22"&gt;创建日期：2023-06-22&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -11380,54 +11134,48 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-06-25"&gt;创建日期：2023-06-25&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -11519,54 +11267,48 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-06-28"&gt;创建日期：2023-06-28&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -11852,54 +11594,48 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-07-01"&gt;创建日期：2023-07-01&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -12099,54 +11835,48 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-07-20"&gt;创建日期：2023-07-20&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -12278,54 +12008,48 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-07-22"&gt;创建日期：2023-07-22&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
@@ -12426,7 +12150,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;span id="cb1-29"&gt;&lt;a aria-hidden="true" href="#cb1-29" tabindex="-1"&gt;&lt;/a&gt;  req&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;send&lt;/span&gt;(&lt;span class="bu"&gt;Math&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;random&lt;/span&gt;()&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;toString&lt;/span&gt;())&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
 &lt;span id="cb1-30"&gt;&lt;a aria-hidden="true" href="#cb1-30" tabindex="-1"&gt;&lt;/a&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
 &lt;span id="cb1-31"&gt;&lt;a aria-hidden="true" href="#cb1-31" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb1-32"&gt;&lt;a aria-hidden="true" href="#cb1-32" tabindex="-1"&gt;&lt;/a&gt;app&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;get&lt;/span&gt;(&lt;span class="st"&gt;'/counter/:uuid'&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; (req&lt;span class="op"&gt;,&lt;/span&gt; res) &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb1-32"&gt;&lt;a aria-hidden="true" href="#cb1-32" tabindex="-1"&gt;&lt;/a&gt;app&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;get&lt;/span&gt;(&lt;span class="st"&gt;'/readOnly/:uuid'&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; (req&lt;span class="op"&gt;,&lt;/span&gt; res) &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
 &lt;span id="cb1-33"&gt;&lt;a aria-hidden="true" href="#cb1-33" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;async&lt;/span&gt; &lt;span class="kw"&gt;function&lt;/span&gt; &lt;span class="fu"&gt;run&lt;/span&gt;() {&lt;/span&gt;
 &lt;span id="cb1-34"&gt;&lt;a aria-hidden="true" href="#cb1-34" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;const&lt;/span&gt; targetID &lt;span class="op"&gt;=&lt;/span&gt; req&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;params&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;uuid&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
 &lt;span id="cb1-35"&gt;&lt;a aria-hidden="true" href="#cb1-35" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
@@ -12434,26 +12158,45 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;span id="cb1-37"&gt;&lt;a aria-hidden="true" href="#cb1-37" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="cf"&gt;await&lt;/span&gt; client&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;connect&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
 &lt;span id="cb1-38"&gt;&lt;a aria-hidden="true" href="#cb1-38" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; result &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="cf"&gt;await&lt;/span&gt; client&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;db&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;collection&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;findOne&lt;/span&gt;({ &lt;span class="st"&gt;"url"&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; targetID })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
 &lt;span id="cb1-39"&gt;&lt;a aria-hidden="true" href="#cb1-39" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="cf"&gt;if&lt;/span&gt; (result &lt;span class="op"&gt;===&lt;/span&gt; &lt;span class="kw"&gt;null&lt;/span&gt;) {&lt;/span&gt;
-&lt;span id="cb1-40"&gt;&lt;a aria-hidden="true" href="#cb1-40" tabindex="-1"&gt;&lt;/a&gt;                &lt;span class="cf"&gt;await&lt;/span&gt; client&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;db&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;collection&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;insertOne&lt;/span&gt;({ &lt;span class="st"&gt;"url"&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; targetID&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"count"&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="dv"&gt;1&lt;/span&gt; })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-41"&gt;&lt;a aria-hidden="true" href="#cb1-41" tabindex="-1"&gt;&lt;/a&gt;                res&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;send&lt;/span&gt;(&lt;span class="st"&gt;"0"&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-42"&gt;&lt;a aria-hidden="true" href="#cb1-42" tabindex="-1"&gt;&lt;/a&gt;            } &lt;span class="cf"&gt;else&lt;/span&gt; {&lt;/span&gt;
-&lt;span id="cb1-43"&gt;&lt;a aria-hidden="true" href="#cb1-43" tabindex="-1"&gt;&lt;/a&gt;                &lt;span class="cf"&gt;await&lt;/span&gt; client&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;db&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;collection&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;updateOne&lt;/span&gt;(&lt;/span&gt;
-&lt;span id="cb1-44"&gt;&lt;a aria-hidden="true" href="#cb1-44" tabindex="-1"&gt;&lt;/a&gt;                    { &lt;span class="st"&gt;"_id"&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; result&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;_id&lt;/span&gt; }&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="co"&gt;// Filter&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-45"&gt;&lt;a aria-hidden="true" href="#cb1-45" tabindex="-1"&gt;&lt;/a&gt;                    { &lt;span class="dt"&gt;$set&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; { &lt;span class="st"&gt;"count"&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; result&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;count&lt;/span&gt; &lt;span class="op"&gt;+&lt;/span&gt; &lt;span class="dv"&gt;1&lt;/span&gt; } }&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="co"&gt;// Update&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-46"&gt;&lt;a aria-hidden="true" href="#cb1-46" tabindex="-1"&gt;&lt;/a&gt;                    { &lt;span class="dt"&gt;upsert&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt; }&lt;/span&gt;
-&lt;span id="cb1-47"&gt;&lt;a aria-hidden="true" href="#cb1-47" tabindex="-1"&gt;&lt;/a&gt;                )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-48"&gt;&lt;a aria-hidden="true" href="#cb1-48" tabindex="-1"&gt;&lt;/a&gt;                res&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;send&lt;/span&gt;(result&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;count&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;toString&lt;/span&gt;())&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-49"&gt;&lt;a aria-hidden="true" href="#cb1-49" tabindex="-1"&gt;&lt;/a&gt;            }&lt;/span&gt;
-&lt;span id="cb1-50"&gt;&lt;a aria-hidden="true" href="#cb1-50" tabindex="-1"&gt;&lt;/a&gt;        } &lt;span class="cf"&gt;finally&lt;/span&gt; {&lt;/span&gt;
-&lt;span id="cb1-51"&gt;&lt;a aria-hidden="true" href="#cb1-51" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="cf"&gt;await&lt;/span&gt; client&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;close&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-52"&gt;&lt;a aria-hidden="true" href="#cb1-52" tabindex="-1"&gt;&lt;/a&gt;        }&lt;/span&gt;
-&lt;span id="cb1-53"&gt;&lt;a aria-hidden="true" href="#cb1-53" tabindex="-1"&gt;&lt;/a&gt;    }&lt;/span&gt;
-&lt;span id="cb1-54"&gt;&lt;a aria-hidden="true" href="#cb1-54" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="fu"&gt;run&lt;/span&gt;()&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;catch&lt;/span&gt;(&lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;dir&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb1-55"&gt;&lt;a aria-hidden="true" href="#cb1-55" tabindex="-1"&gt;&lt;/a&gt;})&lt;/span&gt;
-&lt;span id="cb1-56"&gt;&lt;a aria-hidden="true" href="#cb1-56" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb1-57"&gt;&lt;a aria-hidden="true" href="#cb1-57" tabindex="-1"&gt;&lt;/a&gt;app&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;listen&lt;/span&gt;(port&lt;span class="op"&gt;,&lt;/span&gt; () &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
-&lt;span id="cb1-58"&gt;&lt;a aria-hidden="true" href="#cb1-58" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;log&lt;/span&gt;(&lt;span class="vs"&gt;`Counter app start in -&amp;gt; &lt;/span&gt;&lt;span class="sc"&gt;${&lt;/span&gt;port&lt;span class="sc"&gt;}&lt;/span&gt;&lt;span class="vs"&gt;`&lt;/span&gt;)&lt;/span&gt;
-&lt;span id="cb1-59"&gt;&lt;a aria-hidden="true" href="#cb1-59" tabindex="-1"&gt;&lt;/a&gt;})&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span id="cb1-40"&gt;&lt;a aria-hidden="true" href="#cb1-40" tabindex="-1"&gt;&lt;/a&gt;                res&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;send&lt;/span&gt;(&lt;span class="st"&gt;"0"&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-41"&gt;&lt;a aria-hidden="true" href="#cb1-41" tabindex="-1"&gt;&lt;/a&gt;            } &lt;span class="cf"&gt;else&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb1-42"&gt;&lt;a aria-hidden="true" href="#cb1-42" tabindex="-1"&gt;&lt;/a&gt;                res&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;send&lt;/span&gt;(result&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;count&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;toString&lt;/span&gt;())&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-43"&gt;&lt;a aria-hidden="true" href="#cb1-43" tabindex="-1"&gt;&lt;/a&gt;            }&lt;/span&gt;
+&lt;span id="cb1-44"&gt;&lt;a aria-hidden="true" href="#cb1-44" tabindex="-1"&gt;&lt;/a&gt;        } &lt;span class="cf"&gt;finally&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb1-45"&gt;&lt;a aria-hidden="true" href="#cb1-45" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="cf"&gt;await&lt;/span&gt; client&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;close&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-46"&gt;&lt;a aria-hidden="true" href="#cb1-46" tabindex="-1"&gt;&lt;/a&gt;        }&lt;/span&gt;
+&lt;span id="cb1-47"&gt;&lt;a aria-hidden="true" href="#cb1-47" tabindex="-1"&gt;&lt;/a&gt;    }&lt;/span&gt;
+&lt;span id="cb1-48"&gt;&lt;a aria-hidden="true" href="#cb1-48" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="fu"&gt;run&lt;/span&gt;()&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;catch&lt;/span&gt;(&lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;dir&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-49"&gt;&lt;a aria-hidden="true" href="#cb1-49" tabindex="-1"&gt;&lt;/a&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-50"&gt;&lt;a aria-hidden="true" href="#cb1-50" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-51"&gt;&lt;a aria-hidden="true" href="#cb1-51" tabindex="-1"&gt;&lt;/a&gt;app&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;get&lt;/span&gt;(&lt;span class="st"&gt;'/counter/:uuid'&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; (req&lt;span class="op"&gt;,&lt;/span&gt; res) &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb1-52"&gt;&lt;a aria-hidden="true" href="#cb1-52" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;async&lt;/span&gt; &lt;span class="kw"&gt;function&lt;/span&gt; &lt;span class="fu"&gt;run&lt;/span&gt;() {&lt;/span&gt;
+&lt;span id="cb1-53"&gt;&lt;a aria-hidden="true" href="#cb1-53" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;const&lt;/span&gt; targetID &lt;span class="op"&gt;=&lt;/span&gt; req&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;params&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;uuid&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-54"&gt;&lt;a aria-hidden="true" href="#cb1-54" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-55"&gt;&lt;a aria-hidden="true" href="#cb1-55" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="cf"&gt;try&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb1-56"&gt;&lt;a aria-hidden="true" href="#cb1-56" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="cf"&gt;await&lt;/span&gt; client&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;connect&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-57"&gt;&lt;a aria-hidden="true" href="#cb1-57" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; result &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="cf"&gt;await&lt;/span&gt; client&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;db&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;collection&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;findOne&lt;/span&gt;({ &lt;span class="st"&gt;"url"&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; targetID })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-58"&gt;&lt;a aria-hidden="true" href="#cb1-58" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="cf"&gt;if&lt;/span&gt; (result &lt;span class="op"&gt;===&lt;/span&gt; &lt;span class="kw"&gt;null&lt;/span&gt;) {&lt;/span&gt;
+&lt;span id="cb1-59"&gt;&lt;a aria-hidden="true" href="#cb1-59" tabindex="-1"&gt;&lt;/a&gt;                &lt;span class="cf"&gt;await&lt;/span&gt; client&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;db&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;collection&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;insertOne&lt;/span&gt;({ &lt;span class="st"&gt;"url"&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; targetID&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"count"&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="dv"&gt;1&lt;/span&gt; })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-60"&gt;&lt;a aria-hidden="true" href="#cb1-60" tabindex="-1"&gt;&lt;/a&gt;                res&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;send&lt;/span&gt;(&lt;span class="st"&gt;"0"&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-61"&gt;&lt;a aria-hidden="true" href="#cb1-61" tabindex="-1"&gt;&lt;/a&gt;            } &lt;span class="cf"&gt;else&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb1-62"&gt;&lt;a aria-hidden="true" href="#cb1-62" tabindex="-1"&gt;&lt;/a&gt;                &lt;span class="cf"&gt;await&lt;/span&gt; client&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;db&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;collection&lt;/span&gt;(&lt;span class="st"&gt;"count"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;updateOne&lt;/span&gt;(&lt;/span&gt;
+&lt;span id="cb1-63"&gt;&lt;a aria-hidden="true" href="#cb1-63" tabindex="-1"&gt;&lt;/a&gt;                    { &lt;span class="st"&gt;"_id"&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; result&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;_id&lt;/span&gt; }&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="co"&gt;// Filter&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-64"&gt;&lt;a aria-hidden="true" href="#cb1-64" tabindex="-1"&gt;&lt;/a&gt;                    { &lt;span class="dt"&gt;$set&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; { &lt;span class="st"&gt;"count"&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; result&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;count&lt;/span&gt; &lt;span class="op"&gt;+&lt;/span&gt; &lt;span class="dv"&gt;1&lt;/span&gt; } }&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="co"&gt;// Update&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-65"&gt;&lt;a aria-hidden="true" href="#cb1-65" tabindex="-1"&gt;&lt;/a&gt;                    { &lt;span class="dt"&gt;upsert&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt; }&lt;/span&gt;
+&lt;span id="cb1-66"&gt;&lt;a aria-hidden="true" href="#cb1-66" tabindex="-1"&gt;&lt;/a&gt;                )&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-67"&gt;&lt;a aria-hidden="true" href="#cb1-67" tabindex="-1"&gt;&lt;/a&gt;                res&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;send&lt;/span&gt;(result&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;count&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;toString&lt;/span&gt;())&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-68"&gt;&lt;a aria-hidden="true" href="#cb1-68" tabindex="-1"&gt;&lt;/a&gt;            }&lt;/span&gt;
+&lt;span id="cb1-69"&gt;&lt;a aria-hidden="true" href="#cb1-69" tabindex="-1"&gt;&lt;/a&gt;        } &lt;span class="cf"&gt;finally&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb1-70"&gt;&lt;a aria-hidden="true" href="#cb1-70" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="cf"&gt;await&lt;/span&gt; client&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;close&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-71"&gt;&lt;a aria-hidden="true" href="#cb1-71" tabindex="-1"&gt;&lt;/a&gt;        }&lt;/span&gt;
+&lt;span id="cb1-72"&gt;&lt;a aria-hidden="true" href="#cb1-72" tabindex="-1"&gt;&lt;/a&gt;    }&lt;/span&gt;
+&lt;span id="cb1-73"&gt;&lt;a aria-hidden="true" href="#cb1-73" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="fu"&gt;run&lt;/span&gt;()&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;catch&lt;/span&gt;(&lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;dir&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-74"&gt;&lt;a aria-hidden="true" href="#cb1-74" tabindex="-1"&gt;&lt;/a&gt;})&lt;/span&gt;
+&lt;span id="cb1-75"&gt;&lt;a aria-hidden="true" href="#cb1-75" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-76"&gt;&lt;a aria-hidden="true" href="#cb1-76" tabindex="-1"&gt;&lt;/a&gt;app&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;listen&lt;/span&gt;(port&lt;span class="op"&gt;,&lt;/span&gt; () &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb1-77"&gt;&lt;a aria-hidden="true" href="#cb1-77" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;log&lt;/span&gt;(&lt;span class="vs"&gt;`Counter app start in -&amp;gt; &lt;/span&gt;&lt;span class="sc"&gt;${&lt;/span&gt;port&lt;span class="sc"&gt;}&lt;/span&gt;&lt;span class="vs"&gt;`&lt;/span&gt;)&lt;/span&gt;
+&lt;span id="cb1-78"&gt;&lt;a aria-hidden="true" href="#cb1-78" tabindex="-1"&gt;&lt;/a&gt;})&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id="部署"&gt;部署&lt;/h2&gt;
 &lt;h3 id="创建-mongodb-数据库"&gt;创建 MongoDB 数据库&lt;/h3&gt;
 &lt;p&gt;这没什么好说的，注册，新建等等有向导，无须过多阐述。要注意的是等会儿为数据库添加允许访问的 IP。在面板左侧 Security -&amp;gt; Network Access 里面，添加 Render 的 Static Outbound IP Addresses。&lt;/p&gt;
@@ -12475,22 +12218,27 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;对于第一个问题，可以使用多种多样的方法「保活」，比如在 VPS 上写一个 cron 任务自动 curl，又比如再设置一个 WebServer，每隔一段时间相互访问，当然这样做似乎不是很厚道的样子XD。&lt;/p&gt;
 &lt;h3 id="添加前端代码"&gt;添加前端代码&lt;/h3&gt;
 &lt;p&gt;你可能注意到每篇文章最下面的计数器了（如果没有那说明服务器寄了或者重启超时），实现如下：&lt;/p&gt;
-&lt;div class="sourceCode" id="cb2"&gt;&lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb2-1"&gt;&lt;a aria-hidden="true" href="#cb2-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;const&lt;/span&gt; target &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="bu"&gt;document&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;getElementById&lt;/span&gt;(&lt;span class="st"&gt;"counter-span"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerHTML&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-2"&gt;&lt;a aria-hidden="true" href="#cb2-2" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;const&lt;/span&gt; uuid &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="bu"&gt;document&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;getElementById&lt;/span&gt;(&lt;span class="st"&gt;"article-uuid"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerText&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-3"&gt;&lt;a aria-hidden="true" href="#cb2-3" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id="cb2-4"&gt;&lt;a aria-hidden="true" href="#cb2-4" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="cf"&gt;if&lt;/span&gt; (location&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;href&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;includes&lt;/span&gt;(&lt;span class="st"&gt;"127.0.0.1:8080"&lt;/span&gt;)) {&lt;/span&gt;
-&lt;span id="cb2-5"&gt;&lt;a aria-hidden="true" href="#cb2-5" tabindex="-1"&gt;&lt;/a&gt;   &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="st"&gt;"development mode. ignore counter request."&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-6"&gt;&lt;a aria-hidden="true" href="#cb2-6" tabindex="-1"&gt;&lt;/a&gt;} &lt;span class="cf"&gt;else&lt;/span&gt; {&lt;/span&gt;
-&lt;span id="cb2-7"&gt;&lt;a aria-hidden="true" href="#cb2-7" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="fu"&gt;fetch&lt;/span&gt;(&lt;span class="st"&gt;"https://counter.izfsk.top/counter/"&lt;/span&gt; &lt;span class="op"&gt;+&lt;/span&gt; uuid)&lt;/span&gt;
-&lt;span id="cb2-8"&gt;&lt;a aria-hidden="true" href="#cb2-8" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;then&lt;/span&gt;(r &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; r&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;text&lt;/span&gt;())&lt;/span&gt;
-&lt;span id="cb2-9"&gt;&lt;a aria-hidden="true" href="#cb2-9" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;then&lt;/span&gt;(d &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
-&lt;span id="cb2-10"&gt;&lt;a aria-hidden="true" href="#cb2-10" tabindex="-1"&gt;&lt;/a&gt;      &lt;span class="cf"&gt;if&lt;/span&gt; (&lt;span class="op"&gt;!&lt;/span&gt;d&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;startsWith&lt;/span&gt;(&lt;span class="st"&gt;"Too"&lt;/span&gt;))&lt;/span&gt;
-&lt;span id="cb2-11"&gt;&lt;a aria-hidden="true" href="#cb2-11" tabindex="-1"&gt;&lt;/a&gt;        target&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerText&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="st"&gt;"访问次数："&lt;/span&gt; &lt;span class="op"&gt;+&lt;/span&gt; d&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;toString&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-12"&gt;&lt;a aria-hidden="true" href="#cb2-12" tabindex="-1"&gt;&lt;/a&gt;      &lt;span class="cf"&gt;else&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-13"&gt;&lt;a aria-hidden="true" href="#cb2-13" tabindex="-1"&gt;&lt;/a&gt;        target&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerHTML&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="st"&gt;""&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-14"&gt;&lt;a aria-hidden="true" href="#cb2-14" tabindex="-1"&gt;&lt;/a&gt;    })&lt;/span&gt;
-&lt;span id="cb2-15"&gt;&lt;a aria-hidden="true" href="#cb2-15" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;catch&lt;/span&gt;(e &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;warn&lt;/span&gt;(e))&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id="cb2-16"&gt;&lt;a aria-hidden="true" href="#cb2-16" tabindex="-1"&gt;&lt;/a&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="sourceCode" id="cb2"&gt;&lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb2-1"&gt;&lt;a aria-hidden="true" href="#cb2-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="cf"&gt;if&lt;/span&gt; (location&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;href&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;includes&lt;/span&gt;(&lt;span class="st"&gt;"127.0.0.1:8080"&lt;/span&gt;)) {&lt;/span&gt;
+&lt;span id="cb2-2"&gt;&lt;a aria-hidden="true" href="#cb2-2" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="bu"&gt;document&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;getElementById&lt;/span&gt;(&lt;span class="st"&gt;"counter-span"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerHTML&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="st"&gt;"[[development mode]]"&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-3"&gt;&lt;a aria-hidden="true" href="#cb2-3" tabindex="-1"&gt;&lt;/a&gt;} &lt;span class="cf"&gt;else&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb2-4"&gt;&lt;a aria-hidden="true" href="#cb2-4" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;const&lt;/span&gt; uuid &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="bu"&gt;document&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;getElementById&lt;/span&gt;(&lt;span class="st"&gt;"article-uuid"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerText&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-5"&gt;&lt;a aria-hidden="true" href="#cb2-5" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;const&lt;/span&gt; target &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="bu"&gt;document&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;getElementById&lt;/span&gt;(&lt;span class="st"&gt;"counter-span"&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-6"&gt;&lt;a aria-hidden="true" href="#cb2-6" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;const&lt;/span&gt; last &lt;span class="op"&gt;=&lt;/span&gt; localStorage&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;getItem&lt;/span&gt;(&lt;span class="st"&gt;"lastVisit-"&lt;/span&gt; &lt;span class="op"&gt;+&lt;/span&gt; uuid)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-7"&gt;&lt;a aria-hidden="true" href="#cb2-7" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;const&lt;/span&gt; shouldIncrease &lt;span class="op"&gt;=&lt;/span&gt; last &lt;span class="op"&gt;===&lt;/span&gt; &lt;span class="kw"&gt;null&lt;/span&gt; &lt;span class="op"&gt;||&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; &lt;span class="bu"&gt;Date&lt;/span&gt;()&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;getTime&lt;/span&gt;() &lt;span class="op"&gt;-&lt;/span&gt; &lt;span class="pp"&gt;parseInt&lt;/span&gt;(last) &lt;span class="op"&gt;&amp;gt;=&lt;/span&gt; (&lt;span class="dv"&gt;1000&lt;/span&gt; &lt;span class="op"&gt;*&lt;/span&gt; &lt;span class="dv"&gt;60&lt;/span&gt; &lt;span class="op"&gt;*&lt;/span&gt; &lt;span class="dv"&gt;15&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-8"&gt;&lt;a aria-hidden="true" href="#cb2-8" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb2-9"&gt;&lt;a aria-hidden="true" href="#cb2-9" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb2-10"&gt;&lt;a aria-hidden="true" href="#cb2-10" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="fu"&gt;fetch&lt;/span&gt;(shouldIncrease &lt;span class="op"&gt;?&lt;/span&gt; (&lt;span class="st"&gt;"https://counter.izfsk.top/counter/"&lt;/span&gt; &lt;span class="op"&gt;+&lt;/span&gt; uuid) &lt;span class="op"&gt;:&lt;/span&gt; (&lt;span class="st"&gt;"https://counter.izfsk.top/readOnly/"&lt;/span&gt; &lt;span class="op"&gt;+&lt;/span&gt; uuid))&lt;/span&gt;
+&lt;span id="cb2-11"&gt;&lt;a aria-hidden="true" href="#cb2-11" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;then&lt;/span&gt;(r &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; r&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;text&lt;/span&gt;())&lt;/span&gt;
+&lt;span id="cb2-12"&gt;&lt;a aria-hidden="true" href="#cb2-12" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;then&lt;/span&gt;(d &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb2-13"&gt;&lt;a aria-hidden="true" href="#cb2-13" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="cf"&gt;if&lt;/span&gt; (&lt;span class="op"&gt;!&lt;/span&gt;d&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;startsWith&lt;/span&gt;(&lt;span class="st"&gt;"Too"&lt;/span&gt;))&lt;/span&gt;
+&lt;span id="cb2-14"&gt;&lt;a aria-hidden="true" href="#cb2-14" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="bu"&gt;document&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;getElementById&lt;/span&gt;(&lt;span class="st"&gt;"counter-span"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerText&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="st"&gt;"访问次数："&lt;/span&gt; &lt;span class="op"&gt;+&lt;/span&gt; d&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;toString&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-15"&gt;&lt;a aria-hidden="true" href="#cb2-15" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="cf"&gt;else&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-16"&gt;&lt;a aria-hidden="true" href="#cb2-16" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="bu"&gt;document&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;getElementById&lt;/span&gt;(&lt;span class="st"&gt;"counter-span"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerHTML&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="st"&gt;""&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-17"&gt;&lt;a aria-hidden="true" href="#cb2-17" tabindex="-1"&gt;&lt;/a&gt;    })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-18"&gt;&lt;a aria-hidden="true" href="#cb2-18" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb2-19"&gt;&lt;a aria-hidden="true" href="#cb2-19" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb2-20"&gt;&lt;a aria-hidden="true" href="#cb2-20" tabindex="-1"&gt;&lt;/a&gt;    localStorage&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;setItem&lt;/span&gt;(&lt;span class="st"&gt;"lastVisit-"&lt;/span&gt; &lt;span class="op"&gt;+&lt;/span&gt; uuid&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; &lt;span class="bu"&gt;Date&lt;/span&gt;()&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;getTime&lt;/span&gt;())&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-21"&gt;&lt;a aria-hidden="true" href="#cb2-21" tabindex="-1"&gt;&lt;/a&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;br/&gt;
 &lt;h2&gt;参考链接&lt;/h2&gt;
 &lt;ul id="reference"&gt;
@@ -12505,54 +12253,48 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-08-07"&gt;创建日期：2023-08-07&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-07&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;/footer&gt;
-&lt;style&gt;
-    #back-to-top {
-      position: fixed;
-      bottom: 25px;
-      right: 20px;
-      display: none;
-      border-radius: 0;
-      padding: 3px;
-      background: var(--background-color);
-      border-color: gray;
-      z-index: 999;
-      color: var(--color-text);
-    }
-  &lt;/style&gt;
 &lt;script&gt;
-    window.addEventListener('scroll', function () {
-      var button = document.getElementById('back-to-top');
-      if (window.pageYOffset &gt; 125) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
-
-    document.getElementById('back-to-top').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
 
     if (location.href.includes("127.0.0.1:8080")) {
-      document.getElementById("counter-span").innerHTML = "development mode. ignore counter request.";
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
     } else {
       const uuid = document.getElementById("article-uuid").innerText;
-      fetch("https://counter.izfsk.top/counter/" + uuid)
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
         .then(r =&gt; r.text())
         .then(d =&gt; {
           if (!d.startsWith("Too"))
             document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
           else
             document.getElementById("counter-span").innerHTML = "";
-        })
-        .catch(e =&gt; console.warn(e));
-    }
+        });
 
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
   &lt;/script&gt;
 &lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</content:encoded>
