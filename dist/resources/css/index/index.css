@@ -163,12 +163,7 @@ img.icon {
     width: 28px;
     margin-right: 10px;
     margin-left: -10px;
-}
-
-@media (prefers-color-scheme: dark) {
-    #back {
-        filter: invert(1);
-    }
+    filter: invert(1);
 }
 
 header>a:hover {

@@ -429,6 +429,7 @@ h1.title {
   margin-bottom: 1rem;
   font-size: var(--title-font-size);
   line-height: var(--title-line-height);
+  word-break: break-word;
 }
 
 h1.title code {

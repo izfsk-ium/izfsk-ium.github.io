@@ -98,6 +98,7 @@
     <p>我要为站点添加一个计数器小组件，按惯例，虽然有现成的免费服务，比如<a href="https://moe-counter.glitch.me/">这个</a>或者<a href="https://hits.seeyoufarm.com">这个</a>，但我还是决定自己造一个。最终我利用一系列可以白嫖的服务构建了一个简单的访问计数器。</p>
     <h2 id="原理">原理</h2>
     <p>计数器的原理很简单，就是「有访问，则加一」。一个可行的实现就是用 redis 并定期写入到数据库。不过这样一来就需要找到两个（免费的）服务。所以我不使用 redis，直接 操作数据库。经过调查，我发现 MongoDB 有提供免费的 512MB 实例，并且不会有定期清除数据之类恶心人的限制，所以就使用它了。当然，直接在浏览器访问操作数据库是不可能的， 所以我还使用 Render.com 提供的 Web Server 作为中间层，提供一个 api 来给浏览器端调用。其他的诸如 CROS，速率限制就不多赘述了。</p>
+    <p>为了安全起见，还会额外请求源仓库的所有文章的 uuid 文件判断请求是否合法。</p>
     <h2 id="源码">源码</h2>
     <p>源码很少很少，这毕竟不是什么大型服务，而且从网站的访问量来看，基本上不用考虑什么性能问题：</p>
     <div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> express <span class="op">=</span> <span class="pp">require</span>(<span class="st">&#39;express&#39;</span>)<span class="op">;</span></span>
@@ -131,7 +132,7 @@
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">getAllArticleUUIDs</span>() {</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> request <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetch</span>(<span class="st">&quot;https://raw.githubusercontent.com/izfsk-ium/izfsk-ium.github.io/main/articles/uuids.json&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> request <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetch</span>(<span class="st">&quot;https://raw.githubusercontent.com/izfsk-ium/izfsk-ium.github.io/main/dist/articles/uuids.json&quot;</span>)<span class="op">;</span></span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cf">await</span> request<span class="op">.</span><span class="fu">json</span>()<span class="op">;</span></span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
