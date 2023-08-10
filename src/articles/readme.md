@@ -17,7 +17,7 @@ ref:
 
 # Encryptes Sections
 
-use `echo -n "YOUR_TEXT_TO_ENCRYPT" | gpg --symmetric --cipher-algo AES256 --armor ` to encrypt text, then put here like:
+use `echo -n "YOUR_TEXT_TO_ENCRYPT" | gpg --symmetric --cipher-algo AES256 --armor` to encrypt text, then put here like:
 
 ```js
 

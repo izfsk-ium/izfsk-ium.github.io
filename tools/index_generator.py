@@ -515,6 +515,13 @@ def generate_rss(articles: list[ArticleMetaData]):
         print("Rss Generated.")
 
 
+def generate_article_uuid_for_counter(articles: list[ArticleMetaData]):
+    dump(
+        list(map(lambda x: x.uuid, articles)) + ["index", "test"],
+        open("dist/articles/uuids.json", "w"),
+    )
+
+
 if __name__ == "__main__":
     articles = sorted(metadata_fetcher(), key=lambda x: x.date, reverse=True)
     generate_index(articles)
@@ -523,3 +530,4 @@ if __name__ == "__main__":
     generate_projects(articles)
     generate_search_json(articles)
     generate_rss(articles)
+    generate_article_uuid_for_counter(articles)
