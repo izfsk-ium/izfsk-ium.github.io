@@ -17,3 +17,8 @@
     font-family: SCRIPT;
     src: url("/resources/fonts/ETBembo/ETBembo-RomanOSF.woff2") format('woff2');
 }
+
+@font-face {
+    font-family: ECZAR;
+    src: url("/resources/fonts/ECZAR/Eczar.woff2") format('woff2');
+}

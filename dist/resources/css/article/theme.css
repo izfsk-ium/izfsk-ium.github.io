@@ -10,6 +10,11 @@
   src: url("/resources/fonts/ETBembo/ETBembo-RomanOSF.woff2") format('woff2');
 }
 
+@font-face {
+  font-family: ECZAR;
+  src: url("/resources/fonts/ECZAR/Eczar.woff2") format('woff2');
+}
+
 :root {
   /* --- Colors --- */
 
@@ -39,8 +44,8 @@
 
   /* --- Text --- */
 
-  --font-family-prose: 'CONTENT', system-ui, -apple-system, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  --font-family-heading: 'SCRIPT', 'CONTENT', system-ui, -apple-system, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --font-family-prose: 'ECZAR', 'CONTENT', system-ui, -apple-system, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --font-family-heading: 'ECZAR', 'CONTENT', system-ui, -apple-system, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   --font-family-code: 'CODE', Menlo, monospace;
   --side-note-number-font-family: var(--font-family-prose);
 
@@ -430,6 +435,7 @@ h1.title {
   font-size: var(--title-font-size);
   line-height: var(--title-line-height);
   word-break: break-word;
+  font-family: 'SCRIPT', 'CONTENT', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
 }
 
 h1.title code {

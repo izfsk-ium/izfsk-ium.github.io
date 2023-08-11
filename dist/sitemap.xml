@@ -1,0 +1,340 @@
+
+<?xml version="1.0" encoding="UTF-8"  standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://blog.izfsk.top/</loc>
+    <lastmod>2023-08-11T21:58:51+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>    
+  <url>
+    <loc>https://blog.izfsk.top/pages/archives.html</loc>
+    <lastmod>2023-08-11T21:58:51+00:00</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://blog.izfsk.top/pages/category.html</loc>
+    <lastmod>2023-08-11T21:58:51+00:00</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://blog.izfsk.top/pages/projects.html</loc>
+    <lastmod>2023-08-11T21:58:51+00:00</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://blog.izfsk.top/pages/bookmarks.html</loc>
+    <lastmod>2023-08-11T21:58:51+00:00</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://blog.izfsk.top/pages/fs.html</loc>
+    <lastmod>2023-08-11T21:58:51+00:00</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://blog.izfsk.top/pages/books.html</loc>
+    <lastmod>2023-08-11T21:58:51+00:00</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://blog.izfsk.top/pages/movies.html</loc>
+    <lastmod>2023-08-11T21:58:51+00:00</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://blog.izfsk.top/pages/friends.html</loc>
+    <lastmod>2023-08-11T21:58:51+00:00</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://blog.izfsk.top/pages/readme.html</loc>
+    <lastmod>2023-08-11T21:58:51+00:00</lastmod>
+    <priority>0.60</priority>
+  </url>
+
+  
+  <url>
+    <loc>https://blog.izfsk.top/articles/create-a-simple-webpage-counter.html</loc>
+    <lastmod>2023-08-07T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/install-unix-system-v.html</loc>
+    <lastmod>2023-07-22T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/install-Windows95-in-oracle-virtual-box.html</loc>
+    <lastmod>2023-07-20T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/Resource-managenent-using-systemd.html</loc>
+    <lastmod>2023-07-01T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E7%BB%99flutter%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86.html</loc>
+    <lastmod>2023-06-28T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/v2ray-core%2Bcgproxy%E5%85%A8%E5%B1%80%E4%BB%A3%E7%90%86%E6%96%B9%E6%A1%88.html</loc>
+    <lastmod>2023-06-25T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E4%BD%BF%E7%94%A8chntpw%E4%BF%AE%E6%94%B9Windows%E5%AF%86%E7%A0%81.html</loc>
+    <lastmod>2023-06-22T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/Getx%E9%80%9F%E6%9F%A5%E8%A1%A8.html</loc>
+    <lastmod>2023-06-01T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E5%9F%BA%E7%A1%80%E5%85%89%E7%BA%BF%E8%BF%BD%E8%B8%AA.html</loc>
+    <lastmod>2023-04-25T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E5%88%9A%E5%A5%BD%E5%A4%9F%E7%94%A8%E7%9A%84%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E7%A1%80.html</loc>
+    <lastmod>2023-04-21T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E5%85%B3%E4%BA%8E%E9%A2%9C%E8%89%B2%E5%92%8C%E5%8F%8D%E5%B0%84.html</loc>
+    <lastmod>2023-04-20T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E7%BB%99Nautilus%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95%E9%A1%B9.html</loc>
+    <lastmod>2023-04-13T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E5%BD%93%E7%94%A8%E6%88%B7%E7%88%AC%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99.html</loc>
+    <lastmod>2023-04-06T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/Adalang%E5%88%9D%E6%8E%A2.html</loc>
+    <lastmod>2023-03-24T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E7%BB%99Apache2%E5%AE%89%E8%A3%85ModSecurity.html</loc>
+    <lastmod>2023-03-10T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85ApacheServer.html</loc>
+    <lastmod>2023-03-04T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E4%BD%BF%E7%94%A8fetch%E4%B8%8B%E8%BD%BD%E6%97%B6%E8%8E%B7%E5%8F%96%E8%BF%9B%E5%BA%A6%E4%BF%A1%E6%81%AF.html</loc>
+    <lastmod>2023-03-02T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/Journey-of-blog-migrating-from-domain-to-deployment.html</loc>
+    <lastmod>2023-02-26T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/GNU%E3%83%BBParallel%E4%BD%BF%E7%94%A8%E4%BE%8B.html</loc>
+    <lastmod>2023-02-19T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E4%B8%BA%E4%BB%80%E4%B9%88OpenAI%E5%B9%B6%E4%B8%8DOpen.html</loc>
+    <lastmod>2023-02-13T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/CROS%EF%BC%8CCookie%E4%B8%8Ehapi.html</loc>
+    <lastmod>2023-02-07T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/Svelte%E5%9F%BA%E7%A1%80%E9%80%9F%E6%9F%A5.html</loc>
+    <lastmod>2023-02-02T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E4%BD%BF%E7%94%A8TeXmacs%E6%8E%92%E7%89%88%E4%BD%9C%E4%B8%9A.html</loc>
+    <lastmod>2023-01-31T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E6%97%A7%E5%BC%8F%E4%B9%A6%E4%BF%A1%E6%95%B4%E7%90%862.html</loc>
+    <lastmod>2023-01-28T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E6%97%A7%E5%BC%8F%E4%B9%A6%E4%BF%A1%E6%95%B4%E7%90%861.html</loc>
+    <lastmod>2023-01-25T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/CommonLisp%E5%9F%BA%E7%A1%80-%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C.html</loc>
+    <lastmod>2023-01-20T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/CommonLisp%E5%9F%BA%E7%A1%80-%E5%88%86%E6%94%AF%E5%92%8C%E5%BE%AA%E7%8E%AF.html</loc>
+    <lastmod>2023-01-19T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/CommonLisp%E5%9F%BA%E7%A1%80-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html</loc>
+    <lastmod>2023-01-18T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/Python%E5%8D%8F%E7%A8%8B%E7%9A%84%E4%BD%BF%E7%94%A8.html</loc>
+    <lastmod>2023-01-09T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/Portacle%E7%9A%84%E4%BD%BF%E7%94%A8.html</loc>
+    <lastmod>2023-01-06T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E9%9B%A8%E8%AF%BE%E5%A0%82%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90.html</loc>
+    <lastmod>2023-01-04T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/Chrome%E6%96%87%E4%BB%B6%E4%BC%AA%E8%A3%85%E6%91%84%E5%83%8F%E5%A4%B4.html</loc>
+    <lastmod>2022-12-31T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/Firefox%E5%90%AF%E5%8A%A8%E9%80%9F%E5%BA%A6%E7%BC%93%E6%85%A2%E7%9A%84%E6%8E%92%E6%9F%A5.html</loc>
+    <lastmod>2022-12-26T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/ELF%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90.html</loc>
+    <lastmod>2022-12-25T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/Rclone%E6%8C%82%E8%BD%BDOffice365%E6%95%99%E8%82%B2%E7%89%88.html</loc>
+    <lastmod>2022-12-20T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/scrcpy%2Bsndcpy%2Bkdeconnect%E5%A4%9A%E5%B1%8F%E5%8D%8F%E4%BD%9C.html</loc>
+    <lastmod>2022-12-19T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E6%88%91%E7%9A%842022.html</loc>
+    <lastmod>2022-12-14T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/LRU-Cache%E4%B8%8Efunctools.html</loc>
+    <lastmod>2022-12-13T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/Python%E7%9A%84more-itertools%E6%A8%A1%E5%9D%97.html</loc>
+    <lastmod>2022-12-08T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/React%2BRedux%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8.html</loc>
+    <lastmod>2022-12-04T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/Kotlin%E7%AC%94%E8%AE%B0%281%29.html</loc>
+    <lastmod>2022-11-24T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E4%BB%BFGithub%E7%83%AD%E5%8A%9B%E5%9B%BE%E8%AE%BE%E8%AE%A1.html</loc>
+    <lastmod>2022-11-23T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/CSS-Tooltip%E6%8A%80%E5%B7%A7.html</loc>
+    <lastmod>2022-11-14T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/Lenovo-Legion-R7000%2BopenSUSE.html</loc>
+    <lastmod>2022-07-13T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E4%BA%A4%E6%8D%A2%E7%B1%BB%E6%8E%92%E5%BA%8F.html</loc>
+    <lastmod>2021-07-28T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/%E7%BB%8F%E5%85%B8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%83%BB%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8.html</loc>
+    <lastmod>2021-07-11T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://blog.izfsk.top/articles/README.html</loc>
+    <lastmod>1980-01-01T00:00:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+</urlset>

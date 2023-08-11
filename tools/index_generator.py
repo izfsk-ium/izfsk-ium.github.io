@@ -11,11 +11,13 @@ from os import listdir, path
 from pprint import pprint
 import re
 import string
+from urllib.parse import quote_plus
 from htmlmin import minify
 from feedgen.feed import FeedGenerator
 from bs4 import BeautifulSoup
 from fontTools import subset
 import datetime
+import urllib.parse
 import yaml
 from enum import Enum
 from cn2an import an2cn
@@ -512,7 +514,7 @@ def generate_rss(articles: list[ArticleMetaData]):
         fp.write(fg.rss_str(pretty=True).decode())
         fp.flush()
         fp.close()
-        print("Rss Generated.")
+        print("Generating rss")
 
 
 def generate_article_uuid_for_counter(articles: list[ArticleMetaData]):
@@ -520,6 +522,90 @@ def generate_article_uuid_for_counter(articles: list[ArticleMetaData]):
         list(map(lambda x: x.uuid, articles)) + ["index", "test"],
         open("dist/articles/uuids.json", "w"),
     )
+
+
+def generate_sitemap_xml(articles: list[ArticleMetaData]):
+    SITEMAP_XML = """
+<?xml version="1.0" encoding="UTF-8"  standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  {STATIC_URLS}
+  {BLOGPOST_URLS}
+</urlset>
+"""
+    SITE_ENTRY_TEMPLATE = """
+  <url>
+    <loc>{URL}</loc>
+    <lastmod>{MODIFY}</lastmod>
+    <priority>1.00</priority>
+  </url>\n"""
+
+    # special sites will never change
+    BLOG_URLS = """
+  <url>
+    <loc>https://blog.izfsk.top/</loc>
+    <lastmod>{MODIFY}</lastmod>
+    <priority>1.00</priority>
+  </url>    
+  <url>
+    <loc>https://blog.izfsk.top/pages/archives.html</loc>
+    <lastmod>{MODIFY}</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://blog.izfsk.top/pages/category.html</loc>
+    <lastmod>{MODIFY}</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://blog.izfsk.top/pages/projects.html</loc>
+    <lastmod>{MODIFY}</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://blog.izfsk.top/pages/bookmarks.html</loc>
+    <lastmod>{MODIFY}</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://blog.izfsk.top/pages/fs.html</loc>
+    <lastmod>{MODIFY}</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://blog.izfsk.top/pages/books.html</loc>
+    <lastmod>{MODIFY}</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://blog.izfsk.top/pages/movies.html</loc>
+    <lastmod>{MODIFY}</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://blog.izfsk.top/pages/friends.html</loc>
+    <lastmod>{MODIFY}</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://blog.izfsk.top/pages/readme.html</loc>
+    <lastmod>{MODIFY}</lastmod>
+    <priority>0.60</priority>
+  </url>
+""".format(
+        MODIFY=datetime.datetime.now().isoformat()[0:19] + "+00:00"
+    )
+
+    all_blogposts = ""
+    for i in articles:
+        all_blogposts += SITE_ENTRY_TEMPLATE.format(
+            URL=f"https://blog.izfsk.top{urllib.parse.quote(i.url)}",
+            MODIFY=i.dateObj.isoformat()[0:19] + "+00:00",
+        )
+    with open("dist/sitemap.xml", "w") as fp:
+        fp.write(SITEMAP_XML.format(STATIC_URLS=BLOG_URLS, BLOGPOST_URLS=all_blogposts))
+        fp.flush()
+        print("Generating sitemap")
 
 
 if __name__ == "__main__":
@@ -531,3 +617,4 @@ if __name__ == "__main__":
     generate_search_json(articles)
     generate_rss(articles)
     generate_article_uuid_for_counter(articles)
+    generate_sitemap_xml(articles)
