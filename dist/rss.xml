@@ -13,7 +13,7 @@
       <link>http://blog.izfsk.top/rss.xml</link>
     </image>
     <language>zh_CN</language>
-    <lastBuildDate>Fri, 11 Aug 2023 13:58:51 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 12 Aug 2023 14:16:12 +0000</lastBuildDate>
     <item>
       <title>模版功能简介</title>
       <link>https://blog.izfsk.top/articles/README.html</link>
@@ -9049,7 +9049,7 @@ modsecurity on&lt;/code&gt;&lt;/pre&gt;
 &lt;/ul&gt;
 &lt;p&gt;创建和编译运行的简单示例：&lt;/p&gt;
 &lt;ol type="1"&gt;
-&lt;li&gt;&lt;p&gt;创建 gpr 项目文件：&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;创建 gpr 项目文件:&lt;/p&gt;
 &lt;div class="sourceCode" id="cb1"&gt;&lt;pre class="sourceCode ada"&gt;&lt;code class="sourceCode ada"&gt;&lt;span id="cb1-1"&gt;&lt;a aria-hidden="true" href="#cb1-1" tabindex="-1"&gt;&lt;/a&gt;project Default &lt;span class="kw"&gt;is&lt;/span&gt;&lt;/span&gt;
 &lt;span id="cb1-2"&gt;&lt;a aria-hidden="true" href="#cb1-2" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;for&lt;/span&gt; Main &lt;span class="kw"&gt;use&lt;/span&gt; &lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="st"&gt;"main.adb"&lt;/span&gt;&lt;span class="op"&gt;)&lt;/span&gt;;&lt;/span&gt;
 &lt;span id="cb1-3"&gt;&lt;a aria-hidden="true" href="#cb1-3" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;for&lt;/span&gt; Object_Dir &lt;span class="kw"&gt;use&lt;/span&gt; &lt;span class="st"&gt;"obj"&lt;/span&gt;;&lt;/span&gt;
@@ -9293,7 +9293,7 @@ In T's loop ( 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-03-24"&gt;创建日期：2023-03-24&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-10&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-12&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;

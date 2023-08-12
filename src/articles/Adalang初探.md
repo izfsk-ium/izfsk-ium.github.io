@@ -15,7 +15,7 @@ draft: true
 
 创建和编译运行的简单示例：
 
-1. 创建 gpr 项目文件：
+1. 创建 gpr 项目文件:
 
     ```ada
     project Default is
