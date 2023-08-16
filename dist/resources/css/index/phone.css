@@ -26,6 +26,6 @@ footer>section>div>a {
     display: none;
 }
 
-#posts>ul>li>a:is(:last-child) {
+li.ra>a {
     margin-left: -12px;
 }
