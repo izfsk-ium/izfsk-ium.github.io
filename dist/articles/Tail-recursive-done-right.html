@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="keywords" content='blog, izfsk-ium, izfsk, 博客'>
+
+  <meta name=author content=izfsk>
+  <meta property=og:site_name content="白漠流霜">
+  <meta name="twitter:title" content="如何搞好尾递归优化">
+  <meta property=og:title content="如何搞好尾递归优化">
+  <meta itemprop=name content="如何搞好尾递归优化">
+  <meta name="keywords" content='blog, izfsk-ium, izfsk, 博客'>
+  <meta property='og:type' content='website'>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="izfsk" />
+
+    <meta name="dcterms.date" content="2023-08-18" />
+        <title>如何搞好尾递归优化</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      <script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+      <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+      </script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+    
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT229a679c-b172-4d4f-8f58-0474bc9f6259.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT229a679c-b172-4d4f-8f58-0474bc9f6259.ttf') format('truetype');
+}
+</style>
+
+
+  <script src="/resources/js/article.min.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <small style="display: none !important;" id="article-uuid">229a679c-b172-4d4f-8f58-0474bc9f6259</small>
+    <h1 class="title">如何搞好尾递归优化</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <li class="tools">
+      <span id="togglesidebar">
+        <b>隐藏</b>
+      </span>
+      <span id="readingmode">
+        <b>列印</b>
+      </span>
+      <span id="switchfont">
+        <b>字体</b>
+      </span>
+      <span id="backtotop">
+        <b>页顶</b>
+      </span>
+    </li>
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#学习">学习</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#概念" id="toc-概念">概念</a></li>
+    <li><a href="#如何改写" id="toc-如何改写">如何改写</a></li>
+    <li><a href="#实例" id="toc-实例">实例</a>
+    <ul>
+    <li><a href="#列表的长度" id="toc-列表的长度">列表的长度</a></li>
+    <li><a href="#map-函数" id="toc-map-函数">map 函数</a></li>
+    <li><a href="#filter-函数" id="toc-filter-函数">filter 函数</a></li>
+    <li><a href="#斐波那契数列" id="toc-斐波那契数列">斐波那契数列</a></li>
+    </ul></li>
+    <li><a href="#其他语言中的实现" id="toc-其他语言中的实现">其他语言中的实现</a>
+    <ul>
+    <li><a href="#javascript" id="toc-javascript">JavaScript</a></li>
+    <li><a href="#c" id="toc-c">C</a></li>
+    </ul></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    
+
+    <h2 id="概念">概念</h2>
+    <p>首先要区分一下「尾递归」和「尾调用」，前者是一种特殊的递归优化方式，后者是一种通用的概念。所谓「尾调用」，就是指一个函数的最后一个动作是返回一个函数的调用结果的情形，其最后一步新调用的返回值直接被当前函数的返回结果。而尾调用优化是一种编译器优化技术。尾调用优化的工作原理是，在函数的尾部调用自身时，编译器会将该调用转换为循环，从而<strong>避免了创建新的栈帧</strong>。</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> fun_a a = a * a;;</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">(* 属于尾调用 *)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> fun_b b = fun_a b;;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">(* 不属于尾调用 *)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> fun_c c = <span class="dv">1</span> + fun_a c;;</span></code></pre></div>
+    <p>很多时候，<strong>递归</strong>是一个解决问题的常见做法，递归函数不断调用自身，直到达到某个终止条件。例如下面的 <code>sum</code> 函数：</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> sum = <span class="kw">function</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  | [] -&gt; <span class="dv">0</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  | h :: t -&gt; h + sum t;;</span></code></pre></div>
+    <p>对于比较小的列表，这个函数运行的很好，但是如果列表很长，就会爆栈<span class="sidenote-wrapper"><label for="sn-0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-0" class="margin-toggle"/><span class="sidenote">考虑一下这个有趣的 C 程序 ： <code>int main(){return main();}</code>， 它会怎么样？你可以在文章末尾看看答案。<br />
+    <br />
+    </span></span>。</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sum (<span class="dt">List</span>.init <span class="dv">1000000</span> (<span class="kw">fun</span> (x) -&gt; x));;</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">(* Stack overflow during evaluation (looping recursion?). *)</span></span></code></pre></div>
+    <p>当函数调用时，需要在内存中保存一些信息，这些信息一层一层叠加起来，也就是函数的调用记录。大多数语言都使用栈实现函数调用，当一个函数体的计算调用另一个函数时，一个新元素被压入调用栈，并在被调用函数完成时弹出。栈的大小受到操作系统的限制，如果空间不足，就会导致栈溢出。分析一下上面的 <code>sum</code> 函数，可以发现，每当进行一次递归，都要「展开」一次 <code>h + sum t</code>，于是内存中的情况是这样的：</p>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(h1 <span class="op">+</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  (h2 <span class="op">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    (h3 <span class="op">+</span> ......)))</span></code></pre></div>
+    <p>结果是在<strong>最后一次递归调用，也就是整个式子完全展开</strong>以后执行的 <span class="math inline">h_n+h_{n-1}+h_{n-2}+...+h_1</span>，而在此之前所有的调用记录，即每一次的 <span class="math inline">h_n</span> 都被保留在栈中，当中间的数足够多自然栈空间会不足。而使用「尾调用」就能够避免这个结果：尾调用不需要保存中间信息，所以从头到尾只需要一个调用栈即可：</p>
+    <div class="sourceCode" id="cb5"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> better_sum <span class="dt">list</span> =  </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> <span class="kw">rec</span> _sum acc = <span class="kw">function</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    | [] -&gt; acc</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    | h :: t -&gt; _sum (acc + h) t <span class="kw">in</span> _sum <span class="dv">0</span> <span class="dt">list</span>;;</span></code></pre></div>
+    <h2 id="如何改写">如何改写</h2>
+    <p>把一个给定的递归函数改写成尾递归优化形式是有规律可循的：</p>
+    <ol type="1">
+    <li><p>将原本的递归函数改写，增加一个额外的参数，一般记作 <code>acc</code> 即 <code>accumulator</code>；</p></li>
+    <li><p>写一个包装函数用来调用改写后的函数，并将累加器的初始值传入。写包装函数的原因很简单，你也不想用户调用函数需要填一个莫名其妙的「累加器初始值」吧；</p></li>
+    <li><p>更改辅助函数以返回基本情况下的累加器；</p></li>
+    <li><p>优化辅助函数的递归情况。在递归调用之前对累加器参数执行额外的工作。这是唯一需要脑力的一步。</p></li>
+    </ol>
+    <p>以阶乘函数<span class="sidenote-wrapper"><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="sidenote">这个版本的阶乘函数对于很大的数回返回 <span class="math inline">0</span>，原因是整数类型溢出。<br />
+    <br />
+    </span></span>为例，其原本的函数（没有优化）如下：</p>
+    <div class="sourceCode" id="cb6"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fact n = <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> <span class="dv">1</span> <span class="kw">else</span> n * fact (n - <span class="dv">1</span>)</span></code></pre></div>
+    <p>首先是第一步，把原本的函数改写，添加一个新的参数 <code>acc</code>:</p>
+    <div class="sourceCode" id="cb7"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fact_aux n acc = <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> <span class="dv">1</span> <span class="kw">else</span> n * fact_aux (n - <span class="dv">1</span>)</span></code></pre></div>
+    <p>接下来，写一个新的包装函数（其中 <span class="math inline">1</span> 是 <code>acc</code> 的初始值），这个包装函数可以不是递归的：</p>
+    <div class="sourceCode" id="cb8"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> fact n = fact_aux n <span class="dv">1</span></span></code></pre></div>
+    <p>然后，更改改写后的原函数，一般来讲这一步就是把原本的终止条件改成 <code>acc</code>：</p>
+    <div class="sourceCode" id="cb9"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fact_aux n acc = <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> acc <span class="kw">else</span> n * fact_aux (n - <span class="dv">1</span>)</span></code></pre></div>
+    <p>最后对 <code>fact_aux</code> 进行一点修改，得到：</p>
+    <div class="sourceCode" id="cb10"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fact_aux n acc =</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> acc <span class="kw">else</span> fact_aux (n - <span class="dv">1</span>) (n * acc)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> fact n = fact_aux n <span class="dv">1</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">(* 也可以这样写，避免暴露 [fact_aux] 函数 *)</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> fact n =</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> <span class="kw">rec</span> fact_aux n acc = </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> acc <span class="kw">else</span> fact_aux (n - <span class="dv">1</span>) (n * acc)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">in</span> fact_aux n <span class="dv">1</span></span></code></pre></div>
+    <h2 id="实例">实例</h2>
+    <h3 id="列表的长度">列表的长度</h3>
+    <div class="sourceCode" id="cb11"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> length  = <span class="kw">function</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  | [] -&gt; <span class="dv">0</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  | h :: t -&gt; <span class="dv">1</span> + length t;;</span></code></pre></div>
+    <p>按照之前的方法，首先添加累加器参数 <code>acc</code>，再包装整个函数到新的函数中：</p>
+    <div class="sourceCode" id="cb12"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> length <span class="dt">list</span> = <span class="co">(* 外层函数 *)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> <span class="kw">rec</span> aux result = <span class="kw">function</span> <span class="co">(* 内层函数 *)</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    | []      -&gt; result <span class="co">(* 列表没东西了，返回结果 *)</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    | h :: t  -&gt; aux (result + <span class="dv">1</span>) t <span class="co">(* 否则，拆成头和尾巴，加一递归 *)</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">in</span> aux <span class="dv">0</span> <span class="dt">list</span> <span class="co">(* 调用内层函数，初始值 0 *)</span> ;;</span></code></pre></div>
+    <h3 id="map-函数">map 函数</h3>
+    <p>标准的 <code>map</code> 函数（目前标准库中的实现）不是尾递归优化的版本，其实现如下：</p>
+    <div class="sourceCode" id="cb13"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> map f = <span class="kw">function</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  | [] -&gt; []</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  | a :: l -&gt; <span class="kw">let</span> r = f a <span class="kw">in</span> r :: map f l</span></code></pre></div>
+    <p>其中 <code>let</code> 是为了防止副作用。现在改写成优化的版本：首先加一个 <code>acc</code>，把终止情况也改成返回 <code>acc</code>，接着改写内部函数，先将 <span class="math inline">f</span> 应用于拆开的列表第一个元素，再将其他传入 <code>map</code>:</p>
+    <div class="sourceCode" id="cb14"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> map f <span class="dt">list</span> =</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> <span class="kw">rec</span> aux f acc = <span class="kw">function</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    | [] -&gt; <span class="dt">List</span>.rev acc</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    | a :: l -&gt; aux f (f a :: acc) l</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">in</span> aux f [] <span class="dt">list</span>;;</span></code></pre></div>
+    <h3 id="filter-函数">filter 函数</h3>
+    <div class="sourceCode" id="cb15"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> filter p = <span class="kw">function</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  | [] -&gt; []</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  | h :: t -&gt; <span class="kw">if</span> p h <span class="kw">then</span> h :: filter p t <span class="kw">else</span> filter p t</span></code></pre></div>
+    <p>对它进行尾递归优化：</p>
+    <div class="sourceCode" id="cb16"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> filter_aux p acc = <span class="kw">function</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  | [] -&gt; <span class="dt">List</span>.rev acc</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  | h :: t -&gt; <span class="kw">if</span> p h <span class="kw">then</span> filter_aux p (h :: acc) t <span class="kw">else</span> filter_aux p acc t</span></code></pre></div>
+    <h3 id="斐波那契数列">斐波那契数列</h3>
+    <p>这是一个使用递归解决问题的经典问题，虽然并不一定高效：</p>
+    <div class="sourceCode" id="cb17"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fib = <span class="kw">function</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  | <span class="dv">0</span> -&gt; <span class="dv">0</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  | <span class="dv">1</span> -&gt; <span class="dv">1</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  | n -&gt; fib (n - <span class="dv">1</span>) + fib (n - <span class="dv">2</span>);;</span></code></pre></div>
+    <p>请注意：这已经是一个尾调用的版本，但「包装函数，累加器」的思想可以推广到这里：</p>
+    <div class="sourceCode" id="cb18"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> fib_fast = <span class="kw">function</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  | <span class="dv">0</span> -&gt; <span class="dt">None</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  | n -&gt; </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">rec</span> aux n pp p =</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>      <span class="kw">match</span> n <span class="kw">with</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>      | <span class="dv">1</span> -&gt; <span class="dt">Some</span> p</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>      | n -&gt; aux (n - <span class="dv">1</span>) p (pp + p)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> aux n <span class="dv">0</span> <span class="dv">1</span>;;</span></code></pre></div>
+    <h2 id="其他语言中的实现">其他语言中的实现</h2>
+    <h3 id="javascript">JavaScript</h3>
+    <p>ES6 规定所有 ECMAScript 的实现，都必须部署尾调用优化。</p>
+    <div class="sourceCode" id="cb19"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">factorial</span>(n<span class="op">,</span> total) {</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="op">===</span> <span class="dv">1</span>) <span class="cf">return</span> total<span class="op">;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">factorial</span>(n <span class="op">-</span> <span class="dv">1</span><span class="op">,</span> n <span class="op">*</span> total)<span class="op">;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <h3 id="c">C</h3>
+    <p>还是以上面那个注释里的程序为例：</p>
+    <div class="sourceCode" id="cb20"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(){</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> main<span class="op">();</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <p>事实上，运行结果的答案不是唯一的。考虑到不同的编译器版本和编译器优化参数，这个程序的表现可能有两种：由于爆栈导致 <code>segfault</code> 退出，或者陷入僵死状态（死循环）。</p>
+    <p>当使用 <code>gcc</code> 版本 13.2.1，不使用任何优化（<code>gcc -Og main.c</code>）时，程序会爆栈，其反汇编如下：</p>
+    <div class="sourceCode" id="cb21"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>00000000004011ef &lt;main&gt;:</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  4011ef:       <span class="dv">48</span> <span class="dv">83</span> ec <span class="dv">08</span>             sub    $<span class="dv">0x8</span>,%rsp &lt;- stack pointer</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  4011f3:       b8 <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span>          mov    $<span class="dv">0x0</span>,%eax</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  4011f8:       e8 f2 ff ff ff          call   4011ef &lt;main&gt;</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  4011fd:       <span class="dv">48</span> <span class="dv">83</span> c4 <span class="dv">08</span>             add    $<span class="dv">0x8</span>,%rsp</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">401201</span>:       c3                      ret</span></code></pre></div>
+    <p>很明显，每一次调用都会将栈指针寄存器 <code>%rsp</code> 移动，使得栈不断向下增长，这种情况下会不断调用 <code>main</code> 函数直到爆栈。而若是启用 <code>-O3</code> 优化（<code>gcc -O3 main.c</code>）时，程序会陷入僵死状态，反汇编如下：</p>
+    <div class="sourceCode" id="cb22"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0000000000401080</span> &lt;main&gt;:</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">401080</span>:       eb fe                   jmp    <span class="dv">401080</span> &lt;main&gt;</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="dv">401082</span>:       <span class="dv">66</span> 2e 0f 1f <span class="dv">84</span> <span class="dv">00</span> <span class="dv">00</span>    cs nopw <span class="dv">0x0</span>(%rax,%rax,<span class="dv">1</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">401089</span>:       <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  40108c:       0f 1f <span class="dv">40</span> <span class="dv">00</span>             nopl   <span class="dv">0x0</span>(%rax)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">401090</span>:       <span class="dv">90</span>                      nop</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="dv">401091</span>:       <span class="dv">90</span>                      nop</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="dv">401092</span>:       <span class="dv">90</span>                      nop</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="dv">401093</span>:       <span class="dv">90</span>                      nop</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>......</span></code></pre></div>
+    <p>可以看见调用被优化掉了，除了一些对齐指令啥也没有了。另外 <code>clang</code> 编译器（版本 16.0.6）无论是否开启优化，均会生成死循环版本。可见：<u>尾递归优化不仅仅取决于程序本身，也取决于编译器能不能正确的识别和优化</u>。幸运的是，大多数语言的主流编译器都支持这样的优化。</p>
+    <p>最后来一个阶乘的例子：</p>
+    <div class="sourceCode" id="cb23"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dt">long</span> factorial<span class="op">(</span><span class="dt">long</span> n<span class="op">,</span> <span class="dt">long</span> total<span class="op">){</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>n <span class="op">==</span> <span class="dv">1</span><span class="op">)</span> <span class="cf">return</span> total<span class="op">;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> factorial<span class="op">(</span>n <span class="op">-</span> <span class="dv">1</span><span class="op">,</span>n <span class="op">*</span> total<span class="op">);</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+
+    <br />
+    
+    <h2>参考链接</h2>
+    <ul id="reference">
+      <li><a href="https://en.wikipedia.org/wiki/Tail_call" target="_blank"><strong>Tail Call</strong></a></li>
+<li><a href="https://cs3110.github.io/textbook/chapters/basics/functions.html#tail-recursion" target="_blank"><strong>Ocaml Tail Recursion</strong></a></li>
+<li><a href="https://dl.acm.org/doi/pdf/10.1145/800179.810196" target="_blank"><strong>LAMBDA: The Ultimate GOTO</strong></a></li>
+<li><a href="https://exploringjs.com/es6/ch_tail-calls.html" target="_blank"><strong>Exploring JS - Tail call optimization</strong></a></li>
+    </ul>
+    
+
+
+    <br />
+    <script src="https://giscus.app/client.js" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw"
+      data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-mapping="title" data-strict="0"
+      data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme"
+      data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async>
+      </script>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-08-18">创建日期：2023-08-18</time></p>
+            <p class="lastmodify"><time>最后编译：2023-08-18</time></p>
+      <p class="lastmodify" id="counter-span">访问次数：</p>
+    </div>
+    </p>
+  </footer>
+
+  
+  <script>
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i => i.insertAdjacentHTML('beforeend', '<div class="copy">复制</div>')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i => i.addEventListener(
+        'click',
+        () => {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() => {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) >= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
+        .then(r => r.text())
+        .then(d => {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        });
+
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <script async src="https://analytics.umami.is/script.js"
+    data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3"></script>
+</body>
+
+</html>
