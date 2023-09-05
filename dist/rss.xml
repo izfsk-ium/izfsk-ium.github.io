@@ -13,7 +13,7 @@
       <link>http://blog.izfsk.top/rss.xml</link>
     </image>
     <language>zh_CN</language>
-    <lastBuildDate>Fri, 18 Aug 2023 13:36:24 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 05 Sep 2023 13:58:37 +0000</lastBuildDate>
     <item>
       <title>模版功能简介</title>
       <link>https://blog.izfsk.top/articles/README.html</link>
@@ -11768,6 +11768,10 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;aside class="warning-draft"&gt;
 &lt;span&gt;⚠️&lt;/span&gt;注意：本文章被标记为草稿！请谨慎对待其内容。 &lt;span&gt;⚠️&lt;/span&gt;
 &lt;/aside&gt;
+&lt;p&gt;每当我看到，甚至只是听到张雪峰和他的连线视频的时候，脑海中就会浮现出一个画面：法庭。&lt;/p&gt;
+&lt;p&gt;我知道这似乎有些奇怪，但当这位考研大师用带着某种傲慢的语气打断连线的家长支支吾吾、磕磕巴巴、充满了心虚和不自信的话，并用法官一般不容置疑的威严掷地有声的宣读他的判决时，眼前的这个男人似乎就成为了掌握屏幕对面那个或幼稚，或苍老但都一样的焦灼，一样的不安的面孔的人的命运的法官了。「你，应该考研」，「你，抓紧时间考公」，「你，不能报考这个专业」，「你，去报考那个专业」，然后是「下一位」、「下一位」和「下一位」。而对于那些被宣判的学生，特别是他们淳朴而又笃信，所有的知识和信息渠道只有邻居、亲戚和抖音的家长来讲，这几秒钟的简短的话就足以改变他们的一生。&lt;/p&gt;
+&lt;p&gt;反正我不喜欢这样。&lt;/p&gt;
+&lt;p&gt;当然，我不仅仅是要说「尊重学生个人理想和兴趣爱好」啊什么的，毕竟现在是在一个嘲笑梦想的年代，对于有 20% 以上几率找不到工作的年轻人来讲谈梦想好像是什么会让人笑掉大牙的事情，再加上大师们给出的答案无论愿不愿意承认，都是「性价比」比较高的。可是，这样草率的决定一生的命运真的好吗？大多数人也就是平凡的，所谓转专业也好，考研跨考也罢，那些少部分并不能代表一切呀，选择了这个专业，很有可能就被拴在上面了，再也难以逃离。&lt;/p&gt;
 &lt;br/&gt;
 &lt;h2&gt;参考链接&lt;/h2&gt;
 &lt;ul id="reference"&gt;
@@ -11781,7 +11785,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-08-15"&gt;创建日期：2023-08-15&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-18&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-09-05&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
@@ -12082,6 +12086,362 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">229a679c-b172-4d4f-8f58-0474bc9f6259</guid>
       <pubDate>Fri, 18 Aug 2023 00:00:00 +0800</pubDate>
+    </item>
+    <item>
+      <title>使用 glib 中的数据结构</title>
+      <link>https://blog.izfsk.top/articles/Use-data-structures-in-glib.html</link>
+      <description>使用 glib 中的数据结构</description>
+      <content:encoded>&lt;body&gt;
+&lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;bce81e33-c008-4b15-8059-b5052cf00897&lt;/small&gt;
+&lt;h1 class="title"&gt;使用 glib 中的数据结构&lt;/h1&gt;
+&lt;!-- Subtitle --&gt;
+&lt;h3 class="subtitle"&gt; &lt;/h3&gt;
+&lt;/header&gt;
+&lt;nav id="TOC" role="doc-toc"&gt;
+&lt;li class="tools"&gt;
+&lt;span id="togglesidebar"&gt;
+&lt;b&gt;隐藏&lt;/b&gt;
+&lt;/span&gt;
+&lt;span id="readingmode"&gt;
+&lt;b&gt;列印&lt;/b&gt;
+&lt;/span&gt;
+&lt;span id="switchfont"&gt;
+&lt;b&gt;字体&lt;/b&gt;
+&lt;/span&gt;
+&lt;span id="backtotop"&gt;
+&lt;b&gt;页顶&lt;/b&gt;
+&lt;/span&gt;
+&lt;/li&gt;
+&lt;strong&gt;文章归类: &lt;a href="/pages/category.html#备忘"&gt;备忘&lt;/a&gt; &lt;/strong&gt;
+&lt;input id="contents" type="checkbox"/&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#单链表" id="toc-单链表"&gt;单链表&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#双向链表" id="toc-双向链表"&gt;双向链表&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#散列表" id="toc-散列表"&gt;散列表&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#reference"&gt;参考链接&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/nav&gt;
+&lt;main&gt;
+&lt;p&gt;程序有两大构成要素，数据结构和算法，而在这两大要素中，因为数据结构是实现算法的基础，所以对各种常见数据结构的实现，在这两者中，优先性是第一位的。如果能在实现数据结构的过程中，开发出高可复用的类库，也能使开发者无比愉快，而在现实生活中，存在着对于这种类库的开发精益求精的项目，我们通常把这种类库称为标准库。对于 C 语言，这种类库不少，而 glib 是尤其突出常用的一种。&lt;/p&gt;
+&lt;p&gt;对于使用 &lt;code&gt;glib&lt;/code&gt; 的程序，使用 &lt;code&gt;pkg-config&lt;/code&gt; 编译：&lt;/p&gt;
+&lt;div class="sourceCode" id="cb1"&gt;&lt;pre class="sourceCode bash"&gt;&lt;code class="sourceCode bash"&gt;&lt;span id="cb1-1"&gt;&lt;a aria-hidden="true" href="#cb1-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="fu"&gt;cc&lt;/span&gt; &lt;span class="at"&gt;-Wall&lt;/span&gt; &lt;span class="kw"&gt;`&lt;/span&gt;&lt;span class="ex"&gt;pkg-config&lt;/span&gt; &lt;span class="at"&gt;--cflags&lt;/span&gt; glib-2.0&lt;span class="kw"&gt;`&lt;/span&gt; demo.c &lt;span class="kw"&gt;`&lt;/span&gt;&lt;span class="ex"&gt;pkg-config&lt;/span&gt; &lt;span class="at"&gt;--libs&lt;/span&gt; glib-2.0&lt;span class="kw"&gt;`&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id="单链表"&gt;单链表&lt;/h2&gt;
+&lt;p&gt;glib 中最基础的数据结构是单向链表 &lt;code&gt;GSList&lt;/code&gt;，对于单向链表，只能够从一个方向遍历。每次向其中添加一个新的项目，就创建一个新的 &lt;code&gt;GSList struct&lt;/code&gt; 保存数据项和指向下一个内容的指针。以下是基本举例：&lt;/p&gt;
+&lt;div class="sourceCode" id="cb2"&gt;&lt;pre class="sourceCode c"&gt;&lt;code class="sourceCode c"&gt;&lt;span id="cb2-1"&gt;&lt;a aria-hidden="true" href="#cb2-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;#include &lt;/span&gt;&lt;span class="im"&gt;&amp;lt;glib.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-2"&gt;&lt;a aria-hidden="true" href="#cb2-2" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;#include &lt;/span&gt;&lt;span class="im"&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-3"&gt;&lt;a aria-hidden="true" href="#cb2-3" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb2-4"&gt;&lt;a aria-hidden="true" href="#cb2-4" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="dt"&gt;int&lt;/span&gt; main&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="dt"&gt;int&lt;/span&gt; argc&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dt"&gt;char&lt;/span&gt; &lt;span class="op"&gt;**&lt;/span&gt;argv&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-5"&gt;&lt;a aria-hidden="true" href="#cb2-5" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 创建一个新的链表 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-6"&gt;&lt;a aria-hidden="true" href="#cb2-6" tabindex="-1"&gt;&lt;/a&gt;  GSList &lt;span class="op"&gt;*&lt;/span&gt;list &lt;span class="op"&gt;=&lt;/span&gt; NULL&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-7"&gt;&lt;a aria-hidden="true" href="#cb2-7" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb2-8"&gt;&lt;a aria-hidden="true" href="#cb2-8" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 添加新的项目， 注意将新的节点赋值给原来的*/&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-9"&gt;&lt;a aria-hidden="true" href="#cb2-9" tabindex="-1"&gt;&lt;/a&gt;  list &lt;span class="op"&gt;=&lt;/span&gt; g_slist_append&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"Hello!"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-10"&gt;&lt;a aria-hidden="true" href="#cb2-10" tabindex="-1"&gt;&lt;/a&gt;  list &lt;span class="op"&gt;=&lt;/span&gt; g_slist_append&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"world"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-11"&gt;&lt;a aria-hidden="true" href="#cb2-11" tabindex="-1"&gt;&lt;/a&gt;  list &lt;span class="op"&gt;=&lt;/span&gt; g_slist_append&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"second"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-12"&gt;&lt;a aria-hidden="true" href="#cb2-12" tabindex="-1"&gt;&lt;/a&gt;  list &lt;span class="op"&gt;=&lt;/span&gt; g_slist_append&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"second"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-13"&gt;&lt;a aria-hidden="true" href="#cb2-13" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb2-14"&gt;&lt;a aria-hidden="true" href="#cb2-14" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* prepend 比 append 快速， 后者需要遍历整个链表 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-15"&gt;&lt;a aria-hidden="true" href="#cb2-15" tabindex="-1"&gt;&lt;/a&gt;  list &lt;span class="op"&gt;=&lt;/span&gt; g_slist_prepend&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"apple"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-16"&gt;&lt;a aria-hidden="true" href="#cb2-16" tabindex="-1"&gt;&lt;/a&gt;  list &lt;span class="op"&gt;=&lt;/span&gt; g_slist_prepend&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"pie"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-17"&gt;&lt;a aria-hidden="true" href="#cb2-17" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb2-18"&gt;&lt;a aria-hidden="true" href="#cb2-18" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 获取长度 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-19"&gt;&lt;a aria-hidden="true" href="#cb2-19" tabindex="-1"&gt;&lt;/a&gt;  printf&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="st"&gt;"Length of list : &lt;/span&gt;&lt;span class="sc"&gt;%d&lt;/span&gt;&lt;span class="st"&gt;.&lt;/span&gt;&lt;span class="sc"&gt;\n&lt;/span&gt;&lt;span class="st"&gt;"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; g_slist_length&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-20"&gt;&lt;a aria-hidden="true" href="#cb2-20" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb2-21"&gt;&lt;a aria-hidden="true" href="#cb2-21" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 删除项目 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-22"&gt;&lt;a aria-hidden="true" href="#cb2-22" tabindex="-1"&gt;&lt;/a&gt;  list &lt;span class="op"&gt;=&lt;/span&gt; g_slist_remove&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"apple"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-23"&gt;&lt;a aria-hidden="true" href="#cb2-23" tabindex="-1"&gt;&lt;/a&gt;  list &lt;span class="op"&gt;=&lt;/span&gt; g_slist_remove_all&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"second"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-24"&gt;&lt;a aria-hidden="true" href="#cb2-24" tabindex="-1"&gt;&lt;/a&gt;  printf&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="st"&gt;"After remove, length of list : &lt;/span&gt;&lt;span class="sc"&gt;%d&lt;/span&gt;&lt;span class="st"&gt;.&lt;/span&gt;&lt;span class="sc"&gt;\n&lt;/span&gt;&lt;span class="st"&gt;"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; g_slist_length&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-25"&gt;&lt;a aria-hidden="true" href="#cb2-25" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb2-26"&gt;&lt;a aria-hidden="true" href="#cb2-26" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 获取最后一个，第 n 个项目 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-27"&gt;&lt;a aria-hidden="true" href="#cb2-27" tabindex="-1"&gt;&lt;/a&gt;  GSList &lt;span class="op"&gt;*&lt;/span&gt;last_element &lt;span class="op"&gt;=&lt;/span&gt; g_slist_last&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-28"&gt;&lt;a aria-hidden="true" href="#cb2-28" tabindex="-1"&gt;&lt;/a&gt;  GSList &lt;span class="op"&gt;*&lt;/span&gt;second_element &lt;span class="op"&gt;=&lt;/span&gt; g_slist_nth&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;1&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-29"&gt;&lt;a aria-hidden="true" href="#cb2-29" tabindex="-1"&gt;&lt;/a&gt;  gpointer third_element &lt;span class="op"&gt;=&lt;/span&gt; g_slist_nth_data&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;2&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-30"&gt;&lt;a aria-hidden="true" href="#cb2-30" tabindex="-1"&gt;&lt;/a&gt;  printf&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="st"&gt;"Last element : &lt;/span&gt;&lt;span class="sc"&gt;%s\n&lt;/span&gt;&lt;span class="st"&gt;"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; last_element&lt;span class="op"&gt;-&amp;gt;&lt;/span&gt;data&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-31"&gt;&lt;a aria-hidden="true" href="#cb2-31" tabindex="-1"&gt;&lt;/a&gt;  printf&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="st"&gt;"Second element : &lt;/span&gt;&lt;span class="sc"&gt;%s\n&lt;/span&gt;&lt;span class="st"&gt;"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; second_element&lt;span class="op"&gt;-&amp;gt;&lt;/span&gt;data&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-32"&gt;&lt;a aria-hidden="true" href="#cb2-32" tabindex="-1"&gt;&lt;/a&gt;  printf&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="st"&gt;"Third element : &lt;/span&gt;&lt;span class="sc"&gt;%s\n&lt;/span&gt;&lt;span class="st"&gt;"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; third_element&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-33"&gt;&lt;a aria-hidden="true" href="#cb2-33" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb2-34"&gt;&lt;a aria-hidden="true" href="#cb2-34" tabindex="-1"&gt;&lt;/a&gt;  g_slist_free&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-35"&gt;&lt;a aria-hidden="true" href="#cb2-35" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="cf"&gt;return&lt;/span&gt; &lt;span class="dv"&gt;0&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-36"&gt;&lt;a aria-hidden="true" href="#cb2-36" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;GSList&lt;/code&gt; 对于用户自定义的类型也可以使用。&lt;/p&gt;
+&lt;div class="sourceCode" id="cb3"&gt;&lt;pre class="sourceCode c"&gt;&lt;code class="sourceCode c"&gt;&lt;span id="cb3-1"&gt;&lt;a aria-hidden="true" href="#cb3-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;#include &lt;/span&gt;&lt;span class="im"&gt;&amp;lt;assert.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-2"&gt;&lt;a aria-hidden="true" href="#cb3-2" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;#include &lt;/span&gt;&lt;span class="im"&gt;&amp;lt;glib.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-3"&gt;&lt;a aria-hidden="true" href="#cb3-3" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb3-4"&gt;&lt;a aria-hidden="true" href="#cb3-4" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;typedef&lt;/span&gt; &lt;span class="kw"&gt;struct&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-5"&gt;&lt;a aria-hidden="true" href="#cb3-5" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="dt"&gt;unsigned&lt;/span&gt; &lt;span class="dt"&gt;int&lt;/span&gt; id&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-6"&gt;&lt;a aria-hidden="true" href="#cb3-6" tabindex="-1"&gt;&lt;/a&gt;  gboolean is_male&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-7"&gt;&lt;a aria-hidden="true" href="#cb3-7" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="dt"&gt;char&lt;/span&gt; &lt;span class="op"&gt;*&lt;/span&gt;name&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-8"&gt;&lt;a aria-hidden="true" href="#cb3-8" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;}&lt;/span&gt; Person&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-9"&gt;&lt;a aria-hidden="true" href="#cb3-9" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb3-10"&gt;&lt;a aria-hidden="true" href="#cb3-10" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="dt"&gt;int&lt;/span&gt; main&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="dt"&gt;int&lt;/span&gt; argc&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dt"&gt;char&lt;/span&gt; &lt;span class="op"&gt;**&lt;/span&gt;argv&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-11"&gt;&lt;a aria-hidden="true" href="#cb3-11" tabindex="-1"&gt;&lt;/a&gt;  GSList &lt;span class="op"&gt;*&lt;/span&gt;list &lt;span class="op"&gt;=&lt;/span&gt; NULL&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-12"&gt;&lt;a aria-hidden="true" href="#cb3-12" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb3-13"&gt;&lt;a aria-hidden="true" href="#cb3-13" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 使用 malloc 进行内存管理 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-14"&gt;&lt;a aria-hidden="true" href="#cb3-14" tabindex="-1"&gt;&lt;/a&gt;  Person &lt;span class="op"&gt;*&lt;/span&gt;person_1 &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="op"&gt;(&lt;/span&gt;Person &lt;span class="op"&gt;*)&lt;/span&gt;malloc&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="kw"&gt;sizeof&lt;/span&gt;&lt;span class="op"&gt;(&lt;/span&gt;Person&lt;span class="op"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-15"&gt;&lt;a aria-hidden="true" href="#cb3-15" tabindex="-1"&gt;&lt;/a&gt;  assert&lt;span class="op"&gt;(&lt;/span&gt;person_1 &lt;span class="op"&gt;!=&lt;/span&gt; NULL&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-16"&gt;&lt;a aria-hidden="true" href="#cb3-16" tabindex="-1"&gt;&lt;/a&gt;  person_1&lt;span class="op"&gt;-&amp;gt;&lt;/span&gt;id &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="dv"&gt;0&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-17"&gt;&lt;a aria-hidden="true" href="#cb3-17" tabindex="-1"&gt;&lt;/a&gt;  person_1&lt;span class="op"&gt;-&amp;gt;&lt;/span&gt;is_male &lt;span class="op"&gt;=&lt;/span&gt; TRUE&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-18"&gt;&lt;a aria-hidden="true" href="#cb3-18" tabindex="-1"&gt;&lt;/a&gt;  person_1&lt;span class="op"&gt;-&amp;gt;&lt;/span&gt;name &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="st"&gt;"John"&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-19"&gt;&lt;a aria-hidden="true" href="#cb3-19" tabindex="-1"&gt;&lt;/a&gt;  list &lt;span class="op"&gt;=&lt;/span&gt; g_slist_append&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;,&lt;/span&gt; person_1&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-20"&gt;&lt;a aria-hidden="true" href="#cb3-20" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb3-21"&gt;&lt;a aria-hidden="true" href="#cb3-21" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 使用 g_new 进行内存管理 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-22"&gt;&lt;a aria-hidden="true" href="#cb3-22" tabindex="-1"&gt;&lt;/a&gt;  Person &lt;span class="op"&gt;*&lt;/span&gt;person_2 &lt;span class="op"&gt;=&lt;/span&gt; g_new&lt;span class="op"&gt;(&lt;/span&gt;Person&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;1&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-23"&gt;&lt;a aria-hidden="true" href="#cb3-23" tabindex="-1"&gt;&lt;/a&gt;  assert&lt;span class="op"&gt;(&lt;/span&gt;person_2 &lt;span class="op"&gt;!=&lt;/span&gt; NULL&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-24"&gt;&lt;a aria-hidden="true" href="#cb3-24" tabindex="-1"&gt;&lt;/a&gt;  person_2&lt;span class="op"&gt;-&amp;gt;&lt;/span&gt;id &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="dv"&gt;1&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-25"&gt;&lt;a aria-hidden="true" href="#cb3-25" tabindex="-1"&gt;&lt;/a&gt;  person_2&lt;span class="op"&gt;-&amp;gt;&lt;/span&gt;is_male &lt;span class="op"&gt;=&lt;/span&gt; FALSE&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-26"&gt;&lt;a aria-hidden="true" href="#cb3-26" tabindex="-1"&gt;&lt;/a&gt;  person_2&lt;span class="op"&gt;-&amp;gt;&lt;/span&gt;name &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="st"&gt;"Alice"&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-27"&gt;&lt;a aria-hidden="true" href="#cb3-27" tabindex="-1"&gt;&lt;/a&gt;  list &lt;span class="op"&gt;=&lt;/span&gt; g_slist_append&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;,&lt;/span&gt; person_2&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-28"&gt;&lt;a aria-hidden="true" href="#cb3-28" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb3-29"&gt;&lt;a aria-hidden="true" href="#cb3-29" tabindex="-1"&gt;&lt;/a&gt;  assert&lt;span class="op"&gt;(&lt;/span&gt;g_slist_length&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="op"&gt;==&lt;/span&gt; &lt;span class="dv"&gt;2&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-30"&gt;&lt;a aria-hidden="true" href="#cb3-30" tabindex="-1"&gt;&lt;/a&gt;  assert&lt;span class="op"&gt;(((&lt;/span&gt;Person &lt;span class="op"&gt;*)(&lt;/span&gt;g_slist_nth_data&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;1&lt;/span&gt;&lt;span class="op"&gt;)))-&amp;gt;&lt;/span&gt;is_male &lt;span class="op"&gt;==&lt;/span&gt; FALSE&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-31"&gt;&lt;a aria-hidden="true" href="#cb3-31" tabindex="-1"&gt;&lt;/a&gt;  assert&lt;span class="op"&gt;(((&lt;/span&gt;Person &lt;span class="op"&gt;*)(&lt;/span&gt;g_slist_nth_data&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;1&lt;/span&gt;&lt;span class="op"&gt;)))-&amp;gt;&lt;/span&gt;id &lt;span class="op"&gt;==&lt;/span&gt; &lt;span class="dv"&gt;1&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-32"&gt;&lt;a aria-hidden="true" href="#cb3-32" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb3-33"&gt;&lt;a aria-hidden="true" href="#cb3-33" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 内存释放 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-34"&gt;&lt;a aria-hidden="true" href="#cb3-34" tabindex="-1"&gt;&lt;/a&gt;  free&lt;span class="op"&gt;(&lt;/span&gt;person_1&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-35"&gt;&lt;a aria-hidden="true" href="#cb3-35" tabindex="-1"&gt;&lt;/a&gt;  g_free&lt;span class="op"&gt;(&lt;/span&gt;person_2&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-36"&gt;&lt;a aria-hidden="true" href="#cb3-36" tabindex="-1"&gt;&lt;/a&gt;  g_slist_free&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-37"&gt;&lt;a aria-hidden="true" href="#cb3-37" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="cf"&gt;return&lt;/span&gt; &lt;span class="dv"&gt;0&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-38"&gt;&lt;a aria-hidden="true" href="#cb3-38" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;要遍历整个链表，有两个方法：使用 &lt;code&gt;for&lt;/code&gt; 循环，或者使用回调函数。&lt;/p&gt;
+&lt;div class="sourceCode" id="cb4"&gt;&lt;pre class="sourceCode c"&gt;&lt;code class="sourceCode c"&gt;&lt;span id="cb4-1"&gt;&lt;a aria-hidden="true" href="#cb4-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;#include &lt;/span&gt;&lt;span class="im"&gt;&amp;lt;assert.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-2"&gt;&lt;a aria-hidden="true" href="#cb4-2" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;#include &lt;/span&gt;&lt;span class="im"&gt;&amp;lt;glib.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-3"&gt;&lt;a aria-hidden="true" href="#cb4-3" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;#include &lt;/span&gt;&lt;span class="im"&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-4"&gt;&lt;a aria-hidden="true" href="#cb4-4" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb4-5"&gt;&lt;a aria-hidden="true" href="#cb4-5" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;inline&lt;/span&gt; &lt;span class="dt"&gt;static&lt;/span&gt; &lt;span class="dt"&gt;void&lt;/span&gt; callback&lt;span class="op"&gt;(&lt;/span&gt;gpointer item&lt;span class="op"&gt;,&lt;/span&gt; gpointer addition_data&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-6"&gt;&lt;a aria-hidden="true" href="#cb4-6" tabindex="-1"&gt;&lt;/a&gt;  printf&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="st"&gt;"&lt;/span&gt;&lt;span class="sc"&gt;%s&lt;/span&gt;&lt;span class="st"&gt; &lt;/span&gt;&lt;span class="sc"&gt;%d\n&lt;/span&gt;&lt;span class="st"&gt;"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; addition_data&lt;span class="op"&gt;,&lt;/span&gt; item&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-7"&gt;&lt;a aria-hidden="true" href="#cb4-7" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-8"&gt;&lt;a aria-hidden="true" href="#cb4-8" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb4-9"&gt;&lt;a aria-hidden="true" href="#cb4-9" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="dt"&gt;int&lt;/span&gt; main&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="dt"&gt;int&lt;/span&gt; argc&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dt"&gt;char&lt;/span&gt; &lt;span class="op"&gt;**&lt;/span&gt;argv&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-10"&gt;&lt;a aria-hidden="true" href="#cb4-10" tabindex="-1"&gt;&lt;/a&gt;  GSList &lt;span class="op"&gt;*&lt;/span&gt;list_1 &lt;span class="op"&gt;=&lt;/span&gt; NULL&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-11"&gt;&lt;a aria-hidden="true" href="#cb4-11" tabindex="-1"&gt;&lt;/a&gt;  GSList &lt;span class="op"&gt;*&lt;/span&gt;list_2 &lt;span class="op"&gt;=&lt;/span&gt; NULL&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-12"&gt;&lt;a aria-hidden="true" href="#cb4-12" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="cf"&gt;for&lt;/span&gt; &lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="dt"&gt;int&lt;/span&gt; i &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="dv"&gt;0&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt; i &lt;span class="op"&gt;&amp;lt;&lt;/span&gt; &lt;span class="dv"&gt;5&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt; i&lt;span class="op"&gt;++)&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-13"&gt;&lt;a aria-hidden="true" href="#cb4-13" tabindex="-1"&gt;&lt;/a&gt;    list_1 &lt;span class="op"&gt;=&lt;/span&gt; g_slist_append&lt;span class="op"&gt;(&lt;/span&gt;list_1&lt;span class="op"&gt;,&lt;/span&gt; GINT_TO_POINTER&lt;span class="op"&gt;(&lt;/span&gt;i&lt;span class="op"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-14"&gt;&lt;a aria-hidden="true" href="#cb4-14" tabindex="-1"&gt;&lt;/a&gt;    list_2 &lt;span class="op"&gt;=&lt;/span&gt; g_slist_prepend&lt;span class="op"&gt;(&lt;/span&gt;list_2&lt;span class="op"&gt;,&lt;/span&gt; GINT_TO_POINTER&lt;span class="op"&gt;(-&lt;/span&gt;i&lt;span class="op"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-15"&gt;&lt;a aria-hidden="true" href="#cb4-15" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="op"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-16"&gt;&lt;a aria-hidden="true" href="#cb4-16" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb4-17"&gt;&lt;a aria-hidden="true" href="#cb4-17" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 使用 for 迭代 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-18"&gt;&lt;a aria-hidden="true" href="#cb4-18" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="cf"&gt;for&lt;/span&gt; &lt;span class="op"&gt;(&lt;/span&gt;GSList &lt;span class="op"&gt;*&lt;/span&gt;ptr &lt;span class="op"&gt;=&lt;/span&gt; list_1&lt;span class="op"&gt;;&lt;/span&gt; ptr&lt;span class="op"&gt;;&lt;/span&gt; ptr &lt;span class="op"&gt;=&lt;/span&gt; ptr&lt;span class="op"&gt;-&amp;gt;&lt;/span&gt;next&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-19"&gt;&lt;a aria-hidden="true" href="#cb4-19" tabindex="-1"&gt;&lt;/a&gt;    printf&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="st"&gt;"list_1 : &lt;/span&gt;&lt;span class="sc"&gt;%d\n&lt;/span&gt;&lt;span class="st"&gt;"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; ptr&lt;span class="op"&gt;-&amp;gt;&lt;/span&gt;data&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-20"&gt;&lt;a aria-hidden="true" href="#cb4-20" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="op"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-21"&gt;&lt;a aria-hidden="true" href="#cb4-21" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb4-22"&gt;&lt;a aria-hidden="true" href="#cb4-22" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 使用回调 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-23"&gt;&lt;a aria-hidden="true" href="#cb4-23" tabindex="-1"&gt;&lt;/a&gt;  g_slist_foreach&lt;span class="op"&gt;(&lt;/span&gt;list_2&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="op"&gt;(&lt;/span&gt;GFunc&lt;span class="op"&gt;)&lt;/span&gt;callback&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"list_2 :"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-24"&gt;&lt;a aria-hidden="true" href="#cb4-24" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;GList&lt;/code&gt; 也提供列表合并，排序，倒序，寻找等常见功能（以上面的 &lt;code&gt;list_1&lt;/code&gt; 和 &lt;code&gt;list_2&lt;/code&gt; 为例）：&lt;/p&gt;
+&lt;div class="sourceCode" id="cb5"&gt;&lt;pre class="sourceCode c"&gt;&lt;code class="sourceCode c"&gt;&lt;span id="cb5-1"&gt;&lt;a aria-hidden="true" href="#cb5-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;inline&lt;/span&gt; &lt;span class="dt"&gt;static&lt;/span&gt; gint comper&lt;span class="op"&gt;(&lt;/span&gt;gconstpointer item1&lt;span class="op"&gt;,&lt;/span&gt; gconstpointer item2&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-2"&gt;&lt;a aria-hidden="true" href="#cb5-2" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="cf"&gt;return&lt;/span&gt; item1 &lt;span class="op"&gt;&amp;gt;=&lt;/span&gt; item2&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-3"&gt;&lt;a aria-hidden="true" href="#cb5-3" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-4"&gt;&lt;a aria-hidden="true" href="#cb5-4" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb5-5"&gt;&lt;a aria-hidden="true" href="#cb5-5" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;inline&lt;/span&gt; &lt;span class="dt"&gt;static&lt;/span&gt; gint finder&lt;span class="op"&gt;(&lt;/span&gt;gconstpointer item&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt; &lt;span class="cf"&gt;return&lt;/span&gt; item &lt;span class="op"&gt;==&lt;/span&gt; &lt;span class="dv"&gt;1&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt; &lt;span class="op"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-6"&gt;&lt;a aria-hidden="true" href="#cb5-6" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb5-7"&gt;&lt;a aria-hidden="true" href="#cb5-7" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;...&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-8"&gt;&lt;a aria-hidden="true" href="#cb5-8" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 列表合并 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-9"&gt;&lt;a aria-hidden="true" href="#cb5-9" tabindex="-1"&gt;&lt;/a&gt;  GSList &lt;span class="op"&gt;*&lt;/span&gt;concated &lt;span class="op"&gt;=&lt;/span&gt; g_slist_concat&lt;span class="op"&gt;(&lt;/span&gt;list_1&lt;span class="op"&gt;,&lt;/span&gt; list_2&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-10"&gt;&lt;a aria-hidden="true" href="#cb5-10" tabindex="-1"&gt;&lt;/a&gt;  assert&lt;span class="op"&gt;(&lt;/span&gt;g_slist_length&lt;span class="op"&gt;(&lt;/span&gt;concated&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="op"&gt;==&lt;/span&gt; &lt;span class="dv"&gt;10&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-11"&gt;&lt;a aria-hidden="true" href="#cb5-11" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb5-12"&gt;&lt;a aria-hidden="true" href="#cb5-12" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 列表翻转 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-13"&gt;&lt;a aria-hidden="true" href="#cb5-13" tabindex="-1"&gt;&lt;/a&gt;  GSList &lt;span class="op"&gt;*&lt;/span&gt;reversed &lt;span class="op"&gt;=&lt;/span&gt; g_slist_reverse&lt;span class="op"&gt;(&lt;/span&gt;list_1&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-14"&gt;&lt;a aria-hidden="true" href="#cb5-14" tabindex="-1"&gt;&lt;/a&gt;  assert&lt;span class="op"&gt;(&lt;/span&gt;g_slist_nth&lt;span class="op"&gt;(&lt;/span&gt;list_1&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;0&lt;/span&gt;&lt;span class="op"&gt;)-&amp;gt;&lt;/span&gt;data &lt;span class="op"&gt;==&lt;/span&gt; g_slist_last&lt;span class="op"&gt;(&lt;/span&gt;reversed&lt;span class="op"&gt;)-&amp;gt;&lt;/span&gt;data&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-15"&gt;&lt;a aria-hidden="true" href="#cb5-15" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb5-16"&gt;&lt;a aria-hidden="true" href="#cb5-16" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 排序 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-17"&gt;&lt;a aria-hidden="true" href="#cb5-17" tabindex="-1"&gt;&lt;/a&gt;  GSList &lt;span class="op"&gt;*&lt;/span&gt;sorted &lt;span class="op"&gt;=&lt;/span&gt; g_slist_sort&lt;span class="op"&gt;(&lt;/span&gt;list_1&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="op"&gt;(&lt;/span&gt;GCompareFunc&lt;span class="op"&gt;)&lt;/span&gt;comper&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-18"&gt;&lt;a aria-hidden="true" href="#cb5-18" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb5-19"&gt;&lt;a aria-hidden="true" href="#cb5-19" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 寻找 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-20"&gt;&lt;a aria-hidden="true" href="#cb5-20" tabindex="-1"&gt;&lt;/a&gt;  GSList &lt;span class="op"&gt;*&lt;/span&gt;result &lt;span class="op"&gt;=&lt;/span&gt; g_slist_find&lt;span class="op"&gt;(&lt;/span&gt;concated&lt;span class="op"&gt;,&lt;/span&gt; GINT_TO_POINTER&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="dv"&gt;0&lt;/span&gt;&lt;span class="op"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-21"&gt;&lt;a aria-hidden="true" href="#cb5-21" tabindex="-1"&gt;&lt;/a&gt;  assert&lt;span class="op"&gt;(&lt;/span&gt;result &lt;span class="op"&gt;!=&lt;/span&gt; NULL&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-22"&gt;&lt;a aria-hidden="true" href="#cb5-22" tabindex="-1"&gt;&lt;/a&gt;  result &lt;span class="op"&gt;=&lt;/span&gt; g_slist_find_custom&lt;span class="op"&gt;(&lt;/span&gt;concated&lt;span class="op"&gt;,&lt;/span&gt; NULL&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="op"&gt;(&lt;/span&gt;GCompareFunc&lt;span class="op"&gt;)(&lt;/span&gt;finder&lt;span class="op"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-23"&gt;&lt;a aria-hidden="true" href="#cb5-23" tabindex="-1"&gt;&lt;/a&gt;  assert&lt;span class="op"&gt;(&lt;/span&gt;result &lt;span class="op"&gt;!=&lt;/span&gt; NULL&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-24"&gt;&lt;a aria-hidden="true" href="#cb5-24" tabindex="-1"&gt;&lt;/a&gt;  result &lt;span class="op"&gt;=&lt;/span&gt; g_slist_find&lt;span class="op"&gt;(&lt;/span&gt;concated&lt;span class="op"&gt;,&lt;/span&gt; GINT_TO_POINTER&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="dv"&gt;114514&lt;/span&gt;&lt;span class="op"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-25"&gt;&lt;a aria-hidden="true" href="#cb5-25" tabindex="-1"&gt;&lt;/a&gt;  assert&lt;span class="op"&gt;(&lt;/span&gt;result &lt;span class="op"&gt;==&lt;/span&gt; NULL&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb5-26"&gt;&lt;a aria-hidden="true" href="#cb5-26" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;...&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id="双向链表"&gt;双向链表&lt;/h2&gt;
+&lt;p&gt;双向链表和单向链表类似，但是保存一个额外的指针指向上一个节点，因此可以实现双向查找使用。glib 中实现的双向链表名为 &lt;code&gt;GList&lt;/code&gt;，大多数 &lt;code&gt;GSList&lt;/code&gt; 可以使用的 API &lt;code&gt;GList&lt;/code&gt; 都有类似的 API。以下是 &lt;code&gt;GList&lt;/code&gt; 受益于前项指针所特有的操作：&lt;/p&gt;
+&lt;div class="sourceCode" id="cb6"&gt;&lt;pre class="sourceCode c"&gt;&lt;code class="sourceCode c"&gt;&lt;span id="cb6-1"&gt;&lt;a aria-hidden="true" href="#cb6-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;#include &lt;/span&gt;&lt;span class="im"&gt;&amp;lt;glib.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-2"&gt;&lt;a aria-hidden="true" href="#cb6-2" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;#include &lt;/span&gt;&lt;span class="im"&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-3"&gt;&lt;a aria-hidden="true" href="#cb6-3" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb6-4"&gt;&lt;a aria-hidden="true" href="#cb6-4" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="dt"&gt;int&lt;/span&gt; main&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="dt"&gt;int&lt;/span&gt; argc&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dt"&gt;char&lt;/span&gt; &lt;span class="op"&gt;**&lt;/span&gt;argv&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-5"&gt;&lt;a aria-hidden="true" href="#cb6-5" tabindex="-1"&gt;&lt;/a&gt;  GList &lt;span class="op"&gt;*&lt;/span&gt;list &lt;span class="op"&gt;=&lt;/span&gt; NULL&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-6"&gt;&lt;a aria-hidden="true" href="#cb6-6" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="cf"&gt;for&lt;/span&gt; &lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="dt"&gt;int&lt;/span&gt; i &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="dv"&gt;0&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt; i &lt;span class="op"&gt;&amp;lt;&lt;/span&gt; &lt;span class="dv"&gt;100&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt; i&lt;span class="op"&gt;++)&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-7"&gt;&lt;a aria-hidden="true" href="#cb6-7" tabindex="-1"&gt;&lt;/a&gt;    list &lt;span class="op"&gt;=&lt;/span&gt; g_list_append&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;,&lt;/span&gt; GINT_TO_POINTER&lt;span class="op"&gt;(&lt;/span&gt;i&lt;span class="op"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-8"&gt;&lt;a aria-hidden="true" href="#cb6-8" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="op"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-9"&gt;&lt;a aria-hidden="true" href="#cb6-9" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb6-10"&gt;&lt;a aria-hidden="true" href="#cb6-10" tabindex="-1"&gt;&lt;/a&gt;  GList &lt;span class="op"&gt;*&lt;/span&gt;last &lt;span class="op"&gt;=&lt;/span&gt; g_list_last&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-11"&gt;&lt;a aria-hidden="true" href="#cb6-11" tabindex="-1"&gt;&lt;/a&gt;  GList &lt;span class="op"&gt;*&lt;/span&gt;first &lt;span class="op"&gt;=&lt;/span&gt; g_list_first&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-12"&gt;&lt;a aria-hidden="true" href="#cb6-12" tabindex="-1"&gt;&lt;/a&gt;  GList &lt;span class="op"&gt;*&lt;/span&gt;last_prev &lt;span class="op"&gt;=&lt;/span&gt; g_list_previous&lt;span class="op"&gt;(&lt;/span&gt;last&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-13"&gt;&lt;a aria-hidden="true" href="#cb6-13" tabindex="-1"&gt;&lt;/a&gt;  GList &lt;span class="op"&gt;*&lt;/span&gt;last_prev_prev &lt;span class="op"&gt;=&lt;/span&gt; g_list_nth_prev&lt;span class="op"&gt;(&lt;/span&gt;last&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;2&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-14"&gt;&lt;a aria-hidden="true" href="#cb6-14" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb6-15"&gt;&lt;a aria-hidden="true" href="#cb6-15" tabindex="-1"&gt;&lt;/a&gt;  g_assert&lt;span class="op"&gt;(&lt;/span&gt;last&lt;span class="op"&gt;-&amp;gt;&lt;/span&gt;data &lt;span class="op"&gt;==&lt;/span&gt; GINT_TO_POINTER&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="dv"&gt;99&lt;/span&gt;&lt;span class="op"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-16"&gt;&lt;a aria-hidden="true" href="#cb6-16" tabindex="-1"&gt;&lt;/a&gt;  g_assert&lt;span class="op"&gt;(&lt;/span&gt;first&lt;span class="op"&gt;-&amp;gt;&lt;/span&gt;data &lt;span class="op"&gt;==&lt;/span&gt; GINT_TO_POINTER&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="dv"&gt;0&lt;/span&gt;&lt;span class="op"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-17"&gt;&lt;a aria-hidden="true" href="#cb6-17" tabindex="-1"&gt;&lt;/a&gt;  g_assert&lt;span class="op"&gt;(&lt;/span&gt;last_prev&lt;span class="op"&gt;-&amp;gt;&lt;/span&gt;data &lt;span class="op"&gt;==&lt;/span&gt; GINT_TO_POINTER&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="dv"&gt;98&lt;/span&gt;&lt;span class="op"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-18"&gt;&lt;a aria-hidden="true" href="#cb6-18" tabindex="-1"&gt;&lt;/a&gt;  g_assert&lt;span class="op"&gt;(&lt;/span&gt;last_prev_prev&lt;span class="op"&gt;-&amp;gt;&lt;/span&gt;data &lt;span class="op"&gt;==&lt;/span&gt; GINT_TO_POINTER&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="dv"&gt;97&lt;/span&gt;&lt;span class="op"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-19"&gt;&lt;a aria-hidden="true" href="#cb6-19" tabindex="-1"&gt;&lt;/a&gt;  g_list_free&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb6-20"&gt;&lt;a aria-hidden="true" href="#cb6-20" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;要寻找某个元素的位置，使用 &lt;code&gt;g_list_index&lt;/code&gt; 和 &lt;code&gt;g_list_position&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="sourceCode" id="cb7"&gt;&lt;pre class="sourceCode c"&gt;&lt;code class="sourceCode c"&gt;&lt;span id="cb7-1"&gt;&lt;a aria-hidden="true" href="#cb7-1" tabindex="-1"&gt;&lt;/a&gt;gint index &lt;span class="op"&gt;=&lt;/span&gt; g_list_index&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;,&lt;/span&gt; GINT_TO_POINTER&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="dv"&gt;25&lt;/span&gt;&lt;span class="op"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb7-2"&gt;&lt;a aria-hidden="true" href="#cb7-2" tabindex="-1"&gt;&lt;/a&gt;gint index_2 &lt;span class="op"&gt;=&lt;/span&gt; g_list_position&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;,&lt;/span&gt; g_list_last&lt;span class="op"&gt;(&lt;/span&gt;list&lt;span class="op"&gt;));&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id="散列表"&gt;散列表&lt;/h2&gt;
+&lt;p&gt;散列表使用散列函数来定位键，因此能快速执行操作。散列函数接收一个键，并为该键计算一个唯一值，称为散列。在 glib 中的散列表是 &lt;code&gt;GHashTable&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;创建散列表的函数是&lt;/p&gt;
+&lt;div class="sourceCode" id="cb8"&gt;&lt;pre class="sourceCode c"&gt;&lt;code class="sourceCode c"&gt;&lt;span id="cb8-1"&gt;&lt;a aria-hidden="true" href="#cb8-1" tabindex="-1"&gt;&lt;/a&gt;GHashTable&lt;span class="op"&gt;*&lt;/span&gt; g_hash_table_new&lt;span class="op"&gt;(&lt;/span&gt;GHashFunc hash_func&lt;span class="op"&gt;,&lt;/span&gt; GEqualFunc key_equal_func&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;要使用 &lt;code&gt;GHashTable&lt;/code&gt;，需要提供一个 &lt;code&gt;GHashFunc&lt;/code&gt; 和 &lt;code&gt;GEqualFunc&lt;/code&gt;。两者的定义分别是&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;typedef guint (*GHashFunc) (gconstpointer key);&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;和&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;typedef gboolean (*GEqualFunc)(gconstpointer a, gconstpointer b);&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;前者对每个元素生成唯一的 Hash，后者比较两者的值。对于简单的 &lt;code&gt;String - String&lt;/code&gt; 散列表，可以使用预定义的函数：&lt;/p&gt;
+&lt;div class="sourceCode" id="cb9"&gt;&lt;pre class="sourceCode c"&gt;&lt;code class="sourceCode c"&gt;&lt;span id="cb9-1"&gt;&lt;a aria-hidden="true" href="#cb9-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;#include &lt;/span&gt;&lt;span class="im"&gt;&amp;lt;glib.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb9-2"&gt;&lt;a aria-hidden="true" href="#cb9-2" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb9-3"&gt;&lt;a aria-hidden="true" href="#cb9-3" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="dt"&gt;int&lt;/span&gt; main&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="dt"&gt;int&lt;/span&gt; argc&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dt"&gt;char&lt;/span&gt; &lt;span class="op"&gt;**&lt;/span&gt;argv&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb9-4"&gt;&lt;a aria-hidden="true" href="#cb9-4" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* g_str_hash 函数实现 "djb "哈希算法 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb9-5"&gt;&lt;a aria-hidden="true" href="#cb9-5" tabindex="-1"&gt;&lt;/a&gt;  GHashTable &lt;span class="op"&gt;*&lt;/span&gt;hash &lt;span class="op"&gt;=&lt;/span&gt; g_hash_table_new&lt;span class="op"&gt;(&lt;/span&gt;g_str_hash&lt;span class="op"&gt;,&lt;/span&gt; g_str_equal&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb9-6"&gt;&lt;a aria-hidden="true" href="#cb9-6" tabindex="-1"&gt;&lt;/a&gt;  g_hash_table_insert&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"Virginia"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"Richmond"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb9-7"&gt;&lt;a aria-hidden="true" href="#cb9-7" tabindex="-1"&gt;&lt;/a&gt;  g_hash_table_insert&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"Texas"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"Austin"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb9-8"&gt;&lt;a aria-hidden="true" href="#cb9-8" tabindex="-1"&gt;&lt;/a&gt;  g_hash_table_insert&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"Ohio"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"Columbus"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb9-9"&gt;&lt;a aria-hidden="true" href="#cb9-9" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="cf"&gt;return&lt;/span&gt; &lt;span class="dv"&gt;0&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb9-10"&gt;&lt;a aria-hidden="true" href="#cb9-10" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;除此以外， glib 还有对于其他常见类型的 hash 函数：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="其他常见类型的 hash 函数" src="./assets/avilable_hashs.png"/&gt;
+&lt;figcaption aria-hidden="true"&gt;其他常见类型的 hash 函数&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;对于哈希表的增删查改很容易完成：&lt;/p&gt;
+&lt;div class="sourceCode" id="cb10"&gt;&lt;pre class="sourceCode c"&gt;&lt;code class="sourceCode c"&gt;&lt;span id="cb10-1"&gt;&lt;a aria-hidden="true" href="#cb10-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="dt"&gt;int&lt;/span&gt; main&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="dt"&gt;int&lt;/span&gt; argc&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dt"&gt;char&lt;/span&gt; &lt;span class="op"&gt;**&lt;/span&gt;argv&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb10-2"&gt;&lt;a aria-hidden="true" href="#cb10-2" tabindex="-1"&gt;&lt;/a&gt;  GHashTable &lt;span class="op"&gt;*&lt;/span&gt;hash &lt;span class="op"&gt;=&lt;/span&gt; g_hash_table_new&lt;span class="op"&gt;(&lt;/span&gt;g_str_hash&lt;span class="op"&gt;,&lt;/span&gt; g_str_equal&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb10-3"&gt;&lt;a aria-hidden="true" href="#cb10-3" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb10-4"&gt;&lt;a aria-hidden="true" href="#cb10-4" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 增 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb10-5"&gt;&lt;a aria-hidden="true" href="#cb10-5" tabindex="-1"&gt;&lt;/a&gt;  g_hash_table_insert&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"A"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"Aa"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb10-6"&gt;&lt;a aria-hidden="true" href="#cb10-6" tabindex="-1"&gt;&lt;/a&gt;  g_hash_table_insert&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"B"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"Bb"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb10-7"&gt;&lt;a aria-hidden="true" href="#cb10-7" tabindex="-1"&gt;&lt;/a&gt;  g_hash_table_insert&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"C"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"Cc"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb10-8"&gt;&lt;a aria-hidden="true" href="#cb10-8" tabindex="-1"&gt;&lt;/a&gt;  printf&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="st"&gt;"There are &lt;/span&gt;&lt;span class="sc"&gt;%d&lt;/span&gt;&lt;span class="st"&gt; keys in the hash&lt;/span&gt;&lt;span class="sc"&gt;\n&lt;/span&gt;&lt;span class="st"&gt;"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; g_hash_table_size&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb10-9"&gt;&lt;a aria-hidden="true" href="#cb10-9" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb10-10"&gt;&lt;a aria-hidden="true" href="#cb10-10" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 删 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb10-11"&gt;&lt;a aria-hidden="true" href="#cb10-11" tabindex="-1"&gt;&lt;/a&gt;  gboolean found &lt;span class="op"&gt;=&lt;/span&gt; g_hash_table_remove&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"C"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb10-12"&gt;&lt;a aria-hidden="true" href="#cb10-12" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb10-13"&gt;&lt;a aria-hidden="true" href="#cb10-13" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 查 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb10-14"&gt;&lt;a aria-hidden="true" href="#cb10-14" tabindex="-1"&gt;&lt;/a&gt;  printf&lt;span class="op"&gt;(&lt;/span&gt;g_hash_table_lookup&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"B"&lt;/span&gt;&lt;span class="op"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb10-15"&gt;&lt;a aria-hidden="true" href="#cb10-15" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb10-16"&gt;&lt;a aria-hidden="true" href="#cb10-16" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="co"&gt;/* 改 */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb10-17"&gt;&lt;a aria-hidden="true" href="#cb10-17" tabindex="-1"&gt;&lt;/a&gt;  g_hash_table_replace&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"A"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"AAA"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb10-18"&gt;&lt;a aria-hidden="true" href="#cb10-18" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb10-19"&gt;&lt;a aria-hidden="true" href="#cb10-19" tabindex="-1"&gt;&lt;/a&gt;  g_hash_table_destroy&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb10-20"&gt;&lt;a aria-hidden="true" href="#cb10-20" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="cf"&gt;return&lt;/span&gt; &lt;span class="dv"&gt;0&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb10-21"&gt;&lt;a aria-hidden="true" href="#cb10-21" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Key-Value 遍历和查找：&lt;/p&gt;
+&lt;div class="sourceCode" id="cb11"&gt;&lt;pre class="sourceCode c"&gt;&lt;code class="sourceCode c"&gt;&lt;span id="cb11-1"&gt;&lt;a aria-hidden="true" href="#cb11-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;#include &lt;/span&gt;&lt;span class="im"&gt;&amp;lt;glib.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb11-2"&gt;&lt;a aria-hidden="true" href="#cb11-2" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;#include &lt;/span&gt;&lt;span class="im"&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb11-3"&gt;&lt;a aria-hidden="true" href="#cb11-3" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb11-4"&gt;&lt;a aria-hidden="true" href="#cb11-4" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;inline&lt;/span&gt; &lt;span class="dt"&gt;static&lt;/span&gt; &lt;span class="dt"&gt;void&lt;/span&gt; iterator&lt;span class="op"&gt;(&lt;/span&gt;gpointer key&lt;span class="op"&gt;,&lt;/span&gt; gpointer value&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb11-5"&gt;&lt;a aria-hidden="true" href="#cb11-5" tabindex="-1"&gt;&lt;/a&gt;                            gpointer addition_data&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb11-6"&gt;&lt;a aria-hidden="true" href="#cb11-6" tabindex="-1"&gt;&lt;/a&gt;  printf&lt;span class="op"&gt;(&lt;/span&gt;addition_data&lt;span class="op"&gt;,&lt;/span&gt; key&lt;span class="op"&gt;,&lt;/span&gt; value&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb11-7"&gt;&lt;a aria-hidden="true" href="#cb11-7" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb11-8"&gt;&lt;a aria-hidden="true" href="#cb11-8" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb11-9"&gt;&lt;a aria-hidden="true" href="#cb11-9" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="dt"&gt;int&lt;/span&gt; main&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="dt"&gt;int&lt;/span&gt; argc&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dt"&gt;char&lt;/span&gt; &lt;span class="op"&gt;**&lt;/span&gt;argv&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb11-10"&gt;&lt;a aria-hidden="true" href="#cb11-10" tabindex="-1"&gt;&lt;/a&gt;  GHashTable &lt;span class="op"&gt;*&lt;/span&gt;hash &lt;span class="op"&gt;=&lt;/span&gt; g_hash_table_new&lt;span class="op"&gt;(&lt;/span&gt;g_str_hash&lt;span class="op"&gt;,&lt;/span&gt; g_str_equal&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb11-11"&gt;&lt;a aria-hidden="true" href="#cb11-11" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb11-12"&gt;&lt;a aria-hidden="true" href="#cb11-12" tabindex="-1"&gt;&lt;/a&gt;  g_hash_table_insert&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"A"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"Aa"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb11-13"&gt;&lt;a aria-hidden="true" href="#cb11-13" tabindex="-1"&gt;&lt;/a&gt;  g_hash_table_insert&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"B"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"Bb"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb11-14"&gt;&lt;a aria-hidden="true" href="#cb11-14" tabindex="-1"&gt;&lt;/a&gt;  g_hash_table_insert&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"C"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"Cc"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb11-15"&gt;&lt;a aria-hidden="true" href="#cb11-15" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb11-16"&gt;&lt;a aria-hidden="true" href="#cb11-16" tabindex="-1"&gt;&lt;/a&gt;  g_hash_table_foreach&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="op"&gt;(&lt;/span&gt;GHFunc&lt;span class="op"&gt;)&lt;/span&gt;iterator&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"&lt;/span&gt;&lt;span class="sc"&gt;%s&lt;/span&gt;&lt;span class="st"&gt; -&amp;gt; &lt;/span&gt;&lt;span class="sc"&gt;%s\n&lt;/span&gt;&lt;span class="st"&gt;"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb11-17"&gt;&lt;a aria-hidden="true" href="#cb11-17" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb11-18"&gt;&lt;a aria-hidden="true" href="#cb11-18" tabindex="-1"&gt;&lt;/a&gt;  g_hash_table_destroy&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb11-19"&gt;&lt;a aria-hidden="true" href="#cb11-19" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="cf"&gt;return&lt;/span&gt; &lt;span class="dv"&gt;0&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb11-20"&gt;&lt;a aria-hidden="true" href="#cb11-20" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;除了 &lt;code&gt;g_hash_table_new&lt;/code&gt; 以外，还有一个 &lt;code&gt;g_hash_table_new_full&lt;/code&gt;，其签名如下：&lt;/p&gt;
+&lt;div class="sourceCode" id="cb12"&gt;&lt;pre class="sourceCode c"&gt;&lt;code class="sourceCode c"&gt;&lt;span id="cb12-1"&gt;&lt;a aria-hidden="true" href="#cb12-1" tabindex="-1"&gt;&lt;/a&gt;GHashTable &lt;span class="op"&gt;*&lt;/span&gt;g_hash_table_new_full&lt;span class="op"&gt;(&lt;/span&gt;GHashFunc hash_func&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb12-2"&gt;&lt;a aria-hidden="true" href="#cb12-2" tabindex="-1"&gt;&lt;/a&gt;                                  GEqualFunc key_equal_func&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb12-3"&gt;&lt;a aria-hidden="true" href="#cb12-3" tabindex="-1"&gt;&lt;/a&gt;                                  GDestroyNotify key_destroy_func&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb12-4"&gt;&lt;a aria-hidden="true" href="#cb12-4" tabindex="-1"&gt;&lt;/a&gt;                                  GDestroyNotify value_destroy_func&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;其中 &lt;code&gt;key_destroy_func&lt;/code&gt; 和 &lt;code&gt;value_destroy_func&lt;/code&gt; 分别在 key 和 value 摧毁时调用。&lt;/p&gt;
+&lt;div class="sourceCode" id="cb13"&gt;&lt;pre class="sourceCode c"&gt;&lt;code class="sourceCode c"&gt;&lt;span id="cb13-1"&gt;&lt;a aria-hidden="true" href="#cb13-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;#include &lt;/span&gt;&lt;span class="im"&gt;&amp;lt;glib.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-2"&gt;&lt;a aria-hidden="true" href="#cb13-2" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="pp"&gt;#include &lt;/span&gt;&lt;span class="im"&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-3"&gt;&lt;a aria-hidden="true" href="#cb13-3" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb13-4"&gt;&lt;a aria-hidden="true" href="#cb13-4" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="dt"&gt;void&lt;/span&gt; key_destroyed&lt;span class="op"&gt;(&lt;/span&gt;gpointer data&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt; printf&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="st"&gt;"key &lt;/span&gt;&lt;span class="sc"&gt;%s&lt;/span&gt;&lt;span class="st"&gt; destroyed.&lt;/span&gt;&lt;span class="sc"&gt;\n&lt;/span&gt;&lt;span class="st"&gt;"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; data&lt;span class="op"&gt;);&lt;/span&gt; &lt;span class="op"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-5"&gt;&lt;a aria-hidden="true" href="#cb13-5" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb13-6"&gt;&lt;a aria-hidden="true" href="#cb13-6" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="dt"&gt;void&lt;/span&gt; value_destroyed&lt;span class="op"&gt;(&lt;/span&gt;gpointer data&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt; printf&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="st"&gt;"value &lt;/span&gt;&lt;span class="sc"&gt;%s&lt;/span&gt;&lt;span class="st"&gt; destoryed&lt;/span&gt;&lt;span class="sc"&gt;\n&lt;/span&gt;&lt;span class="st"&gt;"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; data&lt;span class="op"&gt;);&lt;/span&gt; &lt;span class="op"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-7"&gt;&lt;a aria-hidden="true" href="#cb13-7" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb13-8"&gt;&lt;a aria-hidden="true" href="#cb13-8" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="dt"&gt;int&lt;/span&gt; main&lt;span class="op"&gt;(&lt;/span&gt;&lt;span class="dt"&gt;int&lt;/span&gt; argc&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dt"&gt;char&lt;/span&gt; &lt;span class="op"&gt;**&lt;/span&gt;argv&lt;span class="op"&gt;)&lt;/span&gt; &lt;span class="op"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-9"&gt;&lt;a aria-hidden="true" href="#cb13-9" tabindex="-1"&gt;&lt;/a&gt;  GHashTable &lt;span class="op"&gt;*&lt;/span&gt;hash &lt;span class="op"&gt;=&lt;/span&gt; g_hash_table_new_full&lt;span class="op"&gt;(&lt;/span&gt;g_str_hash&lt;span class="op"&gt;,&lt;/span&gt; g_str_equal&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-10"&gt;&lt;a aria-hidden="true" href="#cb13-10" tabindex="-1"&gt;&lt;/a&gt;                                           &lt;span class="op"&gt;(&lt;/span&gt;GDestroyNotify&lt;span class="op"&gt;)&lt;/span&gt;key_destroyed&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-11"&gt;&lt;a aria-hidden="true" href="#cb13-11" tabindex="-1"&gt;&lt;/a&gt;                                           &lt;span class="op"&gt;(&lt;/span&gt;GDestroyNotify&lt;span class="op"&gt;)&lt;/span&gt;value_destroyed&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-12"&gt;&lt;a aria-hidden="true" href="#cb13-12" tabindex="-1"&gt;&lt;/a&gt;  g_hash_table_insert&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"A"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"AA"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-13"&gt;&lt;a aria-hidden="true" href="#cb13-13" tabindex="-1"&gt;&lt;/a&gt;  g_hash_table_insert&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"B"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"BB"&lt;/span&gt;&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-14"&gt;&lt;a aria-hidden="true" href="#cb13-14" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb13-15"&gt;&lt;a aria-hidden="true" href="#cb13-15" tabindex="-1"&gt;&lt;/a&gt;  g_hash_table_destroy&lt;span class="op"&gt;(&lt;/span&gt;hash&lt;span class="op"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-16"&gt;&lt;a aria-hidden="true" href="#cb13-16" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="cf"&gt;return&lt;/span&gt; &lt;span class="dv"&gt;0&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-17"&gt;&lt;a aria-hidden="true" href="#cb13-17" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="op"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-18"&gt;&lt;a aria-hidden="true" href="#cb13-18" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb13-19"&gt;&lt;a aria-hidden="true" href="#cb13-19" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;/*&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-20"&gt;&lt;a aria-hidden="true" href="#cb13-20" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;key B destroyed.&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-21"&gt;&lt;a aria-hidden="true" href="#cb13-21" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;value BB destoryed&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-22"&gt;&lt;a aria-hidden="true" href="#cb13-22" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;key A destroyed.&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-23"&gt;&lt;a aria-hidden="true" href="#cb13-23" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;value AA destoryed&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb13-24"&gt;&lt;a aria-hidden="true" href="#cb13-24" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;*/&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;h2&gt;参考链接&lt;/h2&gt;
+&lt;ul id="reference"&gt;
+&lt;li&gt;&lt;a href="https://developer.ibm.com/tutorials/l-glib/" target="_blank"&gt;&lt;strong&gt;Manage C data using the GLib collections&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.cse.yorku.ca/~oz/hash.html" target="_blank"&gt;&lt;strong&gt;Hash Functions&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+&lt;p class="signoff"&gt;
+&lt;div class="metadata"&gt;
+&lt;p class="date"&gt;&lt;time datetime="2023-09-05"&gt;创建日期：2023-09-05&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-09-05&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;/footer&gt;
+&lt;script&gt;
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        });
+
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
+  &lt;/script&gt;
+&lt;script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"&gt;&lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</content:encoded>
+      <guid isPermaLink="false">bce81e33-c008-4b15-8059-b5052cf00897</guid>
+      <pubDate>Tue, 05 Sep 2023 00:00:00 +0800</pubDate>
     </item>
   </channel>
 </rss>
