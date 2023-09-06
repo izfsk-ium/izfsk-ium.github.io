@@ -215,8 +215,6 @@ GHashTable* g_hash_table_new(GHashFunc hash_func, GEqualFunc key_equal_func);
 
 `typedef guint (*GHashFunc) (gconstpointer key);`
 
-和
-
 `typedef gboolean (*GEqualFunc)(gconstpointer a, gconstpointer b);`
 
 前者对每个元素生成唯一的 Hash，后者比较两者的值。对于简单的 `String - String` 散列表，可以使用预定义的函数：
@@ -234,7 +232,7 @@ int main(int argc, char **argv) {
 }
 ```
 
-除此以外， glib 还有对于其他常见类型的 hash 函数：
+除此以外， glib 还有对于其他常见类型的 hash 函数。**注意：Hash 函数是针对 key 的，而不是对 value 的。**
 
 ![其他常见类型的 hash 函数](./assets/avilable_hashs.png)
 
@@ -318,11 +316,160 @@ int main(int argc, char **argv) {
   g_hash_table_destroy(hash);
   return 0;
 }
+```
 
-/*
+运行后将会显示：
+
+```java
 key B destroyed.
 value BB destoryed
 key A destroyed.
 value AA destoryed
-*/
+```
+
+## 数组
+
+除了链表，glib 还提供了另外一种顺序容器 `GArray` 来容纳指定类型的数据。相比于链表，`GArray` 拥有更快的访问速度。`GArray` 的初始化函数为:
+
+`GArray *g_array_new(gboolean zero_terminated, gboolean clear_, guint element_size)`
+
+其中，第一个参数是整个数组的内容是否为 '0' 结尾，第二个参数是每个元素是否初始化为 '0'。
+
+```c
+#include <glib.h>
+#include <stdio.h>
+
+#define PRINT_ARRAY_CONTENTS                                                   \
+  for (int i = 0; i < array->len; i++) {                                       \
+    printf(" [%d] : %s\n", i, g_array_index(array, char *, i));                \
+  }
+
+int main(int argc, char **argv) {
+  GArray *array = NULL;
+  array = g_array_new(FALSE, FALSE, sizeof(char *));
+
+  /* 增加内容 */
+  char *first = "hello", *second = "there", *third = "world", *forth = "forth";
+  g_array_append_val(array, first);
+  g_array_append_val(array, second);
+  g_array_append_val(array, third);
+  g_array_append_vals(array, argv, argc);
+  g_array_prepend_val(array, first);
+  g_array_prepend_vals(array, argv, argc);
+  g_array_insert_val(array, 3, forth);
+
+  /* 获取内容 */
+  printf("Array size : %d\n", array->len);
+  PRINT_ARRAY_CONTENTS;
+
+  /* 删除内容 */
+  g_array_remove_index(array, 0);
+  g_array_remove_range(array, 1, 3);
+  g_array_remove_index_fast(array, 0);
+  printf("Array size after remove : %d\n", array->len);
+  PRINT_ARRAY_CONTENTS;
+
+  /* 排序 */
+  printf("After sort:\n");
+  g_array_sort(array, (GCompareFunc)(g_strcmp0));
+  PRINT_ARRAY_CONTENTS;
+
+  /* 释放 */
+  g_array_free(array, FALSE);
+}
+```
+
+除了基础的 `GArray`，glib 还提供了 `GPtrArray` 和 `GByteArray`:
+
+```c
+#include <glib.h>
+#include <stdio.h>
+
+int main(int argc, char **argv) {
+  GPtrArray *array = g_ptr_array_new();
+
+  char *buffer = (char *)malloc(1024);
+  for (int i = 0; i < 16; i++) {
+    sprintf(buffer, "%d,\n", i * i);
+    g_ptr_array_add(array, g_strdup(buffer));
+    memset(buffer, 0, 1024);
+  }
+
+  g_ptr_array_foreach(array, (GFunc)printf, NULL);
+  g_ptr_array_free(array, TRUE);
+  free(buffer);
+}
+```
+
+`GByteArray` 最适合用来完成对二进制数据的「读取-扩容」循环：
+
+```c
+#include <glib.h>
+#include <stdio.h>
+
+GByteArray *read_file_to_byte_array(const char *file_path) {
+  GByteArray *byte_array = g_byte_array_new();
+
+  FILE *file = fopen(file_path, "rb");
+
+  char buffer[1024];
+  size_t bytes_read;
+  while ((bytes_read = fread(buffer, 1, sizeof(buffer), file)) > 0) {
+    g_byte_array_append(byte_array, (const guint8 *)buffer, bytes_read);
+  }
+
+  fclose(file);
+
+  return byte_array;
+}
+
+int main(int argc, char **argv) {
+  GByteArray *byte_array = read_file_to_byte_array(argv[1]);
+
+  printf("Length of file : %ld\n", byte_array->len);
+}
+```
+
+## 树
+
+glib 提供两种树：平衡二叉树 `GTree` 和 n 叉树 `GNode`。 前者适合于树的每一个节点都只有不超过两个子节点，其内容被有序的存放以便快速搜索和查询。
+
+```c
+#include <glib.h>
+#include <stdio.h>
+
+#define PRINT_TREE_INFO                               \
+  printf("Tree height : %d\n", g_tree_height(t));     \
+  printf("Tree nodes : %d\n", g_tree_nnodes(t));
+
+gboolean iter_all(gpointer key, gpointer value, gpointer data) {
+  printf("%s, %s\n", key, value);
+  return FALSE;
+}
+
+int main(int argc, char **argv) {
+  GTree *t = g_tree_new((GCompareFunc)g_ascii_strcasecmp);
+  /* 增 */
+  g_tree_insert(t, "111", "A");
+  g_tree_insert(t, "222", "B");
+  g_tree_insert(t, "333", "C");
+  PRINT_TREE_INFO;
+
+  /* 删 */
+  g_tree_remove(t, "d");
+  PRINT_TREE_INFO;
+
+  /* 查 */
+  printf("%s\n", g_tree_lookup(t, "a") ? "Found" : "Not found");
+  printf("%s\n", g_tree_lookup(t, "111") ? "Found" : "Not found");
+
+  /* 改 */
+  g_tree_replace(t, "1", "Z");
+
+  /* 遍历 */
+  g_tree_foreach(t, (GTraverseFunc)iter_all, NULL);
+
+  g_tree_destroy(t);
+  return 0;
+}
 ```
