@@ -72,6 +72,8 @@
     <li><a href="#单链表" id="toc-单链表">单链表</a></li>
     <li><a href="#双向链表" id="toc-双向链表">双向链表</a></li>
     <li><a href="#散列表" id="toc-散列表">散列表</a></li>
+    <li><a href="#数组" id="toc-数组">数组</a></li>
+    <li><a href="#树" id="toc-树">树</a></li>
     </ul>
     <ul>
       <li><a href="#reference">参考链接</a></li>
@@ -245,7 +247,6 @@
     <div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>GHashTable<span class="op">*</span> g_hash_table_new<span class="op">(</span>GHashFunc hash_func<span class="op">,</span> GEqualFunc key_equal_func<span class="op">);</span></span></code></pre></div>
     <p>要使用 <code>GHashTable</code>，需要提供一个 <code>GHashFunc</code> 和 <code>GEqualFunc</code>。两者的定义分别是</p>
     <p><code>typedef guint (*GHashFunc) (gconstpointer key);</code></p>
-    <p>和</p>
     <p><code>typedef gboolean (*GEqualFunc)(gconstpointer a, gconstpointer b);</code></p>
     <p>前者对每个元素生成唯一的 Hash，后者比较两者的值。对于简单的 <code>String - String</code> 散列表，可以使用预定义的函数：</p>
     <div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;glib.h&gt;</span></span>
@@ -258,7 +259,7 @@
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  g_hash_table_insert<span class="op">(</span>hash<span class="op">,</span> <span class="st">&quot;Ohio&quot;</span><span class="op">,</span> <span class="st">&quot;Columbus&quot;</span><span class="op">);</span></span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-    <p>除此以外， glib 还有对于其他常见类型的 hash 函数：</p>
+    <p>除此以外， glib 还有对于其他常见类型的 hash 函数。<strong>注意：Hash 函数是针对 key 的，而不是对 value 的。</strong></p>
     <figure>
     <img src="./assets/avilable_hashs.png" alt="其他常见类型的 hash 函数" />
     <figcaption aria-hidden="true">其他常见类型的 hash 函数</figcaption>
@@ -328,14 +329,139 @@
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  g_hash_table_destroy<span class="op">(</span>hash<span class="op">);</span></span>
 <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co">key B destroyed.</span></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co">value BB destoryed</span></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co">key A destroyed.</span></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co">value AA destoryed</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span></code></pre></div>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <p>运行后将会显示：</p>
+    <div class="sourceCode" id="cb14"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>key B destroyed<span class="op">.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">value</span> BB destoryed</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>key A destroyed<span class="op">.</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">value</span> AA destoryed</span></code></pre></div>
+    <h2 id="数组">数组</h2>
+    <p>除了链表，glib 还提供了另外一种顺序容器 <code>GArray</code> 来容纳指定类型的数据。相比于链表，<code>GArray</code> 拥有更快的访问速度。<code>GArray</code> 的初始化函数为:</p>
+    <p><code>GArray *g_array_new(gboolean zero_terminated, gboolean clear_, guint element_size)</code></p>
+    <p>其中，第一个参数是整个数组的内容是否为 ‘0’ 结尾，第二个参数是每个元素是否初始化为 ‘0’。</p>
+    <div class="sourceCode" id="cb15"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;glib.h&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define PRINT_ARRAY_CONTENTS                                                   </span><span class="op">\</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="pp">  </span><span class="cf">for</span><span class="pp"> </span><span class="op">(</span><span class="dt">int</span><span class="pp"> i </span><span class="op">=</span><span class="pp"> </span><span class="dv">0</span><span class="op">;</span><span class="pp"> i </span><span class="op">&lt;</span><span class="pp"> array</span><span class="op">-&gt;</span><span class="pp">len</span><span class="op">;</span><span class="pp"> i</span><span class="op">++)</span><span class="pp"> </span><span class="op">{</span><span class="pp">                                       </span><span class="op">\</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="pp">    printf</span><span class="op">(</span><span class="st">&quot; [</span><span class="sc">%d</span><span class="st">] : </span><span class="sc">%s\n</span><span class="st">&quot;</span><span class="op">,</span><span class="pp"> i</span><span class="op">,</span><span class="pp"> g_array_index</span><span class="op">(</span><span class="pp">array</span><span class="op">,</span><span class="pp"> </span><span class="dt">char</span><span class="pp"> </span><span class="op">*,</span><span class="pp"> i</span><span class="op">));</span><span class="pp">                </span><span class="op">\</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="pp">  </span><span class="op">}</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">**</span>argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  GArray <span class="op">*</span>array <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  array <span class="op">=</span> g_array_new<span class="op">(</span>FALSE<span class="op">,</span> FALSE<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span><span class="dt">char</span> <span class="op">*));</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* 增加内容 */</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">char</span> <span class="op">*</span>first <span class="op">=</span> <span class="st">&quot;hello&quot;</span><span class="op">,</span> <span class="op">*</span>second <span class="op">=</span> <span class="st">&quot;there&quot;</span><span class="op">,</span> <span class="op">*</span>third <span class="op">=</span> <span class="st">&quot;world&quot;</span><span class="op">,</span> <span class="op">*</span>forth <span class="op">=</span> <span class="st">&quot;forth&quot;</span><span class="op">;</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  g_array_append_val<span class="op">(</span>array<span class="op">,</span> first<span class="op">);</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  g_array_append_val<span class="op">(</span>array<span class="op">,</span> second<span class="op">);</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  g_array_append_val<span class="op">(</span>array<span class="op">,</span> third<span class="op">);</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  g_array_append_vals<span class="op">(</span>array<span class="op">,</span> argv<span class="op">,</span> argc<span class="op">);</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  g_array_prepend_val<span class="op">(</span>array<span class="op">,</span> first<span class="op">);</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  g_array_prepend_vals<span class="op">(</span>array<span class="op">,</span> argv<span class="op">,</span> argc<span class="op">);</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>  g_array_insert_val<span class="op">(</span>array<span class="op">,</span> <span class="dv">3</span><span class="op">,</span> forth<span class="op">);</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* 获取内容 */</span></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;Array size : </span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> array<span class="op">-&gt;</span>len<span class="op">);</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>  PRINT_ARRAY_CONTENTS<span class="op">;</span></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* 删除内容 */</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>  g_array_remove_index<span class="op">(</span>array<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>  g_array_remove_range<span class="op">(</span>array<span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">);</span></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>  g_array_remove_index_fast<span class="op">(</span>array<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;Array size after remove : </span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> array<span class="op">-&gt;</span>len<span class="op">);</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>  PRINT_ARRAY_CONTENTS<span class="op">;</span></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* 排序 */</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;After sort:</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>  g_array_sort<span class="op">(</span>array<span class="op">,</span> <span class="op">(</span>GCompareFunc<span class="op">)(</span>g_strcmp0<span class="op">));</span></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>  PRINT_ARRAY_CONTENTS<span class="op">;</span></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* 释放 */</span></span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>  g_array_free<span class="op">(</span>array<span class="op">,</span> FALSE<span class="op">);</span></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <p>除了基础的 <code>GArray</code>，glib 还提供了 <code>GPtrArray</code> 和 <code>GByteArray</code>:</p>
+    <div class="sourceCode" id="cb16"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;glib.h&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">**</span>argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  GPtrArray <span class="op">*</span>array <span class="op">=</span> g_ptr_array_new<span class="op">();</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">char</span> <span class="op">*</span>buffer <span class="op">=</span> <span class="op">(</span><span class="dt">char</span> <span class="op">*)</span>malloc<span class="op">(</span><span class="dv">1024</span><span class="op">);</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">16</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    sprintf<span class="op">(</span>buffer<span class="op">,</span> <span class="st">&quot;</span><span class="sc">%d</span><span class="st">,</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> i <span class="op">*</span> i<span class="op">);</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    g_ptr_array_add<span class="op">(</span>array<span class="op">,</span> g_strdup<span class="op">(</span>buffer<span class="op">));</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    memset<span class="op">(</span>buffer<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1024</span><span class="op">);</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  g_ptr_array_foreach<span class="op">(</span>array<span class="op">,</span> <span class="op">(</span>GFunc<span class="op">)</span>printf<span class="op">,</span> NULL<span class="op">);</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  g_ptr_array_free<span class="op">(</span>array<span class="op">,</span> TRUE<span class="op">);</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  free<span class="op">(</span>buffer<span class="op">);</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <p><code>GByteArray</code> 最适合用来完成对二进制数据的「读取-扩容」循环：</p>
+    <div class="sourceCode" id="cb17"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;glib.h&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>GByteArray <span class="op">*</span>read_file_to_byte_array<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>file_path<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  GByteArray <span class="op">*</span>byte_array <span class="op">=</span> g_byte_array_new<span class="op">();</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">FILE</span> <span class="op">*</span>file <span class="op">=</span> fopen<span class="op">(</span>file_path<span class="op">,</span> <span class="st">&quot;rb&quot;</span><span class="op">);</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">char</span> buffer<span class="op">[</span><span class="dv">1024</span><span class="op">];</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">size_t</span> bytes_read<span class="op">;</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">((</span>bytes_read <span class="op">=</span> fread<span class="op">(</span>buffer<span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>buffer<span class="op">),</span> file<span class="op">))</span> <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    g_byte_array_append<span class="op">(</span>byte_array<span class="op">,</span> <span class="op">(</span><span class="dt">const</span> guint8 <span class="op">*)</span>buffer<span class="op">,</span> bytes_read<span class="op">);</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  fclose<span class="op">(</span>file<span class="op">);</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> byte_array<span class="op">;</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">**</span>argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>  GByteArray <span class="op">*</span>byte_array <span class="op">=</span> read_file_to_byte_array<span class="op">(</span>argv<span class="op">[</span><span class="dv">1</span><span class="op">]);</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;Length of file : </span><span class="sc">%ld\n</span><span class="st">&quot;</span><span class="op">,</span> byte_array<span class="op">-&gt;</span>len<span class="op">);</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <h2 id="树">树</h2>
+    <p>glib 提供两种树：平衡二叉树 <code>GTree</code> 和 n 叉树 <code>GNode</code>。 前者适合于树的每一个节点都只有不超过两个子节点，其内容被有序的存放以便快速搜索和查询。</p>
+    <div class="sourceCode" id="cb18"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;glib.h&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define PRINT_TREE_INFO                               </span><span class="op">\</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="pp">  printf</span><span class="op">(</span><span class="st">&quot;Tree height : </span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span><span class="pp"> g_tree_height</span><span class="op">(</span><span class="pp">t</span><span class="op">));</span><span class="pp">     </span><span class="op">\</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="pp">  printf</span><span class="op">(</span><span class="st">&quot;Tree nodes : </span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span><span class="pp"> g_tree_nnodes</span><span class="op">(</span><span class="pp">t</span><span class="op">));</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>gboolean iter_all<span class="op">(</span>gpointer key<span class="op">,</span> gpointer value<span class="op">,</span> gpointer data<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">%s</span><span class="st">, </span><span class="sc">%s\n</span><span class="st">&quot;</span><span class="op">,</span> key<span class="op">,</span> value<span class="op">);</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> FALSE<span class="op">;</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">**</span>argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  GTree <span class="op">*</span>t <span class="op">=</span> g_tree_new<span class="op">((</span>GCompareFunc<span class="op">)</span>g_ascii_strcasecmp<span class="op">);</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* 增 */</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  g_tree_insert<span class="op">(</span>t<span class="op">,</span> <span class="st">&quot;111&quot;</span><span class="op">,</span> <span class="st">&quot;A&quot;</span><span class="op">);</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  g_tree_insert<span class="op">(</span>t<span class="op">,</span> <span class="st">&quot;222&quot;</span><span class="op">,</span> <span class="st">&quot;B&quot;</span><span class="op">);</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  g_tree_insert<span class="op">(</span>t<span class="op">,</span> <span class="st">&quot;333&quot;</span><span class="op">,</span> <span class="st">&quot;C&quot;</span><span class="op">);</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>  PRINT_TREE_INFO<span class="op">;</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* 删 */</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  g_tree_remove<span class="op">(</span>t<span class="op">,</span> <span class="st">&quot;d&quot;</span><span class="op">);</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  PRINT_TREE_INFO<span class="op">;</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* 查 */</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">%s\n</span><span class="st">&quot;</span><span class="op">,</span> g_tree_lookup<span class="op">(</span>t<span class="op">,</span> <span class="st">&quot;a&quot;</span><span class="op">)</span> <span class="op">?</span> <span class="st">&quot;Found&quot;</span> <span class="op">:</span> <span class="st">&quot;Not found&quot;</span><span class="op">);</span></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">%s\n</span><span class="st">&quot;</span><span class="op">,</span> g_tree_lookup<span class="op">(</span>t<span class="op">,</span> <span class="st">&quot;111&quot;</span><span class="op">)</span> <span class="op">?</span> <span class="st">&quot;Found&quot;</span> <span class="op">:</span> <span class="st">&quot;Not found&quot;</span><span class="op">);</span></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* 改 */</span></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>  g_tree_replace<span class="op">(</span>t<span class="op">,</span> <span class="st">&quot;1&quot;</span><span class="op">,</span> <span class="st">&quot;Z&quot;</span><span class="op">);</span></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* 遍历 */</span></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>  g_tree_foreach<span class="op">(</span>t<span class="op">,</span> <span class="op">(</span>GTraverseFunc<span class="op">)</span>iter_all<span class="op">,</span> NULL<span class="op">);</span></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>  g_tree_destroy<span class="op">(</span>t<span class="op">);</span></span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 
     <br />
     
@@ -361,7 +487,7 @@
     <p class="signoff">
     <div class="metadata">
             <p class="date"><time datetime="2023-09-05">创建日期：2023-09-05</time></p>
-            <p class="lastmodify"><time>最后编译：2023-09-05</time></p>
+            <p class="lastmodify"><time>最后编译：2023-09-06</time></p>
       <p class="lastmodify" id="counter-span">访问次数：</p>
     </div>
     </p>
