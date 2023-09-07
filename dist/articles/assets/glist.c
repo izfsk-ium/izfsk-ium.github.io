@@ -1,37 +1,82 @@
-#include <glib.h>
+/* For sockaddr_in */
+#include <netinet/in.h>
+/* For socket functions */
+#include <sys/socket.h>
+/* For gethostbyname */
+#include <netdb.h>
+
 #include <stdio.h>
+#include <string.h>
+#include <unistd.h>
 
-#define PRINT_TREE_INFO                                                        \
-  printf("Tree height : %d\n", g_tree_height(t));                              \
-  printf("Tree nodes : %d\n", g_tree_nnodes(t));
+int main(int c, char **v) {
+  const char query[] = "GET / HTTP/1.1\r\n"
+                       "Host: www.bilibili.com\r\n"
+                       "\r\n";
+  const char hostname[] = "www.bilibili.com";
+  struct sockaddr_in sin;
+  struct hostent *h;
+  const char *cp;
+  int fd;
+  ssize_t n_written, remaining;
+  char buf[1024];
 
-gboolean iter_all(gpointer key, gpointer value, gpointer data) {
-  printf("%s, %s\n", key, value);
-  return FALSE;
-}
+  /* Look up the IP address for the hostname.   Watch out; this isn't
+     threadsafe on most platforms. */
+  h = gethostbyname(hostname);
+  if (!h) {
+    fprintf(stderr, "Couldn't lookup %s: %s", hostname, hstrerror(h_errno));
+    return 1;
+  }
+  if (h->h_addrtype != AF_INET) {
+    fprintf(stderr, "No ipv6 support, sorry.");
+    return 1;
+  }
 
-int main(int argc, char **argv) {
-  GTree *t = g_tree_new((GCompareFunc)g_ascii_strcasecmp);
-  /* 增 */
-  g_tree_insert(t, "111", "A");
-  g_tree_insert(t, "222", "B");
-  g_tree_insert(t, "333", "C");
-  PRINT_TREE_INFO;
+  /* Allocate a new socket */
+  fd = socket(AF_INET, SOCK_STREAM, 0);
+  if (fd < 0) {
+    perror("socket");
+    return 1;
+  }
 
-  /* 删 */
-  g_tree_remove(t, "d");
-  PRINT_TREE_INFO;
+  /* Connect to the remote host. */
+  sin.sin_family = AF_INET;
+  sin.sin_port = htons(80);
+  sin.sin_addr = *(struct in_addr *)h->h_addr;
+  if (connect(fd, (struct sockaddr *)&sin, sizeof(sin))) {
+    perror("connect");
+    close(fd);
+    return 1;
+  }
 
-  /* 查 */
-  printf("%s\n", g_tree_lookup(t, "a") ? "Found" : "Not found");
-  printf("%s\n", g_tree_lookup(t, "111") ? "Found" : "Not found");
+  /* Write the query. */
+  /* XXX Can send succeed partially? */
+  cp = query;
+  remaining = strlen(query);
+  while (remaining) {
+    n_written = send(fd, cp, remaining, 0);
+    if (n_written <= 0) {
+      perror("send");
+      return 1;
+    }
+    remaining -= n_written;
+    cp += n_written;
+  }
 
-  /* 改 */
-  g_tree_replace(t, "1", "Z");
+  /* Get an answer back. */
+  while (1) {
+    ssize_t result = recv(fd, buf, sizeof(buf), 0);
+    if (result == 0) {
+      break;
+    } else if (result < 0) {
+      perror("recv");
+      close(fd);
+      return 1;
+    }
+    fwrite(buf, 1, result, stdout);
+  }
 
-  /* 遍历 */
-  g_tree_foreach(t, (GTraverseFunc)iter_all, NULL);
-
-  g_tree_destroy(t);
+  close(fd);
   return 0;
 }

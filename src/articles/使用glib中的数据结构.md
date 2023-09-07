@@ -11,6 +11,8 @@ ref:
     url: "https://developer.ibm.com/tutorials/l-glib/"
   - name: "Hash Functions"
     url: "http://www.cse.yorku.ca/~oz/hash.html"
+  - name: "GLib – 2.0"
+    url: "https://docs.gtk.org/glib/index.html"
 ---
 
 程序有两大构成要素，数据结构和算法，而在这两大要素中，因为数据结构是实现算法的基础，所以对各种常见数据结构的实现，在这两者中，优先性是第一位的。如果能在实现数据结构的过程中，开发出高可复用的类库，也能使开发者无比愉快，而在现实生活中，存在着对于这种类库的开发精益求精的项目，我们通常把这种类库称为标准库。对于 C 语言，这种类库不少，而 glib 是尤其突出常用的一种。
@@ -470,6 +472,94 @@ int main(int argc, char **argv) {
   g_tree_foreach(t, (GTraverseFunc)iter_all, NULL);
 
   g_tree_destroy(t);
+  return 0;
+}
+```
+
+## 队列
+
+glib 提供的队列实现是 `GQueue`，其实现是基于双向链表 `GList`，因此也支持除队列操作以外的操作。当然，正常情况下不应该进行诸如「在队列中间插入一个元素」这样的操作，如果要经常这样做，不如考虑一下直接使用其他更高效的数据结构。
+
+```c
+#include <glib.h>
+#include <stdio.h>
+
+int main(int argc, char **argv) {
+  GQueue *queue = g_queue_new();
+
+  /* 增 */
+  for (int i = 0; i < 5; i++) {
+    g_queue_push_tail(queue, GINT_TO_POINTER(i));
+  }
+  g_queue_push_head(queue, GINT_TO_POINTER(-1));
+
+  /* 长度信息 */
+  gboolean is_empty = g_queue_is_empty(queue);
+  gboolean length = g_queue_get_length(queue);
+  printf("Length of queue : %d\n", length);
+
+  /* 获取元素 */
+  while (!g_queue_is_empty(queue)) {
+    int data = (int)g_queue_pop_tail(queue);
+    printf(data != -1 ? "%d, " : "%d\n", data);
+  }
+
+  g_queue_free(queue);
+  return 0;
+}
+```
+
+除了这些基本操作以外，`GQueue` 也支持 `g_queue_foreach` 等操作。
+
+## 其他工具
+
+- Base64 编码/解码
+
+  ```c
+  #include <glib.h>
+  #include <stdio.h>
+  #include <string.h>
+
+  int main(int argc, char **argv) {
+    if (argc != 2) {
+      fprintf(stderr, "Bad usage.\n");
+      return 1;
+    }
+    gchar *encoded = g_base64_encode(argv[1], strlen(argv[1]));
+    printf("Base64 encoded : %s\n", encoded);
+
+    gsize outlen;
+    gchar *decoded = g_base64_decode(encoded, &outlen);
+    printf("Base64 decoded : %s\n", decoded);
+    printf("Raw text length : %lu\n", outlen);
+
+    g_free(encoded);
+    g_free(decoded);
+    return 0;
+  }
+  ```
+
+- 哈希函数
+
+```c
+#include <glib.h>
+#include <stdio.h>
+#include <string.h>
+
+#define TEXT argv[1]
+#define TEXT_LEN strlen(argv[1])
+
+int main(int argc, char **argv) {
+  if (argc != 2) {
+    fprintf(stderr, "Bad usage.\n");
+    return 1;
+  }
+  gchar *sha256 =
+      g_compute_checksum_for_string(G_CHECKSUM_SHA256, TEXT, TEXT_LEN);
+  gchar *sha512 =
+      g_compute_checksum_for_string(G_CHECKSUM_SHA512, TEXT, TEXT_LEN);
+
+  printf("sha512 : %s\nsha256 : %s\n", sha512, sha256);
   return 0;
 }
 ```
