@@ -1,0 +1,25 @@
+{
+    "cSpell.words": [
+        "Bibliothèque",
+        "bootstrip",
+        "domonic",
+        "htmlmin",
+        "hwgccn",
+        "izfsk",
+        "izfsk's",
+        "Jgaodeguomh",
+        "lastmodify",
+        "pandoc",
+        "pycountry",
+        "recommand",
+        "twsung"
+    ],
+    "python.analysis.typeCheckingMode": "basic",
+    "yaml.schemas": {
+        "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/execution-environment.json": "file:///home/izfsk/Projects/Blog/myblog/src/articles/%E4%BB%BFGithub%E7%83%AD%E5%8A%9B%E5%9B%BE%E8%AE%BE%E8%AE%A1/config.toml"
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.formatting.provider": "none"
+}

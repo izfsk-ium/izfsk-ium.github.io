@@ -1,0 +1,172 @@
+# BB
+<VirtualHost *:80>
+        ServerName bb.izfsk.top
+
+        DocumentRoot "/usr/local/apache2/htdocs/bb/"
+
+        <Directory "/usr/local/apache2/htdocs/bb/">
+                 Require all granted
+        </Directory>
+
+        <Directory "/usr/local/apache2/htdocs/bb/cgi-bin/">
+                 AllowOverride None
+                 Options +ExecCGI
+                 AddHandler cgi-script .cgi .pl
+        </Directory>
+</VirtualHost>
+
+
+# personal-site
+<VirtualHost *:80>
+        ServerName izfsk.top
+        ServerAlias www.izfsk.top
+        DocumentRoot "/usr/local/apache2/htdocs/www/"
+
+        <Directory "/usr/local/apache2/htdocs/www/">
+                 Require all granted
+        </Directory>
+</VirtualHost>
+
+ <VirtualHost *:443>
+         ServerName izfsk.top
+         ServerAlias www.izfsk.top
+              SSLEngine on
+     SSLCertificateFile "conf/site.cert"
+     SSLCertificateKeyFile "conf/site.key"
+     SSLCipherSuite HIGH:!aNULL:!MD5
+
+         DocumentRoot "/usr/local/apache2/htdocs/www/"
+
+         <Directory "/usr/local/apache2/htdocs/www/">
+                  Require all granted
+         </Directory>
+ </VirtualHost>
+
+ # Comment
+<VirtualHost *:80>
+        ServerName comment.izfsk.top
+        ProxyPass / http://localhost:8080/
+        ProxyPassReverse / http://localhost:8080/
+
+        ProxyPreserveHost On
+        RequestHeader set X-Forwarded-Proto "http" env=!HTTPS
+        RequestHeader set X-Forwarded-Proto "https" env=HTTPS
+        RequestHeader set X-Forwarded-For %{REMOTE_ADDR}e
+</VirtualHost>
+
+ <VirtualHost *:443>
+        ServerName comment.izfsk.top
+        SSLEngine on
+        SSLCertificateFile "conf/site.cert"
+        SSLCertificateKeyFile "conf/site.key"
+        SSLCipherSuite HIGH:!aNULL:!MD5
+
+        ProxyPass / http://localhost:8080/
+        ProxyPassReverse / http://localhost:8080/
+        
+        ProxyPreserveHost On
+        RequestHeader set X-Forwarded-Proto "http" env=!HTTPS
+        RequestHeader set X-Forwarded-Proto "https" env=HTTPS
+        RequestHeader set X-Forwarded-For %{REMOTE_ADDR}e
+ </VirtualHost>
+
+ <VirtualHost *:80>
+         ServerName lib.izfsk.top
+         DocumentRoot "/usr/local/apache2/htdocs/lib/"
+         Alias /icons/ /usr/local/apache2/icons/
+
+         <Directory "/usr/local/apache2/htdocs/lib/">
+                  Require all granted
+                    AllowOverride All
+                  Options +Indexes
+                  <IfModule mod_autoindex.c>
+            Options Indexes FollowSymLinks
+            IndexOptions FancyIndexing
+            IndexOptions VersionSort
+            IndexOptions HTMLTable
+            IndexOptions FoldersFirst
+            IndexOptions IconsAreLinks
+            IndexOptions IgnoreCase
+            IndexOptions SuppressDescription
+            IndexOptions SuppressHTMLPreamble
+            IndexOptions XHTML
+            IndexOptions IconWidth=16
+            IndexOptions IconHeight=16
+            IndexOptions NameWidth=*
+            IndexOrderDefault Descending Name
+        </ifModule>
+         </Directory>
+ </VirtualHost>
+
+  <VirtualHost *:443>
+          ServerName lib.izfsk.top
+               SSLEngine on
+      SSLCertificateFile "conf/site.cert"
+      SSLCertificateKeyFile "conf/site.key"
+      SSLCipherSuite HIGH:!aNULL:!MD5
+
+          DocumentRoot "/usr/local/apache2/htdocs/lib/"
+Alias /icons/ /usr/local/apache2/icons
+
+          <Directory "/usr/local/apache2/htdocs/lib/">
+                   Require all granted
+                   Options +Indexes
+                     AllowOverride All
+
+<IfModule mod_autoindex.c>
+            Options Indexes FollowSymLinks
+            IndexOptions FancyIndexing
+            IndexOptions VersionSort
+            IndexOptions HTMLTable
+            IndexOptions FoldersFirst
+            IndexOptions IconsAreLinks
+            IndexOptions IgnoreCase
+            IndexOptions SuppressDescription
+            IndexOptions SuppressHTMLPreamble
+            IndexOptions XHTML
+            IndexOptions IconWidth=16
+            IndexOptions IconHeight=16
+            IndexOptions NameWidth=*
+            IndexOrderDefault Descending Name
+        </ifModule>
+          </Directory>
+  </VirtualHost>
+
+
+# enable tls for all sites
+<VirtualHost *:443>
+    ServerName bb.izfsk.top
+    SSLEngine on
+    SSLCertificateFile "conf/site.cert"
+    SSLCertificateKeyFile "conf/site.key"
+    SSLCipherSuite HIGH:!aNULL:!MD5
+
+    DocumentRoot "/usr/local/apache2/htdocs/bb/"
+
+     <Directory "/usr/local/apache2/htdocs/bb/">
+          Require all granted
+     </Directory>
+  
+    <Directory "/usr/local/apache2/htdocs/bb/cgi-bin/">
+          AllowOverride None
+          Options +ExecCGI
+          AddHandler cgi-script .cgi .pl
+     </Directory>
+</VirtualHost>
+
+# Default fallback
+<VirtualHost *:80>
+        ServerName 148.100.108.237
+         ErrorDocument 200 "It is very strange.Why you will be here?"
+         Redirect 200 /
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName 148.100.108.237
+    SSLEngine on
+    SSLCertificateFile "conf/site.cert"
+    SSLCertificateKeyFile "conf/site.key"
+    SSLCipherSuite HIGH:!aNULL:!MD5
+         ErrorDocument 200 "You should not be here you know..."
+         Redirect 200 /
+</VirtualHost>
