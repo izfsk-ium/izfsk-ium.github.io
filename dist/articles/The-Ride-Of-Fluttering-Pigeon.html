@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="keywords" content='blog, izfsk-ium, izfsk, 博客'>
+
+  <meta name=author content=izfsk>
+  <meta property=og:site_name content="白漠流霜">
+  <meta name="twitter:title" content="如何驾驭振翅的信鸽">
+  <meta property=og:title content="如何驾驭振翅的信鸽">
+  <meta itemprop=name content="如何驾驭振翅的信鸽">
+  <meta name="keywords" content='blog, izfsk-ium, izfsk, 博客'>
+  <meta property='og:type' content='website'>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="izfsk" />
+
+    <meta name="dcterms.date" content="2023-09-21" />
+        <title>如何驾驭振翅的信鸽</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT194287c0-77bd-493c-92b1-a6ff04c8bf1c.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT194287c0-77bd-493c-92b1-a6ff04c8bf1c.ttf') format('truetype');
+}
+</style>
+
+
+  <script src="/resources/js/article.min.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <small style="display: none !important;" id="article-uuid">194287c0-77bd-493c-92b1-a6ff04c8bf1c</small>
+    <h1 class="title">如何驾驭振翅的信鸽</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+    <nav id="TOC" role="doc-toc">
+    <li class="tools">
+      <span id="togglesidebar">
+        <b>隐藏</b>
+      </span>
+      <span id="readingmode">
+        <b>列印</b>
+      </span>
+      <span id="switchfont">
+        <b>字体</b>
+      </span>
+      <span id="backtotop">
+        <b>页顶</b>
+      </span>
+    </li>
+    <strong>文章归类:&nbsp;<a href="/pages/category.html#学习">学习</a> </strong>
+    <input type="checkbox" id="contents">
+    <ul>
+    <li><a href="#总体步骤" id="toc-总体步骤">总体步骤</a></li>
+    <li><a href="#从-flutter-调用-kotlin-接口" id="toc-从-flutter-调用-kotlin-接口">从 Flutter 调用 Kotlin 接口</a>
+    <ul>
+    <li><a href="#定义接口文件" id="toc-定义接口文件">定义接口文件</a></li>
+    <li><a href="#运行代码生成器" id="toc-运行代码生成器">运行代码生成器</a></li>
+    <li><a href="#实现-kotlin-接口" id="toc-实现-kotlin-接口">实现 Kotlin 接口</a></li>
+    <li><a href="#初始化" id="toc-初始化">初始化</a></li>
+    <li><a href="#在-flutter-中调用" id="toc-在-flutter-中调用">在 Flutter 中调用</a></li>
+    <li><a href="#其他例子" id="toc-其他例子">其他例子</a></li>
+    </ul></li>
+    <li><a href="#从-kotlin-调用-flutter-接口" id="toc-从-kotlin-调用-flutter-接口">从 Kotlin 调用 Flutter 接口</a></li>
+    <li><a href="#一个复杂的例子" id="toc-一个复杂的例子">一个复杂的例子</a>
+    <ul>
+    <li><a href="#添加库" id="toc-添加库">添加库</a></li>
+    <li><a href="#实现" id="toc-实现">实现</a></li>
+    </ul></li>
+    </ul>
+    <ul>
+      <li><a href="#reference">参考链接</a></li>
+    </ul>
+
+  </nav>
+  
+  <main>
+    
+
+    <p>原谅我使用这个似乎不可能正确地得到 SEO 优化的标题，但是「在 Flutter 中使用 Pigeon」这个主题确实很能让人联想到一只扑腾的鸽子……总之，这篇文章主要是我探索在 Flutter 中和原生接口互相调用的一些小结，主要记载的就是「Pigeon 到底怎么用」。</p>
+    <p>首先盗一张图：</p>
+    <figure>
+    <img src="https://docs.flutter.dev/assets/images/docs/PlatformChannels.png" alt="platform channel" />
+    <figcaption aria-hidden="true">platform channel</figcaption>
+    </figure>
+    <p>在 Flutter 中调用原生 API 主要使用的是「平台通道」(Platform Channel)，其起到沟通两个平台的功用，消息和响应以异步的形式进行传递。用最原始的方法来调用平台 API 需要自己写一堆 MethodChannel 代码，这种方法的教程<a href="https://flutter.cn/docs/development/platform-integration/platform-channels#example">官方</a>写的很清楚了。而对于更复杂的项目，就需要用到代码生成器，类似于用 JSON 需要 json_serializable 和 json_annotation 等代码生成器一样。为了以结构化类型安全方式发送消息，就需要用到 Pigeon 作为 MethodChannel 的替代品。</p>
+    <p>创建 flutter 应用模版不赘述，添加 pigeon 使用命令 <code>dart pub add --dev pigeon</code>。</p>
+    <h2 id="总体步骤">总体步骤</h2>
+    <p>使用 Piegon 的工作流程是这样的：</p>
+    <ul>
+    <li>首先，需要定义一个或者多个接口文件，告诉信鸽「对面都有些啥 API 可以用」和/或「自己这边都有些啥 API 可以用」</li>
+    <li>接下来使用代码生成器生成，帮两边都生成模版代码。如果接口文件里面说「对面 Kotlin 有啥啥 API」，那么生成的 Kotlin 代码就带有对应的 Kotlin Interface 需要去实现，生成的 Dart 代码就有可以直接使用的翻译过来的 API。</li>
+    <li>然后，光有定义还不够，Flutter 这边知道对面有了啥 API，那对面还需要实现这些 API 才行。</li>
+    <li>最后在 Flutter 中调用，别忘了这些调用都是<strong>异步</strong>的。</li>
+    </ul>
+    <h2 id="从-flutter-调用-kotlin-接口">从 Flutter 调用 Kotlin 接口</h2>
+    <p>这里一步一步来实现「从 Flutter 调用一个名为 <code>getAndroidVersion</code> 的 Kotlin API 并把返回值显示在屏幕上」：</p>
+    <h3 id="定义接口文件">定义接口文件</h3>
+    <p>在项目根目录创建新的目录 <code>piegons</code>，然后输入对面 API 的签名描述：</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:pigeon/pigeon.dart&#39;</span>;</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>@HostApi()</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>@ConfigurePigeon(PigeonOptions(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  dartOut<span class="op">:</span> <span class="st">&#39;lib/api.dart&#39;</span><span class="op">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  dartOptions<span class="op">:</span> DartOptions()<span class="op">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  kotlinOut<span class="op">:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;android/app/src/main/kotlin/com/example/pigeon_test/AndroidApi.kt&#39;</span><span class="op">,</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  kotlinOptions<span class="op">:</span> KotlinOptions()<span class="op">,</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  dartPackageName<span class="op">:</span> <span class="st">&#39;com.example.pigeon_test&#39;</span><span class="op">,</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">class</span> AndroidAPI {</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> getAndroidVersion(<span class="dt">bool</span> longFormat);</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <p>其中：</p>
+    <ol type="1">
+    <li><code>@HostApi()</code> 指明这是原生 API，也就是「会从 Flutter 中调用的 API」。相应的，如果是反过来调用，就是 <code>@FlutterApi()</code>。</li>
+    <li><code>@ConfigurePigeon</code> 注解配置生成的文件都要保存在什么位置。这些参数也可以用命令行指定。假如有很多个 abstract class，这个注解只需要放在最后一个上就可以了。</li>
+    <li><code>abstract class</code> 内的定义就是 API 的定义了。这也是之后直接在 Flutter 中使用的函数名称。</li>
+    </ol>
+    <h3 id="运行代码生成器">运行代码生成器</h3>
+    <p>在终端中运行：</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span><span class="op">&gt;</span> % dart run pigeon <span class="at">--input</span> pigeons/api.dart</span></code></pre></div>
+    <p>很快就会新增两个文件：</p>
+    <ol type="1">
+    <li><code>'lib/api.dart'</code> 是生成的 dart 绑定，<strong>无须关心这个文家，就当它不存在即可</strong>，它的作用是自动实现 abstract class 让你能够调用上面的 <code>AndroidAPI.getAndroidVersion</code></li>
+    <li><code>AndroidApi.kt</code> 是生成的 Kotlin 接口文件，这也是下一步你需要实现的平台方法的接口。</li>
+    </ol>
+    <h3 id="实现-kotlin-接口">实现 Kotlin 接口</h3>
+    <p>打开 Android Studio，趁着它忙活你可以先上个厕所，然后首先打开 MainActivity.kt，开始实现相应的接口。前面指定的接口名字是 <code>AndroidAPI</code>,所以不管是 Kotlin 这边还是 Flutter 那边都是这个名字：</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AndroidAPIImpl <span class="op">:</span> <span class="dt">AndroidAPI</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">getAndroidVersion</span><span class="op">(</span><span class="va">longFormat</span><span class="op">:</span> <span class="dt">Boolean</span><span class="op">):</span> <span class="dt">String</span> <span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="cf">if</span> <span class="op">(!</span>longFormat<span class="op">){</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;Kernel: &quot;</span> <span class="op">+</span> System<span class="op">.</span>getProperty<span class="op">(</span><span class="st">&quot;os.version&quot;</span><span class="op">)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span><span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;&quot;&quot;Kernel: </span><span class="ss">${</span>System<span class="op">.</span>getProperty<span class="op">(</span><span class="st">&quot;os.version&quot;</span><span class="op">)</span><span class="ss">}</span><span class="st">(</span><span class="ss">${</span>Build<span class="op">.</span>VERSION<span class="op">.</span>INCREMENTAL<span class="ss">}</span><span class="st">)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">            OS API Level: </span><span class="ss">${</span>Build<span class="op">.</span>VERSION<span class="op">.</span>SDK_INT<span class="ss">}</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">            Device: </span><span class="ss">${</span>Build<span class="op">.</span>DEVICE<span class="ss">}</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">            Model / Product): </span><span class="ss">${</span>Build<span class="op">.</span>MODEL<span class="ss">}</span><span class="st"> / (</span><span class="ss">${</span>Build<span class="op">.</span>PRODUCT<span class="ss">}</span><span class="st">)&quot;&quot;&quot;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <h3 id="初始化">初始化</h3>
+    <p>如果此时运行，在调用时只会出现 <code>PlatformException: channel-error</code>，因为光是实现了接口，还没有「注册」上去，所以需要在 MainActivity 中做一些修改：</p>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MainActivity<span class="op">:</span> <span class="dt">FlutterActivity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">configureFlutterEngine</span><span class="op">(</span><span class="va">flutterEngine</span><span class="op">:</span> <span class="dt">FlutterEngine</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">super</span><span class="op">.</span>configureFlutterEngine<span class="op">(</span>flutterEngine<span class="op">)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">api</span> <span class="op">=</span> AndroidAPIImpl<span class="op">()</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        AndroidAPI<span class="op">.</span>setUp<span class="op">(</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            binaryMessenger <span class="op">=</span> flutterEngine<span class="op">.</span>dartExecutor<span class="op">.</span>binaryMessenger<span class="op">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            api <span class="op">=</span> api</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">);</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <p>就是说需要一个实例化的 API 类并把它和 Flutter 引擎连接起来才行。</p>
+    <h3 id="在-flutter-中调用">在 Flutter 中调用</h3>
+    <p>无须多论，只要注意调用是异步的就可以：</p>
+    <div class="sourceCode" id="cb5"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ElevatedButton(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    onPressed<span class="op">:</span> () <span class="at">async</span> {</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">final</span> result <span class="op">=</span> <span class="at">await</span> AndroidAPI()<span class="op">.</span>getAndroidVersion(<span class="cn">false</span>);</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      setState(() {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> result<span class="op">.</span>toString();</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      });</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    child<span class="op">:</span> <span class="at">const</span> Text(<span class="st">&quot;Android 版本(短)&quot;</span>))<span class="op">,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>ElevatedButton(</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    onPressed<span class="op">:</span> () <span class="at">async</span> {</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">final</span> result <span class="op">=</span> <span class="at">await</span> AndroidAPI()<span class="op">.</span>getAndroidVersion(<span class="cn">true</span>);</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>      setState(() {</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> result;</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>      });</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    child<span class="op">:</span> <span class="at">const</span> Text(<span class="st">&quot;Android 版本(长)&quot;</span>))<span class="op">,</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span></code></pre></div>
+    <figure style="align-items: center;display: flex;justify-content: center;flex-direction: column;">
+    <img src="./assets/screen.png" alt="结果" style="width: auto;">
+    <figcaption aria-hidden="true">
+    结果
+    </figcaption>
+    </figure>
+    <h3 id="其他例子">其他例子</h3>
+    <p>上图还有一些其他的函数，以下是完整的实现：</p>
+    <h4 id="声明文件">声明文件</h4>
+    <div class="sourceCode" id="cb6"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:pigeon/pigeon.dart&#39;</span>;</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CustomDataInfo {</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span><span class="op">?</span> pid;</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span><span class="op">?</span> ppid;</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span><span class="op">?</span> uid;</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span><span class="op">?</span> androidVersion;</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>@HostApi()</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>@ConfigurePigeon(PigeonOptions(</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">// same as before</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">class</span> AndroidAPI {</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> getAndroidVersion(<span class="dt">bool</span> longFormat);</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  @async</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  CustomDataInfo getData();</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">List</span><span class="op">&lt;</span><span class="dt">int</span><span class="op">?&gt;</span> fib(<span class="dt">int</span> n);</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <p>注意异步函数使用 <span class="citation" data-cites="async">@async</span> 注解而不是正常的 async 函数写法。另外泛型类型参数必须可为 null (带个问号)。</p>
+    <h4 id="kotlin-的实现">Kotlin 的实现</h4>
+    <div class="sourceCode" id="cb7"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AndroidAPIImpl <span class="op">:</span> <span class="dt">AndroidAPI</span><span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">getAndroidVersion</span><span class="op">(</span><span class="va">longFormat</span><span class="op">:</span> <span class="dt">Boolean</span><span class="op">):</span> <span class="dt">String</span> <span class="op">{</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">// same as before</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">@RequiresApi</span><span class="op">(</span>Build<span class="op">.</span>VERSION_CODES<span class="op">.</span>LOLLIPOP<span class="op">)</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">getData</span><span class="op">(</span><span class="va">callback</span><span class="op">:</span> <span class="op">(</span><span class="dt">Result</span>&lt;<span class="dt">CustomDataInfo</span>&gt;<span class="op">)</span> <span class="op">-&gt;</span> <span class="dt">Unit</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        callback<span class="op">(</span>Result<span class="op">.</span>success<span class="op">(</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>           CustomDataInfo<span class="op">(</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>               pid <span class="op">=</span> Os<span class="op">.</span>getpid<span class="op">().</span>toLong<span class="op">(),</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>               ppid <span class="op">=</span> Os<span class="op">.</span>getppid<span class="op">().</span>toLong<span class="op">(),</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>               uid <span class="op">=</span> Os<span class="op">.</span>getuid<span class="op">().</span>toLong<span class="op">(),</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>               androidVersion <span class="op">=</span> getAndroidVersion<span class="op">(</span>longFormat <span class="op">=</span> <span class="kw">false</span><span class="op">),</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>           <span class="op">)</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">));</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">fib</span><span class="op">(</span><span class="va">n</span><span class="op">:</span> <span class="dt">Long</span><span class="op">):</span> <span class="dt">List</span><span class="op">&lt;</span><span class="dt">Long</span><span class="op">?&gt;</span> <span class="op">{</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> <span class="dv">0</span><span class="op">){</span> <span class="kw">throw</span> FlutterError<span class="op">(</span><span class="st">&quot;Less than Zero&quot;</span><span class="op">);</span> <span class="op">}</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">list</span> <span class="op">=</span> mutableListOf<span class="op">(</span><span class="dv">0L</span><span class="op">,</span> <span class="dv">1L</span><span class="op">)</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">2.</span><span class="op">.</span>n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>            list<span class="op">.</span>add<span class="op">(</span>list<span class="op">[(</span>i <span class="op">-</span> <span class="dv">1</span><span class="op">).</span>toInt<span class="op">()]</span> <span class="op">+</span> list<span class="op">[(</span>i <span class="op">-</span> <span class="dv">2</span><span class="op">).</span>toInt<span class="op">()])</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> list</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <h2 id="从-kotlin-调用-flutter-接口">从 Kotlin 调用 Flutter 接口</h2>
+    <p>反过来调用也是可以的，就是「从 Kotlin 中调用 Flutter 代码」。总体来讲步骤是相同的。首先，需要定义接口：</p>
+    <div class="sourceCode" id="cb8"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>@FlutterApi()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>@ConfigurePigeon(PigeonOptions(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// same</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">class</span> MessageFlutterApi {</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> getFlutterVersion();</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <p>注意这个 <code>@FlutterApi()</code> 是不同点。接下来运行代码生成器，同样是生成两个文件。不过这回两边都要改动。我们的验证方法如下：先从 Flutter 端调用 <code>callMeInKotlin</code> 方法告诉 Kotlin 端「快来调用我！」，接着 Kotlin 端调用 Flutter 端方法 <code>getFlutterVersion</code>，并把从 Flutter 那边得到的结果再传回去显示在屏幕上。</p>
+    <div class="sourceCode" id="cb9"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ElevatedButton(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  onPressed<span class="op">:</span> () <span class="at">async</span> {</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">final</span> result <span class="op">=</span> <span class="at">await</span> AndroidAPI()<span class="op">.</span>callMeInKotlin();</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    setState(() {</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>      data <span class="op">=</span> result;</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    });</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  child<span class="op">:</span> <span class="at">const</span> Text(<span class="st">&quot;Kotlin 端调用 Flutter 方法&quot;</span>))</span></code></pre></div>
+    <p>接着实现 Flutter 端的方法供 Kotlin 调用，<strong>需要 implements MessageFlutterApi</strong>，这里取个巧：</p>
+    <div class="sourceCode" id="cb10"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> _MyHomePageState <span class="kw">extends</span> State<span class="op">&lt;</span>MyHomePage<span class="op">&gt;</span> <span class="kw">implements</span> MessageFlutterApi {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ......</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> getFlutterVersion() {</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    debugPrint(<span class="st">&quot;Call from kotlin&quot;</span>);</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> <span class="st">&quot;Flutter 3.13.2 • channel stable&quot;</span>;</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> calledFromKotlin() {</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    setState(() {</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>      data <span class="op">=</span> <span class="st">&quot;Flutter 3.13.2 • channel stable&quot;</span>;</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    });</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <p>Kotlin 端对 <code>callMeInKotlin</code> 实现，但是，这一回需要另外一个绑定：</p>
+    <div class="sourceCode" id="cb11"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">// MainActivity</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> <span class="va">flutterApi</span><span class="op">:</span> MessageFlutterApi<span class="op">?</span> <span class="op">=</span> <span class="kw">null</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MainActivity<span class="op">:</span> <span class="dt">FlutterActivity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">configureFlutterEngine</span><span class="op">(</span><span class="va">flutterEngine</span><span class="op">:</span> <span class="dt">FlutterEngine</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">super</span><span class="op">.</span>configureFlutterEngine<span class="op">(</span>flutterEngine<span class="op">)</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">api</span> <span class="op">=</span> AndroidAPIImpl<span class="op">()</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        flutterApi <span class="op">=</span> MessageFlutterApi<span class="op">(</span>flutterEngine<span class="op">.</span>dartExecutor<span class="op">.</span>binaryMessenger<span class="op">);</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        AndroidAPI<span class="op">.</span>setUp<span class="op">(</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>            binaryMessenger <span class="op">=</span> flutterEngine<span class="op">.</span>dartExecutor<span class="op">.</span>binaryMessenger<span class="op">,</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>            api <span class="op">=</span> api</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">);</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">// AndroidAPIImpl</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AndroidAPIImpl <span class="op">:</span> <span class="dt">AndroidAPI</span><span class="op">{</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">callMeInKotlin</span><span class="op">(</span><span class="va">callback</span><span class="op">:</span> <span class="op">(</span><span class="dt">Result</span>&lt;<span class="dt">String</span>&gt;<span class="op">)</span> <span class="op">-&gt;</span> <span class="dt">Unit</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>      flutterApi<span class="op">!!.</span>getFlutterVersion<span class="op">(</span><span class="kw">fun</span><span class="op">(</span><span class="va">it</span><span class="op">:</span> <span class="dt">String</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>          println<span class="op">(</span><span class="st">&quot;Data received from Flutter : </span><span class="ss">$it</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>          callback<span class="op">(</span>Result<span class="op">.</span>success<span class="op">(</span><span class="st">&quot;Data received from Flutter and processed by Kotlin !&quot;</span><span class="op">));</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>      <span class="op">})</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <p>最后得到的结果是在屏幕显示 “Data received from Flutter and processed by Kotlin !”，终端的显示是：</p>
+    <div class="sourceCode" id="cb12"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>✓  Built build<span class="op">/</span>app<span class="op">/</span>outputs<span class="op">/</span>flutter<span class="op">-</span>apk<span class="op">/</span>app<span class="op">-</span>debug<span class="op">.</span><span class="fu">apk</span><span class="op">.</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Connecting</span> to VM <span class="bu">Service</span> at ws<span class="op">:</span><span class="co">//127.0.0.1:38449/RQ5ft1v3X0k=/ws</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>I<span class="op">/</span><span class="fu">Gralloc4</span><span class="op">(</span><span class="dv">11614</span><span class="op">):</span> Adding additional valid usage bits<span class="op">:</span> <span class="bn">0x546c08202000</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>I<span class="op">/</span><span class="fu">flutter</span> <span class="op">(</span><span class="dv">11614</span><span class="op">):</span> Call from kotlin</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>I<span class="op">/</span><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">(</span><span class="dv">11614</span><span class="op">):</span> <span class="bu">Data</span> received from Flutter <span class="op">:</span> Flutter <span class="fl">3.13.2</span> • channel stable</span></code></pre></div>
+    <h2 id="一个复杂的例子">一个复杂的例子</h2>
+    <p>来结合 <code>pgppainless-core</code> 库实现一个 PGP 密钥串生成的功能。</p>
+    <h3 id="添加库">添加库</h3>
+    <p>在 <code>gradle.properties</code> 中添加库并 Sync：</p>
+    <div class="sourceCode" id="cb13"><pre class="sourceCode gradle"><code class="sourceCode groovy"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dependencies <span class="op">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    implementation <span class="st">&quot;org.pgpainless:pgpainless-core:1.6.2&quot;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <h3 id="实现">实现</h3>
+    <p>接口：</p>
+    <div class="sourceCode" id="cb14"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:pigeon/pigeon.dart&#39;</span>;</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> KeyPair {</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span><span class="op">?</span> pubkey;</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span><span class="op">?</span> prikey;</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>@HostApi()</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">class</span> AndroidAPI {</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  KeyPair generateKeyPair();</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <p>实现：</p>
+    <div class="sourceCode" id="cb15"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AndroidAPIImpl <span class="op">:</span> <span class="dt">AndroidAPI</span> <span class="op">{</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">generateKeyPair</span><span class="op">():</span> <span class="dt">KeyPair</span> <span class="op">{</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">secretKeys</span> <span class="op">=</span> PGPainless<span class="op">.</span>generateKeyRing<span class="op">()</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>modernKeyRing<span class="op">(</span><span class="st">&quot;Romeo &lt;romeo@montague.lit&gt;&quot;</span><span class="op">,</span> <span class="st">&quot;thisIsAPassword&quot;</span><span class="op">)</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span>  KeyPair<span class="op">(</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>            pubkey <span class="op">=</span> PGPainless<span class="op">.</span>asciiArmor<span class="op">(</span>PGPainless<span class="op">.</span>extractCertificate<span class="op">(</span>secretKeys<span class="op">)),</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>            prikey <span class="op">=</span> PGPainless<span class="op">.</span>asciiArmor<span class="op">(</span>secretKeys<span class="op">)</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">)</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <p>使用：</p>
+    <div class="sourceCode" id="cb16"><pre class="sourceCode dart"><code class="sourceCode dart"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> _MyHomePageState <span class="kw">extends</span> State<span class="op">&lt;</span>MyHomePage<span class="op">&gt;</span> {</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> pub <span class="op">=</span> <span class="st">&quot;&quot;</span>;</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> pri <span class="op">=</span> <span class="st">&quot;&quot;</span>;</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  Widget build(BuildContext context) {</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Scaffold(</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>      appBar<span class="op">:</span> AppBar(</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        title<span class="op">:</span> Text(widget<span class="op">.</span>title)<span class="op">,</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>      body<span class="op">:</span> Padding(padding<span class="op">:</span> <span class="at">const</span> EdgeInsets<span class="op">.</span>all(<span class="dv">20</span>)<span class="op">,</span>child<span class="op">:</span> ListView(</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>        children<span class="op">:</span> [</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>          Text(pub)<span class="op">,</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>          Text(pri)<span class="op">,</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">const</span> Divider()<span class="op">,</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>          ElevatedButton(onPressed<span class="op">:</span> () <span class="at">async</span> {</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">final</span> result <span class="op">=</span> <span class="at">await</span> AndroidAPI()<span class="op">.</span>generateKeyPair();</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>            setState(() {</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>              pub <span class="op">=</span> result<span class="op">.</span>pubkey <span class="op">??</span> <span class="st">&quot;&quot;</span>; pri <span class="op">=</span> result<span class="op">.</span>prikey <span class="op">??</span> <span class="st">&quot;&quot;</span>;</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>            });</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>          }<span class="op">,</span> child<span class="op">:</span> <span class="at">const</span> Text(<span class="st">&quot;Click to generate key pair&quot;</span>))</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>        ]<span class="op">,</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span>)</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <p>最终结果：</p>
+    <figure style="align-items: center;display: flex;justify-content: center;flex-direction: column;">
+    <img src="./assets/111111111111.gif" alt="结果" style="width: auto;">
+    <figcaption aria-hidden="true">
+    结果
+    </figcaption>
+    </figure>
+
+    <br />
+    
+    <h2>参考链接</h2>
+    <ul id="reference">
+      <li><a href="https://docs.flutter.dev/platform-integration/platform-channels" target="_blank"><strong>Writing custom platform-specific code</strong></a></li>
+<li><a href="https://pub.dev/packages/pigeon" target="_blank"><strong>pigeon 11.0.1</strong></a></li>
+<li><a href="https://github.com/flutter/packages/blob/main/packages/pigeon/example/README.md" target="_blank"><strong>Pigeon Examples</strong></a></li>
+<li><a href="https://blog.codemagic.io/working-with-native-elements/" target="_blank"><strong>Working with native elements in Flutter</strong></a></li>
+<li><a href="https://stackoverflow.com/questions/55520563/call-flutter-function-from-android-part-of-the-app" target="_blank"><strong>Call Flutter Function from Android</strong></a></li>
+    </ul>
+    
+
+
+    <br />
+    <script src="https://giscus.app/client.js" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw"
+      data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-mapping="title" data-strict="0"
+      data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme"
+      data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async>
+      </script>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-09-21">创建日期：2023-09-21</time></p>
+            <p class="lastmodify"><time>最后编译：2023-09-21</time></p>
+      <p class="lastmodify" id="counter-span">访问次数：</p>
+    </div>
+    </p>
+  </footer>
+
+  
+  <script>
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i => i.insertAdjacentHTML('beforeend', '<div class="copy">复制</div>')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i => i.addEventListener(
+        'click',
+        () => {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() => {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) >= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
+        .then(r => r.text())
+        .then(d => {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        });
+
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <script async src="https://analytics.umami.is/script.js"
+    data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3"></script>
+</body>
+
+</html>
