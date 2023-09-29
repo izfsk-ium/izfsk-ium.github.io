@@ -48,7 +48,7 @@
     <small style="display: none !important;" id="article-uuid">194287c0-77bd-493c-92b1-a6ff04c8bf1c</small>
     <h1 class="title">如何驾驭振翅的信鸽</h1>
     <!-- Subtitle -->
-        <h3 class="subtitle">&nbsp;</h3>
+        <h3 class="subtitle">在 Flutter 中使用 Pigeon</h3>
       </header>
 
     <nav id="TOC" role="doc-toc">
@@ -140,7 +140,7 @@
     <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span><span class="op">&gt;</span> % dart run pigeon <span class="at">--input</span> pigeons/api.dart</span></code></pre></div>
     <p>很快就会新增两个文件：</p>
     <ol type="1">
-    <li><code>'lib/api.dart'</code> 是生成的 dart 绑定，<strong>无须关心这个文家，就当它不存在即可</strong>，它的作用是自动实现 abstract class 让你能够调用上面的 <code>AndroidAPI.getAndroidVersion</code></li>
+    <li><code>'lib/api.dart'</code> 是生成的 dart 绑定，<strong>无须关心这个文件，就当它不存在即可</strong>，它的作用是自动实现 abstract class 让你能够调用上面的 <code>AndroidAPI.getAndroidVersion</code></li>
     <li><code>AndroidApi.kt</code> 是生成的 Kotlin 接口文件，这也是下一步你需要实现的平台方法的接口。</li>
     </ol>
     <h3 id="实现-kotlin-接口">实现 Kotlin 接口</h3>
@@ -372,7 +372,7 @@
 <span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
     <p>最终结果：</p>
-    <figure style="align-items: center;display: flex;justify-content: center;flex-direction: column;">
+    <figure style="align-items: center;display: flex;justify-content: center;flex-direction: column;width: 75%;">
     <img src="./assets/111111111111.gif" alt="结果" style="width: auto;">
     <figcaption aria-hidden="true">
     结果
@@ -406,7 +406,7 @@
     <p class="signoff">
     <div class="metadata">
             <p class="date"><time datetime="2023-09-21">创建日期：2023-09-21</time></p>
-            <p class="lastmodify"><time>最后编译：2023-09-21</time></p>
+            <p class="lastmodify"><time>最后编译：2023-09-29</time></p>
       <p class="lastmodify" id="counter-span">访问次数：</p>
     </div>
     </p>

@@ -30,7 +30,6 @@ body {
     background-repeat: no-repeat;
     background-position: center center;
     height: 100vh;
-    backdrop-filter: blur(1px);
 }
 
 main {

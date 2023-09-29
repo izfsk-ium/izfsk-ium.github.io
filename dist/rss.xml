@@ -13,7 +13,7 @@
       <link>http://blog.izfsk.top/rss.xml</link>
     </image>
     <language>zh_CN</language>
-    <lastBuildDate>Thu, 21 Sep 2023 15:02:26 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 29 Sep 2023 13:31:52 +0000</lastBuildDate>
     <item>
       <title>模版功能简介</title>
       <link>https://blog.izfsk.top/articles/README.html</link>
@@ -12657,7 +12657,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;small id="article-uuid" style="display: none !important;"&gt;194287c0-77bd-493c-92b1-a6ff04c8bf1c&lt;/small&gt;
 &lt;h1 class="title"&gt;如何驾驭振翅的信鸽&lt;/h1&gt;
 &lt;!-- Subtitle --&gt;
-&lt;h3 class="subtitle"&gt; &lt;/h3&gt;
+&lt;h3 class="subtitle"&gt;在 Flutter 中使用 Pigeon&lt;/h3&gt;
 &lt;/header&gt;
 &lt;nav id="TOC" role="doc-toc"&gt;
 &lt;li class="tools"&gt;
@@ -12744,7 +12744,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;div class="sourceCode" id="cb2"&gt;&lt;pre class="sourceCode bash"&gt;&lt;code class="sourceCode bash"&gt;&lt;span id="cb2-1"&gt;&lt;a aria-hidden="true" href="#cb2-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="ex"&gt;-&lt;/span&gt;&lt;span class="op"&gt;&amp;gt;&lt;/span&gt; % dart run pigeon &lt;span class="at"&gt;--input&lt;/span&gt; pigeons/api.dart&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;很快就会新增两个文件：&lt;/p&gt;
 &lt;ol type="1"&gt;
-&lt;li&gt;&lt;code&gt;'lib/api.dart'&lt;/code&gt; 是生成的 dart 绑定，&lt;strong&gt;无须关心这个文家，就当它不存在即可&lt;/strong&gt;，它的作用是自动实现 abstract class 让你能够调用上面的 &lt;code&gt;AndroidAPI.getAndroidVersion&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;'lib/api.dart'&lt;/code&gt; 是生成的 dart 绑定，&lt;strong&gt;无须关心这个文件，就当它不存在即可&lt;/strong&gt;，它的作用是自动实现 abstract class 让你能够调用上面的 &lt;code&gt;AndroidAPI.getAndroidVersion&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;AndroidApi.kt&lt;/code&gt; 是生成的 Kotlin 接口文件，这也是下一步你需要实现的平台方法的接口。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id="实现-kotlin-接口"&gt;实现 Kotlin 接口&lt;/h3&gt;
@@ -12976,7 +12976,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;span id="cb16-25"&gt;&lt;a aria-hidden="true" href="#cb16-25" tabindex="-1"&gt;&lt;/a&gt;  }&lt;/span&gt;
 &lt;span id="cb16-26"&gt;&lt;a aria-hidden="true" href="#cb16-26" tabindex="-1"&gt;&lt;/a&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;最终结果：&lt;/p&gt;
-&lt;figure style="align-items: center;display: flex;justify-content: center;flex-direction: column;"&gt;
+&lt;figure style="align-items: center;display: flex;justify-content: center;flex-direction: column;width: 75%;"&gt;
 &lt;img alt="结果" src="./assets/111111111111.gif" style="width: auto;"/&gt;
 &lt;figcaption aria-hidden="true"&gt;
     结果
@@ -12999,7 +12999,7 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2023-09-21"&gt;创建日期：2023-09-21&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-09-21&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-09-29&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
