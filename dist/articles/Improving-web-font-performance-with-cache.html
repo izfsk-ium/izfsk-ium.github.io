@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="keywords" content='blog, izfsk-ium, izfsk, 博客'>
+
+  <meta name=author content=izfsk>
+  <meta property=og:site_name content="白漠流霜">
+  <meta name="twitter:title" content="通过(非典型的)缓存来提高 Web 字体性能">
+  <meta property=og:title content="通过(非典型的)缓存来提高 Web 字体性能">
+  <meta itemprop=name content="通过(非典型的)缓存来提高 Web 字体性能">
+  <meta name="keywords" content='blog, izfsk-ium, izfsk, 博客'>
+  <meta property='og:type' content='website'>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="izfsk" />
+
+    <meta name="dcterms.date" content="2023-10-26" />
+        <title>通过(非典型的)缓存来提高 Web 字体性能</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT1549daf0-df1a-4df9-9685-89ea234de6e9.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT1549daf0-df1a-4df9-9685-89ea234de6e9.ttf') format('truetype');
+}
+</style>
+
+
+  <script src="/resources/js/article.min.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <small style="display: none !important;" id="article-uuid">1549daf0-df1a-4df9-9685-89ea234de6e9</small>
+    <h1 class="title">通过(非典型的)缓存来提高 Web 字体性能</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+  
+  <main>
+    
+
+    <p>最近又想要重构一下这个破站，因此又一次要面对字体加载问题。现在使用的解决方案是，对于每一篇文章单独生成一个压缩过后的子集字体文件，不过这种方法只适用于确定内容的页面，不能在动态页面使用，而且由于网络环境的原因，虽然每个子集文件大小一般不超过 1M，还是比较慢，且由于是托管式的静态站点，也没法直接改 <code>Cache-Control</code>。所以显而易见需要手动干预一下缓存流程，达到加载一次，以后就无须重复加载的目的。</p>
+    <p>当然我并不是不知道有这么一个 <code>service workers</code>，不过一开始我只是以为这玩意只和 PWA 应用有关，没有深入了解，于是采用了更加复杂的方式。</p>
+    <p>想要搞缓存，那自然是要把下载的字体保存在本地，那首先需要解决「如何在 JS 中加载字体」的问题。使用 CSS 的 <code>@font-face</code> 是典型的操作，但是这种请求似乎不能通过 JS 干预，所幸 JS 也有自己的动态加载机制 <a href="https://developer.mozilla.org/en-US/docs/Web/API/FontFace"><code>FontFace</code></a> 可以使用，这么一来，只需要在 CSS 中指定 <code>font-family</code>，然后在 JS 中 <code>fetch</code> 后加载就行了：</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">addFontToPage</span>(arrayBuffer<span class="op">,</span> name) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> font <span class="op">=</span> <span class="kw">new</span> <span class="bu">FontFace</span>(name<span class="op">,</span> arrayBuffer)<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">document</span><span class="op">.</span><span class="at">fonts</span><span class="op">.</span><span class="fu">add</span>(font)<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    font<span class="op">.</span><span class="fu">load</span>()<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">fetch</span>(target<span class="op">.</span><span class="at">location</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">then</span>(resp <span class="kw">=&gt;</span> resp<span class="op">.</span><span class="fu">arrayBuffer</span>())</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">then</span>(arrayBuffer <span class="kw">=&gt;</span> {</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;font downloaded successfully!&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addFontToPage</span>(arrayBuffer<span class="op">,</span> target<span class="op">.</span><span class="at">name</span>)<span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  })</span></code></pre></div>
+    <p>对应的 CSS 还是按照原来的书写，不过无须引入 <code>@font-face</code>:</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>p {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">font-family</span>: <span class="st">&#39;Subset&#39;</span><span class="op">,</span> <span class="st">&#39;Full&#39;</span><span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <p>那么接下来要解决的问题就是如何把这些字体保存在本地。<code>localStorage</code> 很自然的出现在脑中，然而很遗憾，在尝试之后我发现它无法满足要求：首先，<code>localStorage</code> 只适合字符串的存储，这点在它的签名上就能看出来：<code>setItem(key: string, value: string): void;</code>，而下载的字体文件是二进制文件，没法直接保存。当然，似乎可以用各种奇技淫巧来在 <code>String</code> 和 <code>ArrayBuffer</code> 之间转来换去，但还有一个「其次」在等着你：<code>localStorage</code> 的存储大小是由限制的，<a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API#web_storage_concepts_and_usage">大概是 10MB 左右</a>，一旦超出就会出错。（你可以自己<a href="https://arty.name/localstorage.html">测试一下</a>）。同样的，直接使用 base64 data url 也会遇到大小限制的问题，而且 F12 以后 Inspector 里面显示的大串数据真的是惨不忍睹。所以，想要存储较大的二进制数据，需要用到其他技术，我选择了 <code>IndexedDB</code>。</p>
+    <p><em>IndexedDB 是一种在用户浏览器内持久化存储数据的方法。它可以让你创建具有丰富查询能力的 Web 应用，而无需考虑网络可用性，因此你的应用在在线和离线时都可以正常运行。</em>总之听起来很不错，由于是异步的，而且多少算是个 <code>DB</code>，所以操作起来还是有些麻烦：</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 打开数据库</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> dbRequest <span class="op">=</span> indexedDB<span class="op">.</span><span class="fu">open</span>(<span class="st">&quot;DB&quot;</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">// 创建一个 scheme</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>dbRequest<span class="op">.</span><span class="at">onupgradeneeded</span> <span class="op">=</span> <span class="kw">function</span> () {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> db <span class="op">=</span> dbRequest<span class="op">.</span><span class="at">result</span><span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">/*</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">    创建一个 ObjectStore，就像是数据库中的一张「表」，但是里面可以存放任何 JS Object</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">    而它的「主键」就是 keyPath，这个 createObjectStore 只能在 onupgradeneeded 回调中使用。</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">    */</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    db<span class="op">.</span><span class="fu">createObjectStore</span>(<span class="st">&quot;objStore&quot;</span><span class="op">,</span> { <span class="dt">keyPath</span><span class="op">:</span> <span class="st">&quot;id&quot;</span> })<span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>dbRequest<span class="op">.</span><span class="at">onsuccess</span> <span class="op">=</span> <span class="kw">function</span> () {</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 数据库打开成功</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> db <span class="op">=</span> dbRequest<span class="op">.</span><span class="at">result</span><span class="op">;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> tx <span class="op">=</span> db<span class="op">.</span><span class="fu">transaction</span>(<span class="st">&quot;objStore&quot;</span><span class="op">,</span> <span class="st">&quot;readwrite&quot;</span>)<span class="op">;</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> store <span class="op">=</span> tx<span class="op">.</span><span class="fu">objectStore</span>(<span class="st">&quot;objStore&quot;</span>)<span class="op">;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 增改</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    store<span class="op">.</span><span class="fu">put</span>({ <span class="dt">id</span><span class="op">:</span> <span class="dv">114514</span><span class="op">,</span> <span class="dt">data</span><span class="op">:</span> <span class="st">&#39;anything&#39;</span> })<span class="op">;</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 查</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> query <span class="op">=</span> store<span class="op">.</span><span class="fu">get</span>(<span class="dv">12345</span>)<span class="op">;</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    query<span class="op">.</span><span class="at">onsuccess</span> <span class="op">=</span> <span class="kw">function</span> () {</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(query<span class="op">.</span><span class="at">result</span><span class="op">.</span><span class="at">data</span>)<span class="op">;</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 删</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    store<span class="op">.</span><span class="fu">delete</span>(<span class="dv">114514</span>)<span class="op">;</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 关闭</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    tx<span class="op">.</span><span class="at">oncomplete</span> <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        db<span class="op">.</span><span class="fu">close</span>()<span class="op">;</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <p>有了这一套以后就可以开工了：首先正常的写 CSS，但不使用 <span class="citation" data-cites="font-face">@font-face</span> 引入，而是使用一个 loader 函数，先查询本地数据库缓存中是否有这个字体，如果有则返回，否则再 <code>fetch</code> 保存。一旦出错，则重新在插入 <code>style</code> 元素补齐 <span class="citation" data-cites="font-face">@font-face</span>：</p>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">fallback</span>(name<span class="op">,</span> location) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> elem <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">&quot;style&quot;</span>)<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    elem<span class="op">.</span><span class="at">innerHTML</span> <span class="op">=</span> <span class="vs">`@font-face {</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="vs">        font-family: </span><span class="sc">${</span>name<span class="sc">}</span><span class="vs">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="vs">        src: url(</span><span class="sc">${</span>location<span class="sc">}</span><span class="vs">);</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="vs">        font-display: swap;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="vs">    }`</span><span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">document</span><span class="op">.</span><span class="at">head</span><span class="op">.</span><span class="fu">appendChild</span>(elem)<span class="op">;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">loadFontFull</span>(targets) {</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> <span class="bu">IDBRequest</span> <span class="op">=</span> <span class="bu">window</span><span class="op">.</span><span class="at">indexedDB</span><span class="op">.</span><span class="fu">open</span>(<span class="st">&quot;FONTDB&quot;</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">IDBRequest</span><span class="op">.</span><span class="at">onerror</span> <span class="op">=</span> e <span class="kw">=&gt;</span> {</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="st">&quot;Unable to open database.&quot;</span>)<span class="op">;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        targets<span class="op">.</span><span class="fu">forEach</span>(e <span class="kw">=&gt;</span> { <span class="fu">fallback</span>(e<span class="op">.</span><span class="at">name</span><span class="op">,</span> e<span class="op">.</span><span class="at">location</span>) })<span class="op">;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">IDBRequest</span><span class="op">.</span><span class="at">onupgradeneeded</span> <span class="op">=</span> <span class="kw">function</span> () {</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> db <span class="op">=</span> <span class="bu">IDBRequest</span><span class="op">.</span><span class="at">result</span><span class="op">,</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>            store <span class="op">=</span> db<span class="op">.</span><span class="fu">createObjectStore</span>(<span class="st">&quot;Fonts&quot;</span><span class="op">,</span> { <span class="dt">keyPath</span><span class="op">:</span> <span class="st">&quot;id&quot;</span> })<span class="op">;</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">IDBRequest</span><span class="op">.</span><span class="at">onsuccess</span> <span class="op">=</span> <span class="kw">function</span> () {</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> (<span class="kw">const</span> target <span class="kw">of</span> targets) {</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>            <span class="kw">const</span> FONT_CACHE_KEY <span class="op">=</span> <span class="vs">`font.</span><span class="sc">${</span>target<span class="op">.</span><span class="at">name</span><span class="sc">}</span><span class="vs">.downloaded`</span><span class="op">;</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (localStorage<span class="op">.</span><span class="fu">getItem</span>(FONT_CACHE_KEY) <span class="op">===</span> <span class="kw">null</span>) {</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>                <span class="fu">fetch</span>(target<span class="op">.</span><span class="at">location</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">then</span>(resp <span class="kw">=&gt;</span> resp<span class="op">.</span><span class="fu">arrayBuffer</span>())</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">then</span>(arrayBuffer <span class="kw">=&gt;</span> {</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                        <span class="kw">let</span> db <span class="op">=</span> <span class="bu">IDBRequest</span><span class="op">.</span><span class="at">result</span><span class="op">,</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>                            tx <span class="op">=</span> db<span class="op">.</span><span class="fu">transaction</span>(<span class="st">&quot;Fonts&quot;</span><span class="op">,</span> <span class="st">&quot;readwrite&quot;</span>)<span class="op">;</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>                        <span class="kw">let</span> store <span class="op">=</span> tx<span class="op">.</span><span class="fu">objectStore</span>(<span class="st">&quot;Fonts&quot;</span>)<span class="op">;</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>                        <span class="kw">let</span> operation <span class="op">=</span> store<span class="op">.</span><span class="fu">put</span>({</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">id</span><span class="op">:</span> target<span class="op">.</span><span class="at">name</span><span class="op">,</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">data</span><span class="op">:</span> arrayBuffer</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>                        })<span class="op">;</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>                        operation<span class="op">.</span><span class="at">onsuccess</span> <span class="op">=</span> e <span class="kw">=&gt;</span> {</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>                            localStorage<span class="op">.</span><span class="fu">setItem</span>(FONT_CACHE_KEY<span class="op">,</span> <span class="kw">true</span>)<span class="op">;</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">addFontToPage</span>(arrayBuffer<span class="op">,</span> target<span class="op">.</span><span class="at">name</span>)<span class="op">;</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>                        }<span class="op">;</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>                        operation<span class="op">.</span><span class="at">onerror</span> <span class="op">=</span> e <span class="kw">=&gt;</span> {</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>                            targets<span class="op">.</span><span class="fu">forEach</span>(e <span class="kw">=&gt;</span> { <span class="fu">fallback</span>(e<span class="op">.</span><span class="at">name</span><span class="op">,</span> e<span class="op">.</span><span class="at">location</span>) })<span class="op">;</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>                        }</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>                    })</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>                    <span class="op">.</span><span class="fu">catch</span>(e <span class="kw">=&gt;</span> {</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>                        targets<span class="op">.</span><span class="fu">forEach</span>(e <span class="kw">=&gt;</span> { <span class="fu">fallback</span>(e<span class="op">.</span><span class="at">name</span><span class="op">,</span> e<span class="op">.</span><span class="at">location</span>) })<span class="op">;</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>                    })</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>            } <span class="cf">else</span> {</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>                <span class="kw">let</span> store <span class="op">=</span> <span class="bu">IDBRequest</span><span class="op">.</span><span class="at">result</span><span class="op">.</span><span class="fu">transaction</span>(<span class="st">&quot;Fonts&quot;</span><span class="op">,</span> <span class="st">&quot;readwrite&quot;</span>)<span class="op">.</span><span class="fu">objectStore</span>(<span class="st">&quot;Fonts&quot;</span>)<span class="op">;</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>                <span class="kw">const</span> fontReq <span class="op">=</span> store<span class="op">.</span><span class="fu">get</span>(target<span class="op">.</span><span class="at">name</span>)<span class="op">;</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>                fontReq<span class="op">.</span><span class="at">onsuccess</span> <span class="op">=</span> e <span class="kw">=&gt;</span> {</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;font loaded from IndexDB successfully!&#39;</span>)<span class="op">;</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">addFontToPage</span>(fontReq<span class="op">.</span><span class="at">result</span><span class="op">.</span><span class="at">data</span><span class="op">,</span> target<span class="op">.</span><span class="at">name</span>)<span class="op">;</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>                }<span class="op">;</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>                fontReq<span class="op">.</span><span class="at">onerror</span> <span class="op">=</span> e <span class="kw">=&gt;</span> {</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>                    targets<span class="op">.</span><span class="fu">forEach</span>(e <span class="kw">=&gt;</span> { <span class="fu">fallback</span>(e<span class="op">.</span><span class="at">name</span><span class="op">,</span> e<span class="op">.</span><span class="at">location</span>) })<span class="op">;</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>                }</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="bu">document</span><span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">&quot;DOMContentLoaded&quot;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> { <span class="fu">loadFontFull</span>(FONTS)<span class="op">;</span> } <span class="cf">catch</span> (e) {</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>        FONTS<span class="op">.</span><span class="fu">forEach</span>(e <span class="kw">=&gt;</span> { <span class="fu">fallback</span>(e<span class="op">.</span><span class="at">name</span><span class="op">,</span> e<span class="op">.</span><span class="at">location</span>) })<span class="op">;</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+    <p>使用 Chrome， 开启 Slow 3G 模拟测试，最后的结果如下：</p>
+    <figure>
+    <img src="./assets/first-time.jpeg" alt="第一次访问(25.32 seconds)" />
+    <figcaption aria-hidden="true">第一次访问(25.32 seconds)</figcaption>
+    </figure>
+    <figure>
+    <img src="./assets/second-time.jpeg" alt="之后的访问(4.11 seconds)" />
+    <figcaption aria-hidden="true">之后的访问(4.11 seconds)</figcaption>
+    </figure>
+    <p>当然别忘了转 woff 字体。以上测试见<a href="./assets/direct.html">此处</a>。</p>
+
+    <br />
+    
+    <h2>参考链接</h2>
+    <ul id="reference">
+      <li><a href="https://gomakethings.com/improving-web-font-performance-with-service-workers/" target="_blank"><strong>Improving web font performance with service workers</strong></a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/IndexedDB_API/Using_IndexedDB" target="_blank"><strong>使用 IndexedDB</strong></a></li>
+<li><a href="https://gist.github.com/JamesMessinger/a0d6389a5d0e3a24814b" target="_blank"><strong>Very Simple IndexedDB Example </strong></a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs" target="_blank"><strong>Data URLs</strong></a></li>
+<li><a href="https://stackoverflow.com/questions/7301064/error-a-mutation-operation-was-attempted-on-a-database-that-did-not-allow-mutat" target="_blank"><strong>Error when retrieving data in indexedDB</strong></a></li>
+    </ul>
+    
+
+
+    <br />
+    <script src="https://giscus.app/client.js" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw"
+      data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-mapping="title" data-strict="0"
+      data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme"
+      data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async>
+      </script>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-10-26">创建日期：2023-10-26</time></p>
+            <p class="lastmodify"><time>最后编译：2023-10-26</time></p>
+      <p class="lastmodify" id="counter-span">访问次数：</p>
+    </div>
+    </p>
+  </footer>
+
+  
+  <script>
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i => i.insertAdjacentHTML('beforeend', '<div class="copy">复制</div>')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i => i.addEventListener(
+        'click',
+        () => {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() => {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) >= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
+        .then(r => r.text())
+        .then(d => {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        });
+
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <script async src="https://analytics.umami.is/script.js"
+    data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3"></script>
+</body>
+
+</html>

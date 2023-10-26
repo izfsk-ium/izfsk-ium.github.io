@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Font test</title>
+
+    <script>
+        const FONTS = [
+            {
+                name: 'Full',
+                location: './Full.ttf'
+            },
+            {
+                name: 'Subset',
+                location: './Subset.ttf'
+            }
+        ];
+    </script>
+    <script src="./loader.js"></script>
+
+    <style>
+        p {
+            font-family: 'Subset', 'Full', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>
+        测试文本
+    </h1>
+    <p>
+        啊阿埃挨哎唉哀皑癌蔼矮艾碍爱隘鞍氨安俺按暗岸胺案昂盎凹敖熬翱袄傲奥懊澳芭捌扒叭吧笆八疤巴拔跋靶把耙坝霸罢爸白柏
+    </p>
+    <p>
+        晋悦咏焕昭枫琼慎杏仕仪珊桃谦航舜猛卿鼎咸陵镇召敦佐熙遵桥网闽挺菲禄耘锐潮鉴婉塔蚜描粤粱惮慨乌矩疾徊碍戒买笛痛锈锌匆矢溪荤惟陪掩耸
+    </p>
+    <p>
+        <button id="clear">
+            清除
+        </button>
+    </p>
+</body>
+<script>
+    document.getElementById("clear").onclick = e => {
+        localStorage.clear();
+    }
+</script>
+
+</html>

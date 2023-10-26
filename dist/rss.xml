@@ -13,7 +13,7 @@
       <link>http://blog.izfsk.top/rss.xml</link>
     </image>
     <language>zh_CN</language>
-    <lastBuildDate>Fri, 29 Sep 2023 13:31:52 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 26 Oct 2023 14:36:35 +0000</lastBuildDate>
     <item>
       <title>模版功能简介</title>
       <link>https://blog.izfsk.top/articles/README.html</link>
@@ -13047,6 +13047,221 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">194287c0-77bd-493c-92b1-a6ff04c8bf1c</guid>
       <pubDate>Thu, 21 Sep 2023 00:00:00 +0800</pubDate>
+    </item>
+    <item>
+      <title>通过(非典型的)缓存来提高 Web 字体性能</title>
+      <link>https://blog.izfsk.top/articles/Improving-web-font-performance-with-cache.html</link>
+      <description>通过(非典型的)缓存来提高 Web 字体性能</description>
+      <content:encoded>&lt;body&gt;
+&lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;1549daf0-df1a-4df9-9685-89ea234de6e9&lt;/small&gt;
+&lt;h1 class="title"&gt;通过(非典型的)缓存来提高 Web 字体性能&lt;/h1&gt;
+&lt;!-- Subtitle --&gt;
+&lt;h3 class="subtitle"&gt; &lt;/h3&gt;
+&lt;/header&gt;
+&lt;main&gt;
+&lt;p&gt;最近又想要重构一下这个破站，因此又一次要面对字体加载问题。现在使用的解决方案是，对于每一篇文章单独生成一个压缩过后的子集字体文件，不过这种方法只适用于确定内容的页面，不能在动态页面使用，而且由于网络环境的原因，虽然每个子集文件大小一般不超过 1M，还是比较慢，且由于是托管式的静态站点，也没法直接改 &lt;code&gt;Cache-Control&lt;/code&gt;。所以显而易见需要手动干预一下缓存流程，达到加载一次，以后就无须重复加载的目的。&lt;/p&gt;
+&lt;p&gt;当然我并不是不知道有这么一个 &lt;code&gt;service workers&lt;/code&gt;，不过一开始我只是以为这玩意只和 PWA 应用有关，没有深入了解，于是采用了更加复杂的方式。&lt;/p&gt;
+&lt;p&gt;想要搞缓存，那自然是要把下载的字体保存在本地，那首先需要解决「如何在 JS 中加载字体」的问题。使用 CSS 的 &lt;code&gt;@font-face&lt;/code&gt; 是典型的操作，但是这种请求似乎不能通过 JS 干预，所幸 JS 也有自己的动态加载机制 &lt;a href="https://developer.mozilla.org/en-US/docs/Web/API/FontFace"&gt;&lt;code&gt;FontFace&lt;/code&gt;&lt;/a&gt; 可以使用，这么一来，只需要在 CSS 中指定 &lt;code&gt;font-family&lt;/code&gt;，然后在 JS 中 &lt;code&gt;fetch&lt;/code&gt; 后加载就行了：&lt;/p&gt;
+&lt;div class="sourceCode" id="cb1"&gt;&lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb1-1"&gt;&lt;a aria-hidden="true" href="#cb1-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;function&lt;/span&gt; &lt;span class="fu"&gt;addFontToPage&lt;/span&gt;(arrayBuffer&lt;span class="op"&gt;,&lt;/span&gt; name) {&lt;/span&gt;
+&lt;span id="cb1-2"&gt;&lt;a aria-hidden="true" href="#cb1-2" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;const&lt;/span&gt; font &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; &lt;span class="bu"&gt;FontFace&lt;/span&gt;(name&lt;span class="op"&gt;,&lt;/span&gt; arrayBuffer)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-3"&gt;&lt;a aria-hidden="true" href="#cb1-3" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="bu"&gt;document&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;fonts&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;add&lt;/span&gt;(font)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-4"&gt;&lt;a aria-hidden="true" href="#cb1-4" tabindex="-1"&gt;&lt;/a&gt;    font&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;load&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-5"&gt;&lt;a aria-hidden="true" href="#cb1-5" tabindex="-1"&gt;&lt;/a&gt;}&lt;/span&gt;
+&lt;span id="cb1-6"&gt;&lt;a aria-hidden="true" href="#cb1-6" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb1-7"&gt;&lt;a aria-hidden="true" href="#cb1-7" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="fu"&gt;fetch&lt;/span&gt;(target&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;location&lt;/span&gt;)&lt;/span&gt;
+&lt;span id="cb1-8"&gt;&lt;a aria-hidden="true" href="#cb1-8" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;then&lt;/span&gt;(resp &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; resp&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;arrayBuffer&lt;/span&gt;())&lt;/span&gt;
+&lt;span id="cb1-9"&gt;&lt;a aria-hidden="true" href="#cb1-9" tabindex="-1"&gt;&lt;/a&gt;  &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;then&lt;/span&gt;(arrayBuffer &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb1-10"&gt;&lt;a aria-hidden="true" href="#cb1-10" tabindex="-1"&gt;&lt;/a&gt;      &lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;log&lt;/span&gt;(&lt;span class="st"&gt;'font downloaded successfully!'&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-11"&gt;&lt;a aria-hidden="true" href="#cb1-11" tabindex="-1"&gt;&lt;/a&gt;      &lt;span class="fu"&gt;addFontToPage&lt;/span&gt;(arrayBuffer&lt;span class="op"&gt;,&lt;/span&gt; target&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;name&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb1-12"&gt;&lt;a aria-hidden="true" href="#cb1-12" tabindex="-1"&gt;&lt;/a&gt;  })&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;对应的 CSS 还是按照原来的书写，不过无须引入 &lt;code&gt;@font-face&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="sourceCode" id="cb2"&gt;&lt;pre class="sourceCode css"&gt;&lt;code class="sourceCode css"&gt;&lt;span id="cb2-1"&gt;&lt;a aria-hidden="true" href="#cb2-1" tabindex="-1"&gt;&lt;/a&gt;p {&lt;/span&gt;
+&lt;span id="cb2-2"&gt;&lt;a aria-hidden="true" href="#cb2-2" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;font-family&lt;/span&gt;: &lt;span class="st"&gt;'Subset'&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;'Full'&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;sans-serif&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-3"&gt;&lt;a aria-hidden="true" href="#cb2-3" tabindex="-1"&gt;&lt;/a&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;那么接下来要解决的问题就是如何把这些字体保存在本地。&lt;code&gt;localStorage&lt;/code&gt; 很自然的出现在脑中，然而很遗憾，在尝试之后我发现它无法满足要求：首先，&lt;code&gt;localStorage&lt;/code&gt; 只适合字符串的存储，这点在它的签名上就能看出来：&lt;code&gt;setItem(key: string, value: string): void;&lt;/code&gt;，而下载的字体文件是二进制文件，没法直接保存。当然，似乎可以用各种奇技淫巧来在 &lt;code&gt;String&lt;/code&gt; 和 &lt;code&gt;ArrayBuffer&lt;/code&gt; 之间转来换去，但还有一个「其次」在等着你：&lt;code&gt;localStorage&lt;/code&gt; 的存储大小是由限制的，&lt;a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API#web_storage_concepts_and_usage"&gt;大概是 10MB 左右&lt;/a&gt;，一旦超出就会出错。（你可以自己&lt;a href="https://arty.name/localstorage.html"&gt;测试一下&lt;/a&gt;）。同样的，直接使用 base64 data url 也会遇到大小限制的问题，而且 F12 以后 Inspector 里面显示的大串数据真的是惨不忍睹。所以，想要存储较大的二进制数据，需要用到其他技术，我选择了 &lt;code&gt;IndexedDB&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;IndexedDB 是一种在用户浏览器内持久化存储数据的方法。它可以让你创建具有丰富查询能力的 Web 应用，而无需考虑网络可用性，因此你的应用在在线和离线时都可以正常运行。&lt;/em&gt;总之听起来很不错，由于是异步的，而且多少算是个 &lt;code&gt;DB&lt;/code&gt;，所以操作起来还是有些麻烦：&lt;/p&gt;
+&lt;div class="sourceCode" id="cb3"&gt;&lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb3-1"&gt;&lt;a aria-hidden="true" href="#cb3-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;// 打开数据库&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-2"&gt;&lt;a aria-hidden="true" href="#cb3-2" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;const&lt;/span&gt; dbRequest &lt;span class="op"&gt;=&lt;/span&gt; indexedDB&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;open&lt;/span&gt;(&lt;span class="st"&gt;"DB"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;1&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-3"&gt;&lt;a aria-hidden="true" href="#cb3-3" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb3-4"&gt;&lt;a aria-hidden="true" href="#cb3-4" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;// 创建一个 scheme&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-5"&gt;&lt;a aria-hidden="true" href="#cb3-5" tabindex="-1"&gt;&lt;/a&gt;dbRequest&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onupgradeneeded&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;function&lt;/span&gt; () {&lt;/span&gt;
+&lt;span id="cb3-6"&gt;&lt;a aria-hidden="true" href="#cb3-6" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;const&lt;/span&gt; db &lt;span class="op"&gt;=&lt;/span&gt; dbRequest&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;result&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-7"&gt;&lt;a aria-hidden="true" href="#cb3-7" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="co"&gt;/*&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-8"&gt;&lt;a aria-hidden="true" href="#cb3-8" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;    创建一个 ObjectStore，就像是数据库中的一张「表」，但是里面可以存放任何 JS Object&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-9"&gt;&lt;a aria-hidden="true" href="#cb3-9" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;    而它的「主键」就是 keyPath，这个 createObjectStore 只能在 onupgradeneeded 回调中使用。&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-10"&gt;&lt;a aria-hidden="true" href="#cb3-10" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;    */&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-11"&gt;&lt;a aria-hidden="true" href="#cb3-11" tabindex="-1"&gt;&lt;/a&gt;    db&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;createObjectStore&lt;/span&gt;(&lt;span class="st"&gt;"objStore"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; { &lt;span class="dt"&gt;keyPath&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="st"&gt;"id"&lt;/span&gt; })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-12"&gt;&lt;a aria-hidden="true" href="#cb3-12" tabindex="-1"&gt;&lt;/a&gt;}&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-13"&gt;&lt;a aria-hidden="true" href="#cb3-13" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb3-14"&gt;&lt;a aria-hidden="true" href="#cb3-14" tabindex="-1"&gt;&lt;/a&gt;dbRequest&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onsuccess&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;function&lt;/span&gt; () {&lt;/span&gt;
+&lt;span id="cb3-15"&gt;&lt;a aria-hidden="true" href="#cb3-15" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="co"&gt;// 数据库打开成功&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-16"&gt;&lt;a aria-hidden="true" href="#cb3-16" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;let&lt;/span&gt; db &lt;span class="op"&gt;=&lt;/span&gt; dbRequest&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;result&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-17"&gt;&lt;a aria-hidden="true" href="#cb3-17" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;let&lt;/span&gt; tx &lt;span class="op"&gt;=&lt;/span&gt; db&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;transaction&lt;/span&gt;(&lt;span class="st"&gt;"objStore"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"readwrite"&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-18"&gt;&lt;a aria-hidden="true" href="#cb3-18" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;let&lt;/span&gt; store &lt;span class="op"&gt;=&lt;/span&gt; tx&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;objectStore&lt;/span&gt;(&lt;span class="st"&gt;"objStore"&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-19"&gt;&lt;a aria-hidden="true" href="#cb3-19" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb3-20"&gt;&lt;a aria-hidden="true" href="#cb3-20" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="co"&gt;// 增改&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-21"&gt;&lt;a aria-hidden="true" href="#cb3-21" tabindex="-1"&gt;&lt;/a&gt;    store&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;put&lt;/span&gt;({ &lt;span class="dt"&gt;id&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="dv"&gt;114514&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dt"&gt;data&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="st"&gt;'anything'&lt;/span&gt; })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-22"&gt;&lt;a aria-hidden="true" href="#cb3-22" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb3-23"&gt;&lt;a aria-hidden="true" href="#cb3-23" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="co"&gt;// 查&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-24"&gt;&lt;a aria-hidden="true" href="#cb3-24" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;let&lt;/span&gt; query &lt;span class="op"&gt;=&lt;/span&gt; store&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;get&lt;/span&gt;(&lt;span class="dv"&gt;12345&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-25"&gt;&lt;a aria-hidden="true" href="#cb3-25" tabindex="-1"&gt;&lt;/a&gt;    query&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onsuccess&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;function&lt;/span&gt; () {&lt;/span&gt;
+&lt;span id="cb3-26"&gt;&lt;a aria-hidden="true" href="#cb3-26" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;log&lt;/span&gt;(query&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;result&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;data&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-27"&gt;&lt;a aria-hidden="true" href="#cb3-27" tabindex="-1"&gt;&lt;/a&gt;    }&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-28"&gt;&lt;a aria-hidden="true" href="#cb3-28" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb3-29"&gt;&lt;a aria-hidden="true" href="#cb3-29" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="co"&gt;// 删&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-30"&gt;&lt;a aria-hidden="true" href="#cb3-30" tabindex="-1"&gt;&lt;/a&gt;    store&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;delete&lt;/span&gt;(&lt;span class="dv"&gt;114514&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-31"&gt;&lt;a aria-hidden="true" href="#cb3-31" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb3-32"&gt;&lt;a aria-hidden="true" href="#cb3-32" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="co"&gt;// 关闭&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-33"&gt;&lt;a aria-hidden="true" href="#cb3-33" tabindex="-1"&gt;&lt;/a&gt;    tx&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;oncomplete&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; () &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb3-34"&gt;&lt;a aria-hidden="true" href="#cb3-34" tabindex="-1"&gt;&lt;/a&gt;        db&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;close&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-35"&gt;&lt;a aria-hidden="true" href="#cb3-35" tabindex="-1"&gt;&lt;/a&gt;    }&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb3-36"&gt;&lt;a aria-hidden="true" href="#cb3-36" tabindex="-1"&gt;&lt;/a&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;有了这一套以后就可以开工了：首先正常的写 CSS，但不使用 &lt;span class="citation" data-cites="font-face"&gt;@font-face&lt;/span&gt; 引入，而是使用一个 loader 函数，先查询本地数据库缓存中是否有这个字体，如果有则返回，否则再 &lt;code&gt;fetch&lt;/code&gt; 保存。一旦出错，则重新在插入 &lt;code&gt;style&lt;/code&gt; 元素补齐 &lt;span class="citation" data-cites="font-face"&gt;@font-face&lt;/span&gt;：&lt;/p&gt;
+&lt;div class="sourceCode" id="cb4"&gt;&lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb4-1"&gt;&lt;a aria-hidden="true" href="#cb4-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;function&lt;/span&gt; &lt;span class="fu"&gt;fallback&lt;/span&gt;(name&lt;span class="op"&gt;,&lt;/span&gt; location) {&lt;/span&gt;
+&lt;span id="cb4-2"&gt;&lt;a aria-hidden="true" href="#cb4-2" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;const&lt;/span&gt; elem &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="bu"&gt;document&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;createElement&lt;/span&gt;(&lt;span class="st"&gt;"style"&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-3"&gt;&lt;a aria-hidden="true" href="#cb4-3" tabindex="-1"&gt;&lt;/a&gt;    elem&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;innerHTML&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="vs"&gt;`@font-face {&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-4"&gt;&lt;a aria-hidden="true" href="#cb4-4" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="vs"&gt;        font-family: &lt;/span&gt;&lt;span class="sc"&gt;${&lt;/span&gt;name&lt;span class="sc"&gt;}&lt;/span&gt;&lt;span class="vs"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-5"&gt;&lt;a aria-hidden="true" href="#cb4-5" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="vs"&gt;        src: url(&lt;/span&gt;&lt;span class="sc"&gt;${&lt;/span&gt;location&lt;span class="sc"&gt;}&lt;/span&gt;&lt;span class="vs"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-6"&gt;&lt;a aria-hidden="true" href="#cb4-6" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="vs"&gt;        font-display: swap;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-7"&gt;&lt;a aria-hidden="true" href="#cb4-7" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="vs"&gt;    }`&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-8"&gt;&lt;a aria-hidden="true" href="#cb4-8" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="bu"&gt;document&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;head&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;appendChild&lt;/span&gt;(elem)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-9"&gt;&lt;a aria-hidden="true" href="#cb4-9" tabindex="-1"&gt;&lt;/a&gt;}&lt;/span&gt;
+&lt;span id="cb4-10"&gt;&lt;a aria-hidden="true" href="#cb4-10" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb4-11"&gt;&lt;a aria-hidden="true" href="#cb4-11" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;function&lt;/span&gt; &lt;span class="fu"&gt;loadFontFull&lt;/span&gt;(targets) {&lt;/span&gt;
+&lt;span id="cb4-12"&gt;&lt;a aria-hidden="true" href="#cb4-12" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="kw"&gt;const&lt;/span&gt; &lt;span class="bu"&gt;IDBRequest&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="bu"&gt;window&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;indexedDB&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;open&lt;/span&gt;(&lt;span class="st"&gt;"FONTDB"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="dv"&gt;1&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-13"&gt;&lt;a aria-hidden="true" href="#cb4-13" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb4-14"&gt;&lt;a aria-hidden="true" href="#cb4-14" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="bu"&gt;IDBRequest&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onerror&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; e &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb4-15"&gt;&lt;a aria-hidden="true" href="#cb4-15" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;error&lt;/span&gt;(&lt;span class="st"&gt;"Unable to open database."&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-16"&gt;&lt;a aria-hidden="true" href="#cb4-16" tabindex="-1"&gt;&lt;/a&gt;        targets&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;forEach&lt;/span&gt;(e &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; { &lt;span class="fu"&gt;fallback&lt;/span&gt;(e&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;name&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; e&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;location&lt;/span&gt;) })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-17"&gt;&lt;a aria-hidden="true" href="#cb4-17" tabindex="-1"&gt;&lt;/a&gt;    }&lt;/span&gt;
+&lt;span id="cb4-18"&gt;&lt;a aria-hidden="true" href="#cb4-18" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="bu"&gt;IDBRequest&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onupgradeneeded&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;function&lt;/span&gt; () {&lt;/span&gt;
+&lt;span id="cb4-19"&gt;&lt;a aria-hidden="true" href="#cb4-19" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="kw"&gt;let&lt;/span&gt; db &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="bu"&gt;IDBRequest&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;result&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-20"&gt;&lt;a aria-hidden="true" href="#cb4-20" tabindex="-1"&gt;&lt;/a&gt;            store &lt;span class="op"&gt;=&lt;/span&gt; db&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;createObjectStore&lt;/span&gt;(&lt;span class="st"&gt;"Fonts"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; { &lt;span class="dt"&gt;keyPath&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; &lt;span class="st"&gt;"id"&lt;/span&gt; })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-21"&gt;&lt;a aria-hidden="true" href="#cb4-21" tabindex="-1"&gt;&lt;/a&gt;    }&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-22"&gt;&lt;a aria-hidden="true" href="#cb4-22" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb4-23"&gt;&lt;a aria-hidden="true" href="#cb4-23" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="bu"&gt;IDBRequest&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onsuccess&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;function&lt;/span&gt; () {&lt;/span&gt;
+&lt;span id="cb4-24"&gt;&lt;a aria-hidden="true" href="#cb4-24" tabindex="-1"&gt;&lt;/a&gt;        &lt;span class="cf"&gt;for&lt;/span&gt; (&lt;span class="kw"&gt;const&lt;/span&gt; target &lt;span class="kw"&gt;of&lt;/span&gt; targets) {&lt;/span&gt;
+&lt;span id="cb4-25"&gt;&lt;a aria-hidden="true" href="#cb4-25" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="kw"&gt;const&lt;/span&gt; FONT_CACHE_KEY &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="vs"&gt;`font.&lt;/span&gt;&lt;span class="sc"&gt;${&lt;/span&gt;target&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;name&lt;/span&gt;&lt;span class="sc"&gt;}&lt;/span&gt;&lt;span class="vs"&gt;.downloaded`&lt;/span&gt;&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-26"&gt;&lt;a aria-hidden="true" href="#cb4-26" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb4-27"&gt;&lt;a aria-hidden="true" href="#cb4-27" tabindex="-1"&gt;&lt;/a&gt;            &lt;span class="cf"&gt;if&lt;/span&gt; (localStorage&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;getItem&lt;/span&gt;(FONT_CACHE_KEY) &lt;span class="op"&gt;===&lt;/span&gt; &lt;span class="kw"&gt;null&lt;/span&gt;) {&lt;/span&gt;
+&lt;span id="cb4-28"&gt;&lt;a aria-hidden="true" href="#cb4-28" tabindex="-1"&gt;&lt;/a&gt;                &lt;span class="fu"&gt;fetch&lt;/span&gt;(target&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;location&lt;/span&gt;)&lt;/span&gt;
+&lt;span id="cb4-29"&gt;&lt;a aria-hidden="true" href="#cb4-29" tabindex="-1"&gt;&lt;/a&gt;                    &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;then&lt;/span&gt;(resp &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; resp&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;arrayBuffer&lt;/span&gt;())&lt;/span&gt;
+&lt;span id="cb4-30"&gt;&lt;a aria-hidden="true" href="#cb4-30" tabindex="-1"&gt;&lt;/a&gt;                    &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;then&lt;/span&gt;(arrayBuffer &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb4-31"&gt;&lt;a aria-hidden="true" href="#cb4-31" tabindex="-1"&gt;&lt;/a&gt;                        &lt;span class="kw"&gt;let&lt;/span&gt; db &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="bu"&gt;IDBRequest&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;result&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-32"&gt;&lt;a aria-hidden="true" href="#cb4-32" tabindex="-1"&gt;&lt;/a&gt;                            tx &lt;span class="op"&gt;=&lt;/span&gt; db&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;transaction&lt;/span&gt;(&lt;span class="st"&gt;"Fonts"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"readwrite"&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-33"&gt;&lt;a aria-hidden="true" href="#cb4-33" tabindex="-1"&gt;&lt;/a&gt;                        &lt;span class="kw"&gt;let&lt;/span&gt; store &lt;span class="op"&gt;=&lt;/span&gt; tx&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;objectStore&lt;/span&gt;(&lt;span class="st"&gt;"Fonts"&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-34"&gt;&lt;a aria-hidden="true" href="#cb4-34" tabindex="-1"&gt;&lt;/a&gt;                        &lt;span class="kw"&gt;let&lt;/span&gt; operation &lt;span class="op"&gt;=&lt;/span&gt; store&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;put&lt;/span&gt;({&lt;/span&gt;
+&lt;span id="cb4-35"&gt;&lt;a aria-hidden="true" href="#cb4-35" tabindex="-1"&gt;&lt;/a&gt;                            &lt;span class="dt"&gt;id&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; target&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;name&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-36"&gt;&lt;a aria-hidden="true" href="#cb4-36" tabindex="-1"&gt;&lt;/a&gt;                            &lt;span class="dt"&gt;data&lt;/span&gt;&lt;span class="op"&gt;:&lt;/span&gt; arrayBuffer&lt;/span&gt;
+&lt;span id="cb4-37"&gt;&lt;a aria-hidden="true" href="#cb4-37" tabindex="-1"&gt;&lt;/a&gt;                        })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-38"&gt;&lt;a aria-hidden="true" href="#cb4-38" tabindex="-1"&gt;&lt;/a&gt;                        operation&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onsuccess&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; e &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb4-39"&gt;&lt;a aria-hidden="true" href="#cb4-39" tabindex="-1"&gt;&lt;/a&gt;                            localStorage&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;setItem&lt;/span&gt;(FONT_CACHE_KEY&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="kw"&gt;true&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-40"&gt;&lt;a aria-hidden="true" href="#cb4-40" tabindex="-1"&gt;&lt;/a&gt;                            &lt;span class="fu"&gt;addFontToPage&lt;/span&gt;(arrayBuffer&lt;span class="op"&gt;,&lt;/span&gt; target&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;name&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-41"&gt;&lt;a aria-hidden="true" href="#cb4-41" tabindex="-1"&gt;&lt;/a&gt;                        }&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-42"&gt;&lt;a aria-hidden="true" href="#cb4-42" tabindex="-1"&gt;&lt;/a&gt;                        operation&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onerror&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; e &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb4-43"&gt;&lt;a aria-hidden="true" href="#cb4-43" tabindex="-1"&gt;&lt;/a&gt;                            targets&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;forEach&lt;/span&gt;(e &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; { &lt;span class="fu"&gt;fallback&lt;/span&gt;(e&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;name&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; e&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;location&lt;/span&gt;) })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-44"&gt;&lt;a aria-hidden="true" href="#cb4-44" tabindex="-1"&gt;&lt;/a&gt;                        }&lt;/span&gt;
+&lt;span id="cb4-45"&gt;&lt;a aria-hidden="true" href="#cb4-45" tabindex="-1"&gt;&lt;/a&gt;                    })&lt;/span&gt;
+&lt;span id="cb4-46"&gt;&lt;a aria-hidden="true" href="#cb4-46" tabindex="-1"&gt;&lt;/a&gt;                    &lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;catch&lt;/span&gt;(e &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb4-47"&gt;&lt;a aria-hidden="true" href="#cb4-47" tabindex="-1"&gt;&lt;/a&gt;                        targets&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;forEach&lt;/span&gt;(e &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; { &lt;span class="fu"&gt;fallback&lt;/span&gt;(e&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;name&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; e&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;location&lt;/span&gt;) })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-48"&gt;&lt;a aria-hidden="true" href="#cb4-48" tabindex="-1"&gt;&lt;/a&gt;                    })&lt;/span&gt;
+&lt;span id="cb4-49"&gt;&lt;a aria-hidden="true" href="#cb4-49" tabindex="-1"&gt;&lt;/a&gt;            } &lt;span class="cf"&gt;else&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb4-50"&gt;&lt;a aria-hidden="true" href="#cb4-50" tabindex="-1"&gt;&lt;/a&gt;                &lt;span class="kw"&gt;let&lt;/span&gt; store &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="bu"&gt;IDBRequest&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;result&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;transaction&lt;/span&gt;(&lt;span class="st"&gt;"Fonts"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; &lt;span class="st"&gt;"readwrite"&lt;/span&gt;)&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;objectStore&lt;/span&gt;(&lt;span class="st"&gt;"Fonts"&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-51"&gt;&lt;a aria-hidden="true" href="#cb4-51" tabindex="-1"&gt;&lt;/a&gt;                &lt;span class="kw"&gt;const&lt;/span&gt; fontReq &lt;span class="op"&gt;=&lt;/span&gt; store&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;get&lt;/span&gt;(target&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;name&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-52"&gt;&lt;a aria-hidden="true" href="#cb4-52" tabindex="-1"&gt;&lt;/a&gt;                fontReq&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onsuccess&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; e &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb4-53"&gt;&lt;a aria-hidden="true" href="#cb4-53" tabindex="-1"&gt;&lt;/a&gt;                    &lt;span class="bu"&gt;console&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;log&lt;/span&gt;(&lt;span class="st"&gt;'font loaded from IndexDB successfully!'&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-54"&gt;&lt;a aria-hidden="true" href="#cb4-54" tabindex="-1"&gt;&lt;/a&gt;                    &lt;span class="fu"&gt;addFontToPage&lt;/span&gt;(fontReq&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;result&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;data&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; target&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;name&lt;/span&gt;)&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-55"&gt;&lt;a aria-hidden="true" href="#cb4-55" tabindex="-1"&gt;&lt;/a&gt;                }&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-56"&gt;&lt;a aria-hidden="true" href="#cb4-56" tabindex="-1"&gt;&lt;/a&gt;                fontReq&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;onerror&lt;/span&gt; &lt;span class="op"&gt;=&lt;/span&gt; e &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb4-57"&gt;&lt;a aria-hidden="true" href="#cb4-57" tabindex="-1"&gt;&lt;/a&gt;                    targets&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;forEach&lt;/span&gt;(e &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; { &lt;span class="fu"&gt;fallback&lt;/span&gt;(e&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;name&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; e&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;location&lt;/span&gt;) })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-58"&gt;&lt;a aria-hidden="true" href="#cb4-58" tabindex="-1"&gt;&lt;/a&gt;                }&lt;/span&gt;
+&lt;span id="cb4-59"&gt;&lt;a aria-hidden="true" href="#cb4-59" tabindex="-1"&gt;&lt;/a&gt;            }&lt;/span&gt;
+&lt;span id="cb4-60"&gt;&lt;a aria-hidden="true" href="#cb4-60" tabindex="-1"&gt;&lt;/a&gt;        }&lt;/span&gt;
+&lt;span id="cb4-61"&gt;&lt;a aria-hidden="true" href="#cb4-61" tabindex="-1"&gt;&lt;/a&gt;    }&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-62"&gt;&lt;a aria-hidden="true" href="#cb4-62" tabindex="-1"&gt;&lt;/a&gt;}&lt;/span&gt;
+&lt;span id="cb4-63"&gt;&lt;a aria-hidden="true" href="#cb4-63" tabindex="-1"&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id="cb4-64"&gt;&lt;a aria-hidden="true" href="#cb4-64" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="bu"&gt;document&lt;/span&gt;&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;addEventListener&lt;/span&gt;(&lt;span class="st"&gt;"DOMContentLoaded"&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; () &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; {&lt;/span&gt;
+&lt;span id="cb4-65"&gt;&lt;a aria-hidden="true" href="#cb4-65" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="cf"&gt;try&lt;/span&gt; { &lt;span class="fu"&gt;loadFontFull&lt;/span&gt;(FONTS)&lt;span class="op"&gt;;&lt;/span&gt; } &lt;span class="cf"&gt;catch&lt;/span&gt; (e) {&lt;/span&gt;
+&lt;span id="cb4-66"&gt;&lt;a aria-hidden="true" href="#cb4-66" tabindex="-1"&gt;&lt;/a&gt;        FONTS&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;forEach&lt;/span&gt;(e &lt;span class="kw"&gt;=&amp;gt;&lt;/span&gt; { &lt;span class="fu"&gt;fallback&lt;/span&gt;(e&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;name&lt;/span&gt;&lt;span class="op"&gt;,&lt;/span&gt; e&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;location&lt;/span&gt;) })&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb4-67"&gt;&lt;a aria-hidden="true" href="#cb4-67" tabindex="-1"&gt;&lt;/a&gt;    }&lt;/span&gt;
+&lt;span id="cb4-68"&gt;&lt;a aria-hidden="true" href="#cb4-68" tabindex="-1"&gt;&lt;/a&gt;})&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;使用 Chrome， 开启 Slow 3G 模拟测试，最后的结果如下：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="第一次访问(25.32 seconds)" src="./assets/first-time.jpeg"/&gt;
+&lt;figcaption aria-hidden="true"&gt;第一次访问(25.32 seconds)&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;figure&gt;
+&lt;img alt="之后的访问(4.11 seconds)" src="./assets/second-time.jpeg"/&gt;
+&lt;figcaption aria-hidden="true"&gt;之后的访问(4.11 seconds)&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;当然别忘了转 woff 字体。以上测试见&lt;a href="./assets/direct.html"&gt;此处&lt;/a&gt;。&lt;/p&gt;
+&lt;br/&gt;
+&lt;h2&gt;参考链接&lt;/h2&gt;
+&lt;ul id="reference"&gt;
+&lt;li&gt;&lt;a href="https://gomakethings.com/improving-web-font-performance-with-service-workers/" target="_blank"&gt;&lt;strong&gt;Improving web font performance with service workers&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://developer.mozilla.org/zh-CN/docs/Web/API/IndexedDB_API/Using_IndexedDB" target="_blank"&gt;&lt;strong&gt;使用 IndexedDB&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://gist.github.com/JamesMessinger/a0d6389a5d0e3a24814b" target="_blank"&gt;&lt;strong&gt;Very Simple IndexedDB Example &lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs" target="_blank"&gt;&lt;strong&gt;Data URLs&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://stackoverflow.com/questions/7301064/error-a-mutation-operation-was-attempted-on-a-database-that-did-not-allow-mutat" target="_blank"&gt;&lt;strong&gt;Error when retrieving data in indexedDB&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+&lt;p class="signoff"&gt;
+&lt;div class="metadata"&gt;
+&lt;p class="date"&gt;&lt;time datetime="2023-10-26"&gt;创建日期：2023-10-26&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-10-26&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;/footer&gt;
+&lt;script&gt;
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        });
+
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
+  &lt;/script&gt;
+&lt;script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"&gt;&lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</content:encoded>
+      <guid isPermaLink="false">1549daf0-df1a-4df9-9685-89ea234de6e9</guid>
+      <pubDate>Thu, 26 Oct 2023 00:00:00 +0800</pubDate>
     </item>
   </channel>
 </rss>
