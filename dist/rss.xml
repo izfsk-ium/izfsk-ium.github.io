@@ -13,7 +13,7 @@
       <link>http://blog.izfsk.top/rss.xml</link>
     </image>
     <language>zh_CN</language>
-    <lastBuildDate>Thu, 26 Oct 2023 14:36:35 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 05 Nov 2023 13:18:29 +0000</lastBuildDate>
     <item>
       <title>模版功能简介</title>
       <link>https://blog.izfsk.top/articles/README.html</link>
@@ -13262,6 +13262,211 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">1549daf0-df1a-4df9-9685-89ea234de6e9</guid>
       <pubDate>Thu, 26 Oct 2023 00:00:00 +0800</pubDate>
+    </item>
+    <item>
+      <title>记软考的首次机考</title>
+      <link>https://blog.izfsk.top/articles/The-first-computer-based-test-of-the-QCCSTP.html</link>
+      <description>记软考的首次机考</description>
+      <content:encoded>&lt;body&gt;
+&lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;ebf3bc86-0b3b-4c0b-9bed-915485ec739c&lt;/small&gt;
+&lt;h1 class="title"&gt;记软考的首次机考&lt;/h1&gt;
+&lt;!-- Subtitle --&gt;
+&lt;h3 class="subtitle"&gt; &lt;/h3&gt;
+&lt;/header&gt;
+&lt;nav id="TOC" role="doc-toc"&gt;
+&lt;li class="tools"&gt;
+&lt;span id="togglesidebar"&gt;
+&lt;b&gt;隐藏&lt;/b&gt;
+&lt;/span&gt;
+&lt;span id="readingmode"&gt;
+&lt;b&gt;列印&lt;/b&gt;
+&lt;/span&gt;
+&lt;span id="switchfont"&gt;
+&lt;b&gt;字体&lt;/b&gt;
+&lt;/span&gt;
+&lt;span id="backtotop"&gt;
+&lt;b&gt;页顶&lt;/b&gt;
+&lt;/span&gt;
+&lt;/li&gt;
+&lt;strong&gt;文章归类: &lt;a href="/pages/category.html#杂项"&gt;杂项&lt;/a&gt; &lt;/strong&gt;
+&lt;input id="contents" type="checkbox"/&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#考场环境" id="toc-考场环境"&gt;考场环境&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#考试流程" id="toc-考试流程"&gt;考试流程&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#考卷内容" id="toc-考卷内容"&gt;考卷内容&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#reference"&gt;参考链接&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/nav&gt;
+&lt;main&gt;
+&lt;p&gt;不知道是不是因为上半年特别离谱的&lt;a href="https://www.zhihu.com/question/603397178"&gt;泄题和大量作弊&lt;/a&gt;，软考现在统一改成上机考试了。昨天去考软考中级的网络工程师，这里记录一下考试的经过。&lt;/p&gt;
+&lt;h2 id="考场环境"&gt;考场环境&lt;/h2&gt;
+&lt;p&gt;由于是第一次上机考试，谁也不懂它到底怎么考，虽然考前在官网上发了&lt;a href="https://bm.ruankao.org.cn/vexam/download/main"&gt;模拟平台&lt;/a&gt;，但是这个模拟平台只是给你熟悉一下操作界面，具体流程还是不知道的。所以下午两点半的考试，我提前了大概一个半钟头就到了。&lt;/p&gt;
+&lt;p&gt;一开始我以为我走错了地方，因为考场附件几乎没几个人，直到马上要开始考试了，建筑物外也好准备室里面也好还是只有稀稀拉拉几个人。据监考人员说，缺考的也不少。想起之前考教师资格证时人挤人的场面，真是区别甚大。前来考试的人群也是很多元的，有大学生也有三四十岁的成年男女，想必是要考证升职加薪用。最年轻的不超过二十岁，安检时和监考交谈甚欢，年级大的大概五十几岁，头顶厚厚的一层岁月包浆。&lt;/p&gt;
+&lt;p&gt;考场就是一般的计算机教室，十一月份的大热天倒是很贴心的开了空调，但桌子并不是单独隔开的，每两个考生直接坐在一起，一眼就能瞟到同桌的显示器，不过既然是乱序，也就管不了那么多。&lt;/p&gt;
+&lt;h2 id="考试流程"&gt;考试流程&lt;/h2&gt;
+&lt;p&gt;原本的软考，是分上午下午两场的，现在改成机考，放在一起了。一场考试两个小时，还需要提前半小时进入考场，且每场考试只允许提前半小时交卷，满打满算做的再快也要在板凳上坐满三个半钟头，虽然节省了一顿午饭钱，屁股倒是有点发麻。&lt;/p&gt;
+&lt;p&gt;具体的来说是这样的，第一场考试两个钟头，可以提前半小时交卷，交完直接进入下一场，提前交卷多出来的时间可以继给下一场用，下一场同样是两个小时，提前半小时交卷，交完就可以走人了。当然，搞不懂也没关系，做完检查完就直接按「交卷」，如果可以那就直接到下一门，不行就再等等嘛。总的来说时间是绰绰有余的，足以在做完以后发呆很久（&lt;/p&gt;
+&lt;h2 id="考卷内容"&gt;考卷内容&lt;/h2&gt;
+&lt;p&gt;我以为既然是机考那肯定不能带纸笔，事实上完全可以带一支笔，考场上会发草稿纸，不过最后要收回。然而我悲催的没有带笔，结果就免不了在脑中掰子网计算题了……&lt;/p&gt;
+&lt;p&gt;但其实也没关系，因为这个考试可以使用&lt;strong&gt;计算器&lt;/strong&gt;，当然不是 Windows 的那个计算器，而是考试系统自己搓出来的计算器，拥有除了进制转换以外的所以常用功能。连着计算器还有一个记事本一样的文本框，算是「赛博草稿纸」。我还真用这俩玩意算出了所有计算题。&lt;/p&gt;
+&lt;p&gt;相比于第一门 75 道选择题，第二门综合运用就有点难度了，我旁边的那位仁兄对着屏幕直叹气，不过似乎试卷也不太一样？考前我也做过前几年的卷子，结合这一次的考试，我能感受到的趋势就是命令补全，选择填空之类的题目越来越少了，取代这些题目的是大型简答题，一个题目 4 分乃至 8 分，要求回答诸如「特点是什么」，「影响因素有哪些」这类题目，也有给出几张图，要求找出错误原因和解决方案的。对于后者，背命令不行了，横竖要上 eNSP 模拟，不然实在没感觉，至于前一种题型，一个大问按点得分，搞得像是在考政治或者语文，有些无语。&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="落幕" src="./assets/20231104_174340.webp"/&gt;
+&lt;figcaption aria-hidden="true"&gt;落幕&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;出考场已经是快六点了，天也暗了，考点附近还是只有稀稀拉拉几个人。天气预报有雨，风挺大，大概是要凉了吧。&lt;/p&gt;
+&lt;br/&gt;
+&lt;h2&gt;参考链接&lt;/h2&gt;
+&lt;ul id="reference"&gt;
+&lt;li&gt;&lt;a href="https://www.ruankao.org.cn/" target="_blank"&gt;&lt;strong&gt;中国计算机技术职业资格网&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://bm.ruankao.org.cn/vexam/download/main" target="_blank"&gt;&lt;strong&gt;模拟作答系统&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+&lt;p class="signoff"&gt;
+&lt;div class="metadata"&gt;
+&lt;p class="date"&gt;&lt;time datetime="2023-11-05"&gt;创建日期：2023-11-05&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-11-05&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;/footer&gt;
+&lt;script&gt;
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        });
+
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
+  &lt;/script&gt;
+&lt;script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"&gt;&lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</content:encoded>
+      <guid isPermaLink="false">ebf3bc86-0b3b-4c0b-9bed-915485ec739c</guid>
+      <pubDate>Sun, 05 Nov 2023 00:00:00 +0800</pubDate>
+    </item>
+    <item>
+      <title>More Human Than Human</title>
+      <link>https://blog.izfsk.top/articles/More_Human_Than_Human.html</link>
+      <description>More Human Than Human</description>
+      <content:encoded>&lt;body&gt;
+&lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;40fd4a70-a183-4846-a94c-db2c42df1c3a&lt;/small&gt;
+&lt;h1 class="title"&gt;More Human Than Human&lt;/h1&gt;
+&lt;!-- Subtitle --&gt;
+&lt;h3 class="subtitle"&gt; &lt;/h3&gt;
+&lt;/header&gt;
+&lt;main&gt;
+&lt;aside class="warning-draft"&gt;
+&lt;span&gt;⚠️&lt;/span&gt;注意：本文章被标记为草稿！请谨慎对待其内容。 &lt;span&gt;⚠️&lt;/span&gt;
+&lt;/aside&gt;
+&lt;p&gt;艺术家的绘画生涯多起源于临摹，而写好作文的最重要前提也是多读书。人类也好，机器也罢，创作的过程其实都是对已有信息的再加工。&lt;/p&gt;
+&lt;p&gt;之所以要保护版权，是因为抄袭毁坏了作者继续创作的意愿，其目的在于激励作者创作出更多优秀的作品，而不是鼓励版权流氓和成为枪打出头鸟的工具。我们可以看到，机器&lt;/p&gt;
+&lt;p&gt;软件著作权保护的是代码，而不保护算法和思想，对于文学作品的著作权保护也从来没有听说过有保护所谓「文风」，「风格」的。文学作品归根到底不过是字符的排列组合，所谓「文风」也不过是这一串字符串排列的规律，这个人「的」字用的比较多，所以产生这样的风格，那个人擅长用长句，于是读起来产生了另外一种风味，形形色色的参数决定了一个人写作的风格，只要参数足够多，就能完整的复刻拥有同样风格的作品来。有的人会说，这样的机器作品，不过是对人类拙劣的模仿，是缝合的尸块，这样的说法是立不住脚的。难道说同样一个字眼，作家笔下写出来的就充满着人文和感性的气息，散发着人性的神圣光辉，而机器显示在屏幕上的就一定是冰冷的，散发着无情的铁腥味吗？事实上，从客观事物中寻找感性认知，找到的不过是人自己的影子。文学绘画也好，音乐诗歌也罢，其作为作品一旦完成就是客观的，而加诸于其上的诸如艺术家的心血，深刻的内涵，事实上与作品本身无关，是主观上添加的。卢瑟福的反对者说，「给我看一个原子，我就相信你」，同样的，如果想要反驳这个观点，不妨找那么几公斤艺术品，看看能够提纯出多少艺术的灵魂出来。&lt;/p&gt;
+&lt;p&gt;王国维说一切景语皆情语，不同的诗人在同样的景色是有着不一样的情感体验的，但是景色本身是客观的。一棵竹子，并没有因为这个诗人洒下几滴泪水就带有悲伤的属性，那个文豪抒发自己的壮志就显得更加高大，如果一个人愿意，他甚至可以对一只七星瓢虫大发人生感叹。这一点对于今天的艺术品也是适用的，事实上，人被自己自以为是的感性愚弄的例子数不胜数，特别是在这个机器的力量已经发展到如此地步的时代。机器写作的小说获得征文冠军，机器创作和绘画赢得艺术大奖，机器制造的音乐夺取乐坛桂冠，难道这一切还不能让人意识到所谓「人类创作的艺术品的独特价值」本身就是一个伪命题吗？看看那些评委们因为尴尬和愤怒而涨红的脸吧。&lt;/p&gt;
+&lt;p&gt;自然，这并不是说，人类的艺术家就一无所有了。大规模的机器生产有时候反而会提高旧式工艺产品的价值，就像手工编的竹篮和纪念品能卖出更高的价钱一样。也许在不久的将来，纯粹由人类创作的艺术品将获得特殊的证明，就像今天的有机蔬菜和非转基因大豆油一样畅销呢。&lt;/p&gt;
+&lt;p&gt;人对于突然冒出的威胁和竞争对手通常会采取否定和嘲讽的态度，人类品德纯洁的捍卫者这时候会跳出来预言说，机器永远不能达到人类的水平。自然，看着聊天机器人的前言不搭后语和绘画程序画出来面条一般的手指，大家在嘲笑之余会暗地里松一口气，但用一时的景象自我安慰只会使人坠入故步自封的渊薮！三十年以前，人工智能还不过是科幻电影刻画的主角，十年以前 LLM 和深度学习还是博士论文标题里晦涩难懂的专业名词，而今天放眼望去，哪一个广告不提一嘴自己使用了 AI 技术，哪一个中学生没有听说过人工智能和 ChatGPT ？就在你阅读这篇文章的当下，成百上千个数据中心的成千上万个计算设备正在把比特流转换成更加强大的模型，机器一直在学习，速度只会越来越快。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;一千亿个细胞可以形成意识，那为什么千万倍个晶体管就不能产生机魂呢？以今天机器的水平，承认其有灵魂似乎太过荒谬，&lt;/em&gt;试看将来的环球，必是机器的世界&lt;/p&gt;
+&lt;br/&gt;
+&lt;h2&gt;参考链接&lt;/h2&gt;
+&lt;ul id="reference"&gt;
+&lt;li&gt;&lt;a href="https://b0x.neocities.org/v0x/hello_from_the_wired" target="_blank"&gt;&lt;strong&gt;Hello From the Wired&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://zhuanlan.zhihu.com/p/516506597" target="_blank"&gt;&lt;strong&gt;来自接线的你好：赛博虚无主义导论&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+&lt;p class="signoff"&gt;
+&lt;div class="metadata"&gt;
+&lt;p class="date"&gt;&lt;time datetime="2023-11-06"&gt;创建日期：2023-11-06&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-11-05&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;/footer&gt;
+&lt;script&gt;
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        });
+
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
+  &lt;/script&gt;
+&lt;script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"&gt;&lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</content:encoded>
+      <guid isPermaLink="false">40fd4a70-a183-4846-a94c-db2c42df1c3a</guid>
+      <pubDate>Mon, 06 Nov 2023 00:00:00 +0800</pubDate>
     </item>
   </channel>
 </rss>
