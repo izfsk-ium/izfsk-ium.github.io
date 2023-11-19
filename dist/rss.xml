@@ -13,7 +13,7 @@
       <link>http://blog.izfsk.top/rss.xml</link>
     </image>
     <language>zh_CN</language>
-    <lastBuildDate>Sun, 05 Nov 2023 13:18:29 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 10 Nov 2023 06:55:29 +0000</lastBuildDate>
     <item>
       <title>模版功能简介</title>
       <link>https://blog.izfsk.top/articles/README.html</link>
@@ -4136,7 +4136,7 @@ Options:
 &lt;/ul&gt;
 &lt;/nav&gt;
 &lt;main&gt;
-&lt;p&gt;有时候需要用到伪装摄像头的功能，特别是使用某些网课平台考试的时候，有的建议是使用 OBS Studio 模拟一个摄像头，但是其实 Chrome 浏览器就可以把文件作为摄像头的视频来源采集。&lt;/p&gt;
+&lt;p&gt;有时需要用到伪装摄像头的功能，特别是使用某些网课平台考试的时候，有的建议是使用 OBS Studio 模拟一个摄像头，但是其实 Chrome 浏览器就可以把文件作为摄像头的视频来源采集。&lt;/p&gt;
 &lt;h1 id="文件准备"&gt;文件准备&lt;/h1&gt;
 &lt;p&gt;首先你需要有视频或者图片文件，但一般的 mp4, mkv 之类的格式是不行的。关于 Chrome 支持什么格式，手册页里面没有说明，但是源代码里面有：&lt;/p&gt;
 &lt;div class="sourceCode" id="cb1"&gt;&lt;pre class="sourceCode cpp"&gt;&lt;code class="sourceCode cpp"&gt;&lt;span id="cb1-1"&gt;&lt;a aria-hidden="true" href="#cb1-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;// https://chromium.googlesource.com/chromium/src/+/3015459a9bf07f62ab7a8816ff88824568d87c04/media/capture/video/file_video_capture_device.cc&lt;/span&gt;&lt;/span&gt;
@@ -4176,7 +4176,7 @@ Options:
 &lt;p class="signoff"&gt;
 &lt;div class="metadata"&gt;
 &lt;p class="date"&gt;&lt;time datetime="2022-12-31"&gt;创建日期：2022-12-31&lt;/time&gt;&lt;/p&gt;
-&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-08-13&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-11-10&lt;/time&gt;&lt;/p&gt;
 &lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/p&gt;
