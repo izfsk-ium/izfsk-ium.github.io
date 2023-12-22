@@ -13,7 +13,7 @@
       <link>http://blog.izfsk.top/rss.xml</link>
     </image>
     <language>zh_CN</language>
-    <lastBuildDate>Fri, 10 Nov 2023 06:55:29 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 22 Dec 2023 13:46:18 +0000</lastBuildDate>
     <item>
       <title>模版功能简介</title>
       <link>https://blog.izfsk.top/articles/README.html</link>
@@ -13467,6 +13467,124 @@ Configuration OK.&lt;/code&gt;&lt;/pre&gt;
 &lt;/body&gt;</content:encoded>
       <guid isPermaLink="false">40fd4a70-a183-4846-a94c-db2c42df1c3a</guid>
       <pubDate>Mon, 06 Nov 2023 00:00:00 +0800</pubDate>
+    </item>
+    <item>
+      <title>记一次有趣的网页排障</title>
+      <link>https://blog.izfsk.top/articles/an-interesting-webpage-troubleshooting.html</link>
+      <description>记一次有趣的网页排障</description>
+      <content:encoded>&lt;body&gt;
+&lt;progress id="content_progress" value="0"&gt;&lt;/progress&gt;
+&lt;header&gt;
+&lt;small id="article-uuid" style="display: none !important;"&gt;5fab638d-6e04-49cc-becc-acb9cec34c86&lt;/small&gt;
+&lt;h1 class="title"&gt;记一次有趣的网页排障&lt;/h1&gt;
+&lt;!-- Subtitle --&gt;
+&lt;h3 class="subtitle"&gt; &lt;/h3&gt;
+&lt;/header&gt;
+&lt;main&gt;
+&lt;p&gt;大概是两三年以前吧，我看到过一篇文章，讲的是一个系统管理员解决关于「电子邮件无法发送到 500 英里以外」的故事，这样的事情听起来蛮扯淡的，老实讲我觉得不太可能发生类似的事情，但谁知道呢，今天倒是我在这里写下这样有些好笑的事情了。&lt;/p&gt;
+&lt;p&gt;事情的起因是这样的，有个用户，在试图登录某个考试的报考站点时怎么也登录不上去：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="登不上去" src="./assets/time-error.jpeg"/&gt;
+&lt;figcaption aria-hidden="true"&gt;登不上去&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;考虑到这位用户的计算机水平不高，再加上政府网站的技术栈一般不那么时髦，首先要求的就是对方多换几个浏览器试试看，可 Chrome，Firefox 乃至 IE 都试了一圈，没有一个能用的，再让用户换个网络环境，还是不行，带网络的安全模式，依旧不行，打电话给网站客服，支支吾吾说不出什么来，真是见鬼，不得不自己试试看。&lt;/p&gt;
+&lt;p&gt;首先要做的就是复现这个问题，但很明显我不知道怎么做到，全局搜索「非法」或者「请求」也没有结果，它弹出的方法不是原生的 &lt;code&gt;alert&lt;/code&gt;，不能搜索。看一眼脚本，不出意外是一坨混淆过的大便（居然用的是 Angular？）&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="享啊，很享啊" src="./assets/assets.jpeg"/&gt;
+&lt;figcaption aria-hidden="true"&gt;享啊，很享啊&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;我可不要（&lt;del&gt;不敢&lt;/del&gt;）逆向这一团东西，所以想了想，把对面的请求日志和自己的比对了一下：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="错误来源" src="./assets/something-wrong.jpeg"/&gt;
+&lt;figcaption aria-hidden="true"&gt;错误来源&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;经过一番比对，发现了这个 &lt;code&gt;siteinfo&lt;/code&gt; 的 &lt;code&gt;xhr&lt;/code&gt; 请求，打开一看果然：&lt;/p&gt;
+&lt;p&gt;&lt;img src="./assets/siteinfo.jpeg"/&gt;&lt;/p&gt;
+&lt;p&gt;原来「请求非法」在这里！&lt;/p&gt;
+&lt;p&gt;那么下一步的问题就是，同一个请求，怎么在这边是合法，到对面就是非法，这很简单，使用简单的排除法，一个 GET 请求，没有 URL 参数，看一眼 Request Headers，除去通用的头，不同寻常的只有两个：&lt;code&gt;Cookie&lt;/code&gt; 和 &lt;code&gt;Request-Id&lt;/code&gt;，使用请求编辑工具，测试了一下，Cookie 内容无关紧要，无非是一些 Java Web 的 SESSIONID 之类的信息，对结果没有影响，但去掉 &lt;code&gt;Request-Id&lt;/code&gt; 就会出错。&lt;/p&gt;
+&lt;p&gt;这么说，同一个页面，同一个脚本，在不同的电脑上会产生不一样的请求头？这不扯淡嘛。那么下一步的目标：找到是谁插入了这个标头。仔细看了一眼这个标头的内容：&lt;/p&gt;
+&lt;div class="sourceCode" id="cb1"&gt;&lt;pre class="sourceCode json"&gt;&lt;code class="sourceCode json"&gt;&lt;span id="cb1-1"&gt;&lt;a aria-hidden="true" href="#cb1-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="er"&gt;Request-Id:&lt;/span&gt; &lt;span class="er"&gt;"1a7b76f5d825d3df7d280dde4ff7fd42.1699672291483"&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;格式是 &lt;code&gt;32 位 string + . + 数字&lt;/code&gt; 的格式。后者一眼就能看出来是时间戳，前面的 32 位字符串，盲猜是某种 Hash，而请求的脚本中正好有一个叫作 &lt;code&gt;md5.min.js&lt;/code&gt; 的，md5 的 hexdigest 正好是 32 位，那还用怎么说，找到这个脚本，打断点呗。&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="断点" src="./assets/md5-1.jpeg"/&gt;
+&lt;figcaption aria-hidden="true"&gt;断点&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;只要有用到这个函数的就断一下，虽然混淆的一塌糊涂，但总归能从调用栈中看到一些信息，果然：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="找到啦" src="./assets/md5-2.jpeg"/&gt;
+&lt;figcaption aria-hidden="true"&gt;找到啦&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;div class="sourceCode" id="cb2"&gt;&lt;pre class="sourceCode js"&gt;&lt;code class="sourceCode javascript"&gt;&lt;span id="cb2-1"&gt;&lt;a aria-hidden="true" href="#cb2-1" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="co"&gt;// 流程&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-2"&gt;&lt;a aria-hidden="true" href="#cb2-2" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="kw"&gt;const&lt;/span&gt; date &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="kw"&gt;new&lt;/span&gt; &lt;span class="bu"&gt;Date&lt;/span&gt;()&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="fu"&gt;getTime&lt;/span&gt;()&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span id="cb2-3"&gt;&lt;a aria-hidden="true" href="#cb2-3" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="cf"&gt;return&lt;/span&gt; request&lt;span class="op"&gt;.&lt;/span&gt;&lt;span class="at"&gt;headers&lt;/span&gt;[&lt;span class="st"&gt;"Request-Id"&lt;/span&gt;] &lt;span class="op"&gt;=&lt;/span&gt; &lt;span class="fu"&gt;md5&lt;/span&gt;(&lt;span class="st"&gt;"recurit#"&lt;/span&gt; &lt;span class="op"&gt;+&lt;/span&gt; date) &lt;span class="op"&gt;+&lt;/span&gt; &lt;span class="st"&gt;'.'&lt;/span&gt; &lt;span class="op"&gt;+&lt;/span&gt; date&lt;span class="op"&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;所以这个标头的内容就是 &lt;code&gt;md5("recurit#" + 时间戳) + '.' + 时间戳&lt;/code&gt;，其中时间戳是 &lt;code&gt;new Date().getTime()&lt;/code&gt;。使用 Python 计算一下，结果是相同的。此时我大概已经明白啥东西出问题了，毕竟这个标头里面只有一个变量，那么，如果和我的推测一致，我可以手动组一个请求，直接获取数据：&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="大成功" src="./assets/bingo.jpeg"/&gt;
+&lt;figcaption aria-hidden="true"&gt;大成功&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;于是原因水落石出了：用户调了系统时间，比正常时间晚了五分钟，导致网页计算出来的 Request-Id &lt;strong&gt;永远&lt;/strong&gt; 在服务器那边是五分钟之前的无效请求……&lt;/p&gt;
+&lt;p&gt;哈哈！&lt;/p&gt;
+&lt;br/&gt;
+&lt;h2&gt;参考链接&lt;/h2&gt;
+&lt;ul id="reference"&gt;
+&lt;li&gt;&lt;a href="http://blog.fujiji.com/the-case-of-the-500-mile-email/" target="_blank"&gt;&lt;strong&gt;电子邮件无法发送到500英里以外&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;
+&lt;script async="" crossorigin="anonymous" data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="title" data-reactions-enabled="1" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"&gt;
+&lt;/script&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+&lt;p class="signoff"&gt;
+&lt;div class="metadata"&gt;
+&lt;p class="date"&gt;&lt;time datetime="2023-12-22"&gt;创建日期：2023-12-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify"&gt;&lt;time&gt;最后编译：2023-12-22&lt;/time&gt;&lt;/p&gt;
+&lt;p class="lastmodify" id="counter-span"&gt;访问次数：&lt;/p&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;/footer&gt;
+&lt;script&gt;
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i =&gt; i.insertAdjacentHTML('beforeend', '&lt;div class="copy"&gt;复制&lt;/div&gt;')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i =&gt; i.addEventListener(
+        'click',
+        () =&gt; {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() =&gt; {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) &gt;= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
+        .then(r =&gt; r.text())
+        .then(d =&gt; {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        });
+
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
+  &lt;/script&gt;
+&lt;script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"&gt;&lt;/script&gt;
+&lt;script async="" data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3" src="https://analytics.umami.is/script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</content:encoded>
+      <guid isPermaLink="false">5fab638d-6e04-49cc-becc-acb9cec34c86</guid>
+      <pubDate>Fri, 22 Dec 2023 00:00:00 +0800</pubDate>
     </item>
   </channel>
 </rss>

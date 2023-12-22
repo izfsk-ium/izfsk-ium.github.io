@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="keywords" content='blog, izfsk-ium, izfsk, 博客'>
+
+  <meta name=author content=izfsk>
+  <meta property=og:site_name content="白漠流霜">
+  <meta name="twitter:title" content="记一次有趣的网页排障">
+  <meta property=og:title content="记一次有趣的网页排障">
+  <meta itemprop=name content="记一次有趣的网页排障">
+  <meta name="keywords" content='blog, izfsk-ium, izfsk, 博客'>
+  <meta property='og:type' content='website'>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="izfsk" />
+
+    <meta name="dcterms.date" content="2023-12-22" />
+        <title>记一次有趣的网页排障</title>
+    <link rel="stylesheet" href="/resources/css/article/theme.css" />
+    <link rel="stylesheet" href="/resources/css/article/code.css" />
+      
+  
+<style>
+@font-face {
+  font-family: CONTENT;
+  src: url('/resources/fonts/subsets/FT5fab638d-6e04-49cc-becc-acb9cec34c86.woff2') format('woff2'),
+       url('/resources/fonts/subsets/FT5fab638d-6e04-49cc-becc-acb9cec34c86.ttf') format('truetype');
+}
+</style>
+
+
+  <script src="/resources/js/article.min.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.css" />
+</head>
+
+<body>
+  <progress id="content_progress" value="0"></progress>
+
+  
+  <header>
+    <small style="display: none !important;" id="article-uuid">5fab638d-6e04-49cc-becc-acb9cec34c86</small>
+    <h1 class="title">记一次有趣的网页排障</h1>
+    <!-- Subtitle -->
+        <h3 class="subtitle">&nbsp;</h3>
+      </header>
+
+  
+  <main>
+    
+
+    <p>大概是两三年以前吧，我看到过一篇文章，讲的是一个系统管理员解决关于「电子邮件无法发送到 500 英里以外」的故事，这样的事情听起来蛮扯淡的，老实讲我觉得不太可能发生类似的事情，但谁知道呢，今天倒是我在这里写下这样有些好笑的事情了。</p>
+    <p>事情的起因是这样的，有个用户，在试图登录某个考试的报考站点时怎么也登录不上去：</p>
+    <figure>
+    <img src="./assets/time-error.jpeg" alt="登不上去" />
+    <figcaption aria-hidden="true">登不上去</figcaption>
+    </figure>
+    <p>考虑到这位用户的计算机水平不高，再加上政府网站的技术栈一般不那么时髦，首先要求的就是对方多换几个浏览器试试看，可 Chrome，Firefox 乃至 IE 都试了一圈，没有一个能用的，再让用户换个网络环境，还是不行，带网络的安全模式，依旧不行，打电话给网站客服，支支吾吾说不出什么来，真是见鬼，不得不自己试试看。</p>
+    <p>首先要做的就是复现这个问题，但很明显我不知道怎么做到，全局搜索「非法」或者「请求」也没有结果，它弹出的方法不是原生的 <code>alert</code>，不能搜索。看一眼脚本，不出意外是一坨混淆过的大便（居然用的是 Angular？）</p>
+    <figure>
+    <img src="./assets/assets.jpeg" alt="享啊，很享啊" />
+    <figcaption aria-hidden="true">享啊，很享啊</figcaption>
+    </figure>
+    <p>我可不要（<del>不敢</del>）逆向这一团东西，所以想了想，把对面的请求日志和自己的比对了一下：</p>
+    <figure>
+    <img src="./assets/something-wrong.jpeg" alt="错误来源" />
+    <figcaption aria-hidden="true">错误来源</figcaption>
+    </figure>
+    <p>经过一番比对，发现了这个 <code>siteinfo</code> 的 <code>xhr</code> 请求，打开一看果然：</p>
+    <p><img src="./assets/siteinfo.jpeg" /></p>
+    <p>原来「请求非法」在这里！</p>
+    <p>那么下一步的问题就是，同一个请求，怎么在这边是合法，到对面就是非法，这很简单，使用简单的排除法，一个 GET 请求，没有 URL 参数，看一眼 Request Headers，除去通用的头，不同寻常的只有两个：<code>Cookie</code> 和 <code>Request-Id</code>，使用请求编辑工具，测试了一下，Cookie 内容无关紧要，无非是一些 Java Web 的 SESSIONID 之类的信息，对结果没有影响，但去掉 <code>Request-Id</code> 就会出错。</p>
+    <p>这么说，同一个页面，同一个脚本，在不同的电脑上会产生不一样的请求头？这不扯淡嘛。那么下一步的目标：找到是谁插入了这个标头。仔细看了一眼这个标头的内容：</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="er">Request-Id:</span> <span class="er">&quot;1a7b76f5d825d3df7d280dde4ff7fd42.1699672291483&quot;</span></span></code></pre></div>
+    <p>格式是 <code>32 位 string + . + 数字</code> 的格式。后者一眼就能看出来是时间戳，前面的 32 位字符串，盲猜是某种 Hash，而请求的脚本中正好有一个叫作 <code>md5.min.js</code> 的，md5 的 hexdigest 正好是 32 位，那还用怎么说，找到这个脚本，打断点呗。</p>
+    <figure>
+    <img src="./assets/md5-1.jpeg" alt="断点" />
+    <figcaption aria-hidden="true">断点</figcaption>
+    </figure>
+    <p>只要有用到这个函数的就断一下，虽然混淆的一塌糊涂，但总归能从调用栈中看到一些信息，果然：</p>
+    <figure>
+    <img src="./assets/md5-2.jpeg" alt="找到啦" />
+    <figcaption aria-hidden="true">找到啦</figcaption>
+    </figure>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 流程</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> date <span class="op">=</span> <span class="kw">new</span> <span class="bu">Date</span>()<span class="op">.</span><span class="fu">getTime</span>()<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> request<span class="op">.</span><span class="at">headers</span>[<span class="st">&quot;Request-Id&quot;</span>] <span class="op">=</span> <span class="fu">md5</span>(<span class="st">&quot;recurit#&quot;</span> <span class="op">+</span> date) <span class="op">+</span> <span class="st">&#39;.&#39;</span> <span class="op">+</span> date<span class="op">;</span></span></code></pre></div>
+    <p>所以这个标头的内容就是 <code>md5("recurit#" + 时间戳) + '.' + 时间戳</code>，其中时间戳是 <code>new Date().getTime()</code>。使用 Python 计算一下，结果是相同的。此时我大概已经明白啥东西出问题了，毕竟这个标头里面只有一个变量，那么，如果和我的推测一致，我可以手动组一个请求，直接获取数据：</p>
+    <figure>
+    <img src="./assets/bingo.jpeg" alt="大成功" />
+    <figcaption aria-hidden="true">大成功</figcaption>
+    </figure>
+    <p>于是原因水落石出了：用户调了系统时间，比正常时间晚了五分钟，导致网页计算出来的 Request-Id <strong>永远</strong> 在服务器那边是五分钟之前的无效请求……</p>
+    <p>哈哈！</p>
+
+    <br />
+    
+    <h2>参考链接</h2>
+    <ul id="reference">
+      <li><a href="http://blog.fujiji.com/the-case-of-the-500-mile-email/" target="_blank"><strong>电子邮件无法发送到500英里以外</strong></a></li>
+    </ul>
+    
+
+
+    <br />
+    <script src="https://giscus.app/client.js" data-repo="izfsk-ium/izfsk-ium.github.io" data-repo-id="R_kgDOJ7Ymyw"
+      data-category="Announcements" data-category-id="DIC_kwDOJ7Ymy84CX4eg" data-mapping="title" data-strict="0"
+      data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme"
+      data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async>
+      </script>
+  </main>
+
+
+
+  <footer>
+    <p class="signoff">
+    <div class="metadata">
+            <p class="date"><time datetime="2023-12-22">创建日期：2023-12-22</time></p>
+            <p class="lastmodify"><time>最后编译：2023-12-22</time></p>
+      <p class="lastmodify" id="counter-span">访问次数：</p>
+    </div>
+    </p>
+  </footer>
+
+  
+  <script>
+    /* These script should run after page load */
+    document.querySelectorAll('code.sourceCode').forEach(
+      i => i.insertAdjacentHTML('beforeend', '<div class="copy">复制</div>')
+    );
+    document.querySelectorAll('div.copy').forEach(
+      i => i.addEventListener(
+        'click',
+        () => {
+          navigator.clipboard.writeText(i.parentElement.innerText.replace('复制', ''));
+          i.innerText = '成功';
+          setTimeout(() => {
+            i.innerText = '复制';
+          }, 1000);
+        }
+      )
+    );
+
+    if (location.href.includes("127.0.0.1:8080")) {
+      document.getElementById("counter-span").innerHTML = "[[development mode]]";
+    } else {
+      const uuid = document.getElementById("article-uuid").innerText;
+      const target = document.getElementById("counter-span");
+      const last = localStorage.getItem("lastVisit-" + uuid);
+      const shouldIncrease = last === null || new Date().getTime() - parseInt(last) >= (1000 * 60 * 15);
+
+      fetch(shouldIncrease ? ("https://counter.izfsk.top/counter/" + uuid) : ("https://counter.izfsk.top/readOnly/" + uuid))
+        .then(r => r.text())
+        .then(d => {
+          if (!d.startsWith("Too"))
+            document.getElementById("counter-span").innerText = "访问次数：" + d.toString();
+          else
+            document.getElementById("counter-span").innerHTML = "";
+        });
+
+      localStorage.setItem("lastVisit-" + uuid, new Date().getTime());
+    }
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+  <script async src="https://analytics.umami.is/script.js"
+    data-website-id="2a1146ab-fa82-4a84-a04f-30e5967357c3"></script>
+</body>
+
+</html>
